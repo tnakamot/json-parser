@@ -1,11 +1,24 @@
-package org.github.tnakamot.jscdg;
+/*
+ *  Copyright (C) 2020 Takashi Nakamoto <nyakamoto@gmail.com>.
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 3 as
+ *  published by the Free Software Foundation.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
-import scala.math.Ordering;
+package org.github.tnakamot.jscdg;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 public class JSONSchemaVersion {
     private static final String DRAFT_06_ID = "draft-06";
@@ -107,7 +120,7 @@ public class JSONSchemaVersion {
 
         if (obj instanceof JSONSchemaVersion) {
             JSONSchemaVersion version = (JSONSchemaVersion) obj;
-            return version.metaSchemaId == this.metaSchemaId;
+            return version.metaSchemaId.equals(this.metaSchemaId);
         } else {
             return false;
         }

@@ -1,3 +1,19 @@
+/*
+ *  Copyright (C) 2020 Takashi Nakamoto <nyakamoto@gmail.com>.
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 3 as
+ *  published by the Free Software Foundation.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package org.github.tnakamot.jscdg;
 
 import org.github.tnakamot.jscdg.doxygen.DoxygenGenerator;
@@ -6,7 +22,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class CLIMain {
-    private static List<SubCommand> subCommands = new ArrayList<SubCommand>() {{
+    private static final List<SubCommand> SUB_COMMANDS = new ArrayList<>() {{
         add(new DoxygenGenerator("doxygen"));
     }};
 
@@ -15,7 +31,11 @@ public class CLIMain {
         s.append("Usage: SUB_COMMAND [OPTIONS]\n");
         s.append("\n");
         s.append(" Valid sub commands: \n");
-        subCommands.forEach((subCmd) -> s.append(" * " + subCmd.getName() + "\n"));
+        SUB_COMMANDS.forEach((subCmd) -> {
+            s.append(" * ");
+            s.append(subCmd.getName());
+            s.append("\n");
+        });
         s.append("\n");
         s.append("Run a sub command with -h option to see more options.\n");
         return s.toString();
@@ -25,14 +45,14 @@ public class CLIMain {
         System.out.println(getHelp());
     }
 
-    public static void main(String args[]) throws Exception {
+    public static void main(String[] args) throws Exception {
         if (args.length == 0) {
             printHelp();
             throw new InvalidCommandLineArgumentException("Need to specify a sub command");
         }
 
         List<SubCommand> matchedSubCommand =
-                subCommands.stream()
+                SUB_COMMANDS.stream()
                         .filter(sc -> sc.getName().equals(args[0]))
                         .collect(Collectors.toList());
 
