@@ -1,2 +1,3 @@
-# jscdg
-JSON Schema Code and Document Generator
+# JSON Schema Code and Document Generator
+
+(TODO: fill out)
