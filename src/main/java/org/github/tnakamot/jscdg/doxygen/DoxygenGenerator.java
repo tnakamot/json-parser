@@ -20,10 +20,7 @@ import net.sourceforge.argparse4j.ArgumentParsers;
 import net.sourceforge.argparse4j.inf.ArgumentParser;
 import net.sourceforge.argparse4j.inf.ArgumentParserException;
 import net.sourceforge.argparse4j.inf.Namespace;
-import org.github.tnakamot.jscdg.JSONSchemaFile;
-import org.github.tnakamot.jscdg.JSONSchemaVersion;
-import org.github.tnakamot.jscdg.SubCommand;
-import org.github.tnakamot.jscdg.UnsupportedJSONSchemaVersionException;
+import org.github.tnakamot.jscdg.*;
 import org.github.tnakamot.jscdg.table.TableBuilder;
 import org.json.simple.JSONObject;
 
@@ -67,10 +64,44 @@ public class DoxygenGenerator extends SubCommand {
         return base + "." + outputFileExt;
     }
 
-    private TableBuilder buildTable(JSONObject j) {
+    private static String getAndValidateAsString(JSONObject j, Object key)
+            throws InvalidJSONSchemaException {
+        if (key == null) {
+            throw new NullPointerException("key cannot be null");
+        }
+
+        Object val = j.get(key);
+        if (val == null)
+            return null;
+
+        if (!(val instanceof String)) {
+            StringBuilder msg = new StringBuilder();
+            msg.append("'");
+            msg.append(key.toString());
+            msg.append("' must be a string. Currently, the data type is '");
+            msg.append(val.getClass().toString());
+            msg.append("' and the value is '");
+            msg.append(val.toString());
+            msg.append("'.");
+            throw new InvalidJSONSchemaException(msg.toString());
+        }
+
+        return (String)val;
+    }
+
+    private static void setCaption(TableBuilder t, JSONObject j)
+            throws InvalidJSONSchemaException {
+        String id = getAndValidateAsString(j, "$id");
+        String title = getAndValidateAsString(j, "title");
+
+        t.setCaption(id, title);
+    }
+
+    private TableBuilder buildTable(JSONObject j)
+            throws InvalidJSONSchemaException {
         TableBuilder t = new TableBuilder();
 
-        t.setCaption((String) j.get("$id"), (String) j.get("title"));
+        setCaption(t, j);
 
         // TODO: build table from JSON object here.
 
@@ -80,7 +111,7 @@ public class DoxygenGenerator extends SubCommand {
     private void generate(List<JSONSchemaFile> schemaFiles,
                           Path outputDir,
                           String outputFileExt)
-            throws IOException {
+            throws IOException, InvalidJSONSchemaException {
         // TODO: check the duplicate output file names.
 
         for (JSONSchemaFile schemaFile: schemaFiles) {
