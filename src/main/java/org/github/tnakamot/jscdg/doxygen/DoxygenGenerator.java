@@ -108,7 +108,7 @@ public class DoxygenGenerator extends SubCommand {
         t.addColumn(REQUIRE_COLUMN, "Required");
         t.addColumn(DESC_COLUMN, "Description");
         t.addColumn(DEFAULT_COLUMN, "Default");
-        t.addColumn(EXAMPLE_COLUMN, "example");
+        t.addColumn(EXAMPLE_COLUMN, "Example");
 
         // TODO: build table from JSON object here.
 
