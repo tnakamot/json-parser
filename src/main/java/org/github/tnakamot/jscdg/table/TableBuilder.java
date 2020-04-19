@@ -40,7 +40,7 @@ public class TableBuilder {
         // Check if the column with the same ID exits.
         for (TableColumn c: columns) {
             if (c.getID().equals(column.getID())) {
-                throw new IllegalArgumentException("Duplicated column ID: " + column.getID());
+                throw new IllegalArgumentException("Duplicate column ID: " + column.getID());
             }
         }
 
@@ -56,7 +56,7 @@ public class TableBuilder {
         // Check if the row with the same ID exits.
         for (TableRow r: rows) {
             if (r.getID().equals(row.getID())) {
-                throw new IllegalArgumentException("Duplicated row ID: " + row.getID());
+                throw new IllegalArgumentException("Duplicate row ID: " + row.getID());
             }
         }
 
