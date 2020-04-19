@@ -35,6 +35,7 @@ import java.util.List;
 import static java.nio.file.StandardOpenOption.CREATE;
 import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static org.github.tnakamot.jscdg.table.TableBuilder.*;
 
 public class DoxygenGenerator extends SubCommand {
     private static final JSONSchemaVersion[] SUPPORTED_SCHEMA_VERSIONS = {
@@ -96,13 +97,6 @@ public class DoxygenGenerator extends SubCommand {
 
         t.setCaption(id, title);
     }
-
-    private static final String NAME_COLUMN = "name";
-    private static final String TYPE_COLUMN = "type";
-    private static final String DESC_COLUMN = "description";
-    private static final String EXAMPLE_COLUMN = "example";
-    private static final String DEFAULT_COLUMN = "default";
-    private static final String REQUIRE_COLUMN = "require";
 
     private TableBuilder buildTable(JSONObject j)
             throws InvalidJSONSchemaException {

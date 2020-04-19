@@ -15,6 +15,16 @@ public class TableBuilder {
     private List<TableRow> rows = new ArrayList<>();
     private Map<TableCellAddress, String> cells = new HashMap<>();
 
+    /*
+     * Standard column IDs.
+     */
+    public static final String NAME_COLUMN = "name";
+    public static final String TYPE_COLUMN = "type";
+    public static final String DESC_COLUMN = "description";
+    public static final String EXAMPLE_COLUMN = "example";
+    public static final String DEFAULT_COLUMN = "default";
+    public static final String REQUIRE_COLUMN = "require";
+
     public TableBuilder() {}
 
     public synchronized TableBuilder setCaption(TableCaption caption) {
