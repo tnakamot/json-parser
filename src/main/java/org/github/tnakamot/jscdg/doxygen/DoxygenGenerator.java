@@ -70,7 +70,7 @@ public class DoxygenGenerator extends SubCommand {
     private TableBuilder buildTable(JSONObject j) {
         TableBuilder t = new TableBuilder();
 
-        t.setCaption(j.get("$id").toString(), j.get("title").toString());
+        t.setCaption((String) j.get("$id"), (String) j.get("title"));
 
         // TODO: build table from JSON object here.
 

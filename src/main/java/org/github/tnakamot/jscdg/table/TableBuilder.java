@@ -126,10 +126,14 @@ public class TableBuilder {
 
     synchronized private void writeHTMLCaption(Writer w)
             throws IOException {
-        if (caption != null) {
-            w.append("<caption id=\"");
-            w.append(convertToValidHTML4ID(caption.getID()));
-            w.append("\">");
+        if (caption != null && caption.exist()) {
+            w.append("<caption");
+            if (caption.getID() != null && !caption.getID().isEmpty()) {
+                w.append(" id=\"");
+                w.append(convertToValidHTML4ID(caption.getID()));
+                w.append("\"");
+            }
+            w.append(">");
             w.append(StringEscapeUtils.escapeHtml4(caption.getDisplay()));
             w.append("</caption>\n");
         }
