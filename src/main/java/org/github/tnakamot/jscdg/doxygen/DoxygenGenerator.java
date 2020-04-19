@@ -97,11 +97,24 @@ public class DoxygenGenerator extends SubCommand {
         t.setCaption(id, title);
     }
 
+    private static final String NAME_COLUMN = "name";
+    private static final String TYPE_COLUMN = "type";
+    private static final String DESC_COLUMN = "description";
+    private static final String EXAMPLE_COLUMN = "example";
+    private static final String DEFAULT_COLUMN = "default";
+    private static final String REQUIRE_COLUMN = "require";
+
     private TableBuilder buildTable(JSONObject j)
             throws InvalidJSONSchemaException {
         TableBuilder t = new TableBuilder();
 
         setCaption(t, j);
+        t.addColumn(NAME_COLUMN, "Name");
+        t.addColumn(TYPE_COLUMN, "Type");
+        t.addColumn(REQUIRE_COLUMN, "Required");
+        t.addColumn(DESC_COLUMN, "Description");
+        t.addColumn(DEFAULT_COLUMN, "Default");
+        t.addColumn(EXAMPLE_COLUMN, "example");
 
         // TODO: build table from JSON object here.
 

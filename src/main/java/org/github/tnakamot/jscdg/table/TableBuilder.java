@@ -145,7 +145,7 @@ public class TableBuilder {
         for (TableColumn column: columns) {
             w.append("  <th>");
             w.append(StringEscapeUtils.escapeHtml4(column.getHeader()));
-            w.append("</th>");
+            w.append("</th>\n");
         }
         w.append("</tr>\n");
     }
