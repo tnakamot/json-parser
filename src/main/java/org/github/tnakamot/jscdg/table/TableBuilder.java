@@ -22,6 +22,10 @@ public class TableBuilder {
         return this;
     }
 
+    public synchronized TableBuilder setCaption(String id, String display) {
+        return setCaption(new TableCaption(id, display));
+    }
+
     synchronized public TableBuilder addColumn(TableColumn column) {
         // Check if the column with the same ID exits.
         for (TableColumn c: columns) {
@@ -82,11 +86,49 @@ public class TableBuilder {
         return this;
     }
 
+    /**
+     * Convert the given ID string to something that follow the
+     * requirements of ID string for HTML4. The requirements are
+     *
+     *      must begin with a letter ([A-Za-z]) and may be followed by
+     *      any number of letters, digits ([0-9]), hyphens ("-"),
+     *      underscores ("_"), colons (":"), and periods (".").
+     *
+     *       https://www.w3.org/TR/REC-html40/types.html#type-name
+     *
+     * This method does not guarantee the uniqueness after the conversion
+     * because the number of characters that can be used by HTML4 is very
+     * minimal. In principle, prohibited characters are simply removed.
+     *
+     *
+     * @param id ID string of JSON object.
+     * @return ID string which fulfills the HTML4 specification
+     */
+    private static String convertToValidHTML4ID(String id) {
+        String ret;
+
+        // JSON Object ID typically contains URL. Because slash '/'
+        // is used as the path separator of the URL and it has
+        // a meaning, replace it first.
+        ret = id.replace("/", "_");
+
+        // Remove all prohibited characters.
+        ret = ret.replaceAll("[^A-Za-z:-_.]", "");
+
+        // Prepend "json_" character if the string does not
+        // start with a letter [A-Za-z].
+        if (!ret.matches("^[A-Za-z]")) {
+            ret = "json_" + ret;
+        }
+
+        return ret;
+    }
+
     synchronized private void writeHTMLCaption(Writer w)
             throws IOException {
         if (caption != null) {
             w.append("<caption id=\"");
-            w.append(caption.getID()); // TODO: validate or escape as ID
+            w.append(convertToValidHTML4ID(caption.getID()));
             w.append("\">");
             w.append(StringEscapeUtils.escapeHtml4(caption.getDisplay()));
             w.append("</caption>\n");

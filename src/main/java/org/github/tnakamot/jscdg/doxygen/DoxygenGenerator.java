@@ -66,8 +66,10 @@ public class DoxygenGenerator extends SubCommand {
         return base + "." + outputFileExt;
     }
 
-    private TableBuilder buildTable(JSONObject jsonObject) {
+    private TableBuilder buildTable(JSONObject j) {
         TableBuilder t = new TableBuilder();
+
+        t.setCaption(j.get("$id").toString(), j.get("title").toString());
 
         // TODO: build table from JSON object here.
 
@@ -92,6 +94,7 @@ public class DoxygenGenerator extends SubCommand {
             TableBuilder table = buildTable(schemaFile.getJSONObject());
 
             table.writeHTML(writer);
+            writer.close();
 
             System.out.println(schemaFile.getPrintableLocation() +
                     " ==>> " + outputFilePath.toString());
