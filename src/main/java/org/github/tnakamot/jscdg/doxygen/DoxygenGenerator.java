@@ -36,6 +36,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 import static java.nio.file.StandardOpenOption.CREATE;
+import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class DoxygenGenerator extends SubCommand {
@@ -89,7 +90,7 @@ public class DoxygenGenerator extends SubCommand {
                     getOutputFileName(inputFileName, outputFileExt);
             Path outputFilePath = outputDir.resolve(outputFileName).toAbsolutePath();
 
-            OutputStream os = Files.newOutputStream(outputFilePath, CREATE);
+            OutputStream os = Files.newOutputStream(outputFilePath, CREATE, TRUNCATE_EXISTING);
             OutputStreamWriter writer = new OutputStreamWriter(os, UTF_8);
             TableBuilder table = buildTable(schemaFile.getJSONObject());
 
