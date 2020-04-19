@@ -115,12 +115,22 @@ public class DoxygenGenerator extends SubCommand {
         t.addColumn(EXAMPLE_COLUMN, "Example");
 
         JSONObject props = (JSONObject) j.get("properties");
-        JSONObject name  = (JSONObject) props.get("name");
+        JSONObject num  = (JSONObject) props.get("num");
+
+        //JSONArray examples = (JSONArray) num.get("examples");
+        //System.out.println(examples.size());
+        //System.out.println(examples.get(0));
+        //System.out.println(examples.get(1));
+        //System.out.println(examples.get(0).getClass());
+        //System.out.println(examples.get(1).getClass());
 
         JSONProperty prop = new JSONIntegerProperty("num", (JSONObject) props.get("num"));
         System.out.println(prop.get(JSONProperty.DESCRIPTION));
 
         System.out.println(prop.get(JSONIntegerProperty.MINIMUM));
+        System.out.println(prop.get(JSONIntegerProperty.EXAMPLES)[0]);
+        System.out.println(prop.get(JSONIntegerProperty.EXAMPLES)[1]);
+
 
         // TODO: build table from JSON object here.
 

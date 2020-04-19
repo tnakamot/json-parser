@@ -12,7 +12,8 @@
     "num": {
       "type": "integer",
       "description": "test integer",
-      "minimum": 5
+      "minimum": 5,
+      "examples": [5, 6]
     }
   },
   "required": [ "name" ]
