@@ -41,6 +41,8 @@ public class JSONSchemaFile {
         BufferedReader in = new BufferedReader(
                 new InputStreamReader(url.openStream()));
 
+        // TODO: validate the JSON Schema file itself.
+
         Object obj = new JSONParser().parse(in);
         this.jsonObject = (JSONObject)obj;
         this.schemaVersion = JSONSchemaVersion.getFromURL((String) jsonObject.get("$schema"));

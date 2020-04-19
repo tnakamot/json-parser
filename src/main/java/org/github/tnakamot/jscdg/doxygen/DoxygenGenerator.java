@@ -21,7 +21,11 @@ import net.sourceforge.argparse4j.inf.ArgumentParser;
 import net.sourceforge.argparse4j.inf.ArgumentParserException;
 import net.sourceforge.argparse4j.inf.Namespace;
 import org.github.tnakamot.jscdg.*;
+import org.github.tnakamot.jscdg.definition.property.JSONIntegerProperty;
+import org.github.tnakamot.jscdg.definition.property.JSONProperty;
+import org.github.tnakamot.jscdg.definition.value.JSONIntegerValue;
 import org.github.tnakamot.jscdg.table.TableBuilder;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.io.IOException;
@@ -109,6 +113,14 @@ public class DoxygenGenerator extends SubCommand {
         t.addColumn(DESC_COLUMN, "Description");
         t.addColumn(DEFAULT_COLUMN, "Default");
         t.addColumn(EXAMPLE_COLUMN, "Example");
+
+        JSONObject props = (JSONObject) j.get("properties");
+        JSONObject name  = (JSONObject) props.get("name");
+
+        JSONProperty prop = new JSONIntegerProperty("num", (JSONObject) props.get("num"));
+        System.out.println(prop.get(JSONProperty.DESCRIPTION));
+
+        System.out.println(prop.get(JSONIntegerProperty.MINIMUM));
 
         // TODO: build table from JSON object here.
 

@@ -6,8 +6,13 @@
   "type": "object",
   "properties": {
     "name": {
-      "description": "Name of this data",
-      "type": "string"
+      "type": "string",
+      "description": "Name of this data"
+    },
+    "num": {
+      "type": "integer",
+      "description": "test integer",
+      "minimum": 5
     }
   },
   "required": [ "name" ]
