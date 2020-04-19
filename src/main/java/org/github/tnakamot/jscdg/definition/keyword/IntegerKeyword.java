@@ -1,9 +1,9 @@
 package org.github.tnakamot.jscdg.definition.keyword;
 
-import org.github.tnakamot.jscdg.definition.JSONPrimitiveType;
+import org.github.tnakamot.jscdg.definition.JSONDataType;
 
 public class IntegerKeyword extends Keyword {
     public IntegerKeyword(String keyword) {
-        super(keyword, JSONPrimitiveType.INTEGER);
+        super(keyword, JSONDataType.INTEGER);
     }
 }

@@ -1,17 +1,12 @@
 package org.github.tnakamot.jscdg.definition.keyword;
 
-import org.github.tnakamot.jscdg.definition.JSONPrimitiveType;
+import org.github.tnakamot.jscdg.definition.JSONDataType;
 
 public class Keyword {
     private final String keyword;
-    private final JSONPrimitiveType type;
-    private final boolean allowArray;
+    private final JSONDataType type;
 
-    public Keyword(String keyword, JSONPrimitiveType type) {
-        this(keyword, type, false);
-    }
-
-    public Keyword(String keyword, JSONPrimitiveType type, boolean allowArray) {
+    public Keyword(String keyword, JSONDataType type) {
         if (keyword == null) {
             throw new NullPointerException("keyword cannot be null");
         } else if (keyword.isEmpty()) {
@@ -22,12 +17,10 @@ public class Keyword {
 
         this.keyword = keyword;
         this.type = type;
-        this.allowArray = allowArray;
     }
 
     public String getKeyword() { return keyword; }
-    public JSONPrimitiveType getType() { return type; }
-    public boolean getAllowArray() { return allowArray; }
+    public JSONDataType getType() { return type; }
 
     @Override
     public String toString() { return keyword; }
