@@ -9,4 +9,5 @@ lazy val root = (project in file("."))
       crossPaths   := false, // Do not use Scala version in artifacts.
       libraryDependencies += "net.sourceforge.argparse4j" % "argparse4j" % "0.8.1",
       libraryDependencies += "com.googlecode.json-simple" % "json-simple" % "1.1.1",
+      libraryDependencies += "org.apache.commons" % "commons-text" % "1.8",
   )

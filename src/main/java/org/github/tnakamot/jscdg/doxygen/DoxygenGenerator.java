@@ -24,11 +24,19 @@ import org.github.tnakamot.jscdg.JSONSchemaFile;
 import org.github.tnakamot.jscdg.JSONSchemaVersion;
 import org.github.tnakamot.jscdg.SubCommand;
 import org.github.tnakamot.jscdg.UnsupportedJSONSchemaVersionException;
+import org.github.tnakamot.jscdg.table.TableBuilder;
+import org.json.simple.JSONObject;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+
+import static java.nio.file.StandardOpenOption.CREATE;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class DoxygenGenerator extends SubCommand {
     private static final JSONSchemaVersion[] SUPPORTED_SCHEMA_VERSIONS = {
@@ -58,10 +66,18 @@ public class DoxygenGenerator extends SubCommand {
         return base + "." + outputFileExt;
     }
 
+    private TableBuilder buildTable(JSONObject jsonObject) {
+        TableBuilder t = new TableBuilder();
+
+        // TODO: build table from JSON object here.
+
+        return t;
+    }
+
     private void generate(List<JSONSchemaFile> schemaFiles,
                           Path outputDir,
                           String outputFileExt)
-    {
+            throws IOException {
         // TODO: check the duplicate output file names.
 
         for (JSONSchemaFile schemaFile: schemaFiles) {
@@ -70,6 +86,12 @@ public class DoxygenGenerator extends SubCommand {
             String outputFileName =
                     getOutputFileName(inputFileName, outputFileExt);
             Path outputFilePath = outputDir.resolve(outputFileName).toAbsolutePath();
+
+            OutputStream os = Files.newOutputStream(outputFilePath, CREATE);
+            OutputStreamWriter writer = new OutputStreamWriter(os, UTF_8);
+            TableBuilder table = buildTable(schemaFile.getJSONObject());
+
+            table.writeHTML(writer);
 
             System.out.println(schemaFile.getPrintableLocation() +
                     " ==>> " + outputFilePath.toString());
