@@ -36,7 +36,7 @@ There are several options available for each sub command.
 * When an error occurs, show the file and line where the error is detected.
 * Unit test
 * Code documentation
-* Packaging this tool for Linux
+* Packaging this tool as RPM and DEB.
 
 ### Low Priority
 
