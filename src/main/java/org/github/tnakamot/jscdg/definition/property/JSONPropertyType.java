@@ -35,4 +35,7 @@ public enum JSONPropertyType {
 
         throw new IllegalArgumentException("Type name '" + name + "' is not supported.");
     }
+
+    @Override
+    public String toString(){ return name; }
 }

@@ -221,4 +221,29 @@ public abstract class JSONProperty {
             throw new WrongKeywordTypeException(this, keyword, val);
         }
     }
+
+    public static JSONProperty convert(String propertyName,
+                                       JSONObject propertyObj) {
+        Object typeObj = propertyObj.get("type");
+        if (typeObj instanceof String) {
+            String typeName = (String) typeObj;
+
+            JSONPropertyType type = JSONPropertyType.fromName(typeName);
+            try{
+                return (JSONProperty) type.getPropertyClass()
+                        .getConstructor(String.class, JSONObject.class)
+                        .newInstance(propertyName, propertyObj);
+            } catch (InvocationTargetException e) {
+                throw new RuntimeException(e);
+            } catch (InstantiationException e) {
+                throw new RuntimeException(e);
+            } catch (NoSuchMethodException e) {
+                throw new RuntimeException(e);
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        return null;
+    }
 }

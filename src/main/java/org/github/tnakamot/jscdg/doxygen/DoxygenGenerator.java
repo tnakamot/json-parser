@@ -21,20 +21,21 @@ import net.sourceforge.argparse4j.inf.ArgumentParser;
 import net.sourceforge.argparse4j.inf.ArgumentParserException;
 import net.sourceforge.argparse4j.inf.Namespace;
 import org.github.tnakamot.jscdg.*;
-import org.github.tnakamot.jscdg.definition.property.JSONIntegerProperty;
+import org.github.tnakamot.jscdg.definition.property.JSONObjectProperty;
 import org.github.tnakamot.jscdg.definition.property.JSONProperty;
 import org.github.tnakamot.jscdg.definition.property.UnsupportedPropertyTypeException;
-import org.github.tnakamot.jscdg.definition.value.JSONIntegerValue;
 import org.github.tnakamot.jscdg.table.TableBuilder;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static java.nio.file.StandardOpenOption.CREATE;
@@ -70,77 +71,25 @@ public class DoxygenGenerator extends SubCommand {
         return base + "." + outputFileExt;
     }
 
-    private static String getAndValidateAsString(JSONObject j, Object key)
-            throws InvalidJSONSchemaException {
-        if (key == null) {
-            throw new NullPointerException("key cannot be null");
+    private List<TableBuilder> buildTables(JSONProperty property) {
+        if (property instanceof JSONObjectProperty) {
+            TableBuilder t = new TableBuilder();
+            t.setCaption(property.get(JSONObjectProperty.ID),
+                    property.get(JSONProperty.TITLE));
+
+            t.addColumn(NAME_COLUMN, "Name");
+            t.addColumn(TYPE_COLUMN, "Type");
+            t.addColumn(REQUIRE_COLUMN, "Required");
+            t.addColumn(DESC_COLUMN, "Description");
+            t.addColumn(DEFAULT_COLUMN, "Default");
+            t.addColumn(EXAMPLE_COLUMN, "Example");
+
+            // TODO: traverse
+
+            return Arrays.asList(t);
+        } else {
+            return new ArrayList<TableBuilder>();
         }
-
-        Object val = j.get(key);
-        if (val == null)
-            return null;
-
-        if (!(val instanceof String)) {
-            StringBuilder msg = new StringBuilder();
-            msg.append("'");
-            msg.append(key.toString());
-            msg.append("' must be a string. Currently, the data type is '");
-            msg.append(val.getClass().toString());
-            msg.append("' and the value is '");
-            msg.append(val.toString());
-            msg.append("'.");
-            throw new InvalidJSONSchemaException(msg.toString());
-        }
-
-        return (String)val;
-    }
-
-    private static void setCaption(TableBuilder t, JSONObject j)
-            throws InvalidJSONSchemaException {
-        String id = getAndValidateAsString(j, "$id");
-        String title = getAndValidateAsString(j, "title");
-
-        t.setCaption(id, title);
-    }
-
-    private TableBuilder buildTable(JSONObject j)
-            throws InvalidJSONSchemaException {
-        TableBuilder t = new TableBuilder();
-
-        setCaption(t, j);
-        t.addColumn(NAME_COLUMN, "Name");
-        t.addColumn(TYPE_COLUMN, "Type");
-        t.addColumn(REQUIRE_COLUMN, "Required");
-        t.addColumn(DESC_COLUMN, "Description");
-        t.addColumn(DEFAULT_COLUMN, "Default");
-        t.addColumn(EXAMPLE_COLUMN, "Example");
-
-        JSONObject props = (JSONObject) j.get("properties");
-        JSONObject num  = (JSONObject) props.get("num");
-
-        //JSONArray examples = (JSONArray) num.get("examples");
-        //System.out.println(examples.size());
-        //System.out.println(examples.get(0));
-        //System.out.println(examples.get(1));
-        //System.out.println(examples.get(0).getClass());
-        //System.out.println(examples.get(1).getClass());
-
-        JSONProperty prop;
-        try {
-            prop = new JSONIntegerProperty("num", (JSONObject) props.get("num"));
-        } catch (UnsupportedPropertyTypeException ex) {
-            throw new InvalidJSONSchemaException(ex);
-        }
-        System.out.println(prop.get(JSONProperty.DESCRIPTION));
-
-        System.out.println(prop.get(JSONIntegerProperty.MINIMUM));
-        System.out.println(prop.get(JSONIntegerProperty.EXAMPLES)[0]);
-        System.out.println(prop.get(JSONIntegerProperty.EXAMPLES)[1]);
-
-
-        // TODO: build table from JSON object here.
-
-        return t;
     }
 
     private void generate(List<JSONSchemaFile> schemaFiles,
@@ -150,6 +99,9 @@ public class DoxygenGenerator extends SubCommand {
         // TODO: check the duplicate output file names.
 
         for (JSONSchemaFile schemaFile: schemaFiles) {
+            // Convert the format
+            JSONProperty root = JSONProperty.convert("_root_", schemaFile.getJSONObject());
+
             // Create the output file.
             String inputFileName = schemaFile.getFileName();
             String outputFileName =
@@ -158,9 +110,11 @@ public class DoxygenGenerator extends SubCommand {
 
             OutputStream os = Files.newOutputStream(outputFilePath, CREATE, TRUNCATE_EXISTING);
             OutputStreamWriter writer = new OutputStreamWriter(os, UTF_8);
-            TableBuilder table = buildTable(schemaFile.getJSONObject());
 
-            table.writeHTML(writer);
+            List<TableBuilder> tables = buildTables(root);
+            for (TableBuilder table : tables) {
+                table.writeHTML(writer);
+            }
             writer.close();
 
             System.out.println(schemaFile.getPrintableLocation() +
