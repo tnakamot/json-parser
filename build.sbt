@@ -18,35 +18,48 @@ import ReleaseTransformations._
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
 
+lazy val requestUploadTask = taskKey[Unit]("Task to ask the release manager to uplaod the package.")
+
 lazy val root = (project in file("."))
   .enablePlugins(JavaAppPackaging)
   .settings(
-    name         := "jscdg",
-    organization := "com.github.tnakamot",
-    description  := "JSON Schema Code and Document Generator",
-    scalaVersion := "2.12.10",
-    crossPaths   := false, // Do not use Scala version in artifacts.
-    libraryDependencies += "net.sourceforge.argparse4j" % "argparse4j" % "0.8.1",
-    libraryDependencies += "com.googlecode.json-simple" % "json-simple" % "1.1.1",
-    libraryDependencies += "org.apache.commons" % "commons-text" % "1.8",
+      name         := "jscdg",
+      organization := "com.github.tnakamot",
+      description  := "JSON Schema Code and Document Generator",
+      scalaVersion := "2.12.10",
+      crossPaths   := false, // Do not use Scala version in artifacts.
+      libraryDependencies += "net.sourceforge.argparse4j" % "argparse4j" % "0.8.1",
+      libraryDependencies += "com.googlecode.json-simple" % "json-simple" % "1.1.1",
+      libraryDependencies += "org.apache.commons" % "commons-text" % "1.8",
 
-    // Packaging as universal plugin.
-    mainClass in Compile := Some("org.github.tnakamot.jscdg.CLIMain"),
-    discoveredMainClasses in Compile := Seq(),
+      // Packaging as universal plugin.
+      mainClass in Compile := Some("org.github.tnakamot.jscdg.CLIMain"),
+      discoveredMainClasses in Compile := Seq(),
 
-    // Customized release process
-    releaseCrossBuild := false,
-    releaseProcess := Seq[ReleaseStep](
-        checkSnapshotDependencies,
-        inquireVersions,
-        runClean,
-        runTest,
-        setReleaseVersion,
-        commitReleaseVersion,
-        tagRelease,
-        releaseStepCommand("universal:packageBin"),
-        setNextVersion,
-        commitNextVersion,
-        pushChanges
-    )
+      requestUploadTask := {
+          println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+          println("==============================================================")
+          println("")
+          println("Please upload " + (Universal / packageBin).value.toString + " to https://github.com/tnakamot/jscdg/releases")
+          println("")
+          println("==============================================================")
+          println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+      },
+
+      // Customized release process
+      releaseCrossBuild := false,
+      releaseProcess := Seq[ReleaseStep](
+          checkSnapshotDependencies,
+          inquireVersions,
+          runClean,
+          runTest,
+          setReleaseVersion,
+          commitReleaseVersion,
+          tagRelease,
+          releaseStepCommand("universal:packageBin"),
+          setNextVersion,
+          commitNextVersion,
+          pushChanges,
+          releaseStepTask(requestUploadTask)
+      )
   )
