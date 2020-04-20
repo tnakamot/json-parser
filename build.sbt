@@ -18,7 +18,7 @@ import ReleaseTransformations._
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
 
-lazy val requestUploadTask = taskKey[Unit]("Task to ask the release manager to uplaod the package.")
+lazy val buildReleasePackage = taskKey[Unit]("Task to build a release package.")
 
 lazy val root = (project in file("."))
   .enablePlugins(JavaAppPackaging)
@@ -36,7 +36,7 @@ lazy val root = (project in file("."))
       mainClass in Compile := Some("org.github.tnakamot.jscdg.CLIMain"),
       discoveredMainClasses in Compile := Seq(),
 
-      requestUploadTask := {
+      buildReleasePackage := {
           println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
           println("==============================================================")
           println("")
@@ -57,8 +57,7 @@ lazy val root = (project in file("."))
           setReleaseVersion,
           commitReleaseVersion,
           tagRelease,
-          releaseStepCommand("universal:packageBin"),
-          releaseStepTask(requestUploadTask),
+          releaseStepTask(buildReleasePackage),
           setNextVersion,
           commitNextVersion,
           pushChanges,
