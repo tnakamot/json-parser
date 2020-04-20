@@ -13,7 +13,7 @@ public class TableBuilder {
     private TableCaption caption = null;
     private List<TableColumn> columns = new ArrayList<>();
     private List<TableRow> rows = new ArrayList<>();
-    private Map<TableCellAddress, String> cells = new HashMap<>();
+    private Map<TableCellAddress, TableCellContents> cells = new HashMap<>();
 
     /*
      * Standard column IDs.
@@ -91,7 +91,17 @@ public class TableBuilder {
         TableColumn column = findColumn(columnId);
 
         TableCellAddress address = new TableCellAddress(row, column);
-        cells.put(address, contents);
+        cells.put(address, new TableCellContents(contents));
+
+        return this;
+    }
+
+    synchronized public TableBuilder addCell(String rowId, String columnId, String[] contents) {
+        TableRow row = findRow(rowId);
+        TableColumn column = findColumn(columnId);
+
+        TableCellAddress address = new TableCellAddress(row, column);
+        cells.put(address, new TableCellContents(contents));
 
         return this;
     }
@@ -166,13 +176,26 @@ public class TableBuilder {
             w.append("<tr>\n");
 
             for (TableColumn column: columns) {
-                TableCellAddress address = new TableCellAddress(row, column);
-                String contents = cells.get(address);
-
                 w.append("  <td>");
-                if (contents != null) {
-                    w.append(StringEscapeUtils.escapeHtml4(contents));
+
+                TableCellAddress address = new TableCellAddress(row, column);
+                TableCellContents tcc = cells.get(address);
+                if (tcc != null) {
+                    String[] contents = tcc.getContents();
+
+                    if (contents.length == 1 && contents[0] != null) {
+                        w.append(StringEscapeUtils.escapeHtml4(contents[0]));
+                    } else if (contents.length > 1) {
+                        w.append("    <ul>\n");
+                        for (String part : contents) {
+                            w.append("      <li>");
+                            w.append(part);
+                            w.append("</li>\n");
+                        }
+                        w.append("</ul>");
+                    }
                 }
+
                 w.append("</td>\n");
             }
             w.append("</tr>\n");

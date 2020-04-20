@@ -7,13 +7,28 @@
   "properties": {
     "name": {
       "type": "string",
-      "description": "Name of this data"
+      "title": "title",
+      "description": "Name of this datd",
+      "default": "test",
+      "examples": "Help!"
     },
     "num": {
       "type": "integer",
       "description": "test integer",
       "minimum": 5,
-      "examples": [5, 6]
+      "examples": [5]
+    },
+    "num2": {
+      "type": "number",
+      "description": "test number",
+      "minimum": 5,
+      "examples": [5.2, 1e10]
+    },
+    "yes_or_no": {
+      "type": "boolean",
+      "description": "test boolean",
+      "default": true,
+      "examples": [true, false]
     },
     "testObj": {
       "type": "object",

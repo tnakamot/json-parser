@@ -35,6 +35,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import static java.nio.file.StandardOpenOption.CREATE;
 import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
@@ -72,6 +74,7 @@ public class DoxygenGenerator extends SubCommand {
     private List<TableBuilder> buildTables(JSONProperty property) {
         if (property instanceof JSONObjectProperty) {
             JSONObjectProperty objProperty = (JSONObjectProperty) property;
+            List<String> required = Arrays.asList(objProperty.get(JSONObjectProperty.REQUIRED));
 
             TableBuilder t = new TableBuilder();
             t.setCaption(property.get(JSONObjectProperty.ID),
@@ -91,30 +94,90 @@ public class DoxygenGenerator extends SubCommand {
                 t.addCell(name, NAME_COLUMN, name);
                 t.addCell(name, TYPE_COLUMN, child.get(JSONProperty.TYPE));
 
-                // TODO: add title
-                t.addCell(name, DESC_COLUMN, child.get(JSONProperty.DESCRIPTION));
+                String title = child.get(JSONProperty.TITLE);
+                String desc  = child.get(JSONProperty.DESCRIPTION);
+                if (title == null) {
+                    if (desc !=  null) {
+                        t.addCell(name, DESC_COLUMN, desc);
+                    }
+                } else {
+                    // TODO: emphasize title
+                    if (desc ==  null) {
+                        t.addCell(name, DESC_COLUMN, title);
+                    } else {
+                        t.addCell(name, DESC_COLUMN, title + " - " + desc);
+                    }
+                }
 
-                // TODO: add required cell
+                if (required.contains(name)) {
+                    t.addCell(name, REQUIRE_COLUMN, "Yes");
+                } else {
+                    t.addCell(name, REQUIRE_COLUMN, "No");
+                }
 
                 if (child instanceof JSONStringProperty) {
                     JSONStringProperty strProp = (JSONStringProperty) child;
-                    // TODO: make one row
+                    t.addCell(name, DEFAULT_COLUMN,
+                            strProp.get(JSONStringProperty.DEFAULT));
+                    t.addCell(name, EXAMPLE_COLUMN,
+                            strProp.get(JSONStringProperty.EXAMPLES));
+
+                    // TODO: handle specific restrictions
                 } else if (child instanceof JSONIntegerProperty) {
                     JSONIntegerProperty intProp = (JSONIntegerProperty) child;
-                    // TODO: make one row
+                    Long def = intProp.get(JSONIntegerProperty.DEFAULT);
+                    if (def != null){
+                        t.addCell(name, DEFAULT_COLUMN, def.toString());
+                    }
+
+                    Long[] examples = intProp.get(JSONIntegerProperty.EXAMPLES);
+                    t.addCell(name, EXAMPLE_COLUMN,
+                            Arrays.asList(examples).stream()
+                                    .filter(Objects::nonNull)
+                                    .map(l -> l.toString())
+                                    .collect(Collectors.toList())
+                                    .toArray(new String[0]));
+
+                    // TODO: handle specific restrictions
                 } else if (child instanceof JSONNumberProperty) {
                     JSONNumberProperty numProp = (JSONNumberProperty) child;
-                    // TODO: make one row
+                    Double def = numProp.get(JSONNumberProperty.DEFAULT);
+                    if (def != null){
+                        t.addCell(name, DEFAULT_COLUMN, def.toString());
+                    }
+
+                    Double[] examples = numProp.get(JSONNumberProperty.EXAMPLES);
+                    t.addCell(name, EXAMPLE_COLUMN,
+                            Arrays.asList(examples).stream()
+                                    .filter(Objects::nonNull)
+                                    .map(d -> d.toString())
+                                    .collect(Collectors.toList())
+                                    .toArray(new String[0]));
+
+                    // TODO: handle specific restrictions
                 } else if (child instanceof JSONBooleanProperty) {
                     JSONBooleanProperty boolProp = (JSONBooleanProperty) child;
-                    // TODO: make one row
+
+                    Boolean bool = boolProp.get(JSONBooleanProperty.DEFAULT);
+                    if (bool != null){
+                        t.addCell(name, DEFAULT_COLUMN, bool.toString());
+                    }
+
+                    Boolean[] examples = boolProp.get(JSONBooleanProperty.EXAMPLES);
+                    t.addCell(name, EXAMPLE_COLUMN,
+                            Arrays.asList(examples).stream()
+                                    .filter(Objects::nonNull)
+                                    .map(b -> b.toString())
+                                    .collect(Collectors.toList())
+                                    .toArray(new String[0]));
+
+                    // TODO: handle specific restrictions
                 } else if (child instanceof JSONObjectProperty) {
                     JSONObjectProperty objProp = (JSONObjectProperty) child;
-                    // TODO: make another talbe
+                    // TODO: make another table
                 } else {
                     // TODO: throw an exception
                 }
-
             });
 
             return Arrays.asList(t);
