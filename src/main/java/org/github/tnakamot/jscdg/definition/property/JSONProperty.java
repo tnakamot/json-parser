@@ -16,10 +16,12 @@ public abstract class JSONProperty {
     public static final StringKeyword DESCRIPTION = new StringKeyword("description");
 
     private final String name;
+    private final JSONPropertyType type;
 
-    public JSONProperty(String name, JSONObject obj) {
+    public JSONProperty(String name, JSONObject obj)
+            throws UnsupportedPropertyTypeException {
         this.name = name;
-
+        this.type = readType(obj);
         this.attributes = new HashMap<>();
         registerKeyword(TYPE);
         registerKeyword(TITLE);
@@ -38,6 +40,13 @@ public abstract class JSONProperty {
         attributes.put(keyword, null);
     }
 
+    /**
+     * Supposed to be called at the end of the constructor of
+     * child classes.
+     *
+     * @param obj
+     * @throws UnsupportedPropertyTypeException
+     */
     protected void readAttributes(JSONObject obj) {
         try {
             for (Keyword keyword: attributes.keySet()) {
@@ -57,6 +66,23 @@ public abstract class JSONProperty {
             throw new RuntimeException(e);
         } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    private JSONPropertyType readType(JSONObject obj)
+            throws UnsupportedPropertyTypeException {
+        Object valObj = obj.get("type");
+        if (valObj == null) {
+            throw new UnsupportedPropertyTypeException(name);
+        } else if (!(valObj instanceof String)) {
+            throw new UnsupportedPropertyTypeException(name, valObj.getClass());
+        } else {
+            String typeName = (String) valObj;
+            try {
+                return JSONPropertyType.fromName(typeName);
+            } catch (IllegalArgumentException ex) {
+                throw new UnsupportedPropertyTypeException(name, typeName);
+            }
         }
     }
 

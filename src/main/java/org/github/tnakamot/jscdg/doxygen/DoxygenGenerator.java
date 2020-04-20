@@ -23,6 +23,7 @@ import net.sourceforge.argparse4j.inf.Namespace;
 import org.github.tnakamot.jscdg.*;
 import org.github.tnakamot.jscdg.definition.property.JSONIntegerProperty;
 import org.github.tnakamot.jscdg.definition.property.JSONProperty;
+import org.github.tnakamot.jscdg.definition.property.UnsupportedPropertyTypeException;
 import org.github.tnakamot.jscdg.definition.value.JSONIntegerValue;
 import org.github.tnakamot.jscdg.table.TableBuilder;
 import org.json.simple.JSONArray;
@@ -124,7 +125,12 @@ public class DoxygenGenerator extends SubCommand {
         //System.out.println(examples.get(0).getClass());
         //System.out.println(examples.get(1).getClass());
 
-        JSONProperty prop = new JSONIntegerProperty("num", (JSONObject) props.get("num"));
+        JSONProperty prop;
+        try {
+            prop = new JSONIntegerProperty("num", (JSONObject) props.get("num"));
+        } catch (UnsupportedPropertyTypeException ex) {
+            throw new InvalidJSONSchemaException(ex);
+        }
         System.out.println(prop.get(JSONProperty.DESCRIPTION));
 
         System.out.println(prop.get(JSONIntegerProperty.MINIMUM));

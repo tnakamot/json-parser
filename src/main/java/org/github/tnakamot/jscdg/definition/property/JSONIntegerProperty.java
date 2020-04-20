@@ -19,7 +19,8 @@ public class JSONIntegerProperty extends JSONProperty {
     public static final IntegerArrayKeyword ENUMS
             = new IntegerArrayKeyword("enums");
 
-    public JSONIntegerProperty(String name, JSONObject obj) {
+    public JSONIntegerProperty(String name, JSONObject obj)
+            throws UnsupportedPropertyTypeException{
         super(name, obj);
         registerKeyword(MULTIPLE_OF);
         registerKeyword(MINIMUM);

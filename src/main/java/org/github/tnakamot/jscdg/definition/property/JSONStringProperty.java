@@ -19,7 +19,8 @@ public class JSONStringProperty extends JSONProperty {
     public static final StringArrayKeyword ENUMS
             = new StringArrayKeyword("enums");
 
-    public JSONStringProperty(String name, JSONObject obj) {
+    public JSONStringProperty(String name, JSONObject obj)
+            throws UnsupportedPropertyTypeException {
         super(name, obj);
         registerKeyword(MIN_LENGTH);
         registerKeyword(MAX_LENGTH);

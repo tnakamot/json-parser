@@ -18,7 +18,8 @@ public class JSONNumberProperty extends JSONProperty {
     public static final NumberArrayKeyword ENUMS
             = new NumberArrayKeyword("enums");
 
-    public JSONNumberProperty(String name, JSONObject obj) {
+    public JSONNumberProperty(String name, JSONObject obj)
+            throws UnsupportedPropertyTypeException {
         super(name, obj);
         registerKeyword(MULTIPLE_OF);
         registerKeyword(MINIMUM);

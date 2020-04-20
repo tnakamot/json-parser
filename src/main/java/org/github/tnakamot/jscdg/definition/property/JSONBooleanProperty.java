@@ -9,7 +9,8 @@ public class JSONBooleanProperty extends JSONProperty {
     public static final BooleanKeyword CONST         = new BooleanKeyword("const");
     public static final BooleanArrayKeyword EXAMPLES = new BooleanArrayKeyword("examples");
 
-    public JSONBooleanProperty(String name, JSONObject obj) {
+    public JSONBooleanProperty(String name, JSONObject obj)
+            throws UnsupportedPropertyTypeException {
         super(name, obj);
         registerKeyword(DEFAULT);
         registerKeyword(CONST);
