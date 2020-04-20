@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://github.com/tnakamot/jscdg/src/test/resources/example1_schema.json",
+  "$id": "https://github.com/tnakamot/jscdg/tree/master/src/test/resources/valid/example1_schema.json",
   "title": "Example Data Structure",
-  "description": "Example data structure to test JSON Schema Code and Document Generator.",
+  "description": "Example data structure 1 to test JSON Schema Code and Document Generator.",
   "type": "object",
   "properties": {
     "name": {
