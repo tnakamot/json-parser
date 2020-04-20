@@ -28,4 +28,10 @@ public class TableRow {
             return false;
         }
     }
+
+    @Override
+    public String toString() { return id; }
+
+    @Override
+    public int hashCode() { return id.hashCode(); }
  }

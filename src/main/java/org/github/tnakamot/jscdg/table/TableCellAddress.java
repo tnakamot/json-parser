@@ -34,4 +34,14 @@ public class TableCellAddress {
             return false;
         }
     }
+
+    @Override
+    public String toString() {
+        return "(" + row.toString() + ", " + column.toString() + ")";
+    }
+
+    @Override
+    public int hashCode() {
+        return row.hashCode() + column.hashCode();
+    }
 }

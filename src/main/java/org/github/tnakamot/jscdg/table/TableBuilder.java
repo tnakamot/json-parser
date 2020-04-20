@@ -160,12 +160,31 @@ public class TableBuilder {
         w.append("</tr>\n");
     }
 
+    synchronized private void writeHTMLRows(Writer w)
+        throws IOException {
+        for (TableRow row: rows) {
+            w.append("<tr>\n");
+
+            for (TableColumn column: columns) {
+                TableCellAddress address = new TableCellAddress(row, column);
+                String contents = cells.get(address);
+
+                w.append("  <td>");
+                if (contents != null) {
+                    w.append(StringEscapeUtils.escapeHtml4(contents));
+                }
+                w.append("</td>\n");
+            }
+            w.append("</tr>\n");
+        }
+    }
+
     synchronized public void writeHTML(Writer w)
             throws IOException {
         w.append("<table>\n");
         writeHTMLCaption(w);
         writeHTMLHeaders(w);
-
+        writeHTMLRows(w);
         w.append("</table>\n");
     }
 }

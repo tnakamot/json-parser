@@ -21,9 +21,7 @@ import net.sourceforge.argparse4j.inf.ArgumentParser;
 import net.sourceforge.argparse4j.inf.ArgumentParserException;
 import net.sourceforge.argparse4j.inf.Namespace;
 import org.github.tnakamot.jscdg.*;
-import org.github.tnakamot.jscdg.definition.property.JSONObjectProperty;
-import org.github.tnakamot.jscdg.definition.property.JSONProperty;
-import org.github.tnakamot.jscdg.definition.property.UnsupportedPropertyTypeException;
+import org.github.tnakamot.jscdg.definition.property.*;
 import org.github.tnakamot.jscdg.table.TableBuilder;
 import org.json.simple.JSONObject;
 
@@ -73,6 +71,8 @@ public class DoxygenGenerator extends SubCommand {
 
     private List<TableBuilder> buildTables(JSONProperty property) {
         if (property instanceof JSONObjectProperty) {
+            JSONObjectProperty objProperty = (JSONObjectProperty) property;
+
             TableBuilder t = new TableBuilder();
             t.setCaption(property.get(JSONObjectProperty.ID),
                     property.get(JSONProperty.TITLE));
@@ -84,7 +84,39 @@ public class DoxygenGenerator extends SubCommand {
             t.addColumn(DEFAULT_COLUMN, "Default");
             t.addColumn(EXAMPLE_COLUMN, "Example");
 
-            // TODO: traverse
+            objProperty.getPropertyNames().forEach(name -> {
+                JSONProperty child = objProperty.getProperty(name);
+
+                System.out.println(name);
+                t.addRow(name);
+                t.addCell(name, NAME_COLUMN, name);
+                t.addCell(name, TYPE_COLUMN, child.get(JSONProperty.TYPE));
+
+                // TODO: add title
+                t.addCell(name, DESC_COLUMN, child.get(JSONProperty.DESCRIPTION));
+
+                // TODO: add required cell
+
+                if (child instanceof JSONStringProperty) {
+                    JSONStringProperty strProp = (JSONStringProperty) child;
+                    // TODO: make one row
+                } else if (child instanceof JSONIntegerProperty) {
+                    JSONIntegerProperty intProp = (JSONIntegerProperty) child;
+                    // TODO: make one row
+                } else if (child instanceof JSONNumberProperty) {
+                    JSONNumberProperty numProp = (JSONNumberProperty) child;
+                    // TODO: make one row
+                } else if (child instanceof JSONBooleanProperty) {
+                    JSONBooleanProperty boolProp = (JSONBooleanProperty) child;
+                    // TODO: make one row
+                } else if (child instanceof JSONObjectProperty) {
+                    JSONObjectProperty objProp = (JSONObjectProperty) child;
+                    // TODO: make another talbe
+                } else {
+                    // TODO: throw an exception
+                }
+
+            });
 
             return Arrays.asList(t);
         } else {

@@ -31,4 +31,10 @@ public class TableColumn {
             return false;
         }
     }
+
+    @Override
+    public String toString() { return id; }
+
+    @Override
+    public int hashCode() { return id.hashCode(); }
 }
