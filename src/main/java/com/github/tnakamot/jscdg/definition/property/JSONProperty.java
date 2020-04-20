@@ -2,8 +2,6 @@ package com.github.tnakamot.jscdg.definition.property;
 
 import com.github.tnakamot.jscdg.definition.keyword.*;
 import com.github.tnakamot.jscdg.definition.value.*;
-import org.github.tnakamot.jscdg.definition.keyword.*;
-import org.github.tnakamot.jscdg.definition.value.*;
 import org.json.simple.JSONObject;
 
 import java.lang.reflect.InvocationTargetException;

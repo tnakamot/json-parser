@@ -1,7 +1,6 @@
 package com.github.tnakamot.jscdg.definition;
 
 import com.github.tnakamot.jscdg.definition.value.*;
-import org.github.tnakamot.jscdg.definition.value.*;
 
 public class JSONDataType {
     public static final JSONDataType STRING  = new JSONDataType("string", JSONStringValue.class);

@@ -22,8 +22,6 @@ import net.sourceforge.argparse4j.ArgumentParsers;
 import net.sourceforge.argparse4j.inf.ArgumentParser;
 import net.sourceforge.argparse4j.inf.ArgumentParserException;
 import net.sourceforge.argparse4j.inf.Namespace;
-import org.github.tnakamot.jscdg.*;
-import org.github.tnakamot.jscdg.definition.property.*;
 import com.github.tnakamot.jscdg.table.TableBuilder;
 
 import java.io.IOException;
