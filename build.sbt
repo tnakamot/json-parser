@@ -40,7 +40,8 @@ lazy val root = (project in file("."))
           println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
           println("==============================================================")
           println("")
-          println("Please upload " + (Universal / packageBin).value.toString + " to https://github.com/tnakamot/jscdg/releases")
+          println("Please add the release note and upload " + (Universal / packageBin).value.toString + " to")
+          println("  https://github.com/tnakamot/jscdg/releases/new?tag=v" + version.value)
           println("")
           println("==============================================================")
           println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
@@ -57,9 +58,10 @@ lazy val root = (project in file("."))
           commitReleaseVersion,
           tagRelease,
           releaseStepCommand("universal:packageBin"),
+          releaseStepTask(requestUploadTask),
           setNextVersion,
           commitNextVersion,
           pushChanges,
-          releaseStepTask(requestUploadTask)
+
       )
   )
