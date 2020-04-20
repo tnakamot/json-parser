@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import NativePackagerHelper._
+import ReleaseTransformations._
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
 
@@ -33,4 +33,20 @@ lazy val root = (project in file("."))
     // Packaging as universal plugin.
     mainClass in Compile := Some("org.github.tnakamot.jscdg.CLIMain"),
     discoveredMainClasses in Compile := Seq(),
+
+    // Customized release process
+    releaseCrossBuild := false,
+    releaseProcess := Seq[ReleaseStep](
+        checkSnapshotDependencies,
+        inquireVersions,
+        runClean,
+        runTest,
+        setReleaseVersion,
+        commitReleaseVersion,
+        tagRelease,
+        releaseStepCommand("universal:packageBin"),
+        setNextVersion,
+        commitNextVersion,
+        pushChanges
+    )
   )
