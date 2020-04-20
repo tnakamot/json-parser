@@ -105,6 +105,13 @@ lazy val root = (project in file("."))
         Process("doxygen" :: "doxyconf" :: Nil, outputDir) !
 
         Process("make", outputDir / "latex") !
+
+        // Open PDF.
+        val pdfOpenCommand =
+          "/mnt/c/Users/" + System.getProperty("user.name") + "/AppData/Local/SumatraPDF/SumatraPDF.exe"
+        val outputPdfPath = (outputDir / "latex" / "refman.pdf").toString
+
+        Process(pdfOpenCommand :: outputPdfPath :: Nil) !
       }
     }).value
   )
