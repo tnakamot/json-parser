@@ -45,7 +45,8 @@ the JSON Schema file `your_json_schema.json`.
     $ jscdg doxygen --output $HOME/tmp/test --extension dox your_json_schema.json
 
 The generated file `your_json_schema.dox` can be used as a part of your
-documents for Doxygen using, for example, [\include](http://www.doxygen.nl/manual/commands.html#cmdinclude)
+documents for Doxygen using, for example,
+[\includedoc](http://www.doxygen.nl/manual/commands.html#cmdincludedoc)
 command.
 
 ## TODO
