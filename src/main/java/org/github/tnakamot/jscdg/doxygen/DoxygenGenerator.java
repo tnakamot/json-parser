@@ -87,7 +87,6 @@ public class DoxygenGenerator extends SubCommand {
             objProperty.getPropertyNames().forEach(name -> {
                 JSONProperty child = objProperty.getProperty(name);
 
-                System.out.println(name);
                 t.addRow(name);
                 t.addCell(name, NAME_COLUMN, name);
                 t.addCell(name, TYPE_COLUMN, child.get(JSONProperty.TYPE));
