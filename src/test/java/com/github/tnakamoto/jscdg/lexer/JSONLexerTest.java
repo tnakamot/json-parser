@@ -114,7 +114,132 @@ public class JSONLexerTest {
     }
 
     @Test
-    public void testEscapedString() {
-        // TODO: test escape string
+    public void testUnknownToken1() {
+        JSONText jsText = JSONText.fromString("( )");
+
+        JSONLexerException ex = assertThrows(
+                JSONLexerException.class,
+                () -> jsText.tokens());
+        assertEquals(jsText, ex.source());
+        assertEquals(0, ex.location().position());
+        assertEquals(1, ex.location().line());
+        assertEquals(1, ex.location().column());
+    }
+
+    @Test
+    public void testUnknownToken2() {
+        JSONText jsText = JSONText.fromString("{\n\"key\":\n True\n}");
+
+        JSONLexerException ex = assertThrows(
+                JSONLexerException.class,
+                () -> jsText.tokens());
+        assertEquals(jsText, ex.source());
+        assertEquals(10, ex.location().position());
+        assertEquals(3, ex.location().line());
+        assertEquals(2, ex.location().column());
+    }
+
+    @Test
+    public void testUnknownToken3() {
+        JSONText jsText = JSONText.fromString("{\n\"key\":\n trUe\n}");
+
+        JSONLexerException ex = assertThrows(
+                JSONLexerException.class,
+                () -> jsText.tokens());
+        assertEquals(jsText, ex.source());
+        assertEquals(10, ex.location().position());
+        assertEquals(3, ex.location().line());
+        assertEquals(2, ex.location().column());
+    }
+
+    @Test
+    public void testUnexpectedEOF1() {
+        JSONText jsText = JSONText.fromString("{\n\"key\":\n tr");
+
+        JSONLexerException ex = assertThrows(
+                JSONLexerException.class,
+                () -> jsText.tokens());
+        assertEquals(jsText, ex.source());
+        assertEquals(12, ex.location().position());
+        assertEquals(3, ex.location().line());
+        assertEquals(4, ex.location().column());
+    }
+
+    @Test
+    public void testUnexpectedEOF2() {
+        JSONText jsText = JSONText.fromString("{\n\"ke");
+
+        JSONLexerException ex = assertThrows(
+                JSONLexerException.class,
+                () -> jsText.tokens());
+        assertEquals(jsText, ex.source());
+        assertEquals(5, ex.location().position());
+        assertEquals(2, ex.location().line());
+        assertEquals(4, ex.location().column());
+    }
+
+    @Test
+    public void testControlCharacterInString() {
+        JSONText jsText = JSONText.fromString("{ \"key\": \"hello\nworld\" }");
+
+        JSONLexerException ex = assertThrows(
+                JSONLexerException.class,
+                () -> jsText.tokens());
+        assertEquals(jsText, ex.source());
+        assertEquals(15, ex.location().position());
+        assertEquals(1, ex.location().line());
+        assertEquals(16, ex.location().column());
+    }
+
+    @Test
+    public void testEscapedString1() throws IOException, JSONLexerException {
+        JSONText jsText = JSONText.fromString(
+                "{ \"\\u006b\\u0065\\u0079\": \"\\\"test\\\"\" } "
+        );
+        List<JSONToken> tokens = jsText.tokens();
+
+        assertEquals(JSONTokenType.STRING, tokens.get(1).type());
+        assertEquals("\"\\u006b\\u0065\\u0079\"", tokens.get(1).text());
+        assertEquals(2, tokens.get(1).location().position());
+        assertEquals(1, tokens.get(1).location().line());
+        assertEquals(3, tokens.get(1).location().column());
+        assertEquals(jsText, tokens.get(1).source());
+        assertTrue(tokens.get(1) instanceof JSONTokenString);
+        assertEquals("key", ((JSONTokenString) tokens.get(1)).value());
+
+        assertEquals(JSONTokenType.STRING, tokens.get(3).type());
+        assertEquals("\"\\\"test\\\"\"", tokens.get(3).text());
+        assertEquals(24, tokens.get(3).location().position());
+        assertEquals(1, tokens.get(3).location().line());
+        assertEquals(25, tokens.get(3).location().column());
+        assertEquals(jsText, tokens.get(3).source());
+        assertTrue(tokens.get(3) instanceof JSONTokenString);
+        assertEquals("\"test\"", ((JSONTokenString) tokens.get(3)).value());
+    }
+
+    @Test
+    public void testEscapedString2() throws IOException, JSONLexerException {
+        JSONText jsText = JSONText.fromString(
+                "{ \" \\\\ \\/path\\/test \": \"abc\\b\\f\\n\\r\\txyz\" } "
+        );
+        List<JSONToken> tokens = jsText.tokens();
+
+        assertEquals(JSONTokenType.STRING, tokens.get(1).type());
+        assertEquals("\" \\\\ \\/path\\/test \"", tokens.get(1).text());
+        assertEquals(2, tokens.get(1).location().position());
+        assertEquals(1, tokens.get(1).location().line());
+        assertEquals(3, tokens.get(1).location().column());
+        assertEquals(jsText, tokens.get(1).source());
+        assertTrue(tokens.get(1) instanceof JSONTokenString);
+        assertEquals(" \\ /path/test ", ((JSONTokenString) tokens.get(1)).value());
+
+        assertEquals(JSONTokenType.STRING, tokens.get(3).type());
+        assertEquals("\"abc\\b\\f\\n\\r\\txyz\"", tokens.get(3).text());
+        assertEquals(23, tokens.get(3).location().position());
+        assertEquals(1, tokens.get(3).location().line());
+        assertEquals(24, tokens.get(3).location().column());
+        assertEquals(jsText, tokens.get(3).source());
+        assertTrue(tokens.get(3) instanceof JSONTokenString);
+        assertEquals("abc\b\f\n\r\txyz", ((JSONTokenString) tokens.get(3)).value());
     }
 }

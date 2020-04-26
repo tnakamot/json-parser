@@ -48,12 +48,10 @@ public class JSONLexer {
     private int read() throws IOException {
         int ich = reader.read();
         if (ich == -1) {
-            location = location.next(false);
             return -1;
         } else if (ich == '\r') {
             int ich2 = reader.read();
             if (ich2 == -1) {
-                location = location.next(false).next(false);
                 return -1;
             } else if (ich2 == '\n') {
                 location = location.next(false).next(true);
@@ -137,7 +135,7 @@ public class JSONLexer {
             // TODO: support number
             default:
                 throw new JSONLexerException(source, startLocation, errMsgConfig,
-                        "unexpected character '" + ch +"'");
+                        "unknown token starting with '" + ch +"'");
         }
     }
 

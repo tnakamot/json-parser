@@ -75,7 +75,6 @@ public class JSONTextTest {
         File file = File.createTempFile("JSONTextTest_", ".json");
         file.delete();
         URL url = file.toURI().toURL();
-        System.out.println(url);
 
         assertThrows(
                 FileNotFoundException.class,

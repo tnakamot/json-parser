@@ -35,8 +35,6 @@ public class JSONLexerException extends Exception {
         this.source       = source;
         this.location     = location;
         this.errMsgConfig = errMsgConfig;
-
-        // TODO: show an error message with line and column number.
     }
 
     public JSONText source() {
@@ -49,6 +47,8 @@ public class JSONLexerException extends Exception {
 
     @Override
     public String getMessage() {
+        // TODO: write test cases
+
         StringBuilder sb = new StringBuilder();
         if (errMsgConfig.showFullPath()) {
             sb.append(source.fullName());
