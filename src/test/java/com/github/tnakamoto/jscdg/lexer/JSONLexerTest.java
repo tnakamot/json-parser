@@ -65,7 +65,7 @@ public class JSONLexerTest {
         assertEquals(2, tokens.get(4).location().column());
         assertEquals(jsText, tokens.get(4).source());
         assertTrue(tokens.get(4) instanceof JSONTokenBoolean);
-        assertEquals(true, ((JSONTokenBoolean) tokens.get(4)).value());
+        assertTrue(((JSONTokenBoolean) tokens.get(4)).value());
 
         assertEquals(JSONTokenType.VALUE_SEPARATOR, tokens.get(5).type());
         assertEquals(",", tokens.get(5).text());
@@ -81,7 +81,7 @@ public class JSONLexerTest {
         assertEquals(1, tokens.get(6).location().column());
         assertEquals(jsText, tokens.get(6).source());
         assertTrue(tokens.get(6) instanceof JSONTokenBoolean);
-        assertEquals(false, ((JSONTokenBoolean) tokens.get(6)).value());
+        assertFalse(((JSONTokenBoolean) tokens.get(6)).value());
 
         assertEquals(JSONTokenType.VALUE_SEPARATOR, tokens.get(7).type());
         assertEquals(",", tokens.get(7).text());
@@ -119,7 +119,7 @@ public class JSONLexerTest {
 
         JSONLexerException ex = assertThrows(
                 JSONLexerException.class,
-                () -> jsText.tokens());
+                jsText::tokens);
         assertEquals(jsText, ex.source());
         assertEquals(0, ex.location().position());
         assertEquals(1, ex.location().line());
@@ -132,7 +132,7 @@ public class JSONLexerTest {
 
         JSONLexerException ex = assertThrows(
                 JSONLexerException.class,
-                () -> jsText.tokens());
+                jsText::tokens);
         assertEquals(jsText, ex.source());
         assertEquals(10, ex.location().position());
         assertEquals(3, ex.location().line());
@@ -145,7 +145,7 @@ public class JSONLexerTest {
 
         JSONLexerException ex = assertThrows(
                 JSONLexerException.class,
-                () -> jsText.tokens());
+                jsText::tokens);
         assertEquals(jsText, ex.source());
         assertEquals(10, ex.location().position());
         assertEquals(3, ex.location().line());
@@ -158,7 +158,7 @@ public class JSONLexerTest {
 
         JSONLexerException ex = assertThrows(
                 JSONLexerException.class,
-                () -> jsText.tokens());
+                jsText::tokens);
         assertEquals(jsText, ex.source());
         assertEquals(12, ex.location().position());
         assertEquals(3, ex.location().line());
@@ -171,7 +171,7 @@ public class JSONLexerTest {
 
         JSONLexerException ex = assertThrows(
                 JSONLexerException.class,
-                () -> jsText.tokens());
+                jsText::tokens);
         assertEquals(jsText, ex.source());
         assertEquals(5, ex.location().position());
         assertEquals(2, ex.location().line());
@@ -184,7 +184,7 @@ public class JSONLexerTest {
 
         JSONLexerException ex = assertThrows(
                 JSONLexerException.class,
-                () -> jsText.tokens());
+                jsText::tokens);
         assertEquals(jsText, ex.source());
         assertEquals(15, ex.location().position());
         assertEquals(1, ex.location().line());
