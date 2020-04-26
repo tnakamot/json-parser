@@ -24,7 +24,7 @@ package com.github.tnakamot.jscdg.lexer;
 public class JSONTokenString extends JSONToken {
     private final String value;
 
-    protected JSONTokenString(String text, String value, int location, JSONText source) {
+    protected JSONTokenString(String text, String value, StringLocation location, JSONText source) {
         super(JSONTokenType.STRING, text, location, source);
         this.value = value;
     }

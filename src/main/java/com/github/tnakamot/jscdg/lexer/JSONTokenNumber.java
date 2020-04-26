@@ -22,7 +22,7 @@ package com.github.tnakamot.jscdg.lexer;
  * An instance of this class is immutable.
  */
 public class JSONTokenNumber extends JSONToken {
-    protected JSONTokenNumber(String text, int location, JSONText source) {
+    protected JSONTokenNumber(String text, StringLocation location, JSONText source) {
         super(JSONTokenType.NUMBER, text, location, source);
 
         /* TODO: check if the given token follows RFC 8259 and raise an exception if not. */

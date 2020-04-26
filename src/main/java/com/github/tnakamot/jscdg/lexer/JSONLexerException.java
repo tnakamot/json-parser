@@ -21,9 +21,9 @@ package com.github.tnakamot.jscdg.lexer;
  */
 public class JSONLexerException extends Exception {
     private final JSONText source;
-    private final int location;
+    private final StringLocation location;
 
-    public JSONLexerException(JSONText source, int location, String msg) {
+    public JSONLexerException(JSONText source, StringLocation location, String msg) {
         super(msg);
         this.source   = source;
         this.location = location;
@@ -35,7 +35,7 @@ public class JSONLexerException extends Exception {
         return source;
     }
 
-    public int location() {
+    public StringLocation location() {
         return location;
     }
 }

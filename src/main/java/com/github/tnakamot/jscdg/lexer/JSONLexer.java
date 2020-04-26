@@ -28,7 +28,7 @@ import java.io.StringReader;
 public class JSONLexer {
     private final JSONText source;
     private final PushbackReader reader;
-    private int location;
+    StringLocation location;
 
     protected JSONLexer(JSONText source) {
         if (source == null) {
@@ -37,12 +37,34 @@ public class JSONLexer {
 
         this.source   = source;
         this.reader   = new PushbackReader(new StringReader(source.get()));
-        this.location = 0;
+        this.location = StringLocation.begin();
     }
 
     private int read() throws IOException {
-        location += 1;
-        return reader.read();
+        int ich = reader.read();
+        if (ich == -1) {
+            location = location.next(false);
+            return -1;
+        } else if (ich == '\r') {
+            int ich2 = reader.read();
+            if (ich2 == -1) {
+                location = location.next(false).next(false);
+                return -1;
+            } else if (ich2 == '\n') {
+                location = location.next(false).next(true);
+                return ich2;
+            } else {
+                location = location.next(true);
+                reader.unread(ich2);
+                return ich;
+            }
+        } else if (ich == '\n') {
+            location = location.next(true);
+            return ich;
+        } else {
+            location = location.next(false);
+            return ich;
+        }
     }
 
     private char readChar() throws IOException, JSONLexerException {
@@ -54,7 +76,11 @@ public class JSONLexer {
     }
 
     private void pushBack(int ch) throws IOException {
-        location -= 1;
+        if (ch == '\n' || ch == '\r') {
+            throw new UnsupportedOperationException("cannot push back \\n or \\r");
+        }
+
+        location = location.previous();
         reader.unread(ch);
     }
 
@@ -71,7 +97,7 @@ public class JSONLexer {
             return null;
         }
 
-        int startLocation = location;
+        StringLocation startLocation = location;
         char ch = readChar();
 
         switch (ch) {
@@ -112,7 +138,7 @@ public class JSONLexer {
             throws IOException, JSONLexerException
     {
         int expectedLen = expected.length();
-        int originalLocation = location;
+        StringLocation originalLocation = location;
         StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < expectedLen; i++ ) {
@@ -137,7 +163,7 @@ public class JSONLexer {
      */
     private JSONTokenString readString()
             throws IOException, JSONLexerException {
-        int originalLocation = location;
+        StringLocation originalLocation = location;
         StringBuilder tokenText = new StringBuilder();
         StringBuilder strValue  = new StringBuilder();
         boolean escaped = false;
@@ -156,7 +182,7 @@ public class JSONLexer {
                 errmsg.append("control character ");
                 errmsg.append(String.format("U+%04x", (int)ch));
                 errmsg.append(" is not allowed in a JSON string token");
-                throw new JSONLexerException(source, location - 1, errmsg.toString());
+                throw new JSONLexerException(source, location.previous(), errmsg.toString());
             }
 
             if (escaped) {
@@ -195,7 +221,7 @@ public class JSONLexer {
                             } else if ('A' <= v && v <= 'F') {
                                 unicode = unicode + (v - 'A') + 10;
                             } else {
-                                throw new JSONLexerException(source, location - 1,
+                                throw new JSONLexerException(source, location.previous(),
                                         "an Unicode escape sequence must consist of four characters of [0-9A-Fa-f]");
                             }
                         }
@@ -203,7 +229,7 @@ public class JSONLexer {
                         strValue.append((char) unicode);
                         break;
                     default:
-                        throw new JSONLexerException(source, location - 1,
+                        throw new JSONLexerException(source, location.previous(),
                                 "unexpected character for an escape sequence");
                 }
 

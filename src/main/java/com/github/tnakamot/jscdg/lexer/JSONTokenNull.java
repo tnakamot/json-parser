@@ -19,7 +19,7 @@ package com.github.tnakamot.jscdg.lexer;
 public class JSONTokenNull extends JSONToken {
     public static final String JSON_NULL  = "null";
 
-    protected JSONTokenNull(int location, JSONText source) {
+    protected JSONTokenNull(StringLocation location, JSONText source) {
         super(JSONTokenType.NULL, JSON_NULL, location, source);
     }
 }

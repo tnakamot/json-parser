@@ -27,7 +27,7 @@ public class JSONTokenBoolean extends JSONToken {
 
     private final boolean value;
 
-    protected JSONTokenBoolean(String text, int location, JSONText source) {
+    protected JSONTokenBoolean(String text, StringLocation location, JSONText source) {
         super(JSONTokenType.BOOLEAN, text, location, source);
         if (JSON_TRUE.equals(text)) {
             this.value = true;
