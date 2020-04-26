@@ -17,6 +17,7 @@
 package com.github.tnakamot.jscdg;
 
 import com.github.tnakamot.jscdg.doxygen.DoxygenGenerator;
+import com.github.tnakamot.jscdg.lexer.JSONTokenType;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -68,5 +69,7 @@ public class CLIMain {
                 throw new RuntimeException("There are two or more sub commands of the same name '" +
                                            args[0] + "' are defined.");
         }
+
+        System.out.println(JSONTokenType.BEGIN_ARRAY);
     }
 }

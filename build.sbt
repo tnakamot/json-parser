@@ -33,9 +33,18 @@ lazy val root = (project in file("."))
     description  := "JSON Schema Code and Document Generator",
     scalaVersion := "2.12.10",
     crossPaths   := false, // Do not use Scala version in artifacts.
-    libraryDependencies += "net.sourceforge.argparse4j" % "argparse4j" % "0.8.1",
-    libraryDependencies += "com.googlecode.json-simple" % "json-simple" % "1.1.1",
-    libraryDependencies += "org.apache.commons" % "commons-text" % "1.8",
+    libraryDependencies ++= Seq(
+      "net.sourceforge.argparse4j" % "argparse4j" % "0.8.1",
+      "com.googlecode.json-simple" % "json-simple" % "1.1.1",
+      "org.apache.commons" % "commons-text" % "1.8",
+      "commons-io" % "commons-io" % "2.6",
+
+      "com.novocode" % "junit-interface" % "0.11" % Test,
+      "junit" % "junit" % "4.13" % Test
+    ),
+
+    // Link to standard Java library.
+    (doc / javacOptions) ++= Seq("-link", "https://docs.oracle.com/en/java/javase/11/docs/api"),
 
     // Packaging as universal plugin.
     mainClass in Compile := Some("com.github.tnakamot.jscdg.CLIMain"),

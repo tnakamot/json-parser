@@ -141,6 +141,8 @@ public class TableBuilder {
             ret = "json_" + ret;
         }
 
+        // TODO: this is not good for doxygen. Reconsider another conversion.
+
         return ret;
     }
 
