@@ -20,13 +20,21 @@ package com.github.tnakamot.jscdg.lexer;
  * Thrown when a JSON lexical analyzer fails to tokenize the given JSON text.
  */
 public class JSONLexerException extends Exception {
+    private final String msg;
     private final JSONText source;
     private final StringLocation location;
+    private final JSONLexerErrorMessageConfiguration errMsgConfig;
 
-    public JSONLexerException(JSONText source, StringLocation location, String msg) {
+    public JSONLexerException(JSONText source,
+                              StringLocation location,
+                              JSONLexerErrorMessageConfiguration errMsgConfig,
+                              String msg)
+    {
         super(msg);
-        this.source   = source;
-        this.location = location;
+        this.msg          = msg;
+        this.source       = source;
+        this.location     = location;
+        this.errMsgConfig = errMsgConfig;
 
         // TODO: show an error message with line and column number.
     }
@@ -37,5 +45,34 @@ public class JSONLexerException extends Exception {
 
     public StringLocation location() {
         return location;
+    }
+
+    @Override
+    public String getMessage() {
+        StringBuilder sb = new StringBuilder();
+        if (errMsgConfig.showFullPath()) {
+            sb.append(source.fullName());
+        } else {
+            sb.append(source.name());
+        }
+
+        sb.append(":");
+
+        if (errMsgConfig.showLineAndColumnNumber()) {
+            sb.append(location.line());
+            sb.append(":");
+            sb.append(location.column());
+        } else {
+            sb.append(location.position());
+        }
+
+        sb.append(": ");
+        sb.append(msg);
+
+        if (errMsgConfig.showErrorLine()) {
+            // TODO: show the error line
+        }
+
+        return sb.toString();
     }
 }

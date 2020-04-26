@@ -27,17 +27,22 @@ import java.io.StringReader;
  */
 public class JSONLexer {
     private final JSONText source;
+    private final JSONLexerErrorMessageConfiguration errMsgConfig;
     private final PushbackReader reader;
+
     StringLocation location;
 
-    protected JSONLexer(JSONText source) {
+    protected JSONLexer(JSONText source, JSONLexerErrorMessageConfiguration errMsgConfig) {
         if (source == null) {
             throw new NullPointerException("source cannot be null");
+        } else if (errMsgConfig == null) {
+            throw new NullPointerException("errMsgConfig cannot be null");
         }
 
-        this.source   = source;
-        this.reader   = new PushbackReader(new StringReader(source.get()));
-        this.location = StringLocation.begin();
+        this.source       = source;
+        this.errMsgConfig = errMsgConfig;
+        this.reader       = new PushbackReader(new StringReader(source.get()));
+        this.location     = StringLocation.begin();
     }
 
     private int read() throws IOException {
@@ -70,7 +75,8 @@ public class JSONLexer {
     private char readChar() throws IOException, JSONLexerException {
         int ich = read();
         if (ich == -1)
-            throw new JSONLexerException(source, location, "reached EOF unexpectedly");
+            throw new JSONLexerException(source, location, errMsgConfig,
+                    "reached EOF unexpectedly");
 
         return (char)ich;
     }
@@ -130,7 +136,8 @@ public class JSONLexer {
                 return readString();
             // TODO: support number
             default:
-                throw new JSONLexerException(source, startLocation, "unexpected character '" + ch +"'");
+                throw new JSONLexerException(source, startLocation, errMsgConfig,
+                        "unexpected character '" + ch +"'");
         }
     }
 
@@ -147,7 +154,7 @@ public class JSONLexer {
             sb.append(ch);
 
             if (ch != expectedCh) {
-                throw new JSONLexerException(source, originalLocation,
+                throw new JSONLexerException(source, originalLocation, errMsgConfig,
                         "unknown token starting with '" + sb.toString() + "'");
             }
         }
@@ -170,7 +177,8 @@ public class JSONLexer {
 
         char ch = readChar();
         if (ch != '"')
-            throw new JSONLexerException(source, originalLocation, "string token must start with '\"'");
+            throw new JSONLexerException(source, originalLocation, errMsgConfig,
+                    "string token must start with '\"'");
         tokenText.append(ch);
 
         while (true) {
@@ -182,7 +190,8 @@ public class JSONLexer {
                 errmsg.append("control character ");
                 errmsg.append(String.format("U+%04x", (int)ch));
                 errmsg.append(" is not allowed in a JSON string token");
-                throw new JSONLexerException(source, location.previous(), errmsg.toString());
+                throw new JSONLexerException(source, location.previous(), errMsgConfig,
+                        errmsg.toString());
             }
 
             if (escaped) {
@@ -221,7 +230,7 @@ public class JSONLexer {
                             } else if ('A' <= v && v <= 'F') {
                                 unicode = unicode + (v - 'A') + 10;
                             } else {
-                                throw new JSONLexerException(source, location.previous(),
+                                throw new JSONLexerException(source, location.previous(), errMsgConfig,
                                         "an Unicode escape sequence must consist of four characters of [0-9A-Fa-f]");
                             }
                         }
@@ -229,7 +238,7 @@ public class JSONLexer {
                         strValue.append((char) unicode);
                         break;
                     default:
-                        throw new JSONLexerException(source, location.previous(),
+                        throw new JSONLexerException(source, location.previous(), errMsgConfig,
                                 "unexpected character for an escape sequence");
                 }
 

@@ -38,7 +38,8 @@ public class JSONTextTest {
 
         assertEquals(JSON_STR, jsText.get());
         assertEquals(file, jsText.source());
-        assertEquals(file.getPath(), jsText.name());
+        assertEquals(file.getPath(), jsText.fullName());
+        assertEquals(file.getName(), jsText.name());
     }
 
     @Test
@@ -65,7 +66,8 @@ public class JSONTextTest {
 
         assertEquals(JSON_STR, jsText.get());
         assertEquals(url, jsText.source());
-        assertEquals(url.toString(), jsText.name());
+        assertEquals(url.toString(), jsText.fullName());
+        assertEquals(jsonFile.getName(), jsText.name());
     }
 
     @Test
@@ -93,6 +95,7 @@ public class JSONTextTest {
 
         assertEquals(JSON_STR, jsText.get());
         assertEquals(JSON_STR, jsText.source());
+        assertEquals("(inner-string)", jsText.fullName());
         assertEquals("(inner-string)", jsText.name());
     }
 

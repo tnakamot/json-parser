@@ -69,10 +69,10 @@ public class JSONText {
      * @throws IOException if an I/O error occurs
      * @throws JSONLexerException if there is a syntax error in JSON text
      */
-    public List<JSONToken> tokens()
+    public List<JSONToken> tokens(JSONLexerErrorMessageConfiguration errMsgConfig)
             throws IOException, JSONLexerException {
         List<JSONToken> tokens = new ArrayList<>();
-        JSONLexer lexer = new JSONLexer(this);
+        JSONLexer lexer = new JSONLexer(this, errMsgConfig);
         JSONToken token;
 
         while ((token = lexer.next()) != null)
@@ -81,6 +81,18 @@ public class JSONText {
         return tokens;
     }
 
+    public List<JSONToken> tokens()
+            throws IOException, JSONLexerException {
+        JSONLexerErrorMessageConfiguration errMsgConfig =
+                JSONLexerErrorMessageConfiguration.builder()
+                        .setShowFullPath(false)
+                        .setShowLineAndColumnNumber(true)
+                        .setShowErrorLine(false)
+                        .build();
+        return tokens(errMsgConfig);
+    }
+
+
     /**
      * Return a string which represents the name of the source of this JSON text.
      * This is useful to construct an error message of tokenizers and parsers.
@@ -88,6 +100,30 @@ public class JSONText {
      * @return
      */
     public String name() {
+        if (source instanceof File) {
+            return ((File) source).getName();
+        } else if (source instanceof URL) {
+            URL url = (URL) source;
+            String[] paths = url.getPath().split("/");
+            if (paths.length == 0) {
+                return url.toString();
+            } else {
+                return paths[paths.length - 1];
+            }
+        } else if (source instanceof String) {
+            return "(inner-string)";
+        }
+
+        throw new UnsupportedOperationException("source must be File, URL or String");
+    }
+
+    /**
+     * Return a string which represents the full path of the source of this JSON text.
+     * This is useful to construct an error message of tokenizers and parsers.
+     *
+     * @return
+     */
+    public String fullName() {
         if (source instanceof File) {
             return ((File) source).toString();
         } else if (source instanceof URL) {
