@@ -29,6 +29,8 @@ import java.util.List;
 /**
  * Represents one JSON text.
  *
+ * TODO: support InputStream as an input.
+ *
  * An instance of this class is immutable.
  */
 public class JSONText {
@@ -172,6 +174,11 @@ public class JSONText {
             throw new NullPointerException("url cannot be null");
         }
 
+        /*
+         * TODO: RFC 8259 allows to add BOM (U+FEFF) to the beginning of
+         *       a networked-transmitted JSON text. To improve the interoperability
+         *       remove the BOM if exists.
+         */
         String text = IOUtils.toString(url, StandardCharsets.UTF_8);
         return new JSONText(text, url);
     }
