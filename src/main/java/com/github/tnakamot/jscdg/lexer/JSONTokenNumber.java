@@ -41,7 +41,8 @@ public class JSONTokenNumber extends JSONToken {
     protected JSONTokenNumber(String text, StringLocation location, JSONText source) {
         super(JSONTokenType.NUMBER, text, location, source);
 
-        /* TODO: check if the given token follows RFC 8259 and raise an exception if not. */
+        // Assume that the lexer which creates this instance validated the
+        // 'text' follows RFC 8259.
     }
 
     /**

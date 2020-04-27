@@ -234,7 +234,7 @@ public class JSONLexer {
                                 unicode = unicode + (v - 'A') + 10;
                             } else {
                                 throw new JSONLexerException(source, location.previous(), errMsgConfig,
-                                        "an Unicode escape sequence must consist of four characters of [0-9A-Fa-f]");
+                                        "an Unicode escape sequence must consist of four characters of [0-9A-Fa-f], but found '" + v + "'");
                             }
                         }
 
@@ -242,7 +242,7 @@ public class JSONLexer {
                         break;
                     default:
                         throw new JSONLexerException(source, location.previous(), errMsgConfig,
-                                "unexpected character for an escape sequence");
+                                "unexpected character '" + ch + "' for an escape sequence");
                 }
 
                 escaped = false;
@@ -276,6 +276,7 @@ public class JSONLexer {
 
         boolean negative = false;
         boolean intStartsWithZero = false;
+        int numberOfDigitsInInt  = 0;
         int numberOfDigitsInFrac = 0;
         int numberOfDigitsInExp  = 0;
         boolean expStartsWithSign = false;
@@ -283,7 +284,20 @@ public class JSONLexer {
         char ch = '\0';
 
         while (moreToRead) {
-            ch = readChar();
+            int ich = read();
+            if (ich == -1) {
+                if (tokenText.length()  == 0 ||
+                    numberOfDigitsInInt == 0 ||
+                    (numberOfDigitsInFrac == 0 && stage == JSONNumberParserStage.FRAC) ||
+                    (numberOfDigitsInExp == 0 && stage == JSONNumberParserStage.EXP)) {
+                    throw new JSONLexerException(source, location, errMsgConfig,
+                            "reached EOF unexpectedly");
+                } else {
+                    break;
+                }
+            }
+
+            ch = (char) ich;
             tokenText.append(ch);
 
             switch (stage) {
@@ -299,9 +313,11 @@ public class JSONLexer {
                         // If the integer part of the number starts with zero, no leading
                         // zeros are not allowed by RFC 8259. Skip parsing the integer part.
                         stage = JSONNumberParserStage.INT;
+                        numberOfDigitsInInt += 1;
                         intStartsWithZero = true;
                     } else if ('1' <= ch && ch <= '9') {
                         stage = JSONNumberParserStage.INT;
+                        numberOfDigitsInInt += 1;
                         intStartsWithZero = false;
                     } else {
                         if (negative) {
@@ -315,12 +331,14 @@ public class JSONLexer {
                     break;
                 case INT:
                     if ((!intStartsWithZero) && '0' <= ch && ch <= '9') {
-                        // Do nothing. Continue reading the integer part.
+                        numberOfDigitsInInt += 1;
                     } else if (ch == '.') {
                         stage = JSONNumberParserStage.FRAC;
                     } else if (ch == 'e' || ch == 'E') {
                         stage = JSONNumberParserStage.EXP;
                     } else {
+                        pushBack(ch);
+                        tokenText.deleteCharAt(tokenText.length() - 1);
                         moreToRead = false; // exit the loop
                     }
                     break;
@@ -333,6 +351,8 @@ public class JSONLexer {
                         throw new JSONLexerException(source, location.previous(), errMsgConfig,
                                 "there must be a digit (0-9) right after decimal point '.'");
                     } else {
+                        pushBack(ch);
+                        tokenText.deleteCharAt(tokenText.length() - 1);
                         moreToRead = false; // exit the loop
                     }
                     break;
@@ -350,6 +370,8 @@ public class JSONLexer {
                                     "there must be a digit (0-9) or a sign ('+' or '-') right after an exponent mark ('e' or 'E')");
                         }
                     } else {
+                        pushBack(ch);
+                        tokenText.deleteCharAt(tokenText.length() - 1);
                         moreToRead = false; // exit the loop
                     }
                     break;
@@ -357,10 +379,6 @@ public class JSONLexer {
                     throw new RuntimeException("the code must not reach here");
             }
         }
-
-        // Push back the last character that was not considered as a part of this number token.
-        pushBack(ch);
-        tokenText.deleteCharAt(tokenText.length() - 1);
 
         return new JSONTokenNumber(tokenText.toString(), originalLocation, source);
     }
