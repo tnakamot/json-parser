@@ -19,7 +19,8 @@ package com.github.tnakamot.jscdg.lexer;
 /**
  * Represents one token in JSON text.
  *
- * An instance of this class is immutable.
+ * <p>
+ * Instances of this class are immutable.
  */
 public class JSONToken {
     private final JSONTokenType type;
@@ -59,7 +60,7 @@ public class JSONToken {
     }
 
     /**
-     * @return text of this token.
+     * @return text of this token as it appears in the source JSON text.
      */
     public String text() {
         return text;
@@ -80,6 +81,4 @@ public class JSONToken {
     public JSONText source() {
         return source;
     }
-
-    /* TODO: overwrite toString */
 }

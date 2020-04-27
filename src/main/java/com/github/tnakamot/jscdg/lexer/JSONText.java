@@ -21,6 +21,7 @@ import org.apache.commons.io.IOUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -29,9 +30,11 @@ import java.util.List;
 /**
  * Represents one JSON text.
  *
- * TODO: support InputStream as an input.
+ * <p>
+ * Instances of this class are immutable.
  *
- * An instance of this class is immutable.
+ * <p>
+ * TODO: support {@link InputStream} as an input.
  */
 public class JSONText {
     private final String text;
@@ -71,10 +74,10 @@ public class JSONText {
      * @throws IOException if an I/O error occurs
      * @throws JSONLexerException if there is a syntax error in JSON text
      */
-    public List<JSONToken> tokens(JSONLexerErrorMessageConfiguration errMsgConfig)
+    public List<JSONToken> tokens(JSONLexerErrorMessageFormat errMsgFmt)
             throws IOException, JSONLexerException {
         List<JSONToken> tokens = new ArrayList<>();
-        JSONLexer lexer = new JSONLexer(this, errMsgConfig);
+        JSONLexer lexer = new JSONLexer(this, errMsgFmt);
         JSONToken token;
 
         while ((token = lexer.next()) != null)
@@ -83,17 +86,19 @@ public class JSONText {
         return tokens;
     }
 
+    /**
+     * Tokenize the JSON text.
+     *
+     * @return Sequence of JSON tokens.
+     * @throws IOException if an I/O error occurs
+     * @throws JSONLexerException if there is a syntax error in JSON text
+     */
     public List<JSONToken> tokens()
             throws IOException, JSONLexerException {
-        JSONLexerErrorMessageConfiguration errMsgConfig =
-                JSONLexerErrorMessageConfiguration.builder()
-                        .setShowFullPath(false)
-                        .setShowLineAndColumnNumber(true)
-                        .setShowErrorLine(false)
-                        .build();
-        return tokens(errMsgConfig);
+        JSONLexerErrorMessageFormat errMsgFmt =
+                JSONLexerErrorMessageFormat.builder().build();
+        return tokens(errMsgFmt);
     }
-
 
     /**
      * Return a string which represents the name of the source of this JSON text.

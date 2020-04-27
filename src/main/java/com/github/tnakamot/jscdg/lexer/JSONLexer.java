@@ -21,18 +21,19 @@ import java.io.PushbackReader;
 import java.io.StringReader;
 
 /**
- * An implementation of lexical analyzer of JSON text.
+ * An implementation of lexical analyzer for JSON texts.
  *
- * The instance of this class is not thread-safe.
+ * <p>
+ * Instances of this class are immutable.
  */
 public class JSONLexer {
     private final JSONText source;
-    private final JSONLexerErrorMessageConfiguration errMsgConfig;
+    private final JSONLexerErrorMessageFormat errMsgConfig;
     private final PushbackReader reader;
 
     StringLocation location;
 
-    protected JSONLexer(JSONText source, JSONLexerErrorMessageConfiguration errMsgConfig) {
+    protected JSONLexer(JSONText source, JSONLexerErrorMessageFormat errMsgConfig) {
         if (source == null) {
             throw new NullPointerException("source cannot be null");
         } else if (errMsgConfig == null) {
@@ -132,7 +133,11 @@ public class JSONLexer {
             case '"':
                 pushBack(ch);
                 return readString();
-            // TODO: support number
+            case '-':
+            case '0': case '1': case '2': case '3': case '4':
+            case '5': case '6': case '7': case '8': case '9':
+                pushBack(ch);
+                return readNumber();
             default:
                 throw new JSONLexerException(source, startLocation, errMsgConfig,
                         "unknown token starting with '" + ch +"'");
@@ -161,9 +166,9 @@ public class JSONLexer {
     /**
      * Read one JSON string token.
      *
-     * @return
-     * @throws IOException
-     * @throws JSONLexerException
+     * @return an instance of {@link JSONTokenString} as a result of tokenization.
+     * @throws IOException if I/O error happens
+     * @throws JSONLexerException if there is a syntax error in JSON text
      * @see <a href="https://tools.ietf.org/html/rfc8259#section-7">RFC 8259 - 7. Strings</a>
      */
     private JSONTokenString readString()
@@ -251,6 +256,19 @@ public class JSONLexer {
         }
 
         return new JSONTokenString(tokenText.toString(), strValue.toString(), originalLocation, source);
+    }
+
+    /**
+     * Read one JSON number token
+     *
+     * @return an instance of {@link JSONTokenNumber} as a result of tokenization.
+     * @throws IOException if I/O error happens
+     * @throws JSONLexerException if there is a syntax error in JSON text
+     * @see <a href="https://tools.ietf.org/html/rfc8259#section-6">RFC 8259 - 6. Numbers</a>
+     */
+    private JSONTokenNumber readNumber()
+            throws IOException, JSONLexerException {
+        throw new UnsupportedOperationException("TODO: support JSON number types");
     }
 
     /**

@@ -17,9 +17,16 @@
 package com.github.tnakamot.jscdg.lexer;
 
 /**
- * Represents one 'string' type token in JSON text.
+ * Represents one "string" type token in JSON text.
  *
- * An instance of this class is immutable.
+ * <p>
+ * A string token in a JSON text is surrounded by double quotations, and some special characters
+ * are unescaped. The method {@link #value()} strips the surrounding double quotations, unescape
+ * the escaped characters and returns in accordance with
+ * <a href="https://tools.ietf.org/html/rfc8259#section-7">RFC 8259 - 7. Strings</a>.
+ *
+ * <p>
+ * Instances of this class are immutable.
  */
 public class JSONTokenString extends JSONToken {
     private final String value;
@@ -29,6 +36,13 @@ public class JSONTokenString extends JSONToken {
         this.value = value;
     }
 
+    /**
+     * Returns the string value of this token represents. All escapes characters in the original
+     * JSON text are unescaped.
+     *
+     * @return The string value of this token represents.
+     * @see <a href="https://tools.ietf.org/html/rfc8259#section-7">RFC 8259 - 7. Strings</a>
+     */
     public String value() {
         return value;
     }

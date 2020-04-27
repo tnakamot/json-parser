@@ -17,30 +17,57 @@
 package com.github.tnakamot.jscdg.lexer;
 
 /**
- * Thrown when a JSON lexical analyzer fails to tokenize the given JSON text.
+ * Thrown when a JSON lexical analyzer fails to tokenize a given JSON text.
+ *
+ * <p>
+ * Instances of this class are immutable.
+ *
+ * <p>
+ * TODO: document how the error messages are printed
+ *
+ * <p>
+ * TODO: support {@link JSONLexerErrorMessageFormat#showErrorLine()}
+ *
  */
 public class JSONLexerException extends Exception {
     private final String msg;
     private final JSONText source;
     private final StringLocation location;
-    private final JSONLexerErrorMessageConfiguration errMsgConfig;
+    private final JSONLexerErrorMessageFormat errMsgFmt;
 
+    /**
+     * Instantiate this exception.
+     *
+     * @param source       JSON text that has a problem
+     * @param location     location of the problem within the source JSON text
+     * @param errMsgFmt configuration to change the error message format of this exception
+     * @param msg          error message which explains the problem
+     */
     public JSONLexerException(JSONText source,
                               StringLocation location,
-                              JSONLexerErrorMessageConfiguration errMsgConfig,
+                              JSONLexerErrorMessageFormat errMsgFmt,
                               String msg)
     {
         super(msg);
-        this.msg          = msg;
-        this.source       = source;
-        this.location     = location;
-        this.errMsgConfig = errMsgConfig;
+        this.msg       = msg;
+        this.source    = source;
+        this.location  = location;
+        this.errMsgFmt = errMsgFmt;
     }
 
+    /**
+     * @return the JSON text that cannot be tokenized properly.
+     */
     public JSONText source() {
         return source;
     }
 
+    /**
+     * Returns the location of hte problem where the lexical analyzer failed to tokenize
+     * the given JSON text.
+     *
+     * @return location of the problem within the source JSON text
+     */
     public StringLocation location() {
         return location;
     }
@@ -50,7 +77,7 @@ public class JSONLexerException extends Exception {
         // TODO: write test cases
 
         StringBuilder sb = new StringBuilder();
-        if (errMsgConfig.showFullPath()) {
+        if (errMsgFmt.showFullPath()) {
             sb.append(source.fullName());
         } else {
             sb.append(source.name());
@@ -58,7 +85,7 @@ public class JSONLexerException extends Exception {
 
         sb.append(":");
 
-        if (errMsgConfig.showLineAndColumnNumber()) {
+        if (errMsgFmt.showLineAndColumnNumber()) {
             sb.append(location.line());
             sb.append(":");
             sb.append(location.column());
@@ -69,7 +96,7 @@ public class JSONLexerException extends Exception {
         sb.append(": ");
         sb.append(msg);
 
-        if (errMsgConfig.showErrorLine()) {
+        if (errMsgFmt.showErrorLine()) {
             // TODO: show the error line
         }
 

@@ -1,6 +1,6 @@
 /**
  * This package includes classes to tokenize JSON text based
- * on RFC 8259.
+ * on <a href="https://tools.ietf.org/html/rfc8259">RFC 8259</a>.
  *
  * @see <a href="https://tools.ietf.org/html/rfc8259">RFC 8259</a>
  */

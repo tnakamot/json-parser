@@ -17,9 +17,15 @@
 package com.github.tnakamot.jscdg.lexer;
 
 /**
- * Represents one 'boolean" type token in JSON text.
+ * Represents one "boolean" type token in JSON text.
  *
- * An instance of this class is immutable.
+ * <p>
+ * Based on <a href="https://tools.ietf.org/html/rfc8259">RFC 8259</a>, the token text returned
+ * by {@link #text()} is either "true" or "false". The representation in Java as a boolean primitive
+ * can be obtained by {@link #value()}.
+ *
+ * <p>
+ * Instances of this class are immutable.
  */
 public class JSONTokenBoolean extends JSONToken {
     public static final String JSON_TRUE  = "true";
@@ -39,6 +45,9 @@ public class JSONTokenBoolean extends JSONToken {
         }
     }
 
+    /**
+     * @return The boolean value of this token represents.
+     */
     public boolean value() {
         return value;
     }

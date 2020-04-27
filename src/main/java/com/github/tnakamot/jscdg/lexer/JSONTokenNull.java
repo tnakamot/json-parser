@@ -16,6 +16,16 @@
 
 package com.github.tnakamot.jscdg.lexer;
 
+/**
+ * Represents one "null" token in JSON text.
+ *
+ * <p>
+ * Based on <a href="https://tools.ietf.org/html/rfc8259">RFC 8259</a>, the token text returned
+ * by {@link #text()} is always "null".
+ *
+ * <p>
+ * Instances of this class are immutable.
+ */
 public class JSONTokenNull extends JSONToken {
     public static final String JSON_NULL  = "null";
 
