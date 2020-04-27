@@ -25,7 +25,7 @@ public class JSONLexerTest {
     @Test
     public void testSimpleObject() throws IOException, JSONLexerException {
         // TODO: add number
-        JSONText jsText = JSONText.fromString(" { \"key\":\r\n[true,\nfalse,\rnull]\n\r} ");
+        JSONText jsText = JSONText.fromString(" { \"key\":\r\n[true,\nfalse,\rnull, -15.234e2]\n\r} ");
         List<JSONToken> tokens = jsText.tokens();
 
         assertEquals(JSONTokenType.BEGIN_OBJECT, tokens.get(0).type());
@@ -98,19 +98,35 @@ public class JSONLexerTest {
         assertEquals(jsText, tokens.get(8).source());
         assertTrue(tokens.get(8) instanceof JSONTokenNull);
 
-        assertEquals(JSONTokenType.END_ARRAY, tokens.get(9).type());
-        assertEquals("]", tokens.get(9).text());
+        assertEquals(JSONTokenType.VALUE_SEPARATOR, tokens.get(9).type());
+        assertEquals(",", tokens.get(9).text());
         assertEquals(29, tokens.get(9).location().position());
         assertEquals(4, tokens.get(9).location().line());
         assertEquals(5, tokens.get(9).location().column());
         assertEquals(jsText, tokens.get(9).source());
 
-        assertEquals(JSONTokenType.END_OBJECT, tokens.get(10).type());
-        assertEquals("}", tokens.get(10).text());
-        assertEquals(32, tokens.get(10).location().position());
-        assertEquals(6, tokens.get(10).location().line());
-        assertEquals(1, tokens.get(10).location().column());
+        assertEquals(JSONTokenType.NUMBER, tokens.get(10).type());
+        assertEquals("-15.234e2", tokens.get(10).text());
+        assertEquals(31, tokens.get(10).location().position());
+        assertEquals(4, tokens.get(10).location().line());
+        assertEquals(7, tokens.get(10).location().column());
+        assertTrue(tokens.get(10) instanceof JSONTokenNumber);
+        assertEquals(-15.234e2, ((JSONTokenNumber)tokens.get(10)).toDouble(), 0);
         assertEquals(jsText, tokens.get(10).source());
+
+        assertEquals(JSONTokenType.END_ARRAY, tokens.get(11).type());
+        assertEquals("]", tokens.get(11).text());
+        assertEquals(40, tokens.get(11).location().position());
+        assertEquals(4, tokens.get(11).location().line());
+        assertEquals(16, tokens.get(11).location().column());
+        assertEquals(jsText, tokens.get(11).source());
+
+        assertEquals(JSONTokenType.END_OBJECT, tokens.get(12).type());
+        assertEquals("}", tokens.get(12).text());
+        assertEquals(43, tokens.get(12).location().position());
+        assertEquals(6, tokens.get(12).location().line());
+        assertEquals(1, tokens.get(12).location().column());
+        assertEquals(jsText, tokens.get(12).source());
     }
 
     @Test

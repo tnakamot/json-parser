@@ -258,8 +258,10 @@ public class JSONLexer {
         return new JSONTokenString(tokenText.toString(), strValue.toString(), originalLocation, source);
     }
 
+    private enum JSONNumberParserStage { MINUS, INT, FRAC, EXP }
+
     /**
-     * Read one JSON number token
+     * Read one JSON number token.
      *
      * @return an instance of {@link JSONTokenNumber} as a result of tokenization.
      * @throws IOException if I/O error happens
@@ -268,7 +270,99 @@ public class JSONLexer {
      */
     private JSONTokenNumber readNumber()
             throws IOException, JSONLexerException {
-        throw new UnsupportedOperationException("TODO: support JSON number types");
+        StringLocation originalLocation = location;
+        StringBuilder tokenText = new StringBuilder();
+        JSONNumberParserStage stage = JSONNumberParserStage.MINUS;
+
+        boolean negative = false;
+        boolean intStartsWithZero = false;
+        int numberOfDigitsInFrac = 0;
+        int numberOfDigitsInExp  = 0;
+        boolean expStartsWithSign = false;
+        boolean moreToRead = true;
+        char ch = '\0';
+
+        while (moreToRead) {
+            ch = readChar();
+            tokenText.append(ch);
+
+            switch (stage) {
+                case MINUS:
+                    if (ch == '-') {
+                        // read the minus sign if it exists.
+                        ch = readChar();
+                        tokenText.append(ch);
+                        negative = true;
+                    }
+
+                    if (ch == '0') {
+                        // If the integer part of the number starts with zero, no leading
+                        // zeros are not allowed by RFC 8259. Skip parsing the integer part.
+                        stage = JSONNumberParserStage.INT;
+                        intStartsWithZero = true;
+                    } else if ('1' <= ch && ch <= '9') {
+                        stage = JSONNumberParserStage.INT;
+                        intStartsWithZero = false;
+                    } else {
+                        if (negative) {
+                            throw new JSONLexerException(source, location.previous(), errMsgConfig,
+                                    "there must be a digit (0-9) right after the negative sign '-'");
+                        } else {
+                            throw new JSONLexerException(source, location.previous(), errMsgConfig,
+                                    "a number token must starts with a negative sign '-' or a digit (0-9)");
+                        }
+                    }
+                    break;
+                case INT:
+                    if ((!intStartsWithZero) && '0' <= ch && ch <= '9') {
+                        // Do nothing. Continue reading the integer part.
+                    } else if (ch == '.') {
+                        stage = JSONNumberParserStage.FRAC;
+                    } else if (ch == 'e' || ch == 'E') {
+                        stage = JSONNumberParserStage.EXP;
+                    } else {
+                        moreToRead = false; // exit the loop
+                    }
+                    break;
+                case FRAC:
+                    if ('0' <= ch && ch <= '9') {
+                        numberOfDigitsInFrac += 1;
+                    } else if (ch == 'e' || ch == 'E') {
+                        stage = JSONNumberParserStage.EXP;
+                    } else if (numberOfDigitsInFrac == 0){
+                        throw new JSONLexerException(source, location.previous(), errMsgConfig,
+                                "there must be a digit (0-9) right after decimal point '.'");
+                    } else {
+                        moreToRead = false; // exit the loop
+                    }
+                    break;
+                case EXP:
+                    if (ch == '+' || ch == '-') {
+                        expStartsWithSign = true;
+                    } else if ('0' <= ch && ch <= '9') {
+                        numberOfDigitsInExp += 1;
+                    } else if (numberOfDigitsInExp == 0) {
+                        if (expStartsWithSign) {
+                            throw new JSONLexerException(source, location.previous(), errMsgConfig,
+                                    "there must be a digit (0-9) right after a sign ('+' or '-')");
+                        } else {
+                            throw new JSONLexerException(source, location.previous(), errMsgConfig,
+                                    "there must be a digit (0-9) or a sign ('+' or '-') right after an exponent mark ('e' or 'E')");
+                        }
+                    } else {
+                        moreToRead = false; // exit the loop
+                    }
+                    break;
+                default:
+                    throw new RuntimeException("the code must not reach here");
+            }
+        }
+
+        // Push back the last character that was not considered as a part of this number token.
+        pushBack(ch);
+        tokenText.deleteCharAt(tokenText.length() - 1);
+
+        return new JSONTokenNumber(tokenText.toString(), originalLocation, source);
     }
 
     /**
