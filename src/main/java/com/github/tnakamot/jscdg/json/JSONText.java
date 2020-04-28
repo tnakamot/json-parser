@@ -113,10 +113,11 @@ public class JSONText {
     }
 
     /**
-     * Return a string which represents the name of the source of this JSON text.
-     * This is useful to construct an error message of tokenizers and parsers.
+     * Return a string which represents a short name of the source of this
+     * JSON text. This is useful to construct an error message of JSON
+     * parsers.
      *
-     * @return
+     * @return name of this JSON text.
      */
     public String name() {
         if (source instanceof File) {
@@ -137,16 +138,16 @@ public class JSONText {
     }
 
     /**
-     * Return a string which represents the full path of the source of this JSON text.
-     * This is useful to construct an error message of tokenizers and parsers.
+     * Return a string which represents the full path of the source
+     * of this JSON text. This is useful to construct an error message
+     * of JSON parsers.
      *
-     * @return
+     * @return full path of this JSON text.
      */
     public String fullName() {
-        if (source instanceof File) {
-            return ((File) source).toString();
-        } else if (source instanceof URL) {
-            return ((URL) source).toString();
+        if (source instanceof File ||
+            source instanceof URL) {
+            return source.toString();
         } else if (source instanceof String) {
             return "(inner-string)";
         }
@@ -165,7 +166,7 @@ public class JSONText {
      *
      * @param file JSON text file.
      * @return An instance of JSON text.
-     * @throws IOException
+     * @throws IOException in case of an I/O error
      * @see <a href="https://tools.ietf.org/html/rfc8259#section-8.1">RFC 8259 - 8.1. Character Encoding</a>
      */
     public static JSONText fromFile(File file) throws IOException {
@@ -183,7 +184,7 @@ public class JSONText {
      *
      * @param url URL of a JSON text file.
      * @return An instance of JSON text.
-     * @throws IOException
+     * @throws IOException if an I/O exception occurs
      * @see <a href="https://tools.ietf.org/html/rfc8259#section-8.1">RFC 8259 - 8.1. Character Encoding</a>
      */
     public static JSONText fromURL(URL url) throws IOException {

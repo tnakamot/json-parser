@@ -100,6 +100,7 @@ public class JSONParserException extends Exception {
 
         if (errMsgFmt.showErrorLine()) {
             // TODO: show the error line
+            throw new UnsupportedOperationException("error line is not supported yet");
         }
 
         return sb.toString();

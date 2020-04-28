@@ -202,12 +202,10 @@ public class JSONLexer {
             tokenText.append(ch);
 
             if (ch < 0x20) {
-                StringBuilder errmsg = new StringBuilder();
-                errmsg.append("control character ");
-                errmsg.append(String.format("U+%04x", (int)ch));
-                errmsg.append(" is not allowed in a JSON string token");
                 throw new JSONParserException(source, location.previous(), errMsgFmt,
-                        errmsg.toString());
+                        String.format(
+                                "control character U+%04x is not allowed in a JSON string token",
+                                (int) ch));
             }
 
             if (escaped) {
@@ -294,7 +292,7 @@ public class JSONLexer {
         int numberOfDigitsInExp  = 0;
         boolean expStartsWithSign = false;
         boolean moreToRead = true;
-        char ch = '\0';
+        char ch;
 
         while (moreToRead) {
             int ich = read();
