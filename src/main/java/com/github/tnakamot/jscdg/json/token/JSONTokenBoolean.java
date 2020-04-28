@@ -14,7 +14,9 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.github.tnakamot.jscdg.lexer;
+package com.github.tnakamot.jscdg.json.token;
+
+import com.github.tnakamot.jscdg.json.JSONText;
 
 /**
  * Represents one "boolean" type token in JSON text.
@@ -33,7 +35,18 @@ public class JSONTokenBoolean extends JSONToken {
 
     private final boolean value;
 
-    protected JSONTokenBoolean(String text, StringLocation location, JSONText source) {
+    /**
+     * Creates one "boolean" type token of a JSON text.
+     *
+     * <p>
+     * It is the caller's responsibility to validate the token text as boolean
+     * before creating this instance.
+     *
+     * @param text     text of this token
+     * @param location location of this token within the source JSON text
+     * @param source   source JSON text where this token was extracted from
+     */
+    public JSONTokenBoolean(String text, StringLocation location, JSONText source) {
         super(JSONTokenType.BOOLEAN, text, location, source);
         if (JSON_TRUE.equals(text)) {
             this.value = true;

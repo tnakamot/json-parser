@@ -14,7 +14,9 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.github.tnakamot.jscdg.lexer;
+package com.github.tnakamot.jscdg.json.token;
+
+import com.github.tnakamot.jscdg.json.JSONText;
 
 /**
  * Represents one "string" type token in JSON text.
@@ -31,7 +33,22 @@ package com.github.tnakamot.jscdg.lexer;
 public class JSONTokenString extends JSONToken {
     private final String value;
 
-    protected JSONTokenString(String text, String value, StringLocation location, JSONText source) {
+    /**
+     * Creates one "string" type token of a JSON text.
+     *
+     * <p>
+     * It is the caller's responsibility to validate the token text as string
+     * before creating this instance.
+     *
+     * @param text     text of this token
+     * @param value    string value that this token represents
+     *                 (it is a caller's responsibility to parse the token text,
+     *                  strip surrounding double quotations and unescape escaped
+     *                  characters)
+     * @param location location of this token within the source JSON text
+     * @param source   source JSON text where this token was extracted from
+     */
+    public JSONTokenString(String text, String value, StringLocation location, JSONText source) {
         super(JSONTokenType.STRING, text, location, source);
         this.value = value;
     }

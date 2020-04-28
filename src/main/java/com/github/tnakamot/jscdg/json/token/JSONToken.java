@@ -14,7 +14,9 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.github.tnakamot.jscdg.lexer;
+package com.github.tnakamot.jscdg.json.token;
+
+import com.github.tnakamot.jscdg.json.JSONText;
 
 /**
  * Represents one token in JSON text.
@@ -26,17 +28,17 @@ public class JSONToken {
     private final JSONTokenType type;
     private final String        text;
     private final StringLocation location;
-    private final JSONText      source;
+    private final JSONText source;
 
     /**
-     * Create one JSON token.
+     * Create one JSON text token.
      *
      * @param type     type of this token
      * @param text     text of this token
      * @param location location of this token within the source JSON text
      * @param source   source JSON text where this token was extracted from
      */
-    protected JSONToken(JSONTokenType type, String text, StringLocation location, JSONText source) {
+    public JSONToken(JSONTokenType type, String text, StringLocation location, JSONText source) {
         this.type     = type;
         this.text     = text;
         this.location = location;
@@ -53,6 +55,8 @@ public class JSONToken {
     }
 
     /**
+     * Type of this token.
+     *
      * @return type of this token
      */
     public JSONTokenType type() {
@@ -60,23 +64,27 @@ public class JSONToken {
     }
 
     /**
-     * @return text of this token as it appears in the source JSON text.
+     * Text representation of this token as it appears in the source JSON text.
+     *
+     * @return text representation of this token as it appears in the source JSON text.
      */
     public String text() {
         return text;
     }
 
     /**
-     * @return the location of the beginning of the token within the source JSON text.
+     * Location of the beginning of the token within the source JSON text.
+     *
+     * @return location of the beginning of the token within the source JSON text.
      */
     public StringLocation location() {
         return location;
     }
 
     /**
-     * The source JSON text where this token was extracted from.
+     * Source JSON text where this token was extracted from.
      *
-     * @return An instance of JSON text.
+     * @return source JSON text where this token was extracted from.
      */
     public JSONText source() {
         return source;

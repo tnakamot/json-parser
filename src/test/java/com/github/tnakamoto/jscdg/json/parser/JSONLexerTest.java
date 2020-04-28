@@ -1,9 +1,10 @@
-package com.github.tnakamoto.jscdg.lexer;
+package com.github.tnakamoto.jscdg.json.parser;
 
 import static org.junit.Assert.*;
 
-import com.github.tnakamot.jscdg.lexer.*;
-import org.junit.Before;
+import com.github.tnakamot.jscdg.json.JSONText;
+import com.github.tnakamot.jscdg.json.parser.*;
+import com.github.tnakamot.jscdg.json.token.*;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -11,19 +12,19 @@ import java.util.List;
 
 public class JSONLexerTest {
     @Test
-    public void testEmpty() throws IOException, JSONLexerException {
+    public void testEmpty() throws IOException, JSONParserException {
         List<JSONToken> tokens = JSONText.fromString("").tokens();
         assertEquals(0, tokens.size());
     }
 
     @Test
-    public void testWSOnly() throws IOException, JSONLexerException {
+    public void testWSOnly() throws IOException, JSONParserException {
         List<JSONToken> tokens = JSONText.fromString(" \r\n\t").tokens();
         assertEquals(0, tokens.size());
     }
 
     @Test
-    public void testSimpleObject() throws IOException, JSONLexerException {
+    public void testSimpleObject() throws IOException, JSONParserException {
         // TODO: add number
         JSONText jsText = JSONText.fromString(" { \"key\":\r\n[true,\nfalse,\rnull, -15.234e2]\n\r} ");
         List<JSONToken> tokens = jsText.tokens();
@@ -133,8 +134,8 @@ public class JSONLexerTest {
     public void testUnknownToken1() {
         JSONText jsText = JSONText.fromString("( )");
 
-        JSONLexerException ex = assertThrows(
-                JSONLexerException.class,
+        JSONParserException ex = assertThrows(
+                JSONParserException.class,
                 jsText::tokens);
         assertEquals(jsText, ex.source());
         assertEquals(0, ex.location().position());
@@ -146,8 +147,8 @@ public class JSONLexerTest {
     public void testUnknownToken2() {
         JSONText jsText = JSONText.fromString("{\n\"key\":\n True\n}");
 
-        JSONLexerException ex = assertThrows(
-                JSONLexerException.class,
+        JSONParserException ex = assertThrows(
+                JSONParserException.class,
                 jsText::tokens);
         assertEquals(jsText, ex.source());
         assertEquals(10, ex.location().position());
@@ -159,8 +160,8 @@ public class JSONLexerTest {
     public void testUnknownToken3() {
         JSONText jsText = JSONText.fromString("{\n\"key\":\n trUe\n}");
 
-        JSONLexerException ex = assertThrows(
-                JSONLexerException.class,
+        JSONParserException ex = assertThrows(
+                JSONParserException.class,
                 jsText::tokens);
         assertEquals(jsText, ex.source());
         assertEquals(10, ex.location().position());
@@ -172,8 +173,8 @@ public class JSONLexerTest {
     public void testUnexpectedEOF01() {
         JSONText jsText = JSONText.fromString("{\n\"key\":\n tr");
 
-        JSONLexerException ex = assertThrows(
-                JSONLexerException.class,
+        JSONParserException ex = assertThrows(
+                JSONParserException.class,
                 jsText::tokens);
         assertEquals(jsText, ex.source());
         assertEquals(12, ex.location().position());
@@ -185,8 +186,8 @@ public class JSONLexerTest {
     public void testUnexpectedEOF02() {
         JSONText jsText = JSONText.fromString("{\n\"ke");
 
-        JSONLexerException ex = assertThrows(
-                JSONLexerException.class,
+        JSONParserException ex = assertThrows(
+                JSONParserException.class,
                 jsText::tokens);
         assertEquals(jsText, ex.source());
         assertEquals(5, ex.location().position());
@@ -198,8 +199,8 @@ public class JSONLexerTest {
     public void testUnexpectedEOF03() {
         JSONText jsText = JSONText.fromString("\"key");
 
-        JSONLexerException ex = assertThrows(
-                JSONLexerException.class,
+        JSONParserException ex = assertThrows(
+                JSONParserException.class,
                 jsText::tokens);
         assertEquals(jsText, ex.source());
         assertEquals(4, ex.location().position());
@@ -211,8 +212,8 @@ public class JSONLexerTest {
     public void testUnexpectedEOF04() {
         JSONText jsText = JSONText.fromString("123.");
 
-        JSONLexerException ex = assertThrows(
-                JSONLexerException.class,
+        JSONParserException ex = assertThrows(
+                JSONParserException.class,
                 jsText::tokens);
         assertEquals(jsText, ex.source());
         assertEquals(4, ex.location().position());
@@ -224,8 +225,8 @@ public class JSONLexerTest {
     public void testUnexpectedEOF05() {
         JSONText jsText = JSONText.fromString("-");
 
-        JSONLexerException ex = assertThrows(
-                JSONLexerException.class,
+        JSONParserException ex = assertThrows(
+                JSONParserException.class,
                 jsText::tokens);
         assertEquals(jsText, ex.source());
         assertEquals(1, ex.location().position());
@@ -237,8 +238,8 @@ public class JSONLexerTest {
     public void testUnexpectedEOF06() {
         JSONText jsText = JSONText.fromString("-151.");
 
-        JSONLexerException ex = assertThrows(
-                JSONLexerException.class,
+        JSONParserException ex = assertThrows(
+                JSONParserException.class,
                 jsText::tokens);
         assertEquals(jsText, ex.source());
         assertEquals(5, ex.location().position());
@@ -250,8 +251,8 @@ public class JSONLexerTest {
     public void testUnexpectedEOF07() {
         JSONText jsText = JSONText.fromString("-151.5e");
 
-        JSONLexerException ex = assertThrows(
-                JSONLexerException.class,
+        JSONParserException ex = assertThrows(
+                JSONParserException.class,
                 jsText::tokens);
         assertEquals(jsText, ex.source());
         assertEquals(7, ex.location().position());
@@ -263,8 +264,8 @@ public class JSONLexerTest {
     public void testUnexpectedEOF08() {
         JSONText jsText = JSONText.fromString("-151.5E");
 
-        JSONLexerException ex = assertThrows(
-                JSONLexerException.class,
+        JSONParserException ex = assertThrows(
+                JSONParserException.class,
                 jsText::tokens);
         assertEquals(jsText, ex.source());
         assertEquals(7, ex.location().position());
@@ -276,8 +277,8 @@ public class JSONLexerTest {
     public void testUnexpectedEOF09() {
         JSONText jsText = JSONText.fromString("-151.5E-");
 
-        JSONLexerException ex = assertThrows(
-                JSONLexerException.class,
+        JSONParserException ex = assertThrows(
+                JSONParserException.class,
                 jsText::tokens);
         assertEquals(jsText, ex.source());
         assertEquals(8, ex.location().position());
@@ -289,8 +290,8 @@ public class JSONLexerTest {
     public void testUnexpectedEOF10() {
         JSONText jsText = JSONText.fromString("-151.5E+");
 
-        JSONLexerException ex = assertThrows(
-                JSONLexerException.class,
+        JSONParserException ex = assertThrows(
+                JSONParserException.class,
                 jsText::tokens);
         assertEquals(jsText, ex.source());
         assertEquals(8, ex.location().position());
@@ -302,8 +303,8 @@ public class JSONLexerTest {
     public void testControlCharacterInString() {
         JSONText jsText = JSONText.fromString("{ \"key\": \"hello\nworld\" }");
 
-        JSONLexerException ex = assertThrows(
-                JSONLexerException.class,
+        JSONParserException ex = assertThrows(
+                JSONParserException.class,
                 jsText::tokens);
         assertEquals(jsText, ex.source());
         assertEquals(15, ex.location().position());
@@ -312,7 +313,7 @@ public class JSONLexerTest {
     }
 
     @Test
-    public void testEscapedString1() throws IOException, JSONLexerException {
+    public void testEscapedString1() throws IOException, JSONParserException {
         JSONText jsText = JSONText.fromString(
                 "{ \"\\u006b\\u0065\\u0079\": \"\\\"test\\\"\" } "
         );
@@ -338,7 +339,7 @@ public class JSONLexerTest {
     }
 
     @Test
-    public void testEscapedString2() throws IOException, JSONLexerException {
+    public void testEscapedString2() throws IOException, JSONParserException {
         JSONText jsText = JSONText.fromString(
                 "{ \" \\\\ \\/path\\/test \": \"abc\\b\\f\\n\\r\\txyz\" } "
         );
@@ -367,8 +368,8 @@ public class JSONLexerTest {
     public void testInvalidEscapeSequence() {
         JSONText jsText = JSONText.fromString("{ \"key\": \"he \\a llo\" }");
 
-        JSONLexerException ex = assertThrows(
-                JSONLexerException.class,
+        JSONParserException ex = assertThrows(
+                JSONParserException.class,
                 jsText::tokens);
         assertEquals(jsText, ex.source());
         assertEquals(14, ex.location().position());
@@ -380,8 +381,8 @@ public class JSONLexerTest {
     public void testInvalidUnicodeEscapeSequence()  {
         JSONText jsText = JSONText.fromString("{ \"key\": \"he \\u1Zff llo\" }");
 
-        JSONLexerException ex = assertThrows(
-                JSONLexerException.class,
+        JSONParserException ex = assertThrows(
+                JSONParserException.class,
                 jsText::tokens);
         assertEquals(jsText, ex.source());
         assertEquals(16, ex.location().position());
@@ -390,7 +391,7 @@ public class JSONLexerTest {
     }
 
     @Test
-    public void testNumberToken01() throws IOException, JSONLexerException {
+    public void testNumberToken01() throws IOException, JSONParserException {
         JSONText jsText = JSONText.fromString("523");
 
         List<JSONToken> tokens = jsText.tokens();
@@ -407,7 +408,7 @@ public class JSONLexerTest {
     }
 
     @Test
-    public void testNumberToken02() throws IOException, JSONLexerException {
+    public void testNumberToken02() throws IOException, JSONParserException {
         JSONText jsText = JSONText.fromString("-124");
 
         List<JSONToken> tokens = jsText.tokens();
@@ -424,7 +425,7 @@ public class JSONLexerTest {
     }
 
     @Test
-    public void testNumberToken03() throws IOException, JSONLexerException {
+    public void testNumberToken03() throws IOException, JSONParserException {
         JSONText jsText = JSONText.fromString("928.5");
 
         List<JSONToken> tokens = jsText.tokens();
@@ -441,7 +442,7 @@ public class JSONLexerTest {
 
 
     @Test
-    public void testNumberToken04() throws IOException, JSONLexerException {
+    public void testNumberToken04() throws IOException, JSONParserException {
         JSONText jsText = JSONText.fromString("-872.512");
 
         List<JSONToken> tokens = jsText.tokens();
@@ -457,7 +458,7 @@ public class JSONLexerTest {
     }
 
     @Test
-    public void testNumberToken05() throws IOException, JSONLexerException {
+    public void testNumberToken05() throws IOException, JSONParserException {
         // Because leading zero is not allowed, this text is considered
         // to have two number tokens "0" and "12". This text is not valid,
         // but such validation should occur not in a lexical analyzer, but
@@ -486,7 +487,7 @@ public class JSONLexerTest {
      }
 
     @Test
-    public void testNumberToken06() throws IOException, JSONLexerException {
+    public void testNumberToken06() throws IOException, JSONParserException {
         JSONText jsText = JSONText.fromString("-0.015");
 
         List<JSONToken> tokens = jsText.tokens();
@@ -502,7 +503,7 @@ public class JSONLexerTest {
     }
 
     @Test
-    public void testNumberToken07() throws IOException, JSONLexerException {
+    public void testNumberToken07() throws IOException, JSONParserException {
         JSONText jsText = JSONText.fromString("0.987");
 
         List<JSONToken> tokens = jsText.tokens();
@@ -518,7 +519,7 @@ public class JSONLexerTest {
     }
 
     @Test
-    public void testNumberToken08() throws IOException, JSONLexerException {
+    public void testNumberToken08() throws IOException, JSONParserException {
         JSONText jsText = JSONText.fromString("1e6");
 
         List<JSONToken> tokens = jsText.tokens();
@@ -534,7 +535,7 @@ public class JSONLexerTest {
     }
 
     @Test
-    public void testNumberToken09() throws IOException, JSONLexerException {
+    public void testNumberToken09() throws IOException, JSONParserException {
         JSONText jsText = JSONText.fromString("1.24e-12");
 
         List<JSONToken> tokens = jsText.tokens();
@@ -550,7 +551,7 @@ public class JSONLexerTest {
     }
 
     @Test
-    public void testNumberToken10() throws IOException, JSONLexerException {
+    public void testNumberToken10() throws IOException, JSONParserException {
         JSONText jsText = JSONText.fromString("-5.2E+2");
 
         List<JSONToken> tokens = jsText.tokens();

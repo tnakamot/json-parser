@@ -14,7 +14,10 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.github.tnakamot.jscdg.lexer;
+package com.github.tnakamot.jscdg.json.parser;
+
+import com.github.tnakamot.jscdg.json.JSONText;
+import com.github.tnakamot.jscdg.json.token.StringLocation;
 
 /**
  * Thrown when a JSON lexical analyzer fails to tokenize a given JSON text.
@@ -26,14 +29,13 @@ package com.github.tnakamot.jscdg.lexer;
  * TODO: document how the error messages are printed
  *
  * <p>
- * TODO: support {@link JSONLexerErrorMessageFormat#showErrorLine()}
- *
+ * TODO: support {@link JSONParserErrorMessageFormat#showErrorLine()}
  */
-public class JSONLexerException extends Exception {
+public class JSONParserException extends Exception {
     private final String msg;
     private final JSONText source;
     private final StringLocation location;
-    private final JSONLexerErrorMessageFormat errMsgFmt;
+    private final JSONParserErrorMessageFormat errMsgFmt;
 
     /**
      * Instantiate this exception.
@@ -43,10 +45,10 @@ public class JSONLexerException extends Exception {
      * @param errMsgFmt configuration to change the error message format of this exception
      * @param msg          error message which explains the problem
      */
-    public JSONLexerException(JSONText source,
-                              StringLocation location,
-                              JSONLexerErrorMessageFormat errMsgFmt,
-                              String msg)
+    public JSONParserException(JSONText source,
+                               StringLocation location,
+                               JSONParserErrorMessageFormat errMsgFmt,
+                               String msg)
     {
         super(msg);
         this.msg       = msg;

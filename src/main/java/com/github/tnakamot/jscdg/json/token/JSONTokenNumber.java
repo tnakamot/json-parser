@@ -14,7 +14,9 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.github.tnakamot.jscdg.lexer;
+package com.github.tnakamot.jscdg.json.token;
+
+import com.github.tnakamot.jscdg.json.JSONText;
 
 /**
  * Represents one "number" type token in JSON text.
@@ -38,7 +40,19 @@ package com.github.tnakamot.jscdg.lexer;
  * Instances of this class are immutable.
  */
 public class JSONTokenNumber extends JSONToken {
-    protected JSONTokenNumber(String text, StringLocation location, JSONText source) {
+
+    /**
+     * Creates one "number" type token of a JSON text.
+     *
+     * <p>
+     * It is the caller's responsibility to validate the token text as number
+     * before creating this instance.
+     *
+     * @param text     text of this token
+     * @param location location of this token within the source JSON text
+     * @param source   source JSON text where this token was extracted from
+     */
+    public JSONTokenNumber(String text, StringLocation location, JSONText source) {
         super(JSONTokenType.NUMBER, text, location, source);
 
         // Assume that the lexer which creates this instance validated the
@@ -56,6 +70,9 @@ public class JSONTokenNumber extends JSONToken {
      * this method must not assume that the returned double value precisely represents the
      * original number in the JSON text.
      *
+     * <p>
+     * TODO: write unit tests, clarify mapping between the token and Java double representation
+     *
      * @return a Java double value that this token represents
      * @throws NumberFormatException if the token cannot be interpreted as a Java double value
      */
@@ -71,6 +88,9 @@ public class JSONTokenNumber extends JSONToken {
      * value. For example, JSON "number" primitive allows a fraction, but Java long value
      * does not accept a fraction. If this JSON "number" primitive value cannot be converted to
      * a Java long value, this method raises {@link NumberFormatException}.
+     *
+     * <p>
+     * TODO: write unit tests
      *
      * @return a Java long value that this token represents.
      * @throws NumberFormatException if the token cannot be interpreted as a Java long value

@@ -14,7 +14,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.github.tnakamot.jscdg.lexer;
+package com.github.tnakamot.jscdg.json.token;
 
 /**
  * Represents a location in a {@link String}.

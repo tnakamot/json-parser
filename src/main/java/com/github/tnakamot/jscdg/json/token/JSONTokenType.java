@@ -14,10 +14,10 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.github.tnakamot.jscdg.lexer;
+package com.github.tnakamot.jscdg.json.token;
 
 /**
- * Represents a type of token of JSON text.
+ * Represents a type of token in JSON text.
  */
 public enum JSONTokenType {
     BEGIN_ARRAY,

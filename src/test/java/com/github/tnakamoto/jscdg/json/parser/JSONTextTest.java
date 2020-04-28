@@ -1,8 +1,8 @@
-package com.github.tnakamoto.jscdg.lexer;
+package com.github.tnakamoto.jscdg.json.parser;
 
 import static org.junit.Assert.*;
 
-import com.github.tnakamot.jscdg.lexer.JSONText;
+import com.github.tnakamot.jscdg.json.JSONText;
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.Before;

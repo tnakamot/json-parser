@@ -17,7 +17,7 @@
 package com.github.tnakamot.jscdg;
 
 import com.github.tnakamot.jscdg.doxygen.DoxygenGenerator;
-import com.github.tnakamot.jscdg.lexer.JSONTokenType;
+import com.github.tnakamot.jscdg.json.token.JSONTokenType;
 
 import java.util.*;
 import java.util.stream.Collectors;

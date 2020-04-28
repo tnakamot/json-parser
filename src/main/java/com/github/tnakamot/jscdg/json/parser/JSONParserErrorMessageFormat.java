@@ -14,11 +14,11 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.github.tnakamot.jscdg.lexer;
+package com.github.tnakamot.jscdg.json.parser;
 
 /**
  * A data structure to hold the switches to change the error message format
- * of {@link JSONLexerException}. See {@link JSONLexerException} for more details
+ * of {@link JSONParserException}. See {@link JSONParserException} for more details
  * about how the error messages are formatted.
  *
  * <p>
@@ -47,12 +47,12 @@ package com.github.tnakamot.jscdg.lexer;
  * error message format.
  *
  */
-public class JSONLexerErrorMessageFormat {
+public class JSONParserErrorMessageFormat {
     private final boolean showFullPath;
     private final boolean showLineAndColumnNumber;
     private final boolean showErrorLine;
 
-    private JSONLexerErrorMessageFormat(
+    private JSONParserErrorMessageFormat(
             boolean showFullPath,
             boolean showLineAndColumnNumber,
             boolean showErrorLine
@@ -93,12 +93,14 @@ public class JSONLexerErrorMessageFormat {
     }
 
     /**
-     * Builder class of {@link JSONLexerErrorMessageFormat}.
+     * Builder class of {@link JSONParserErrorMessageFormat}.
      */
     public static class Builder {
         private boolean showFullPath            = false;
         private boolean showLineAndColumnNumber = true;
         private boolean showErrorLine           = false;
+
+        private Builder() {}
 
         /**
          * Set showFullPath option.
@@ -134,12 +136,12 @@ public class JSONLexerErrorMessageFormat {
         }
 
         /**
-         * Build a new instance of {@link JSONLexerErrorMessageFormat}.
+         * Build a new instance of {@link JSONParserErrorMessageFormat}.
          *
-         * @return a new instance of {@link JSONLexerErrorMessageFormat}
+         * @return a new instance of {@link JSONParserErrorMessageFormat}
          */
-        public JSONLexerErrorMessageFormat build() {
-            return new JSONLexerErrorMessageFormat(
+        public JSONParserErrorMessageFormat build() {
+            return new JSONParserErrorMessageFormat(
                     showFullPath,
                     showLineAndColumnNumber,
                     showErrorLine

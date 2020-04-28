@@ -14,7 +14,9 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.github.tnakamot.jscdg.lexer;
+package com.github.tnakamot.jscdg.json.token;
+
+import com.github.tnakamot.jscdg.json.JSONText;
 
 /**
  * Represents one "null" token in JSON text.
@@ -29,7 +31,13 @@ package com.github.tnakamot.jscdg.lexer;
 public class JSONTokenNull extends JSONToken {
     public static final String JSON_NULL  = "null";
 
-    protected JSONTokenNull(StringLocation location, JSONText source) {
+    /**
+     * Creates one "null" type token of a JSON text.
+     *
+     * @param location location of this token within the source JSON text
+     * @param source   source JSON text where this token was extracted from
+     */
+    public JSONTokenNull(StringLocation location, JSONText source) {
         super(JSONTokenType.NULL, JSON_NULL, location, source);
     }
 }

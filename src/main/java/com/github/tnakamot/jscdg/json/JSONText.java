@@ -14,8 +14,13 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.github.tnakamot.jscdg.lexer;
+package com.github.tnakamot.jscdg.json;
 
+import com.github.tnakamot.jscdg.json.parser.JSONLexer;
+import com.github.tnakamot.jscdg.json.parser.JSONParserErrorMessageFormat;
+import com.github.tnakamot.jscdg.json.parser.JSONParserException;
+import com.github.tnakamot.jscdg.json.token.JSONToken;
+import com.github.tnakamot.jscdg.json.value.JSONValue;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
@@ -68,14 +73,21 @@ public class JSONText {
     }
 
     /**
+     * Parse the JSON text.
+     */
+    public JSONValue parse() {
+        throw new UnsupportedOperationException("parse() has not been implemented yet");
+    }
+
+    /**
      * Tokenize the JSON text.
      *
      * @return Sequence of JSON tokens.
      * @throws IOException if an I/O error occurs
-     * @throws JSONLexerException if there is a syntax error in JSON text
+     * @throws JSONParserException if there is a syntax error in JSON text
      */
-    public List<JSONToken> tokens(JSONLexerErrorMessageFormat errMsgFmt)
-            throws IOException, JSONLexerException {
+    public List<JSONToken> tokens(JSONParserErrorMessageFormat errMsgFmt)
+            throws IOException, JSONParserException {
         List<JSONToken> tokens = new ArrayList<>();
         JSONLexer lexer = new JSONLexer(this, errMsgFmt);
         JSONToken token;
@@ -91,12 +103,12 @@ public class JSONText {
      *
      * @return Sequence of JSON tokens.
      * @throws IOException if an I/O error occurs
-     * @throws JSONLexerException if there is a syntax error in JSON text
+     * @throws JSONParserException if there is a syntax error in JSON text
      */
     public List<JSONToken> tokens()
-            throws IOException, JSONLexerException {
-        JSONLexerErrorMessageFormat errMsgFmt =
-                JSONLexerErrorMessageFormat.builder().build();
+            throws IOException, JSONParserException {
+        JSONParserErrorMessageFormat errMsgFmt =
+                JSONParserErrorMessageFormat.builder().build();
         return tokens(errMsgFmt);
     }
 
