@@ -6,6 +6,13 @@ import com.github.tnakamot.jscdg.json.token.JSONTokenNumber;
  * Represents one JSON 'number' value.
  *
  * <p>
+ * According to
+ * <a href="https://tools.ietf.org/html/rfc8259#section-6">RFC 8259 - 6. Numbers</a>,
+ * JSON does not set limit for 'number' values. Very large or very precise numbers
+ * cannot be represented by Java primitive types. Therefore, this class internally
+ * holds a text representation of a JSON 'number' value.
+ *
+ * <p>
  * Instances of this class are immutable.
  */
 public class JSONValueNumber extends JSONValuePrimitive {
