@@ -45,6 +45,16 @@ public class JSONValueString extends JSONValuePrimitive {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof JSONValueString) {
+            JSONValueString v = (JSONValueString) obj;
+            return this.value.equals(v);
+        } else {
+            return false;
+        }
+    }
+
+    @Override
     public String toString() {
         return value;
     }
