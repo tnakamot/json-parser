@@ -51,13 +51,17 @@ public class JSONTokenString extends JSONToken {
     public JSONTokenString(String text, String value, StringLocation location, JSONText source) {
         super(JSONTokenType.STRING, text, location, source);
         this.value = value;
+
+        if (value == null) {
+            throw new NullPointerException("value cannot be null");
+        }
     }
 
     /**
      * Returns the string value of this token represents. All escapes characters in the original
      * JSON text are unescaped.
      *
-     * @return The string value of this token represents.
+     * @return The string value of this token represents. Never be null.
      * @see <a href="https://tools.ietf.org/html/rfc8259#section-7">RFC 8259 - 7. Strings</a>
      */
     public String value() {

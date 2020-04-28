@@ -26,7 +26,7 @@ import com.github.tnakamot.jscdg.json.JSONText;
  */
 public class JSONToken {
     private final JSONTokenType type;
-    private final String        text;
+            final String        text;
     private final StringLocation location;
     private final JSONText source;
 
