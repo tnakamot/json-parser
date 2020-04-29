@@ -41,7 +41,6 @@ import com.github.tnakamot.jscdg.json.value.JSONValueNumber;
  * Instances of this class are immutable.
  */
 public class JSONTokenNumber extends JSONToken {
-
     /**
      * Creates one "number" type token of a JSON text.
      *
@@ -58,71 +57,6 @@ public class JSONTokenNumber extends JSONToken {
         super(JSONTokenType.NUMBER, text, begin, end, source);
 
         // TODO: validate the text
-    }
-
-    /**
-     * This method returns a Java double value that this token represents.
-     *
-     * <p>
-     * Note that not all valid values of JSON "number" primitives can be precisely represented
-     * by a Java double value. For example, JSON "number" primitive allows very large number
-     * like 1E400, but Java double treats such large value as {@link Double#POSITIVE_INFINITY}.
-     * Or, some fractions may be simply ignored. Therefore, the application programmer who calls
-     * this method must not assume that the returned double value precisely represents the
-     * original number in the JSON text.
-     *
-     * @deprecated
-     * The equivalent method has been implemented as {@link JSONValueNumber#toDouble()}.
-     * To remove duplicate of the same methods, this method will be removed.
-     *
-     * @return a Java double value that this token represents
-     * @throws NumberFormatException if the token cannot be interpreted as a Java double value
-     */
-    @Deprecated
-    public double toDouble() {
-        return Double.parseDouble(text());
-    }
-
-    /**
-     * This method returns a Java long value that this token represents.
-     *
-     * <p>
-     * Note that not all valid values of JSON "number" primitives can be represented by a Java long
-     * value. For example, JSON "number" primitive allows a fraction, but Java long value
-     * does not accept a fraction. If this JSON "number" primitive value cannot be converted to
-     * a Java long value, this method raises {@link NumberFormatException}.
-     *
-     * @deprecated
-     * The equivalent method has been implemented as {@link JSONValueNumber#toLong()}.
-     * To remove duplicate of the same methods, this method will be removed.
-     *
-     * @return a Java long value that this token represents.
-     * @throws NumberFormatException if the token cannot be interpreted as a Java long value
-     */
-    @Deprecated
-    public long toLong() throws NumberFormatException {
-        return Long.parseLong(text(), 10);
-    }
-
-    /**
-     * Returns if this token can be converted to a Java long value.
-     * If this method returns true, {@link #toLong()} can be executed
-     * without an exception.
-     *
-     * @deprecated
-     * The equivalent method has been implemented as {@link JSONValueNumber#canBeLong()}.
-     * To remove duplicate of the same methods, this method will be removed.
-     *
-     * @return whether this token can be converted to a Java long value.
-     */
-    @Deprecated
-    public boolean canBeLong() {
-        try {
-            toLong();
-            return true;
-        } catch (NumberFormatException ex) {
-            return false;
-        }
     }
 
     /**

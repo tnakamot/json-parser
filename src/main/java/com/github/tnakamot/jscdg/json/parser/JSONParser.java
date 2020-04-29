@@ -82,7 +82,12 @@ public class JSONParser {
             return null;
         }
 
-        return readValue();
+        JSONValue value = readValue();
+        if (position < tokens.size()) {
+            unexpectedToken(popToken(), "EOF");
+        }
+
+        return value;
     }
 
     private JSONToken popToken() {

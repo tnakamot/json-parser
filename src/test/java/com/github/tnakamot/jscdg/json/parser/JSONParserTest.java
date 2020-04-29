@@ -34,8 +34,8 @@ public class JSONParserTest {
         JSONValueObject rootObj = (JSONValueObject) root;
 
         assertEquals(0, rootObj.size());
-        assertTrue(rootObj.isEmpty());
         assertFalse(rootObj.containsKey("key"));
+        assertTrue(rootObj.isEmpty());
     }
 
     @Test
@@ -48,8 +48,8 @@ public class JSONParserTest {
         JSONValueArray rootArray = (JSONValueArray) root;
 
         assertEquals(0, rootArray.size());
-        assertTrue(rootArray.isEmpty());
         assertFalse(rootArray.contains(JSONValueNull.NULL));
+        assertTrue(rootArray.isEmpty());
     }
 
     @Test
@@ -103,32 +103,157 @@ public class JSONParserTest {
     }
 
     @Test
-    public void testNumberOnly1() throws IOException, JSONParserException {
-        JSONValue root = JSONText.fromString(" 1.52e1 ").parse();
+    public void testNumberOnly00() throws IOException, JSONParserException {
+        JSONValue root = JSONText.fromString(" -15.234e2 ").parse();
 
         assertEquals(JSONValueType.NUMBER, root.type());
         assertTrue(root instanceof JSONValueNumber);
-        assertEquals(new JSONValueNumber("1.52e1"), root);
-        assertEquals("1.52e1", root.toString());
+        assertEquals(new JSONValueNumber("-15.234e2"), root);
+        assertEquals("-15.234e2", root.toString());
 
         JSONValueNumber num = (JSONValueNumber) root;
         assertFalse(num.canBeLong());
-        assertEquals(1.52e1, num.toDouble(), 0);
+        assertEquals(-15.234e2, num.toDouble(), 0);
     }
 
     @Test
-    public void testNumberOnly2() throws IOException, JSONParserException {
-        JSONValue root = JSONText.fromString(" 1523 ").parse();
+    public void testNumberOnly01() throws IOException, JSONParserException {
+        JSONValue root = JSONText.fromString("523 ").parse();
 
         assertEquals(JSONValueType.NUMBER, root.type());
         assertTrue(root instanceof JSONValueNumber);
-        assertEquals(new JSONValueNumber("1523"), root);
-        assertEquals("1523", root.toString());
+        assertEquals(new JSONValueNumber("523"), root);
+        assertEquals("523", root.toString());
 
         JSONValueNumber num = (JSONValueNumber) root;
         assertTrue(num.canBeLong());
-        assertEquals(1523, num.toDouble(), 0);
-        assertEquals(1523, num.toLong());
+        assertEquals(523, num.toLong());
+    }
+
+    @Test
+    public void testNumberOnly02() throws IOException, JSONParserException {
+        JSONValue root = JSONText.fromString("-124 ").parse();
+
+        assertEquals(JSONValueType.NUMBER, root.type());
+        assertTrue(root instanceof JSONValueNumber);
+        assertEquals(new JSONValueNumber("-124"), root);
+        assertEquals("-124", root.toString());
+
+        JSONValueNumber num = (JSONValueNumber) root;
+        assertTrue(num.canBeLong());
+        assertEquals(-124, num.toLong());
+    }
+
+    @Test
+    public void testNumberOnly03() throws IOException, JSONParserException {
+        JSONValue root = JSONText.fromString(" 928.5").parse();
+
+        assertEquals(JSONValueType.NUMBER, root.type());
+        assertTrue(root instanceof JSONValueNumber);
+        assertEquals(new JSONValueNumber("928.5"), root);
+        assertEquals("928.5", root.toString());
+
+        JSONValueNumber num = (JSONValueNumber) root;
+        assertFalse(num.canBeLong());
+        assertEquals(928.5, num.toDouble(), 0);
+    }
+
+    @Test
+    public void testNumberOnly04() throws IOException, JSONParserException {
+        JSONValue root = JSONText.fromString(" -872.512").parse();
+
+        assertEquals(JSONValueType.NUMBER, root.type());
+        assertTrue(root instanceof JSONValueNumber);
+        assertEquals(new JSONValueNumber("-872.512"), root);
+        assertEquals("-872.512", root.toString());
+
+        JSONValueNumber num = (JSONValueNumber) root;
+        assertFalse(num.canBeLong());
+        assertEquals(-872.512, num.toDouble(), 0);
+    }
+
+    @Test
+    public void testNumberOnly05() throws IOException, JSONParserException {
+        // Because leading zero is not allowed, this text is considered
+        // to have two number tokens "0" and "12". Two numbers in a row
+        // are not valid in JSON.
+        JSONText jsText = JSONText.fromString(" 012 ");
+
+        JSONParserException ex = assertThrows(JSONParserException.class, jsText::parse);
+        assertEquals(jsText, ex.source());
+        assertEquals(2, ex.location().position());
+        assertEquals(1, ex.location().line());
+        assertEquals(3, ex.location().column());
+    }
+
+    @Test
+    public void testNumberOnly06() throws IOException, JSONParserException {
+        JSONValue root = JSONText.fromString(" -0.015   ").parse();
+
+        assertEquals(JSONValueType.NUMBER, root.type());
+        assertTrue(root instanceof JSONValueNumber);
+        assertEquals(new JSONValueNumber("-0.015"), root);
+        assertEquals("-0.015", root.toString());
+
+        JSONValueNumber num = (JSONValueNumber) root;
+        assertFalse(num.canBeLong());
+        assertEquals(-0.015, num.toDouble(), 0);
+    }
+
+    @Test
+    public void testNumberOnly07() throws IOException, JSONParserException {
+        JSONValue root = JSONText.fromString("   0.987").parse();
+
+        assertEquals(JSONValueType.NUMBER, root.type());
+        assertTrue(root instanceof JSONValueNumber);
+        assertEquals(new JSONValueNumber("0.987"), root);
+        assertEquals("0.987", root.toString());
+
+        JSONValueNumber num = (JSONValueNumber) root;
+        assertFalse(num.canBeLong());
+        assertEquals(0.987, num.toDouble(), 0);
+    }
+
+    @Test
+    public void testNumberOnly08() throws IOException, JSONParserException {
+        JSONValue root = JSONText.fromString("1e6").parse();
+
+        assertEquals(JSONValueType.NUMBER, root.type());
+        assertTrue(root instanceof JSONValueNumber);
+        assertEquals(new JSONValueNumber("1e6"), root);
+        assertEquals("1e6", root.toString());
+
+        JSONValueNumber num = (JSONValueNumber) root;
+        assertFalse(num.canBeLong());
+        assertEquals(1e6, num.toDouble(), 0);
+    }
+
+    @Test
+    public void testNumberOnly09() throws IOException, JSONParserException {
+        JSONValue root = JSONText.fromString("1.24e-12").parse();
+
+        assertEquals(JSONValueType.NUMBER, root.type());
+        assertTrue(root instanceof JSONValueNumber);
+        assertEquals(new JSONValueNumber("1.24e-12"), root);
+        assertEquals("1.24e-12", root.toString());
+
+        JSONValueNumber num = (JSONValueNumber) root;
+        assertFalse(num.canBeLong());
+        assertEquals(1.24e-12, num.toDouble(), 0);
+    }
+
+    @Test
+    public void testNumberOnly10() throws IOException, JSONParserException {
+        JSONValue root = JSONText.fromString("-5.2E+2").parse();
+
+        assertEquals(JSONValueType.NUMBER, root.type());
+        assertTrue(root instanceof JSONValueNumber);
+        assertEquals(new JSONValueNumber("-5.2E+2"), root);
+        assertEquals("-5.2E+2", root.toString());
+
+        JSONValueNumber num = (JSONValueNumber) root;
+        assertFalse(num.canBeLong());
+        assertEquals(-5.2e2, num.toDouble(), 0);
     }
 
     @Test
@@ -165,7 +290,7 @@ public class JSONParserTest {
         assertTrue(rootArray.contains(new JSONValueNumber("1.52")));
         assertEquals(JSONValueType.NUMBER, rootArray.get(3).type());
         assertTrue(rootArray.get(3) instanceof JSONValueNumber);
-        assertEquals("1.52", ((JSONValueNumber) rootArray.get(3)).toString());
+        assertEquals("1.52", rootArray.get(3).toString());
         assertEquals(1.52, ((JSONValueNumber) rootArray.get(3)).toDouble(), 0);
         assertFalse(((JSONValueNumber) rootArray.get(3)).canBeLong());
 
