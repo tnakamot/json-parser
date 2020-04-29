@@ -31,7 +31,7 @@ import java.util.Set;
  * Instances of this class are immutable.
  */
 public class JSONValueObject extends JSONValue implements Map<JSONValueString, JSONValue> {
-    private LinkedHashMap<JSONValueString, JSONValue> members;
+    private final LinkedHashMap<JSONValueString, JSONValue> members;
 
     /**
      * Create an instance of a Java representation of a JSON 'object' value.
@@ -52,7 +52,7 @@ public class JSONValueObject extends JSONValue implements Map<JSONValueString, J
      *
      * @return Copy of name/value pairs.
      */
-    public Map<JSONValueString, JSONValue> getMap() {
+    public Map<JSONValueString, JSONValue> toMap() {
         return new LinkedHashMap<>(members);
     }
 
@@ -77,7 +77,7 @@ public class JSONValueObject extends JSONValue implements Map<JSONValueString, J
      *
      * @param name name
      * @return a JSON value of the given name
-     * @see {@link #get(JSONValueString)}
+     * @see #get(JSONValueString)
      */
     public JSONValue get(String name) {
         return members.get(new JSONValueString(name));

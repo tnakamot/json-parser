@@ -78,7 +78,7 @@ public class JSONParser {
      * @see <a href="https://tools.ietf.org/html/rfc8259#section-2">RFC 8259 - 2. JSON Grammer</a>
      */
     public JSONValue parse() throws JSONParserException {
-        if (tokens == null || tokens.size() == 0) {
+        if (tokens.size() == 0) {
             return null;
         }
 
@@ -92,8 +92,7 @@ public class JSONParser {
     }
 
     private JSONToken lastToken() {
-        JSONToken token = tokens.get(tokens.size() - 1);
-        return token;
+        return tokens.get(tokens.size() - 1);
     }
 
     private void pushBack() {
@@ -198,13 +197,11 @@ public class JSONParser {
         try {
             JSONToken token = popToken();
 
-            switch(token.type()) {
-                case STRING:
-                    key = new JSONValueString((JSONTokenString) token);
-                    break;
-                default:
-                    unexpectedToken(token, stringToken);
-                    key = null;
+            if (token.type() == JSONTokenType.STRING) {
+                key = new JSONValueString((JSONTokenString) token);
+            } else {
+                unexpectedToken(token, stringToken);
+                key = null;
             }
         } catch (IndexOutOfBoundsException ex) {
             unexpectedEof(stringToken);
@@ -215,11 +212,8 @@ public class JSONParser {
         try {
             JSONToken token = popToken();
 
-            switch(token.type()) {
-                case NAME_SEPARATOR:
-                    break;
-                default:
-                    unexpectedToken(token, nameSepToken);
+            if (token.type() != JSONTokenType.NAME_SEPARATOR) {
+                unexpectedToken(token, nameSepToken);
             }
         } catch (IndexOutOfBoundsException ex) {
             unexpectedEof(nameSepToken);
@@ -228,12 +222,16 @@ public class JSONParser {
         JSONValue value = readValue();
         JSONValueString rKey = key;
 
-        return new Map.Entry<JSONValueString, JSONValue>() {
+        return new Map.Entry<>() {
             @Override
-            public JSONValueString getKey() { return rKey; }
+            public JSONValueString getKey() {
+                return rKey;
+            }
 
             @Override
-            public JSONValue getValue() { return value; }
+            public JSONValue getValue() {
+                return value;
+            }
 
             @Override
             public JSONValue setValue(JSONValue jsonValue) {
@@ -244,7 +242,7 @@ public class JSONParser {
 
     private JSONValueObject readObject() throws JSONParserException {
         LinkedHashMap<JSONValueString, JSONValue> object
-                = new LinkedHashMap<JSONValueString, JSONValue>();
+                = new LinkedHashMap<>();
 
         // read the first member (or it can be an empty object)
         try {

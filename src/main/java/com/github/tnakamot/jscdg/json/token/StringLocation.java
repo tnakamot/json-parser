@@ -70,7 +70,7 @@ package com.github.tnakamot.jscdg.json.token;
  * Instances of this class are immutable.
  */
 public class StringLocation {
-    private StringLocation previous;
+    private final StringLocation previous;
     private final int position;
     private final int line;
     private final int column;

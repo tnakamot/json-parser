@@ -13,6 +13,21 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+/*
+ *  Copyright (C) 2020 Takashi Nakamoto <nyakamoto@gmail.com>.
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 3 as
+ *  published by the Free Software Foundation.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 package com.github.tnakamot.jscdg.json.value;
 
@@ -25,7 +40,7 @@ import java.util.*;
  * Instances of this class are immutable.
  */
 public class JSONValueArray extends JSONValue implements List<JSONValue> {
-    private List<JSONValue> values;
+    private final List<JSONValue> values;
 
     /**
      * Create an instance of a Java representation of a JSON 'array' value.
@@ -34,11 +49,12 @@ public class JSONValueArray extends JSONValue implements List<JSONValue> {
      */
     public JSONValueArray(List<JSONValue> values) {
         super(JSONValueType.ARRAY);
-        this.values = new ArrayList<JSONValue>(values);
 
-        if (values == null) {
+        if (values == null){
             throw new NullPointerException("values cannot be null");
         }
+
+        this.values = new ArrayList<>(values);
     }
 
     /**
@@ -47,7 +63,7 @@ public class JSONValueArray extends JSONValue implements List<JSONValue> {
      * @return Copy of the sequence of values.
      */
     public List<JSONValue> list() {
-        return new ArrayList<JSONValue>(values);
+        return new ArrayList<>(values);
     }
 
     @Override
@@ -66,7 +82,7 @@ public class JSONValueArray extends JSONValue implements List<JSONValue> {
     }
 
     @Override
-    public Iterator iterator() {
+    public Iterator<JSONValue> iterator() {
         return values.iterator();
     }
 
@@ -77,7 +93,7 @@ public class JSONValueArray extends JSONValue implements List<JSONValue> {
 
     @Override
     public boolean add(JSONValue jsonValue) {
-        return false;
+        throw new UnsupportedOperationException("cannot add a value");
     }
 
     @Override
@@ -131,23 +147,23 @@ public class JSONValueArray extends JSONValue implements List<JSONValue> {
     }
 
     @Override
-    public ListIterator listIterator() {
+    public ListIterator<JSONValue> listIterator() {
         return values.listIterator();
     }
 
     @Override
-    public ListIterator listIterator(int i) {
+    public ListIterator<JSONValue> listIterator(int i) {
         return values.listIterator(i);
     }
 
     @Override
-    public List subList(int i, int i1) {
+    public List<JSONValue> subList(int i, int i1) {
         return values.subList(i, i1);
     }
 
     @Override
     public boolean retainAll(Collection collection) {
-        return values.retainAll(collection);
+        throw new UnsupportedOperationException("retainAll is not supported");
     }
 
     @Override
@@ -161,8 +177,8 @@ public class JSONValueArray extends JSONValue implements List<JSONValue> {
     }
 
     @Override
-    public Object[] toArray(Object[] objects) {
-        return values.toArray(objects);
+    public <T> T[] toArray(T[] ts) {
+        return values.toArray(ts);
     }
 
     // TODO: override hashCode() and equals(Object)
