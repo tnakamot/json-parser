@@ -1,4 +1,4 @@
-package com.github.tnakamoto.jscdg.json.parser;
+package com.github.tnakamoto.jscdg.json;
 
 import static org.junit.Assert.*;
 
