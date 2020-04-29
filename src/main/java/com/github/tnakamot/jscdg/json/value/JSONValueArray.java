@@ -11,15 +11,25 @@ import java.util.*;
 public class JSONValueArray extends JSONValue implements List<JSONValue> {
     private List<JSONValue> values;
 
-    private JSONValueArray(List<JSONValue> values) {
+    /**
+     * Create an instance of a Java representation of a JSON 'array' value.
+     *
+     * @param values sequence of values
+     */
+    public JSONValueArray(List<JSONValue> values) {
         super(JSONValueType.ARRAY);
-        this.values = values;
+        this.values = new ArrayList<JSONValue>(values);
 
         if (values == null) {
             throw new NullPointerException("values cannot be null");
         }
     }
 
+    /**
+     * A copy of the sequence of values.
+     *
+     * @return Copy of the sequence of values.
+     */
     public List<JSONValue> list() {
         return new ArrayList<JSONValue>(values);
     }
@@ -138,6 +148,4 @@ public class JSONValueArray extends JSONValue implements List<JSONValue> {
     public Object[] toArray(Object[] objects) {
         return values.toArray(objects);
     }
-
-    // TODO: implement builder
 }

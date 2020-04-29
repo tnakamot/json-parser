@@ -120,29 +120,43 @@ public class JSONLexer {
 
         switch (ch) {
             case '[':
-                return new JSONToken(JSONTokenType.BEGIN_ARRAY, "[", startLocation, source);
+                return new JSONToken(JSONTokenType.BEGIN_ARRAY,
+                        JSONToken.JSON_BEGIN_ARRAY,
+                        startLocation, location, source);
             case ']':
-                return new JSONToken(JSONTokenType.END_ARRAY, "]", startLocation, source);
+                return new JSONToken(JSONTokenType.END_ARRAY,
+                        JSONToken.JSON_END_ARRAY,
+                        startLocation, location, source);
             case '{':
-                return new JSONToken(JSONTokenType.BEGIN_OBJECT, "{", startLocation, source);
+                return new JSONToken(JSONTokenType.BEGIN_OBJECT,
+                        JSONToken.JSON_BEGIN_OBJECT,
+                        startLocation, location, source);
             case '}':
-                return new JSONToken(JSONTokenType.END_OBJECT, "}", startLocation, source);
+                return new JSONToken(JSONTokenType.END_OBJECT,
+                        JSONToken.JSON_END_OBJECT,
+                        startLocation, location, source);
             case ':':
-                return new JSONToken(JSONTokenType.NAME_SEPARATOR, ":", startLocation, source);
+                return new JSONToken(JSONTokenType.NAME_SEPARATOR,
+                        JSONToken.JSON_NAME_SEPARATOR,
+                        startLocation, location, source);
             case ',':
-                return new JSONToken(JSONTokenType.VALUE_SEPARATOR, ",", startLocation, source);
+                return new JSONToken(JSONTokenType.VALUE_SEPARATOR,
+                        JSONToken.JSON_VALUE_SEPARATOR,
+                        startLocation, location, source);
             case 't':
                 pushBack(ch);
                 expect(JSONTokenBoolean.JSON_TRUE);
-                return new JSONTokenBoolean(JSONTokenBoolean.JSON_TRUE, startLocation, source);
+                return new JSONTokenBoolean(JSONTokenBoolean.JSON_TRUE,
+                        startLocation, location, source);
             case 'f':
                 pushBack(ch);
                 expect(JSONTokenBoolean.JSON_FALSE);
-                return new JSONTokenBoolean(JSONTokenBoolean.JSON_FALSE, startLocation, source);
+                return new JSONTokenBoolean(JSONTokenBoolean.JSON_FALSE,
+                        startLocation, location, source);
             case 'n':
                 pushBack(ch);
                 expect(JSONTokenNull.JSON_NULL);
-                return new JSONTokenNull(startLocation, source);
+                return new JSONTokenNull(startLocation, location, source);
             case '"':
                 pushBack(ch);
                 return readString();
@@ -266,7 +280,8 @@ public class JSONLexer {
             }
         }
 
-        return new JSONTokenString(tokenText.toString(), strValue.toString(), originalLocation, source);
+        return new JSONTokenString(tokenText.toString(), strValue.toString(),
+                originalLocation, location, source);
     }
 
     private enum JSONNumberParserStage { MINUS, INT, FRAC, EXP }
@@ -391,7 +406,7 @@ public class JSONLexer {
             }
         }
 
-        return new JSONTokenNumber(tokenText.toString(), originalLocation, source);
+        return new JSONTokenNumber(tokenText.toString(), originalLocation, location, source);
     }
 
     /**

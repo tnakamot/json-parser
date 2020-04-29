@@ -9,7 +9,7 @@ import java.util.Set;
  * Represents one JSON 'object' value.
  *
  * <p>
- * TODO: explain order
+ * This implementation retains the order.
  *
  * <p>
  * Instances of this class are immutable.
@@ -17,16 +17,26 @@ import java.util.Set;
 public class JSONValueObject extends JSONValue implements Map<JSONValueString, JSONValue> {
     private LinkedHashMap<JSONValueString, JSONValue> members;
 
-    private JSONValueObject(LinkedHashMap<JSONValueString, JSONValue> members) {
+    /**
+     * Create an instance of a Java representation of a JSON 'object' value.
+     *
+     * @param members name/value pairs
+     */
+    public JSONValueObject(Map<JSONValueString, JSONValue> members) {
         super(JSONValueType.OBJECT);
-        this.members = members;
+        this.members = new LinkedHashMap<>(members);
 
         if (members == null) {
             throw new NullPointerException("members cannot be null");
         }
     }
 
-    public LinkedHashMap<JSONValueString, JSONValue> getMap() {
+    /**
+     * A copy of name/value pairs.
+     *
+     * @return Copy of name/value pairs.
+     */
+    public Map<JSONValueString, JSONValue> getMap() {
         return new LinkedHashMap<>(members);
     }
 
@@ -122,6 +132,4 @@ public class JSONValueObject extends JSONValue implements Map<JSONValueString, J
     public Set<Entry<JSONValueString, JSONValue>> entrySet() {
         return members.entrySet();
     }
-
-    // TODO: implement builder
 }

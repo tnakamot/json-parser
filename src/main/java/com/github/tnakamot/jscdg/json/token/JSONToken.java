@@ -25,31 +25,44 @@ import com.github.tnakamot.jscdg.json.JSONText;
  * Instances of this class are immutable.
  */
 public class JSONToken {
+    public static final String JSON_BEGIN_ARRAY     = "[";
+    public static final String JSON_END_ARRAY       = "]";
+    public static final String JSON_BEGIN_OBJECT    = "{";
+    public static final String JSON_END_OBJECT      = "}";
+    public static final String JSON_NAME_SEPARATOR  = ":";
+    public static final String JSON_VALUE_SEPARATOR = ",";
+
     private final JSONTokenType type;
             final String        text;
-    private final StringLocation location;
+    private final StringLocation begin;
+    private final StringLocation end;
     private final JSONText source;
 
     /**
      * Create one JSON text token.
      *
-     * @param type     type of this token
-     * @param text     text of this token
-     * @param location location of this token within the source JSON text
-     * @param source   source JSON text where this token was extracted from
+     * @param type   type of this token
+     * @param text   text of this token
+     * @param begin  beginning location of this token within the source JSON text
+     * @param end    end location of this token within the source JSON text
+     * @param source source JSON text where this token was extracted from
      */
-    public JSONToken(JSONTokenType type, String text, StringLocation location, JSONText source) {
-        this.type     = type;
-        this.text     = text;
-        this.location = location;
-        this.source   = source;
+    public JSONToken(JSONTokenType type, String text,
+                     StringLocation begin, StringLocation end, JSONText source) {
+        this.type   = type;
+        this.text   = text;
+        this.begin  = begin;
+        this.end    = end;
+        this.source = source;
 
         if (type == null)
             throw new NullPointerException("type cannot be null");
         if (text == null)
             throw new NullPointerException("text cannot be null");
-        if (location == null)
-            throw new NullPointerException("location cannot be null");
+        if (begin == null)
+            throw new NullPointerException("begin cannot be null");
+        if (end == null)
+            throw new NullPointerException("end cannot be null");
         if (source == null)
             throw new NullPointerException("source cannot be null");
     }
@@ -77,8 +90,17 @@ public class JSONToken {
      *
      * @return location of the beginning of the token within the source JSON text.
      */
-    public StringLocation location() {
-        return location;
+    public StringLocation beginningLocation() {
+        return begin;
+    }
+
+    /**
+     * Location of the end of the token within the source JSON text.
+     *
+     * @return location of the end of the token within the source JSON text.
+     */
+    public StringLocation endLocation() {
+        return end;
     }
 
     /**

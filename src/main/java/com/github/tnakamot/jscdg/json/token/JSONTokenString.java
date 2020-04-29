@@ -40,16 +40,18 @@ public class JSONTokenString extends JSONToken {
      * It is the caller's responsibility to validate the token text as string
      * before creating this instance.
      *
-     * @param text     text of this token
-     * @param value    string value that this token represents
-     *                 (it is a caller's responsibility to parse the token text,
-     *                  strip surrounding double quotations and unescape escaped
-     *                  characters)
-     * @param location location of this token within the source JSON text
-     * @param source   source JSON text where this token was extracted from
+     * @param text   text of this token
+     * @param value  string value that this token represents
+     *               (it is a caller's responsibility to parse the token text,
+     *                strip surrounding double quotations and unescape escaped
+     *                characters)
+     * @param begin  beginning location of this token within the source JSON text
+     * @param end    end location of this token within the source JSON text
+     * @param source source JSON text where this token was extracted from
      */
-    public JSONTokenString(String text, String value, StringLocation location, JSONText source) {
-        super(JSONTokenType.STRING, text, location, source);
+    public JSONTokenString(String text, String value,
+                           StringLocation begin, StringLocation end, JSONText source) {
+        super(JSONTokenType.STRING, text, begin, end, source);
         this.value = value;
 
         if (value == null) {

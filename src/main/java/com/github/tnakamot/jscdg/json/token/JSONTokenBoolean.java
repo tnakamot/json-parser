@@ -42,12 +42,13 @@ public class JSONTokenBoolean extends JSONToken {
      * It is the caller's responsibility to validate the token text as boolean
      * before creating this instance.
      *
-     * @param text     text of this token
-     * @param location location of this token within the source JSON text
-     * @param source   source JSON text where this token was extracted from
+     * @param text   text of this token
+     * @param begin  beginning location of this token within the source JSON text
+     * @param end    end location of this token within the source JSON text
+     * @param source source JSON text where this token was extracted from
      */
-    public JSONTokenBoolean(String text, StringLocation location, JSONText source) {
-        super(JSONTokenType.BOOLEAN, text, location, source);
+    public JSONTokenBoolean(String text, StringLocation begin, StringLocation end, JSONText source) {
+        super(JSONTokenType.BOOLEAN, text, begin, end, source);
         if (JSON_TRUE.equals(text)) {
             this.value = true;
         } else if (JSON_FALSE.equals(text)) {

@@ -17,6 +17,7 @@
 package com.github.tnakamot.jscdg.json;
 
 import com.github.tnakamot.jscdg.json.parser.JSONLexer;
+import com.github.tnakamot.jscdg.json.parser.JSONParser;
 import com.github.tnakamot.jscdg.json.parser.JSONParserErrorMessageFormat;
 import com.github.tnakamot.jscdg.json.parser.JSONParserException;
 import com.github.tnakamot.jscdg.json.token.JSONToken;
@@ -73,15 +74,9 @@ public class JSONText {
     }
 
     /**
-     * Parse the JSON text.
-     */
-    public JSONValue parse() {
-        throw new UnsupportedOperationException("parse() has not been implemented yet");
-    }
-
-    /**
-     * Tokenize the JSON text.
+     * Tokenize this JSON text.
      *
+     * @param errMsgFmt settings of error message format of {@link JSONParserException}
      * @return Sequence of JSON tokens.
      * @throws IOException if an I/O error occurs
      * @throws JSONParserException if there is a syntax error in JSON text
@@ -99,7 +94,7 @@ public class JSONText {
     }
 
     /**
-     * Tokenize the JSON text.
+     * Tokenize this JSON text.
      *
      * @return Sequence of JSON tokens.
      * @throws IOException if an I/O error occurs
@@ -110,6 +105,37 @@ public class JSONText {
         JSONParserErrorMessageFormat errMsgFmt =
                 JSONParserErrorMessageFormat.builder().build();
         return tokens(errMsgFmt);
+    }
+
+    /**
+     * Parse this JSON text.
+     *
+     * @param errMsgFmt settings of error message format of {@link JSONParserException}
+     * @return the root JSON value, or null if there is no value.
+     * @throws JSONParserException if there is a syntax error in the JSON text
+     * @throws IOException if an I/O error occurs
+     * @see <a href="https://tools.ietf.org/html/rfc8259#section-2">RFC 8259 - 2. JSON Grammer</a>
+     */
+    public JSONValue parse(JSONParserErrorMessageFormat errMsgFmt)
+            throws IOException, JSONParserException {
+        List<JSONToken> tokens = tokens(errMsgFmt);
+        JSONParser parser = new JSONParser(tokens, errMsgFmt);
+        return parser.parse();
+    }
+
+    /**
+     * Parse this JSON text.
+     *
+     * @return the root JSON value, or null if there is no value.
+     * @throws JSONParserException if there is a syntax error in the JSON text
+     * @throws IOException if an I/O error occurs
+     * @see <a href="https://tools.ietf.org/html/rfc8259#section-2">RFC 8259 - 2. JSON Grammer</a>
+     */
+    public JSONValue parse()
+            throws IOException, JSONParserException {
+        JSONParserErrorMessageFormat errMsgFmt =
+                JSONParserErrorMessageFormat.builder().build();
+        return parse(errMsgFmt);
     }
 
     /**
