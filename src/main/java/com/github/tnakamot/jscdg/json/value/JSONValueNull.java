@@ -25,10 +25,12 @@ import com.github.tnakamot.jscdg.json.token.JSONToken;
  * Instances of this class are immutable.
  */
 public class JSONValueNull extends JSONValuePrimitive {
+    public static final JSONValueNull NULL = new JSONValueNull();
+
     /**
      * Create an instance of a Java representation of a JSON null value.
      */
-    public JSONValueNull() {
+    private JSONValueNull() {
         this(null);
     }
 
@@ -41,6 +43,16 @@ public class JSONValueNull extends JSONValuePrimitive {
      */
     public JSONValueNull(JSONToken token) {
         super(JSONValueType.NULL, token);
+    }
+
+    @Override
+    public int hashCode() {
+        return "null".hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof JSONValueNull;
     }
 
     @Override

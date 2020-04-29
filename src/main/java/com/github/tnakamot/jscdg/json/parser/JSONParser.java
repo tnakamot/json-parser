@@ -18,12 +18,8 @@ package com.github.tnakamot.jscdg.json.parser;
 
 import com.github.tnakamot.jscdg.json.token.*;
 import com.github.tnakamot.jscdg.json.value.*;
-import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 import static com.github.tnakamot.jscdg.json.token.JSONToken.*;
 
@@ -195,7 +191,7 @@ public class JSONParser {
         }
     }
 
-    private Pair<JSONValueString, JSONValue> readMember() throws JSONParserException {
+    private Map.Entry<JSONValueString, JSONValue> readMember() throws JSONParserException {
         JSONValueString key;
 
         // read a key
@@ -232,12 +228,12 @@ public class JSONParser {
         JSONValue value = readValue();
         JSONValueString rKey = key;
 
-        return new Pair<JSONValueString, JSONValue>() {
+        return new Map.Entry<JSONValueString, JSONValue>() {
             @Override
-            public JSONValueString getLeft() { return rKey; }
+            public JSONValueString getKey() { return rKey; }
 
             @Override
-            public JSONValue getRight() { return value; }
+            public JSONValue getValue() { return value; }
 
             @Override
             public JSONValue setValue(JSONValue jsonValue) {
@@ -255,13 +251,13 @@ public class JSONParser {
             JSONToken token = popToken();
 
             switch(token.type()) {
-                case END_ARRAY:
+                case END_OBJECT:
                     // empty object
                     return new JSONValueObject(object);
                 case STRING:
                     pushBack();
-                    Pair<JSONValueString, JSONValue> member = readMember();
-                    object.put(member.getLeft(), member.getRight());
+                    Map.Entry<JSONValueString, JSONValue> member = readMember();
+                    object.put(member.getKey(), member.getValue());
                     break;
                 default:
                     unexpectedToken(token, stringOrEndObjectToken);
@@ -271,7 +267,7 @@ public class JSONParser {
         }
 
         while(true) {
-            // next a next member or an end object
+            // read a next member or an end object
             try {
                 JSONToken token = popToken();
 
@@ -279,7 +275,7 @@ public class JSONParser {
                     case END_OBJECT:
                         return new JSONValueObject(object);
                     case VALUE_SEPARATOR:
-                        Pair<JSONValueString, JSONValue> member = readMember();
+                        Map.Entry<JSONValueString, JSONValue> member = readMember();
                         object.put(member.getKey(), member.getValue());
                         break;
                     default:

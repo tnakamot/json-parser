@@ -3,7 +3,6 @@ package com.github.tnakamot.jscdg.json.parser;
 import static org.junit.Assert.*;
 
 import com.github.tnakamot.jscdg.json.JSONText;
-import com.github.tnakamot.jscdg.json.parser.*;
 import com.github.tnakamot.jscdg.json.token.*;
 import org.junit.Test;
 
@@ -27,7 +26,6 @@ public class JSONLexerTest {
 
     @Test
     public void testSimpleObject() throws IOException, JSONParserException {
-        // TODO: add number
         JSONText jsText = JSONText.fromString(" { \"key\":\r\n[true,\nfalse,\rnull, -15.234e2]\n\r} ");
         List<JSONToken> tokens = jsText.tokens();
 

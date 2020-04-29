@@ -87,7 +87,7 @@ public class JSONValueNumber extends JSONValuePrimitive {
      * @param token source token of this JSON string value.
      */
     public JSONValueNumber(JSONTokenNumber token) {
-        super(JSONValueType.STRING, token);
+        super(JSONValueType.NUMBER, token);
         this.text = token.text();
 
         // Because JSONTokenNumber#text() returns a text representation
@@ -167,6 +167,21 @@ public class JSONValueNumber extends JSONValuePrimitive {
             toLong();
             return true;
         } catch (NumberFormatException ex) {
+            return false;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return text.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof JSONValueNumber) {
+            JSONValueNumber num = (JSONValueNumber) obj;
+            return this.text.equals(num.text);
+        } else {
             return false;
         }
     }

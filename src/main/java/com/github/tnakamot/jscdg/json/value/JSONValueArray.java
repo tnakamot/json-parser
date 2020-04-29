@@ -164,4 +164,6 @@ public class JSONValueArray extends JSONValue implements List<JSONValue> {
     public Object[] toArray(Object[] objects) {
         return values.toArray(objects);
     }
+
+    // TODO: override hashCode() and equals(Object)
 }

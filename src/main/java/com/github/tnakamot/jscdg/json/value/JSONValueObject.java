@@ -98,6 +98,10 @@ public class JSONValueObject extends JSONValue implements Map<JSONValueString, J
         return members.containsKey(o);
     }
 
+    public boolean containsKey(String s) {
+        return members.containsKey(new JSONValueString(s));
+    }
+
     @Override
     public boolean containsValue(Object o) {
         return members.containsValue(o);
@@ -148,4 +152,6 @@ public class JSONValueObject extends JSONValue implements Map<JSONValueString, J
     public Set<Entry<JSONValueString, JSONValue>> entrySet() {
         return members.entrySet();
     }
+
+    // TODO: override hashCode() and equals(Object)
 }

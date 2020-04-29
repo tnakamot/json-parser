@@ -25,7 +25,20 @@ import com.github.tnakamot.jscdg.json.token.JSONTokenBoolean;
  * Instances of this class are immutable.
  */
 public class JSONValueBoolean extends JSONValuePrimitive {
+    public static final JSONValueBoolean TRUE = new JSONValueBoolean(true);
+    public static final JSONValueBoolean FALSE = new JSONValueBoolean(false);
+
     private final boolean value;
+
+    /**
+     * Return an instance of a Java representation of a JSON boolean value.
+     *
+     * @param value value represented by Java boolean primitive of this
+     *              JSON boolean value.
+     */
+    public static JSONValueBoolean valueOf(boolean value) {
+        return value ? TRUE : FALSE;
+    }
 
     /**
      * Create an instance of a Java representation of a JSON boolean value.
@@ -33,7 +46,7 @@ public class JSONValueBoolean extends JSONValuePrimitive {
      * @param value value represented by Java boolean primitive of this
      *              JSON boolean value.
      */
-    public JSONValueBoolean(boolean value) {
+    private JSONValueBoolean(boolean value) {
         super(JSONValueType.BOOLEAN, null);
         this.value = value;
     }
@@ -57,6 +70,21 @@ public class JSONValueBoolean extends JSONValuePrimitive {
      */
     public boolean value() {
         return value;
+    }
+
+    @Override
+    public int hashCode() {
+        return Boolean.valueOf(value).hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof JSONValueBoolean) {
+            JSONValueBoolean b = (JSONValueBoolean) obj;
+            return this.value == b.value;
+        } else {
+            return false;
+        }
     }
 
     @Override
