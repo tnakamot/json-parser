@@ -38,9 +38,6 @@ import java.util.List;
  *
  * <p>
  * Instances of this class are immutable.
- *
- * <p>
- * TODO: support {@link InputStream} as an input.
  */
 public class JSONText {
     private final String text;
