@@ -50,7 +50,7 @@ lazy val root = (project in file("."))
       "junit" % "junit" % "4.13" % Test
     ),
 
-      // For sbt-sonatype plugin to publish this package to Maven Central.
+    // For sbt-sonatype plugin to publish this package to Maven Central.
     publishTo := sonatypePublishToBundle.value,
     sonatypeProfileName := "com.github.tnakamot",
     publishMavenStyle := true,
@@ -87,11 +87,13 @@ lazy val root = (project in file("."))
       inquireVersions,
       runClean,
       runTest,
+      releaseStepTask(makeSite),
       setReleaseVersion,
       commitReleaseVersion,
       tagRelease,
       releaseStepCommandAndRemaining("publishSigned"),
       releaseStepCommand("sonatypeBundleRelease"),
+      releaseStepTask(ghpagesPushSite),
       setNextVersion,
       commitNextVersion,
       pushChanges
