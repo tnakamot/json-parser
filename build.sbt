@@ -19,7 +19,25 @@ import ReleaseTransformations._
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
 
+// Paradox Material Theme settings
+ParadoxMaterialThemePlugin.paradoxMaterialThemeSettings(Paradox)
+Paradox / paradoxMaterialTheme := {
+  ParadoxMaterialTheme()
+    .withColor("blue-grey", "indigo")
+//    .withLogoIcon("cloud")
+    .withLogo("assets/images/json_logo.png")
+    .withFavicon("assets/images/json_logo.png")
+    .withCopyright("Copyright (C) 2020 Takashi Nakamoto")
+    .withSocial(uri("https://github.com/tnakamot"))
+    .withLanguage(java.util.Locale.ENGLISH)
+    .withSearch()
+}
+
 lazy val root = (project in file("."))
+  .enablePlugins(GhpagesPlugin)
+  .enablePlugins(ParadoxPlugin)
+  .enablePlugins(ParadoxSitePlugin)
+  .enablePlugins(ParadoxMaterialThemePlugin)
   .settings(
     name         := "json-parser",
     organization := "com.github.tnakamot",
@@ -34,7 +52,7 @@ lazy val root = (project in file("."))
       "junit" % "junit" % "4.13" % Test
     ),
 
-    // For sbt-sonatype plugin to publish this package to Maven Central.
+      // For sbt-sonatype plugin to publish this package to Maven Central.
     publishTo := sonatypePublishToBundle.value,
     sonatypeProfileName := "com.github.tnakamot",
     publishMavenStyle := true,
@@ -50,8 +68,16 @@ lazy val root = (project in file("."))
     ),
     homepage := Some(url("https://github.com/tnakamot/json-parser")),
 
+    // Paradox setting  to generate web page.
+    paradox / sourceDirectory := sourceDirectory.value / "paradox",
+
     // Link to standard Java library in Javadoc.
     (doc / javacOptions) ++= Seq("-link", "https://docs.oracle.com/en/java/javase/11/docs/api"),
+
+    // GitHub pages setting
+    git.remoteRepo := "git@github.com:tnakamot/json-parser.git",
+    siteSubdirName in Compile := "javadoc",
+    addMappingsToSiteDir(mappings in (Compile, packageDoc), siteSubdirName in Compile),
 
     // Customized release process
     releaseCrossBuild := false,
