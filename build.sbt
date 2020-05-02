@@ -19,12 +19,10 @@ import ReleaseTransformations._
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
 
-// Paradox Material Theme settings
 ParadoxMaterialThemePlugin.paradoxMaterialThemeSettings(Paradox)
 Paradox / paradoxMaterialTheme := {
   ParadoxMaterialTheme()
     .withColor("blue-grey", "indigo")
-//    .withLogoIcon("cloud")
     .withLogo("assets/images/json_logo.png")
     .withFavicon("assets/images/json_logo.png")
     .withCopyright("Copyright (C) 2020 Takashi Nakamoto")
@@ -70,6 +68,14 @@ lazy val root = (project in file("."))
 
     // Paradox setting  to generate web page.
     paradox / sourceDirectory := sourceDirectory.value / "paradox",
+    paradoxProperties ++= Map(
+    "extref.javadoc.base_url" -> "javadoc/com/github/tnakamot/json/%s"
+    ),
+
+    /*
+    paradoxProperties += ("javadoc.json.base_url" -> "javadoc/com/github/tnakamot"),
+    paradoxProperties += ("javadoc.json.lnk_style" -> "direct"),
+     */
 
     // Link to standard Java library in Javadoc.
     (doc / javacOptions) ++= Seq("-link", "https://docs.oracle.com/en/java/javase/11/docs/api"),
