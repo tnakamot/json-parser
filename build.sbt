@@ -64,18 +64,13 @@ lazy val root = (project in file("."))
         url   = url("https://github.com/tnakamot"),
       )
     ),
-    homepage := Some(url("https://github.com/tnakamot/json-parser")),
+    homepage := Some(url("https://tnakamot.github.io/json-parser/")),
 
     // Paradox setting  to generate web page.
     paradox / sourceDirectory := sourceDirectory.value / "paradox",
     paradoxProperties ++= Map(
     "extref.javadoc.base_url" -> "javadoc/com/github/tnakamot/json/%s"
     ),
-
-    /*
-    paradoxProperties += ("javadoc.json.base_url" -> "javadoc/com/github/tnakamot"),
-    paradoxProperties += ("javadoc.json.lnk_style" -> "direct"),
-     */
 
     // Link to standard Java library in Javadoc.
     (doc / javacOptions) ++= Seq("-link", "https://docs.oracle.com/en/java/javase/11/docs/api"),

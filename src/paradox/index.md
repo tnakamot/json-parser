@@ -2,7 +2,12 @@
 
 This Java library provides a JSON parser. The parser reads a JSON text,
 parses it in accordance with [RFC 8259](https://tools.ietf.org/html/rfc8259)
-and creates a corresponding data structure in Java.
+and creates a corresponding data structure with Java objects.
+
+The main feature of this library is that it keeps the original JSON text information
+in the Java objects. Therefore, for example, your application can show where
+exactly (line number & column number) the JSON text has a problem if there is 
+a semantic error. 
 
 ## Setup
 
@@ -51,6 +56,9 @@ if (root.type() == JSONValueType.OBJECT) {
 ```
 
 @@@ index
+* [Types](types.md)
+* [Load JSON text from various sources](json_source.md)
+* [JSON source information](source_info.md)
 * [Source Code](source.md)
 * [Javadoc](javadoc.md)
 @@@
