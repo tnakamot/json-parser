@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.github.tnakamot.jscdg.json"},{"l":"com.github.tnakamot.jscdg.json.parser"},{"l":"com.github.tnakamot.jscdg.json.token"},{"l":"com.github.tnakamot.jscdg.json.value"}]
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.github.tnakamot.json"},{"l":"com.github.tnakamot.json.parser"},{"l":"com.github.tnakamot.json.token"},{"l":"com.github.tnakamot.json.value"}]
