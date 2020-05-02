@@ -31,12 +31,6 @@ import com.github.tnakamot.json.JSONText;
  * {@link #text()} to maximize the interoperability.
  *
  * <p>
- * However, in reality, most of the Java application programs internally use
- * {@link Double} or {@link Long} (or their corresponding primitives) for data
- * storage and calculation. This class provides methods to convert the "number"
- * in JSON text into those types (e.g. {@link #toDouble()}, {@link #toLong()}).
- *
- * <p>
  * Instances of this class are immutable.
  */
 public class JSONTokenNumber extends JSONToken {
