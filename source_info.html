@@ -20,7 +20,7 @@
 
 <meta name="description" content="An implementation of Java JSON Parser">
 <link rel="shortcut icon" href="assets/images/json_logo.png">
-<title>Javadoc · Java JSON Parser</title>
+<title>JSON source information · Java JSON Parser</title>
 <link rel="stylesheet" href="assets/stylesheets/application.451f80e5.css">
 <link rel="stylesheet" href="assets/stylesheets/application-palette.22915126.css">
 <meta name="theme-color" content="#546e7a" />
@@ -60,7 +60,7 @@ data-md-color-accent="indigo"
 Java JSON Parser
 </span>
 <span class="md-header-nav__topic">
-Javadoc
+JSON source information
 </span>
 </div>
 </div>
@@ -111,9 +111,9 @@ Java JSON Parser
 <ul>
   <li><a href="types.html" class="page">Types</a></li>
   <li><a href="json_source.html" class="page">Load JSON text from various sources</a></li>
-  <li><a href="source_info.html" class="page">JSON source information</a></li>
+  <li><a href="source_info.html" class="active page">JSON source information</a></li>
   <li><a href="source.html" class="page">Source Code</a></li>
-  <li><a href="javadoc.html" class="active page">Javadoc</a></li>
+  <li><a href="javadoc.html" class="page">Javadoc</a></li>
 </ul>
 <nav class="md-nav md-nav--secondary">
 </nav>
@@ -132,12 +132,23 @@ Java JSON Parser
 <div class="md-content">
 <article class="md-content__inner md-typeset">
 <div class="md-content__searchable">
-<h1><a href="#javadoc" name="javadoc" class="anchor"><span class="anchor-link"></span></a>Javadoc</h1>
-<p>Javadoc of the latest version is available <a href="javadoc/index.html">here</a>.</p>
-<p>Javadoc of old versions is available as jar files in <a href="https://mvnrepository.com/artifact/com.github.tnakamot/json-parser">Maven Repository</a>. For example, the javadoc jar file of version 0.0.4 can be found <a href="https://repo1.maven.org/maven2/com/github/tnakamot/json-parser/0.0.4/">here</a>.</p>
+<h1><a href="#json-source-information" name="json-source-information" class="anchor"><span class="anchor-link"></span></a>JSON source information</h1>
+<p>The advantage of this library is that each primitive JSON value hold where it is originated from. To obtain that information, call <a href="javadoc/com/github/tnakamot/json/value/JSONValuePrimitive.html#token()">token()</a>.</p>
+<pre class="prettyprint"><code class="language-java">JSONValueString jsStr = ...;
+JSONToken token = jsStr.token();
+</code></pre>
+<p>An instance of <a href="javadoc/com/github/tnakamot/json/value/JSONToken.html">JSONTOken</a> holds following information. </p>
+<ul>
+  <li><a href="javadoc/com/github/tnakamot/json/token/JSONToken.html#beginningLocation()">begginingLocation()</a>  returns an object which holds the line and column number of the first character  of this JSON value within the JSON text.</li>
+  <li><a href="javadoc/com/github/tnakamot/json/token/JSONToken.html#endLocation()">endLocation()</a>  returns an object which holds the line and column number of the character  after the last character of this JSON value within the JSON text.</li>
+  <li><a href="javadoc/com/github/tnakamot/json/token/JSONToken.html#source()">source()</a> returns an instance of  <a href="javadoc/com/github/tnakamot/json/JSONText.html">JSONText</a> from which this JSON value was extracted.</li>
+  <li><a href="javadoc/com/github/tnakamot/json/JSONText.html#name()">JSONText#name()</a> holds the short name  (i.e. file name) of the JSON text.</li>
+  <li><a href="javadoc/com/github/tnakamot/json/JSONText.html#fullName()">JSONText#fullName()</a> holds the full  name (i.e. URL or full path) of the JSON text.</li>
+  <li>The above methods do not make sense if the JSON text was loaded from String.</li>
+</ul>
 </div>
 <div>
-<a href="https://github.com/tnakamot/json-parser/tree/master/src/paradox/javadoc.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/tnakamot/json-parser/tree/master/src/paradox/source_info.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
@@ -153,7 +164,7 @@ Edit this page
 <footer class="md-footer">
 <div class="md-footer-nav">
 <nav class="md-footer-nav__inner md-grid">
-<a href="source.html" title="Source Code" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+<a href="json_source.html" title="Load JSON text from various sources" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
 <div class="md-flex__cell md-flex__cell--shrink">
 <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
 </div>
@@ -162,8 +173,21 @@ Edit this page
 <span class="md-footer-nav__direction">
 Previous
 </span>
+Load JSON text from various sources
+</span>
+</div>
+</a>
+<a href="source.html" title="Source Code" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+<span class="md-flex__ellipsis">
+<span class="md-footer-nav__direction">
+Next
+</span>
 Source Code
 </span>
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
 </div>
 </a>
 </nav>

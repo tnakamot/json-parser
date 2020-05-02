@@ -20,7 +20,7 @@
 
 <meta name="description" content="An implementation of Java JSON Parser">
 <link rel="shortcut icon" href="assets/images/json_logo.png">
-<title>Javadoc · Java JSON Parser</title>
+<title>Load JSON text from various sources · Java JSON Parser</title>
 <link rel="stylesheet" href="assets/stylesheets/application.451f80e5.css">
 <link rel="stylesheet" href="assets/stylesheets/application-palette.22915126.css">
 <meta name="theme-color" content="#546e7a" />
@@ -60,7 +60,7 @@ data-md-color-accent="indigo"
 Java JSON Parser
 </span>
 <span class="md-header-nav__topic">
-Javadoc
+Load JSON text from various sources
 </span>
 </div>
 </div>
@@ -110,12 +110,21 @@ Java JSON Parser
 </label>
 <ul>
   <li><a href="types.html" class="page">Types</a></li>
-  <li><a href="json_source.html" class="page">Load JSON text from various sources</a></li>
+  <li><a href="json_source.html" class="active page">Load JSON text from various sources</a></li>
   <li><a href="source_info.html" class="page">JSON source information</a></li>
   <li><a href="source.html" class="page">Source Code</a></li>
-  <li><a href="javadoc.html" class="active page">Javadoc</a></li>
+  <li><a href="javadoc.html" class="page">Javadoc</a></li>
 </ul>
 <nav class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">Table of contents</label>
+<ul>
+  <li><a href="json_source.html#load-json-text-from-various-sources" class="header">Load JSON text from various sources</a>
+  <ul>
+    <li><a href="json_source.html#local-file" class="header">Local file</a></li>
+    <li><a href="json_source.html#url" class="header">URL</a></li>
+    <li><a href="json_source.html#string" class="header">String</a></li>
+  </ul></li>
+</ul>
 </nav>
 
 </nav>
@@ -129,15 +138,45 @@ Java JSON Parser
 </div>
 </div>
 </div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">Table of contents</label>
+<ul>
+  <li><a href="json_source.html#load-json-text-from-various-sources" class="header">Load JSON text from various sources</a>
+  <ul>
+    <li><a href="json_source.html#local-file" class="header">Local file</a></li>
+    <li><a href="json_source.html#url" class="header">URL</a></li>
+    <li><a href="json_source.html#string" class="header">String</a></li>
+  </ul></li>
+</ul>
+</nav>
+
+</div>
+</div>
+</div>
 <div class="md-content">
 <article class="md-content__inner md-typeset">
 <div class="md-content__searchable">
-<h1><a href="#javadoc" name="javadoc" class="anchor"><span class="anchor-link"></span></a>Javadoc</h1>
-<p>Javadoc of the latest version is available <a href="javadoc/index.html">here</a>.</p>
-<p>Javadoc of old versions is available as jar files in <a href="https://mvnrepository.com/artifact/com.github.tnakamot/json-parser">Maven Repository</a>. For example, the javadoc jar file of version 0.0.4 can be found <a href="https://repo1.maven.org/maven2/com/github/tnakamot/json-parser/0.0.4/">here</a>.</p>
+<h1><a href="#load-json-text-from-various-sources" name="load-json-text-from-various-sources" class="anchor"><span class="anchor-link"></span></a>Load JSON text from various sources</h1>
+<p>JSON text can be loaded from various sources.</p>
+<h2><a href="#local-file" name="local-file" class="anchor"><span class="anchor-link"></span></a>Local file</h2>
+<pre class="prettyprint"><code class="language-java">JSONText jsText = JSONText.fromFile(new File(&quot;/path/to/file.json&quot;));
+</code></pre>
+<h2><a href="#url" name="url" class="anchor"><span class="anchor-link"></span></a>URL</h2>
+<pre class="prettyprint"><code class="language-java">JSONText jsText = JSONText.fromURL(new URL(&quot;http://example.jp/test.json&quot;))
+</code></pre>
+<h2><a href="#string" name="string" class="anchor"><span class="anchor-link"></span></a>String</h2>
+<pre class="prettyprint"><code class="language-java">JSONText jsText = JSONText.fromString(
+        &quot; { \&quot;key1\&quot;: true, &quot; +
+        &quot;   \&quot;key2\&quot;: false,&quot; +
+        &quot;   \&quot;key3\&quot;: null } &quot;);
+</code></pre>
+<p>The advantage of this library is to keep the information about where the JSON was obtained from like URL. Therefore, it is not recommended to load JSON text from String because the library cannot know where the JSON text comes from.</p>
 </div>
 <div>
-<a href="https://github.com/tnakamot/json-parser/tree/master/src/paradox/javadoc.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/tnakamot/json-parser/tree/master/src/paradox/json_source.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
@@ -153,7 +192,7 @@ Edit this page
 <footer class="md-footer">
 <div class="md-footer-nav">
 <nav class="md-footer-nav__inner md-grid">
-<a href="source.html" title="Source Code" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+<a href="types.html" title="Types" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
 <div class="md-flex__cell md-flex__cell--shrink">
 <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
 </div>
@@ -162,8 +201,21 @@ Edit this page
 <span class="md-footer-nav__direction">
 Previous
 </span>
-Source Code
+Types
 </span>
+</div>
+</a>
+<a href="source_info.html" title="JSON source information" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+<span class="md-flex__ellipsis">
+<span class="md-footer-nav__direction">
+Next
+</span>
+JSON source information
+</span>
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
 </div>
 </a>
 </nav>

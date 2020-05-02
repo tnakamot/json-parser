@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="description" content="An implementation of Java JSON Parser">
+<meta name="generator" content="Paradox, paradox-material-theme=0.6.0, mkdocs-material=3.0.3">
+
+<meta name="lang:clipboard.copy" content="Copy to clipboard">
+<meta name="lang:clipboard.copied" content="Copied to clipboard">
+<meta name="lang:search.language" content="">
+<meta name="lang:search.pipeline.stopwords" content="true">
+<meta name="lang:search.pipeline.trimmer" content="true">
+<meta name="lang:search.result.none" content="No matching documents">
+<meta name="lang:search.result.one" content="1 matching document">
+<meta name="lang:search.result.other" content="# matching documents">
+<meta name="lang:search.tokenizer" content="[\s\-]+">
+
+
+<meta name="description" content="An implementation of Java JSON Parser">
+<link rel="shortcut icon" href="assets/images/json_logo.png">
+<title>Types · Java JSON Parser</title>
+<link rel="stylesheet" href="assets/stylesheets/application.451f80e5.css">
+<link rel="stylesheet" href="assets/stylesheets/application-palette.22915126.css">
+<meta name="theme-color" content="#546e7a" />
+<link rel="stylesheet" href="lib/material__tabs/dist/mdc.tabs.min.css">
+<link rel="stylesheet" href="lib/prettify/prettify.css">
+<script src="assets/javascripts/modernizr.1aa3b519.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+<style>
+body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}
+code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}
+</style>
+<link rel="stylesheet" href="assets/fonts/font-awesome.css">
+<link rel="stylesheet" href="assets/fonts/material-icons.css">
+<link rel="stylesheet" href="assets/stylesheets/paradox-material-theme.css">
+</head>
+<body
+data-md-color-primary="blue-grey"
+data-md-color-accent="indigo"
+>
+<input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+<input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+<label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+<header class="md-header" data-md-component="header">
+<nav class="md-header-nav md-grid">
+<div class="md-flex">
+<div class="md-flex__cell md-flex__cell--shrink">
+<a href="index.html" title="Java JSON Parser" class="md-header-nav__button md-logo">
+<img src="assets/images/json_logo.png" width="24" height="24">
+</a>
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+</div>
+<div class="md-flex__cell md-flex__cell--stretch">
+<div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+<span class="md-header-nav__topic">
+Java JSON Parser
+</span>
+<span class="md-header-nav__topic">
+Types
+</span>
+</div>
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+<label class="md-icon md-search__icon" for="__search"></label>
+<button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">&#xE5CD;</button>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix>
+<div class="md-search-result" data-md-component="result">
+<div class="md-search-result__meta">
+Type to start searching
+</div>
+<ol class="md-search-result__list"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</nav>
+</header>
+
+<div class="md-container">
+<main class="md-main">
+<div class="md-main__inner md-grid" data-md-component="container">
+<div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav class="md-nav md-nav--primary" data-md-level="0" style="visibility: hidden">
+<label class="md-nav__title md-nav__title--site" for="drawer">
+<a href="index.html" title="Java JSON Parser" class="md-nav__button md-logo">
+<span class="md-nav__button md-logo">
+<img src="assets/images/json_logo.png" width="24" height="24">
+</a>
+<a href="index.html" title="Java JSON Parser">
+Java JSON Parser
+</a>
+</label>
+<ul>
+  <li><a href="types.html" class="active page">Types</a></li>
+  <li><a href="json_source.html" class="page">Load JSON text from various sources</a></li>
+  <li><a href="source_info.html" class="page">JSON source information</a></li>
+  <li><a href="source.html" class="page">Source Code</a></li>
+  <li><a href="javadoc.html" class="page">Javadoc</a></li>
+</ul>
+<nav class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">Table of contents</label>
+<ul>
+  <li><a href="types.html#types" class="header">Types</a>
+  <ul>
+    <li><a href="types.html#null" class="header">null</a></li>
+    <li><a href="types.html#boolean" class="header">boolean</a></li>
+    <li><a href="types.html#string" class="header">string</a></li>
+    <li><a href="types.html#number" class="header">number</a></li>
+    <li><a href="types.html#array" class="header">array</a></li>
+    <li><a href="types.html#object" class="header">object</a></li>
+  </ul></li>
+</ul>
+</nav>
+
+</nav>
+<ul style="display: none">
+<li class="md-nav__item md-version" id="project.version">
+<label class="md-nav__link" for="__version">
+<i class="md-icon" title="Version">label_outline</i> 0.0.6*
+</label>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">Table of contents</label>
+<ul>
+  <li><a href="types.html#types" class="header">Types</a>
+  <ul>
+    <li><a href="types.html#null" class="header">null</a></li>
+    <li><a href="types.html#boolean" class="header">boolean</a></li>
+    <li><a href="types.html#string" class="header">string</a></li>
+    <li><a href="types.html#number" class="header">number</a></li>
+    <li><a href="types.html#array" class="header">array</a></li>
+    <li><a href="types.html#object" class="header">object</a></li>
+  </ul></li>
+</ul>
+</nav>
+
+</div>
+</div>
+</div>
+<div class="md-content">
+<article class="md-content__inner md-typeset">
+<div class="md-content__searchable">
+<h1><a href="#types" name="types" class="anchor"><span class="anchor-link"></span></a>Types</h1>
+<p><a href="javadoc/com/github/tnakamot/json/value/JSONValue.html">JSONValue</a> is an abstract class and the realization of JSON value is done by child classes. The type of the JSON value can be obtained by calling <a href="javadoc/com/github/tnakamot/json/value/JSONValue.html#type()">type()</a>. Depending on the returned type, the instance of <a href="javadoc/com/github/tnakamot/json/value/JSONValue.html">JSONValue</a> can be safely casted in a dedicated class. The table below shows the correspondence between the type and the class.</p>
+<table>
+  <thead>
+    <tr>
+      <th>Type </th>
+      <th>Class </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="javadoc/com/github/tnakamot/json/value/JSONValueType.html#NULL">NULL</a> </td>
+      <td><a href="javadoc/com/github/tnakamot/json/value/JSONValueNull.html">JSONValueNull</a> </td>
+    </tr>
+    <tr>
+      <td><a href="javadoc/com/github/tnakamot/json/value/JSONValueType.html#BOOLEAN">BOOLEAN</a> </td>
+      <td><a href="javadoc/com/github/tnakamot/json/value/JSONValueBoolean.html">JSONValueBoolean</a> </td>
+    </tr>
+    <tr>
+      <td><a href="javadoc/com/github/tnakamot/json/value/JSONValueType.html#STRING">STRING</a> </td>
+      <td><a href="javadoc/com/github/tnakamot/json/value/JSONValueString.html">JSONValueString</a> </td>
+    </tr>
+    <tr>
+      <td><a href="javadoc/com/github/tnakamot/json/value/JSONValueType.html#NUMBER">NUMBER</a> </td>
+      <td><a href="javadoc/com/github/tnakamot/json/value/JSONValueNumber.html">JSONValueNumber</a> </td>
+    </tr>
+    <tr>
+      <td><a href="javadoc/com/github/tnakamot/json/value/JSONValueType.html#ARRAY">ARRAY</a> </td>
+      <td><a href="javadoc/com/github/tnakamot/json/value/JSONValueArray.html">JSONValueArray</a> </td>
+    </tr>
+    <tr>
+      <td><a href="javadoc/com/github/tnakamot/json/value/JSONValueType.html#OBJECT">OBJECT</a> </td>
+      <td><a href="javadoc/com/github/tnakamot/json/value/JSONValueObject.html">JSONValueObject</a> </td>
+    </tr>
+  </tbody>
+</table>
+<p>The following sections explain the details of each type.</p>
+<h1><a href="#null" name="null" class="anchor"><span class="anchor-link"></span></a>null</h1>
+<p><a href="javadoc/com/github/tnakamot/json/value/JSONValueNull.html">JSONValueNull</a> has no value.</p>
+<h1><a href="#boolean" name="boolean" class="anchor"><span class="anchor-link"></span></a>boolean</h1>
+<p><a href="javadoc/com/github/tnakamot/json/value/JSONValueBoolean.html">JSONValueBoolean</a> holds a boolean value. Call <a href="javadoc/com/github/tnakamot/json/value/JSONValueBoolean.html#value()">value()</a> to extract the boolean value.</p>
+<h1><a href="#string" name="string" class="anchor"><span class="anchor-link"></span></a>string</h1>
+<p><a href="javadoc/com/github/tnakamot/json/value/JSONValueString.html">JSONValueString</a> holds an unescaped string value. Call <a href="javadoc/com/github/tnakamot/json/value/JSONValueString.html#value()">value()</a> to extract the String value.</p>
+<h1><a href="#number" name="number" class="anchor"><span class="anchor-link"></span></a>number</h1>
+<p><a href="javadoc/com/github/tnakamot/json/value/JSONValueNumber.html">JSONValueNumber</a> holds a number value as String. Because no Java class in the standard Java library cannot represent all possible numeric values that the JSON number notation can express. For example, JSON allows an extremely large value like 1E100000 or an extremely precise value like 3.14159265358979323846264338327950288. No standard Java class or primitives cannot represent those values without loosing information. Therefore, <a href="javadoc/com/github/tnakamot/json/value/JSONValueNumber.html">JSONValueNumber</a> holds the text that represents the number as it appears in the JSON text.</p>
+<p>You can call <a href="javadoc/com/github/tnakamot/json/value/JSONValueNumber.html#toDouble()">toDouble()</a> or <a href="javadoc/com/github/tnakamot/json/value/JSONValueNumber.html#toLong()">toLong()</a> to get a corresponding Java primitive value.</p>
+<h1><a href="#array" name="array" class="anchor"><span class="anchor-link"></span></a>array</h1>
+<p><a href="javadoc/com/github/tnakamot/json/value/JSONValueArray.html">JSONValueArray</a> holds an ordered sequence of <a href="javadoc/com/github/tnakamot/json/value/JSONValue.html">JSONValue</a>. It implements <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/List.html" title="java.util.List"><code>List</code></a> interface, so all values can be iterated using <code>for</code> statement, for example.</p>
+<pre class="prettyprint"><code class="language-java">JSONText jsText = JSONText.fromString(&quot; [ true, false, \&quot;abc\&quot;, 1.52, null ] &quot;);
+JSONValue root = jsText.parse();
+
+if (root.type() == JSONValueType.ARRAY) {
+    JSONValueArray rootArray = (JSONValueArray) root;
+
+    for (JSONValue jsonValue : rootArray) {
+        ...
+    }
+}
+</code></pre><div class="callout note "><div class="callout-title">Note</div>
+<p>Instances of <a href="javadoc/com/github/tnakamot/json/value/JSONValueArray.html">JSONValueArray</a> are immutable. All methods of <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/List.html" title="java.util.List"><code>List</code></a> interface that may change the list contents like <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/List.html#add(E)" title="java.util.List"><code>add()</code></a> result in <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/UnsupportedOperationException.html" title="java.lang.UnsupportedOperationException"><code>UnsupportedOperationException</code></a>.</p></div>
+<h1><a href="#object" name="object" class="anchor"><span class="anchor-link"></span></a>object</h1>
+<p><a href="javadoc/com/github/tnakamot/json/value/JSONValueObject.html">JSONValueObject</a> holds a key-value map. It implements <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Map.html" title="java.util.Map"><code>Map</code></a> interface. The class of the key is <a href="javadoc/com/github/tnakamot/json/value/JSONValueString.html">JSONValueString</a> and that of the value is <a href="javadoc/com/github/tnakamot/json/value/JSONValue.html">JSONValue</a>. All key-value pairs can be iterated as shown below.</p>
+<pre class="prettyprint"><code class="language-java">JSONText jsText = JSONText.fromString(
+    &quot; { \&quot;key1\&quot;: true, &quot; +
+    &quot;   \&quot;key2\&quot;: false,&quot; +
+    &quot;   \&quot;key3\&quot;: null } &quot;);
+JSONValue root = jsText.parse();
+
+if (root.type() == JSONValueType.OBJECT) {
+    JSONValueObject rootObj = (JSONValueObject) root;
+
+    for (Map.Entry&lt;JSONValueString, JSONValue&gt; entry: rootObj.entrySet()) {
+        JSONValueString key = entry.getKey();
+        JSONValue value = entry.getValue();
+        ...
+    }
+}
+</code></pre><div class="callout note "><div class="callout-title">Note</div>
+<p>Instances of <a href="javadoc/com/github/tnakamot/json/value/JSONValueObject.html">JSONValueObject</a> are immutable. All methods of <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Map.html" title="java.util.Map"><code>Map</code></a> interface that may change the contents like <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Map.html#put(K,V)" title="java.util.Map"><code>put()</code></a> result in <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/UnsupportedOperationException.html" title="java.lang.UnsupportedOperationException"><code>UnsupportedOperationException</code></a>.</p></div>
+</div>
+<div>
+<a href="https://github.com/tnakamot/json-parser/tree/master/src/paradox/types.md" title="Edit this page" class="md-source-file md-edit">
+Edit this page
+</a>
+</div>
+<div class="print-only">
+<span class="md-source-file md-version">
+0.0.6*
+</span>
+</div>
+</article>
+</div>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-nav">
+<nav class="md-footer-nav__inner md-grid">
+<a href="index.html" title="Java JSON Parser" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+<div class="md-flex__cell md-flex__cell--shrink">
+<i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+</div>
+<div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+<span class="md-flex__ellipsis">
+<span class="md-footer-nav__direction">
+Previous
+</span>
+Java JSON Parser
+</span>
+</div>
+</a>
+<a href="json_source.html" title="Load JSON text from various sources" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+<span class="md-flex__ellipsis">
+<span class="md-footer-nav__direction">
+Next
+</span>
+Load JSON text from various sources
+</span>
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+</div>
+</a>
+</nav>
+</div>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-footer-copyright">
+<div class="md-footer-copyright__highlight">
+Copyright (C) 2020 Takashi Nakamoto
+</div>
+Powered by
+<a href="https://github.com/lightbend/paradox">Paradox</a>
+and
+<a href="https://jonas.github.io/paradox-material-theme/">Paradox Material Theme</a>
+
+</div>
+<div class="md-footer-social">
+<a href="https://github.com/tnakamot" class="md-footer-social__link fa fa-github"></a>
+</div>
+
+</div>
+</div>
+</footer>
+
+</div>
+<script src="assets/javascripts/application.583bbe55.js"></script>
+<script src="assets/javascripts/paradox-material-theme.js"></script>
+<script>app.initialize({version:"0.17",url:{base:"."}})</script>
+<script type="text/javascript" src="lib/prettify/prettify.js"></script>
+<script type="text/javascript" src="lib/prettify/lang-scala.js"></script>
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function(event) {
+window.prettyPrint && prettyPrint();
+});
+</script>
+</body>
+</html>
