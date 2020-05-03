@@ -28,4 +28,142 @@ public abstract class JSONValueArray extends JSONValue implements List<JSONValue
     JSONValueArray() {
         super(JSONValueType.ARRAY);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public abstract int size();
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public abstract boolean isEmpty();
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public abstract boolean contains(Object o);
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public abstract Iterator<JSONValue> iterator();
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public abstract Object[] toArray();
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public abstract boolean add(JSONValue jsonValue);
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public abstract boolean remove(Object o);
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public abstract boolean addAll(Collection collection);
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public abstract boolean addAll(int i, Collection collection);
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public abstract void clear();
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public abstract JSONValue get(int i);
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public abstract JSONValue set(int i, JSONValue jsonValue);
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public abstract void add(int i, JSONValue jsonValue);
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public abstract JSONValue remove(int i);
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public abstract int indexOf(Object o);
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public abstract int lastIndexOf(Object o);
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public abstract ListIterator<JSONValue> listIterator();
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public abstract ListIterator<JSONValue> listIterator(int i);
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public abstract List<JSONValue> subList(int i, int i1);
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public abstract boolean retainAll(Collection collection);
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public abstract boolean removeAll(Collection collection);
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public abstract boolean containsAll(Collection collection);
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public abstract <T> T[] toArray(T[] ts);
 }

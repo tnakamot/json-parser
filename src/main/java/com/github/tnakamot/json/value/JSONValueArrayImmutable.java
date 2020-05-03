@@ -44,117 +44,196 @@ public class JSONValueArrayImmutable extends JSONValueArray {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int size() {
         return values.size();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isEmpty() {
         return values.isEmpty();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean contains(Object o) {
         return values.contains(o);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Iterator<JSONValue> iterator() {
         return values.iterator();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Object[] toArray() {
         return values.toArray();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public <T> T[] toArray(T[] ts) {
         return values.toArray(ts);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
+    @Deprecated
     public boolean add(JSONValue jsonValue) {
         throw new UnsupportedOperationException("cannot add a value");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
+    @Deprecated
     public boolean remove(Object o) {
         throw new UnsupportedOperationException("cannot remove a value");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean containsAll(Collection collection) {
         return values.containsAll(collection);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
+    @Deprecated
     public boolean addAll(Collection collection) {
         throw new UnsupportedOperationException("cannot add values");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
+    @Deprecated
     public boolean addAll(int i, Collection collection) {
         throw new UnsupportedOperationException("cannot add values");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
+    @Deprecated
     public void clear() {
         throw new UnsupportedOperationException("cannot clear values");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public JSONValue get(int i) {
         return values.get(i);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
+    @Deprecated
     public JSONValue set(int i, JSONValue jsonValue) {
         throw new UnsupportedOperationException("cannot set a value");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
+    @Deprecated
     public void add(int i, JSONValue jsonValue) {
         throw new UnsupportedOperationException("cannot add a value");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
+    @Deprecated
     public JSONValue remove(int i) {
         throw new UnsupportedOperationException("cannot remove a value");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int indexOf(Object o) {
         return values.indexOf(o);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int lastIndexOf(Object o) {
         return values.lastIndexOf(o);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ListIterator<JSONValue> listIterator() {
         return values.listIterator();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ListIterator<JSONValue> listIterator(int i) {
         return values.listIterator(i);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<JSONValue> subList(int i, int i1) {
         return values.subList(i, i1);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
+    @Deprecated
     public boolean retainAll(Collection collection) {
         throw new UnsupportedOperationException("retainAll is not supported");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
+    @Deprecated
     public boolean removeAll(Collection collection) {
         throw new UnsupportedOperationException("cannot remove values");
     }

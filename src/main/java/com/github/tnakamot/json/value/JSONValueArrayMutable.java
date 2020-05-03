@@ -49,116 +49,185 @@ public class JSONValueArrayMutable extends JSONValueArray {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int size() {
         return values.size();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isEmpty() {
         return values.isEmpty();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean contains(Object o) {
         return values.contains(o);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Iterator<JSONValue> iterator() {
         return values.iterator();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Object[] toArray() {
         return values.toArray();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean add(JSONValue jsonValue) {
         return values.add(jsonValue);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean remove(Object o) {
         return values.remove(o);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean addAll(Collection collection) {
         return values.addAll(collection);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean addAll(int i, Collection collection) {
         return values.addAll(i, collection);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void clear() {
         values.clear();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public JSONValue get(int i) {
         return values.get(i);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public JSONValue set(int i, JSONValue jsonValue) {
         return values.set(i, jsonValue);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void add(int i, JSONValue jsonValue) {
         values.add(i, jsonValue);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public JSONValue remove(int i) {
         return values.remove(i);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int indexOf(Object o) {
         return values.indexOf(o);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int lastIndexOf(Object o) {
         return values.lastIndexOf(o);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ListIterator<JSONValue> listIterator() {
         return values.listIterator();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ListIterator<JSONValue> listIterator(int i) {
         return values.listIterator(i);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<JSONValue> subList(int i, int i1) {
         return values.subList(i, i1);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean retainAll(Collection collection) {
         return values.retainAll(collection);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean removeAll(Collection collection) {
         return values.removeAll(collection);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean containsAll(Collection collection) {
         return values.containsAll(collection);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public <T> T[] toArray(T[] ts) {
         return values.toArray(ts);
