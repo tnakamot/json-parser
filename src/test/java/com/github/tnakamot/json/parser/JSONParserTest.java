@@ -48,7 +48,7 @@ public class JSONParserTest {
         JSONValueArray rootArray = (JSONValueArray) root;
 
         assertEquals(0, rootArray.size());
-        assertFalse(rootArray.contains(JSONValueNull.NULL));
+        assertFalse(rootArray.contains(JSONValueNull.INSTANCE));
         assertTrue(rootArray.isEmpty());
     }
 
@@ -58,7 +58,7 @@ public class JSONParserTest {
 
         assertEquals(JSONValueType.NULL, root.type());
         assertTrue(root instanceof JSONValueNull);
-        assertEquals(JSONValueNull.NULL, root);
+        assertEquals(JSONValueNull.INSTANCE, root);
         assertEquals("null", root.toString());
     }
 
@@ -294,8 +294,8 @@ public class JSONParserTest {
         assertEquals(1.52, ((JSONValueNumber) rootArray.get(3)).toDouble());
         assertFalse(((JSONValueNumber) rootArray.get(3)).canBeLong());
 
-        assertEquals(JSONValueNull.NULL, rootArray.get(4));
-        assertTrue(rootArray.contains(JSONValueNull.NULL));
+        assertEquals(JSONValueNull.INSTANCE, rootArray.get(4));
+        assertTrue(rootArray.contains(JSONValueNull.INSTANCE));
         assertEquals(JSONValueType.NULL, rootArray.get(4).type());
         assertTrue(rootArray.get(4) instanceof JSONValueNull);
 
@@ -320,7 +320,7 @@ public class JSONParserTest {
                     break;
                 case 4:
                     assertEquals(JSONValueType.NULL, jsonValue.type());
-                    assertEquals(JSONValueNull.NULL, jsonValue);
+                    assertEquals(JSONValueNull.INSTANCE, jsonValue);
                     break;
             }
 
@@ -360,8 +360,8 @@ public class JSONParserTest {
         assertTrue(rootObj.get("key2") instanceof JSONValueBoolean);
         assertFalse(((JSONValueBoolean) rootObj.get("key2")).value());
 
-        assertEquals(JSONValueNull.NULL, rootObj.get("key3"));
-        assertTrue(rootObj.containsValue(JSONValueNull.NULL));
+        assertEquals(JSONValueNull.INSTANCE, rootObj.get("key3"));
+        assertTrue(rootObj.containsValue(JSONValueNull.INSTANCE));
         assertEquals(JSONValueType.NULL, rootObj.get("key3").type());
         assertTrue(rootObj.get("key3") instanceof JSONValueNull);
 
@@ -380,7 +380,7 @@ public class JSONParserTest {
                     break;
                 case 2:
                     assertEquals("key3", entry.getKey().value());
-                    assertEquals(JSONValueNull.NULL, entry.getValue());
+                    assertEquals(JSONValueNull.INSTANCE, entry.getValue());
                     break;
             }
             i++;
