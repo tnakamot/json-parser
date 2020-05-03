@@ -20,13 +20,78 @@ import com.github.tnakamot.json.JSONText;
 import com.github.tnakamot.json.token.StringLocation;
 
 /**
- * Thrown when a JSON lexical analyzer fails to tokenize a given JSON text.
+ * Thrown when a JSON lexical analyzer fails to tokenize a given JSON text
+ * due to a syntax error.
  *
  * <p>
  * Instances of this class are immutable.
  *
  * <p>
- * TODO: document how the error messages are printed
+ * The error message can be customized by {@link JSONParserErrorMessageFormat}.
+ * The message format is basically
+ *
+ * <pre>
+ * (name):(position): (message)
+ * </pre>
+ *
+ * <p>
+ * (name) is the file name of the source JSON text. If
+ * {@link JSONParserErrorMessageFormat#showFullPath()} is true, the full path
+ * or URL is shown.
+ *
+ * <p>
+ * (position) shows the location where the error is detected within the source
+ * JSON text. If {@link JSONParserErrorMessageFormat#showLineAndColumnNumber()}
+ * is false, the position in number of Unicode characters is shown (starting from
+ * zero). If it is true, the line number and the column (both starting from one)
+ * separated by ":" is shown.
+ *
+ * <p>
+ * If {@link JSONParserErrorMessageFormat#showErrorLine()} is true, a line which
+ * contains the error is shown additionally with a position marker.
+ *
+ * <p>
+ * Here is an example of a JSON text which has an error:
+ *
+ * <pre>
+ * {
+ *   "key": My name is JSON
+ * }
+ * </pre>
+ *
+ * <p>
+ * If
+ *
+ * <ul>
+ *  <li>{@link JSONParserErrorMessageFormat#showFullPath()} is false</li>
+ *  <li>{@link JSONParserErrorMessageFormat#showLineAndColumnNumber()} is true</li>
+ *  <li>{@link JSONParserErrorMessageFormat#showErrorLine()} is false</li>
+ * </ul>
+ *
+ * <p>
+ * the error message from the parser will be
+ *
+ * <pre>
+ * hello.json:12: unknown token starting with 'M'
+ * </pre>
+ *
+ * <p>
+ * If
+ *
+ * <ul>
+ *  <li>{@link JSONParserErrorMessageFormat#showFullPath()} is true</li>
+ *  <li>{@link JSONParserErrorMessageFormat#showLineAndColumnNumber()} is false</li>
+ *  <li>{@link JSONParserErrorMessageFormat#showErrorLine()} is true</li>
+ * </ul>
+ *
+ * <p>
+ * the error message from the parser will be
+ *
+ * <pre>
+ * /path/to/hello.json:12: unknown token starting with 'M'
+ * "key": My name is JSON
+ *        ^
+ * </pre>
  *
  */
 public class JSONParserException extends Exception {
