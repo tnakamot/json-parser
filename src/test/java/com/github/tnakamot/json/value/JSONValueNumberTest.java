@@ -18,20 +18,21 @@ package com.github.tnakamot.json.value;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.DisplayName;
+import com.github.tnakamot.json.JSONText;
+import com.github.tnakamot.json.parser.JSONParserException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import java.util.Arrays;
-import java.util.Collection;
+import java.io.IOException;
+import java.util.stream.Stream;
 
 public class JSONValueNumberTest {
     @Test
     public void testNull() {
-        assertThrows(NullPointerException.class, () -> {
-           JSONValueNumber num = new JSONValueNumber((String) null);
-        });
+        assertThrows(NullPointerException.class, () -> new JSONValueNumber((String) null));
     }
 
     @ParameterizedTest(name = "testInvalidNumber: \"{0}\"")
@@ -61,8 +62,97 @@ public class JSONValueNumberTest {
             "-Inf",
     })
     public void testInvalidNumber(String text) {
-        assertThrows(NumberFormatException.class, () -> {
-            JSONValueNumber num = new JSONValueNumber(text);
-        });
+        assertThrows(NumberFormatException.class, () -> new JSONValueNumber(text));
+    }
+
+    @ParameterizedTest(name = "testDoubleNumber: \"{0}\"")
+    @MethodSource("validDoubleProvider")
+    public void testDoubleNumber(String text, double expected) {
+        JSONValueNumber num = new JSONValueNumber(text);
+        assertEquals(JSONValueType.NUMBER, num.type());
+        assertEquals(text, num.text());
+        assertEquals(text, num.toString());
+        assertEquals(expected, num.toDouble());
+    }
+
+    static Stream<Arguments> validDoubleProvider() {
+        return Stream.of(
+                Arguments.of("0", 0.0),
+                Arguments.of("0.0000000", 0.0),
+                Arguments.of("-0", -0.0),
+                Arguments.of("152", 152.0),
+                Arguments.of("0.0", 0.0),
+                Arguments.of("1.5", 1.5),
+                Arguments.of("0.32", 0.32),
+                Arguments.of("-123", -123.0),
+                Arguments.of("-0.62", -0.62),
+                Arguments.of("-521.3", -521.3),
+                Arguments.of("1.00000", 1.0),
+                Arguments.of("1e2", 1e2),
+                Arguments.of("52e+2", 52e2),
+                Arguments.of("88e-2", 88e-2),
+                Arguments.of("-71E2", -71e2),
+                Arguments.of("82E+2", 82e2),
+                Arguments.of("0E-2", 0e2),
+                Arguments.of("2.5e5", 2.5e5),
+                Arguments.of("-3.14e+2", -3.14e2),
+                Arguments.of("93.2e-22", 93.2e-22),
+                Arguments.of("999.9E1", 999.9e1),
+                Arguments.of("-22.5E+3", -22.5e3),
+                Arguments.of("2.50e-4", 2.50e-4),
+                Arguments.of("1.797693134862315807E+308", 1.797693134862315807E+308),
+                Arguments.of("1.797693134862315808E+308", Double.POSITIVE_INFINITY),
+                Arguments.of("0.1e309", 1E308),
+                Arguments.of("1e309", Double.POSITIVE_INFINITY),
+                Arguments.of("-1.797693134862315807E+308", -1.797693134862315807E+308),
+                Arguments.of("-1.797693134862315808E+308", Double.NEGATIVE_INFINITY),
+                Arguments.of("1e309", Double.POSITIVE_INFINITY),
+                Arguments.of("-0.1e309", -1E308),
+                Arguments.of("-1e309", Double.NEGATIVE_INFINITY),
+                Arguments.of("4.94065645841246544E-324", 4.94065645841246544E-324),
+                Arguments.of("-4.94065645841246544E-324", -4.94065645841246544E-324),
+                Arguments.of("4.94065645841246544E-325", 0.0),
+                Arguments.of("-4.94065645841246544E-325", -0.0),
+                Arguments.of("2.5E-324", 4.94065645841246544E-324),
+                Arguments.of("-2.5E-324", -4.94065645841246544E-324),
+                Arguments.of("2.4E-324", 0.0),
+                Arguments.of("-2.4E-324", -0.0),
+                Arguments.of("1", 1.0)
+        );
+    }
+
+    @Test
+    public void testEquality() throws IOException, JSONParserException {
+        JSONValueNumber val1 = new JSONValueNumber("123");
+        JSONValueNumber val2 = new JSONValueNumber("123");
+        JSONValueNumber val3 = (JSONValueNumber) JSONText.fromString("123").parse();
+
+        assertEquals(val1.hashCode(), val2.hashCode());
+        assertEquals(val1.hashCode(), val3.hashCode());
+
+        assertEquals(val1, val2);
+        assertEquals(val2, val1);
+        assertEquals(val1, val3);
+        assertEquals(val3, val1);
+        assertEquals(val2, val3);
+        assertEquals(val3, val2);
+    }
+
+    @Test
+    public void testInequality() throws IOException, JSONParserException {
+        JSONValueNumber val1 = new JSONValueNumber("123");
+        JSONValueNumber val2 = new JSONValueNumber("1.23e2");
+        JSONValueNumber val3 = (JSONValueNumber) JSONText.fromString("12300E-2").parse();
+
+        assertNotEquals(val1.hashCode(), val2.hashCode());
+        assertNotEquals(val2.hashCode(), val3.hashCode());
+        assertNotEquals(val3.hashCode(), val1.hashCode());
+
+        assertNotEquals(val1, val2);
+        assertNotEquals(val2, val1);
+        assertNotEquals(val1, val3);
+        assertNotEquals(val3, val1);
+        assertNotEquals(val2, val3);
+        assertNotEquals(val3, val2);
     }
 }
