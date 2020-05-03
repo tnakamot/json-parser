@@ -45,8 +45,11 @@ public class JSONValueNumber extends JSONValuePrimitive {
      *
      * @param text value represented by a Java {@link String} object of this
      *              JSON string value. Cannot be null.
+     * @throws NumberFormatException when the given text does not fulfill the number
+     *                               format defined by
+     *                               <a href="https://tools.ietf.org/html/rfc8259#section-6">RFC 8259 - 6. Numbers</a>.
      */
-    public JSONValueNumber(String text) {
+    public JSONValueNumber(String text) throws NumberFormatException {
         super(JSONValueType.NUMBER, null);
         this.text = text;
 
@@ -55,7 +58,7 @@ public class JSONValueNumber extends JSONValuePrimitive {
         }
 
         if (! text.matches(NUMBER_PATTERN)) {
-            throw new IllegalArgumentException(
+            throw new NumberFormatException(
                     "The given text '" + text + "' does not match the pattern of JSON numbers defined in RFC 8259.");
         }
     }
