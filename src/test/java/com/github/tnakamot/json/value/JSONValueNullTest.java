@@ -54,4 +54,13 @@ public class JSONValueNullTest {
         assertEquals("null", val1.toString());
         assertEquals("null", val2.toString());
     }
+
+    @Test
+    public void testType() throws IOException, JSONParserException {
+        JSONValueNull val1 = JSONValueNull.INSTANCE;
+        JSONValueNull val2 = (JSONValueNull) JSONText.fromString("null").parse();
+
+        assertEquals(JSONValueType.NULL, val1.type());
+        assertEquals(JSONValueType.NULL, val2.type());
+    }
 }
