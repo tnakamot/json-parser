@@ -22,6 +22,8 @@ import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.platform.commons.logging.Logger;
+import org.junit.platform.commons.logging.LoggerFactory;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -33,6 +35,8 @@ public class JSONTextTest {
     private static final String JSON_STR = " { \"key\": \"My name is \u5d07\u5fd7\"} ";
 
     private static File jsonFile;
+
+    private static final Logger log = LoggerFactory.getLogger(JSONTextTest.class);
 
     @BeforeAll
     public static void setUp() throws IOException {
@@ -55,6 +59,11 @@ public class JSONTextTest {
         assertEquals(file, jsText.source());
         assertEquals(file.getPath(), jsText.fullName());
         assertEquals(file.getName(), jsText.name());
+
+        String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
+        log.info(() -> methodName + ": (original): " + file.getPath());
+        log.info(() -> methodName + ": fullName(): " + jsText.fullName());
+        log.info(() -> methodName + ": name()    : " + jsText.name());
     }
 
     @Test
@@ -83,6 +92,11 @@ public class JSONTextTest {
         assertEquals(url, jsText.source());
         assertEquals(url.toString(), jsText.fullName());
         assertEquals(jsonFile.getName(), jsText.name());
+
+        String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
+        log.info(() -> methodName + ": (original): " + url);
+        log.info(() -> methodName + ": fullName(): " + jsText.fullName());
+        log.info(() -> methodName + ": name()    : " + jsText.name());
     }
 
     @Test
