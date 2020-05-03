@@ -38,7 +38,7 @@ public class JSONValueNumber extends JSONValuePrimitive {
      * Regex pattern that exactly matches the "number" tokens defined in
      * <a href="https://tools.ietf.org/html/rfc8259#section-6">RFC 8259 - 6. Numbers</a>.
      */
-    public static final String NUMBER_PATTERN = "-?(0|([1-9][0-9]*))(\\.[0-9]+)?([eE][-\\+]?[0-9]+)?";
+    public static final String NUMBER_PATTERN = "-?(0|([1-9][0-9]*))(\\.[0-9]+)?([eE][-+]?[0-9]+)?";
 
     /**
      * Create an instance of a Java representation of a JSON number value.
