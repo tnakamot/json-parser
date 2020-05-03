@@ -26,8 +26,6 @@ import java.io.IOException;
 import java.util.List;
 
 public class JSONLexerTest {
-    // TODO: test end location of each token
-
     @Test
     public void testEmpty() throws IOException, JSONParserException {
         List<JSONToken> tokens = JSONText.fromString("").tokens();
@@ -50,6 +48,9 @@ public class JSONLexerTest {
         assertEquals(1, tokens.get(0).beginningLocation().position());
         assertEquals(1, tokens.get(0).beginningLocation().line());
         assertEquals(2, tokens.get(0).beginningLocation().column());
+        assertEquals(2, tokens.get(0).endLocation().position());
+        assertEquals(1, tokens.get(0).endLocation().line());
+        assertEquals(3, tokens.get(0).endLocation().column());
         assertEquals(jsText, tokens.get(0).source());
 
         assertEquals(JSONTokenType.STRING, tokens.get(1).type());
@@ -57,6 +58,9 @@ public class JSONLexerTest {
         assertEquals(3, tokens.get(1).beginningLocation().position());
         assertEquals(1, tokens.get(1).beginningLocation().line());
         assertEquals(4, tokens.get(1).beginningLocation().column());
+        assertEquals(8, tokens.get(1).endLocation().position());
+        assertEquals(1, tokens.get(1).endLocation().line());
+        assertEquals(9, tokens.get(1).endLocation().column());
         assertEquals(jsText, tokens.get(1).source());
         assertTrue(tokens.get(1) instanceof JSONTokenString);
         assertEquals("key", ((JSONTokenString) tokens.get(1)).value());
@@ -66,6 +70,9 @@ public class JSONLexerTest {
         assertEquals(8, tokens.get(2).beginningLocation().position());
         assertEquals(1, tokens.get(2).beginningLocation().line());
         assertEquals(9, tokens.get(2).beginningLocation().column());
+        assertEquals(9, tokens.get(2).endLocation().position());
+        assertEquals(1, tokens.get(2).endLocation().line());
+        assertEquals(10, tokens.get(2).endLocation().column());
         assertEquals(jsText, tokens.get(2).source());
 
         assertEquals(JSONTokenType.BEGIN_ARRAY, tokens.get(3).type());
@@ -73,6 +80,9 @@ public class JSONLexerTest {
         assertEquals(11, tokens.get(3).beginningLocation().position());
         assertEquals(2, tokens.get(3).beginningLocation().line());
         assertEquals(1, tokens.get(3).beginningLocation().column());
+        assertEquals(12, tokens.get(3).endLocation().position());
+        assertEquals(2, tokens.get(3).endLocation().line());
+        assertEquals(2, tokens.get(3).endLocation().column());
         assertEquals(jsText, tokens.get(3).source());
 
         assertEquals(JSONTokenType.BOOLEAN, tokens.get(4).type());
@@ -80,6 +90,9 @@ public class JSONLexerTest {
         assertEquals(12, tokens.get(4).beginningLocation().position());
         assertEquals(2, tokens.get(4).beginningLocation().line());
         assertEquals(2, tokens.get(4).beginningLocation().column());
+        assertEquals(16, tokens.get(4).endLocation().position());
+        assertEquals(2, tokens.get(4).endLocation().line());
+        assertEquals(6, tokens.get(4).endLocation().column());
         assertEquals(jsText, tokens.get(4).source());
         assertTrue(tokens.get(4) instanceof JSONTokenBoolean);
         assertTrue(((JSONTokenBoolean) tokens.get(4)).value());
@@ -89,6 +102,9 @@ public class JSONLexerTest {
         assertEquals(16, tokens.get(5).beginningLocation().position());
         assertEquals(2, tokens.get(5).beginningLocation().line());
         assertEquals(6, tokens.get(5).beginningLocation().column());
+        assertEquals(17, tokens.get(5).endLocation().position());
+        assertEquals(2, tokens.get(5).endLocation().line());
+        assertEquals(7, tokens.get(5).endLocation().column());
         assertEquals(jsText, tokens.get(5).source());
 
         assertEquals(JSONTokenType.BOOLEAN, tokens.get(6).type());
@@ -96,6 +112,9 @@ public class JSONLexerTest {
         assertEquals(18, tokens.get(6).beginningLocation().position());
         assertEquals(3, tokens.get(6).beginningLocation().line());
         assertEquals(1, tokens.get(6).beginningLocation().column());
+        assertEquals(23, tokens.get(6).endLocation().position());
+        assertEquals(3, tokens.get(6).endLocation().line());
+        assertEquals(6, tokens.get(6).endLocation().column());
         assertEquals(jsText, tokens.get(6).source());
         assertTrue(tokens.get(6) instanceof JSONTokenBoolean);
         assertFalse(((JSONTokenBoolean) tokens.get(6)).value());
@@ -105,6 +124,9 @@ public class JSONLexerTest {
         assertEquals(23, tokens.get(7).beginningLocation().position());
         assertEquals(3, tokens.get(7).beginningLocation().line());
         assertEquals(6, tokens.get(7).beginningLocation().column());
+        assertEquals(24, tokens.get(7).endLocation().position());
+        assertEquals(3, tokens.get(7).endLocation().line());
+        assertEquals(7, tokens.get(7).endLocation().column());
         assertEquals(jsText, tokens.get(7).source());
 
         assertEquals(JSONTokenType.NULL, tokens.get(8).type());
@@ -112,6 +134,9 @@ public class JSONLexerTest {
         assertEquals(25, tokens.get(8).beginningLocation().position());
         assertEquals(4, tokens.get(8).beginningLocation().line());
         assertEquals(1, tokens.get(8).beginningLocation().column());
+        assertEquals(29, tokens.get(8).endLocation().position());
+        assertEquals(4, tokens.get(8).endLocation().line());
+        assertEquals(5, tokens.get(8).endLocation().column());
         assertEquals(jsText, tokens.get(8).source());
         assertTrue(tokens.get(8) instanceof JSONTokenNull);
 
@@ -120,6 +145,9 @@ public class JSONLexerTest {
         assertEquals(29, tokens.get(9).beginningLocation().position());
         assertEquals(4, tokens.get(9).beginningLocation().line());
         assertEquals(5, tokens.get(9).beginningLocation().column());
+        assertEquals(30, tokens.get(9).endLocation().position());
+        assertEquals(4, tokens.get(9).endLocation().line());
+        assertEquals(6, tokens.get(9).endLocation().column());
         assertEquals(jsText, tokens.get(9).source());
 
         assertEquals(JSONTokenType.NUMBER, tokens.get(10).type());
@@ -127,6 +155,9 @@ public class JSONLexerTest {
         assertEquals(31, tokens.get(10).beginningLocation().position());
         assertEquals(4, tokens.get(10).beginningLocation().line());
         assertEquals(7, tokens.get(10).beginningLocation().column());
+        assertEquals(40, tokens.get(10).endLocation().position());
+        assertEquals(4, tokens.get(10).endLocation().line());
+        assertEquals(16, tokens.get(10).endLocation().column());
         assertTrue(tokens.get(10) instanceof JSONTokenNumber);
         assertEquals(jsText, tokens.get(10).source());
 
@@ -135,6 +166,9 @@ public class JSONLexerTest {
         assertEquals(40, tokens.get(11).beginningLocation().position());
         assertEquals(4, tokens.get(11).beginningLocation().line());
         assertEquals(16, tokens.get(11).beginningLocation().column());
+        assertEquals(41, tokens.get(11).endLocation().position());
+        assertEquals(4, tokens.get(11).endLocation().line());
+        assertEquals(17, tokens.get(11).endLocation().column());
         assertEquals(jsText, tokens.get(11).source());
 
         assertEquals(JSONTokenType.END_OBJECT, tokens.get(12).type());
@@ -142,6 +176,9 @@ public class JSONLexerTest {
         assertEquals(43, tokens.get(12).beginningLocation().position());
         assertEquals(6, tokens.get(12).beginningLocation().line());
         assertEquals(1, tokens.get(12).beginningLocation().column());
+        assertEquals(44, tokens.get(12).endLocation().position());
+        assertEquals(6, tokens.get(12).endLocation().line());
+        assertEquals(2, tokens.get(12).endLocation().column());
         assertEquals(jsText, tokens.get(12).source());
     }
 
@@ -339,6 +376,9 @@ public class JSONLexerTest {
         assertEquals(2, tokens.get(1).beginningLocation().position());
         assertEquals(1, tokens.get(1).beginningLocation().line());
         assertEquals(3, tokens.get(1).beginningLocation().column());
+        assertEquals(22, tokens.get(1).endLocation().position());
+        assertEquals(1, tokens.get(1).endLocation().line());
+        assertEquals(23, tokens.get(1).endLocation().column());
         assertEquals(jsText, tokens.get(1).source());
         assertTrue(tokens.get(1) instanceof JSONTokenString);
         assertEquals("key", ((JSONTokenString) tokens.get(1)).value());
@@ -348,6 +388,9 @@ public class JSONLexerTest {
         assertEquals(24, tokens.get(3).beginningLocation().position());
         assertEquals(1, tokens.get(3).beginningLocation().line());
         assertEquals(25, tokens.get(3).beginningLocation().column());
+        assertEquals(34, tokens.get(3).endLocation().position());
+        assertEquals(1, tokens.get(3).endLocation().line());
+        assertEquals(35, tokens.get(3).endLocation().column());
         assertEquals(jsText, tokens.get(3).source());
         assertTrue(tokens.get(3) instanceof JSONTokenString);
         assertEquals("\"test\"", ((JSONTokenString) tokens.get(3)).value());
@@ -365,6 +408,9 @@ public class JSONLexerTest {
         assertEquals(2, tokens.get(1).beginningLocation().position());
         assertEquals(1, tokens.get(1).beginningLocation().line());
         assertEquals(3, tokens.get(1).beginningLocation().column());
+        assertEquals(21, tokens.get(1).endLocation().position());
+        assertEquals(1, tokens.get(1).endLocation().line());
+        assertEquals(22, tokens.get(1).endLocation().column());
         assertEquals(jsText, tokens.get(1).source());
         assertTrue(tokens.get(1) instanceof JSONTokenString);
         assertEquals(" \\ /path/test ", ((JSONTokenString) tokens.get(1)).value());
@@ -374,6 +420,9 @@ public class JSONLexerTest {
         assertEquals(23, tokens.get(3).beginningLocation().position());
         assertEquals(1, tokens.get(3).beginningLocation().line());
         assertEquals(24, tokens.get(3).beginningLocation().column());
+        assertEquals(41, tokens.get(3).endLocation().position());
+        assertEquals(1, tokens.get(3).endLocation().line());
+        assertEquals(42, tokens.get(3).endLocation().column());
         assertEquals(jsText, tokens.get(3).source());
         assertTrue(tokens.get(3) instanceof JSONTokenString);
         assertEquals("abc\b\f\n\r\txyz", ((JSONTokenString) tokens.get(3)).value());
@@ -417,6 +466,9 @@ public class JSONLexerTest {
         assertEquals(0, tokens.get(0).beginningLocation().position());
         assertEquals(1, tokens.get(0).beginningLocation().line());
         assertEquals(1, tokens.get(0).beginningLocation().column());
+        assertEquals(3, tokens.get(0).endLocation().position());
+        assertEquals(1, tokens.get(0).endLocation().line());
+        assertEquals(4, tokens.get(0).endLocation().column());
         assertEquals(jsText, tokens.get(0).source());
         assertTrue(tokens.get(0) instanceof JSONTokenNumber);
     }
@@ -433,6 +485,9 @@ public class JSONLexerTest {
         assertEquals(0, tokens.get(0).beginningLocation().position());
         assertEquals(1, tokens.get(0).beginningLocation().line());
         assertEquals(1, tokens.get(0).beginningLocation().column());
+        assertEquals(4, tokens.get(0).endLocation().position());
+        assertEquals(1, tokens.get(0).endLocation().line());
+        assertEquals(5, tokens.get(0).endLocation().column());
         assertEquals(jsText, tokens.get(0).source());
         assertTrue(tokens.get(0) instanceof JSONTokenNumber);
     }
@@ -448,6 +503,9 @@ public class JSONLexerTest {
         assertEquals(0, tokens.get(0).beginningLocation().position());
         assertEquals(1, tokens.get(0).beginningLocation().line());
         assertEquals(1, tokens.get(0).beginningLocation().column());
+        assertEquals(5, tokens.get(0).endLocation().position());
+        assertEquals(1, tokens.get(0).endLocation().line());
+        assertEquals(6, tokens.get(0).endLocation().column());
         assertEquals(jsText, tokens.get(0).source());
         assertTrue(tokens.get(0) instanceof JSONTokenNumber);
     }
@@ -464,6 +522,9 @@ public class JSONLexerTest {
         assertEquals(0, tokens.get(0).beginningLocation().position());
         assertEquals(1, tokens.get(0).beginningLocation().line());
         assertEquals(1, tokens.get(0).beginningLocation().column());
+        assertEquals(8, tokens.get(0).endLocation().position());
+        assertEquals(1, tokens.get(0).endLocation().line());
+        assertEquals(9, tokens.get(0).endLocation().column());
         assertEquals(jsText, tokens.get(0).source());
         assertTrue(tokens.get(0) instanceof JSONTokenNumber);
     }
@@ -483,6 +544,9 @@ public class JSONLexerTest {
         assertEquals(0, tokens.get(0).beginningLocation().position());
         assertEquals(1, tokens.get(0).beginningLocation().line());
         assertEquals(1, tokens.get(0).beginningLocation().column());
+        assertEquals(1, tokens.get(0).endLocation().position());
+        assertEquals(1, tokens.get(0).endLocation().line());
+        assertEquals(2, tokens.get(0).endLocation().column());
         assertEquals(jsText, tokens.get(0).source());
         assertTrue(tokens.get(0) instanceof JSONTokenNumber);
 
@@ -491,6 +555,9 @@ public class JSONLexerTest {
         assertEquals(1, tokens.get(1).beginningLocation().position());
         assertEquals(1, tokens.get(1).beginningLocation().line());
         assertEquals(2, tokens.get(1).beginningLocation().column());
+        assertEquals(3, tokens.get(1).endLocation().position());
+        assertEquals(1, tokens.get(1).endLocation().line());
+        assertEquals(4, tokens.get(1).endLocation().column());
         assertEquals(jsText, tokens.get(1).source());
         assertTrue(tokens.get(1) instanceof JSONTokenNumber);
      }
@@ -506,6 +573,9 @@ public class JSONLexerTest {
         assertEquals(0, tokens.get(0).beginningLocation().position());
         assertEquals(1, tokens.get(0).beginningLocation().line());
         assertEquals(1, tokens.get(0).beginningLocation().column());
+        assertEquals(6, tokens.get(0).endLocation().position());
+        assertEquals(1, tokens.get(0).endLocation().line());
+        assertEquals(7, tokens.get(0).endLocation().column());
         assertEquals(jsText, tokens.get(0).source());
         assertTrue(tokens.get(0) instanceof JSONTokenNumber);
     }
@@ -521,6 +591,9 @@ public class JSONLexerTest {
         assertEquals(0, tokens.get(0).beginningLocation().position());
         assertEquals(1, tokens.get(0).beginningLocation().line());
         assertEquals(1, tokens.get(0).beginningLocation().column());
+        assertEquals(5, tokens.get(0).endLocation().position());
+        assertEquals(1, tokens.get(0).endLocation().line());
+        assertEquals(6, tokens.get(0).endLocation().column());
         assertEquals(jsText, tokens.get(0).source());
         assertTrue(tokens.get(0) instanceof JSONTokenNumber);
     }
@@ -536,6 +609,9 @@ public class JSONLexerTest {
         assertEquals(0, tokens.get(0).beginningLocation().position());
         assertEquals(1, tokens.get(0).beginningLocation().line());
         assertEquals(1, tokens.get(0).beginningLocation().column());
+        assertEquals(3, tokens.get(0).endLocation().position());
+        assertEquals(1, tokens.get(0).endLocation().line());
+        assertEquals(4, tokens.get(0).endLocation().column());
         assertEquals(jsText, tokens.get(0).source());
         assertTrue(tokens.get(0) instanceof JSONTokenNumber);
     }
@@ -551,6 +627,9 @@ public class JSONLexerTest {
         assertEquals(0, tokens.get(0).beginningLocation().position());
         assertEquals(1, tokens.get(0).beginningLocation().line());
         assertEquals(1, tokens.get(0).beginningLocation().column());
+        assertEquals(8, tokens.get(0).endLocation().position());
+        assertEquals(1, tokens.get(0).endLocation().line());
+        assertEquals(9, tokens.get(0).endLocation().column());
         assertEquals(jsText, tokens.get(0).source());
         assertTrue(tokens.get(0) instanceof JSONTokenNumber);
     }
@@ -566,6 +645,9 @@ public class JSONLexerTest {
         assertEquals(0, tokens.get(0).beginningLocation().position());
         assertEquals(1, tokens.get(0).beginningLocation().line());
         assertEquals(1, tokens.get(0).beginningLocation().column());
+        assertEquals(7, tokens.get(0).endLocation().position());
+        assertEquals(1, tokens.get(0).endLocation().line());
+        assertEquals(8, tokens.get(0).endLocation().column());
         assertEquals(jsText, tokens.get(0).source());
         assertTrue(tokens.get(0) instanceof JSONTokenNumber);
     }
