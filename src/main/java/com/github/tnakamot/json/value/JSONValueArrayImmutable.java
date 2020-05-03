@@ -27,6 +27,9 @@ import org.jetbrains.annotations.NotNull;
  * the modification of the array (e.g. {@link #add(JSONValue)} results in
  * {@link UnsupportedOperationException}.
  *
+ * <p>
+ * TODO: write unit tests
+ *
  * @see JSONValueArrayMutable
  */
 public class JSONValueArrayImmutable extends JSONValueArray {
