@@ -206,7 +206,8 @@ public class JSONParser {
                             return array.toImmutable();
                         } else {
                             return array;
-                        }                    case VALUE_SEPARATOR:
+                        }
+                    case VALUE_SEPARATOR:
                         array.add(readValue(immutable));
                         break;
                     default:
@@ -271,8 +272,7 @@ public class JSONParser {
     }
 
     private JSONValueObject readObject(boolean immutable) throws JSONParserException {
-        LinkedHashMap<JSONValueString, JSONValue> object
-                = new LinkedHashMap<>();
+        JSONValueObjectMutable object = new JSONValueObjectMutable();
 
         // read the first member (or it can be an empty object)
         try {
@@ -281,7 +281,11 @@ public class JSONParser {
             switch(token.type()) {
                 case END_OBJECT:
                     // empty object
-                    return new JSONValueObject(object);
+                    if (immutable) {
+                        return object.toImmutable();
+                    } else {
+                        return object;
+                    }
                 case STRING:
                     pushBack();
                     Map.Entry<JSONValueString, JSONValue> member = readMember(immutable);
@@ -301,7 +305,11 @@ public class JSONParser {
 
                 switch (token.type()) {
                     case END_OBJECT:
-                        return new JSONValueObject(object);
+                        if (immutable) {
+                            return object.toImmutable();
+                        } else {
+                            return object;
+                        }
                     case VALUE_SEPARATOR:
                         Map.Entry<JSONValueString, JSONValue> member = readMember(immutable);
                         object.put(member.getKey(), member.getValue());

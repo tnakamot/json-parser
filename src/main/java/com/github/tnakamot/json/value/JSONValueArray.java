@@ -23,7 +23,7 @@ import java.util.*;
  */
 public abstract class JSONValueArray extends JSONValue implements List<JSONValue> {
     /**
-     * Create an instance of a Java representation of a JSON value.
+     * Create an instance of a Java representation of a JSON 'array' value.
      */
     JSONValueArray() {
         super(JSONValueType.ARRAY);

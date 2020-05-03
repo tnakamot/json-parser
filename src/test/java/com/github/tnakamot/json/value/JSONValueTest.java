@@ -59,7 +59,7 @@ public class JSONValueTest {
 
     @Test
     public void testJSONValueObject() {
-        JSONValue value = new JSONValueObject(new HashMap<>());
+        JSONValue value = new JSONValueObjectMutable(new HashMap<>());
         assertEquals(JSONValueType.OBJECT, value.type());
     }
 

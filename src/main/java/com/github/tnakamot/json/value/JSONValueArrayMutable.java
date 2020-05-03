@@ -174,7 +174,10 @@ public class JSONValueArrayMutable extends JSONValueArray {
         return values.equals(o);
     }
 
-    public JSONValueArray toImmutable() {
+    /**
+     * @return an immutable version of the same JSON array.
+     */
+    public JSONValueArrayImmutable toImmutable() {
         return new JSONValueArrayImmutable(this);
     }
 }

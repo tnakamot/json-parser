@@ -17,45 +17,51 @@
 package com.github.tnakamot.json.value;
 
 import java.util.Collection;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
 /**
- * Represents one JSON 'object' value.
+ * Represents one JSON 'object' value (immutable).
+ *
+ * <p>
+ * Instances of this class are immutable. Any method call that may result in
+ * the modification of the object (e.g. {@link #put(JSONValueString, JSONValue)}
+ * results in {@link UnsupportedOperationException}.
+ *
+ * <p>
+ * This implementation retains the order.
+ *
+ * @see {@link JSONValueObjectMutable}.
  */
-public abstract class JSONValueObject extends JSONValue implements Map<JSONValueString, JSONValue> {
+public class JSONValueObjectImmutable extends JSONValueObject {
+    private final LinkedHashMap<JSONValueString, JSONValue> members;
+
     /**
      * Create an instance of a Java representation of a JSON 'object' value.
+     *
+     * @param members name/value pairs. Null is considered as an empty object.
      */
-    JSONValueObject() {
-        super(JSONValueType.OBJECT);
+    public JSONValueObjectImmutable(Map<JSONValueString, JSONValue> members) {
+        if (members == null) {
+            this.members = new LinkedHashMap<>();
+        } else {
+            this.members = new LinkedHashMap<>(members);
+        }
     }
 
     /**
-     * Returns the JSON value of the given name.
-     *
-     * <p>
-     * If a value of the given name does not exist, this method
-     * returns null. Do not confuse it with a JSON 'null' value.
-     * If there is a JSON 'null' value of the given name, this
-     * method returns an instance of {@link JSONValueNull} instead.
-     *
-     * @param name a JSON string value which represents a name
-     * @return a JSON value of the given name
+     * {@inheritDoc}
      */
     public JSONValue get(JSONValueString name) {
-        throw new UnsupportedOperationException("need to be overridden");
+        return members.get(name);
     }
 
     /**
-     * Returns the JSON value which has the given name.
-     *
-     * @param name name
-     * @return a JSON value of the given name
-     * @see #get(JSONValueString)
+     * {@inheritDoc}
      */
     public JSONValue get(String name) {
-        throw new UnsupportedOperationException("need to be overridden");
+        return members.get(new JSONValueString(name));
     }
 
     /**
@@ -63,7 +69,7 @@ public abstract class JSONValueObject extends JSONValue implements Map<JSONValue
      */
     @Override
     public int size() {
-        throw new UnsupportedOperationException("need to be overridden");
+        return members.size();
     }
 
     /**
@@ -71,7 +77,7 @@ public abstract class JSONValueObject extends JSONValue implements Map<JSONValue
      */
     @Override
     public boolean isEmpty() {
-        throw new UnsupportedOperationException("need to be overridden");
+        return members.isEmpty();
     }
 
     /**
@@ -79,18 +85,14 @@ public abstract class JSONValueObject extends JSONValue implements Map<JSONValue
      */
     @Override
     public boolean containsKey(Object o) {
-        throw new UnsupportedOperationException("need to be overridden");
+        return members.containsKey(o);
     }
 
     /**
-     * Check if this JSON object has a value which has the given name.
-     *
-     * @param name name
-     * @return true if a value with the given name exists
-     * @see #containsKey(Object)
+     * {@inheritDoc}
      */
     public boolean containsKey(String name) {
-        throw new UnsupportedOperationException("need to be overridden");
+        return members.containsKey(new JSONValueString(name));
     }
 
     /**
@@ -98,7 +100,7 @@ public abstract class JSONValueObject extends JSONValue implements Map<JSONValue
      */
     @Override
     public boolean containsValue(Object o) {
-        throw new UnsupportedOperationException("need to be overridden");
+        return members.containsValue(o);
     }
 
     /**
@@ -106,39 +108,49 @@ public abstract class JSONValueObject extends JSONValue implements Map<JSONValue
      */
     @Override
     public JSONValue get(Object o) {
-        throw new UnsupportedOperationException("need to be overridden");
+        if (o instanceof JSONValueString) {
+            return get((JSONValueString) o);
+        } else if (o instanceof String) {
+            return get((String) o);
+        } else {
+            return null;
+        }
     }
 
     /**
      * {@inheritDoc}
      */
+    @Deprecated
     @Override
     public JSONValue put(JSONValueString jsonValueString, JSONValue jsonValue) {
-        throw new UnsupportedOperationException("need to be overridden");
+        throw new UnsupportedOperationException("cannot be put");
     }
 
     /**
      * {@inheritDoc}
      */
+    @Deprecated
     @Override
     public JSONValue remove(Object o) {
-        throw new UnsupportedOperationException("need to be overridden");
+        throw new UnsupportedOperationException("cannot be removed");
     }
 
     /**
      * {@inheritDoc}
      */
+    @Deprecated
     @Override
     public void putAll(Map<? extends JSONValueString, ? extends JSONValue> map) {
-        throw new UnsupportedOperationException("need to be overridden");
+        throw new UnsupportedOperationException("cannot put values");
     }
 
     /**
      * {@inheritDoc}
      */
+    @Deprecated
     @Override
     public void clear() {
-        throw new UnsupportedOperationException("need to be overridden");
+        throw new UnsupportedOperationException("cannot clear");
     }
 
     /**
@@ -146,7 +158,7 @@ public abstract class JSONValueObject extends JSONValue implements Map<JSONValue
      */
     @Override
     public Set<JSONValueString> keySet() {
-        throw new UnsupportedOperationException("need to be overridden");
+        return members.keySet();
     }
 
     /**
@@ -154,7 +166,7 @@ public abstract class JSONValueObject extends JSONValue implements Map<JSONValue
      */
     @Override
     public Collection<JSONValue> values() {
-        throw new UnsupportedOperationException("need to be overridden");
+        return members.values();
     }
 
     /**
@@ -162,7 +174,7 @@ public abstract class JSONValueObject extends JSONValue implements Map<JSONValue
      */
     @Override
     public Set<Entry<JSONValueString, JSONValue>> entrySet() {
-        throw new UnsupportedOperationException("need to be overridden");
+        return members.entrySet();
     }
 
     /**
@@ -170,7 +182,7 @@ public abstract class JSONValueObject extends JSONValue implements Map<JSONValue
      */
     @Override
     public int hashCode() {
-        throw new UnsupportedOperationException("need to be overridden");
+        return members.hashCode();
     }
 
     /**
@@ -178,6 +190,13 @@ public abstract class JSONValueObject extends JSONValue implements Map<JSONValue
      */
     @Override
     public boolean equals(Object o) {
-        throw new UnsupportedOperationException("need to be overridden");
+        return members.equals(o);
+    }
+
+    /**
+     * @return a mutable version of the same JSON object.
+     */
+    public JSONValueObjectMutable toMutable() {
+        return new JSONValueObjectMutable(this);
     }
 }
