@@ -173,7 +173,7 @@ public class JSONParserTest {
     }
 
     @Test
-    public void testNumberOnly05() throws IOException, JSONParserException {
+    public void testNumberOnly05() {
         // Because leading zero is not allowed, this text is considered
         // to have two number tokens "0" and "12". Two numbers in a row
         // are not valid in JSON.

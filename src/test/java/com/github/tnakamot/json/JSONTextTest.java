@@ -27,7 +27,7 @@ public class JSONTextTest {
 
     @AfterAll
     public static void tearDown() {
-        jsonFile.delete();
+        assertTrue(jsonFile.delete());
     }
 
     @Test
@@ -44,7 +44,7 @@ public class JSONTextTest {
     @Test
     public void testFromFileNotExist() throws IOException {
         File file = File.createTempFile("JSONTextTest_", ".json");
-        file.delete();
+        assertTrue(file.delete());
 
         assertThrows(
                 FileNotFoundException.class,
@@ -72,7 +72,7 @@ public class JSONTextTest {
     @Test
     public void testFromURLNotExist() throws IOException {
         File file = File.createTempFile("JSONTextTest_", ".json");
-        file.delete();
+        assertTrue(file.delete());
         URL url = file.toURI().toURL();
 
         assertThrows(
@@ -98,7 +98,7 @@ public class JSONTextTest {
     }
 
     @Test
-    public void testFromStringNull() throws IOException {
+    public void testFromStringNull() {
         assertThrows(
                 NullPointerException.class,
                 () -> JSONText.fromString(null));
