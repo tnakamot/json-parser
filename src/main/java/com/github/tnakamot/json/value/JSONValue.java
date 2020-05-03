@@ -28,4 +28,6 @@ public abstract class JSONValue {
     public JSONValueType type() {
         return type;
     }
+
+    // TODO: convert to JSON text
 }
