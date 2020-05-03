@@ -17,6 +17,7 @@
 package com.github.tnakamot.json.value;
 
 import java.util.*;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Represents one JSON 'array' value (mutable).
@@ -24,7 +25,7 @@ import java.util.*;
  * <p>
  * This is a mutable version of {@link JSONValueArray}.
  *
- * @see {@link JSONValueArrayImmutable}
+ * @see JSONValueArrayImmutable
  */
 public class JSONValueArrayMutable extends JSONValueArray {
     private final List<JSONValue> values;
@@ -77,6 +78,7 @@ public class JSONValueArrayMutable extends JSONValueArray {
      * {@inheritDoc}
      */
     @Override
+    @NotNull
     public Iterator<JSONValue> iterator() {
         return values.iterator();
     }
@@ -85,6 +87,7 @@ public class JSONValueArrayMutable extends JSONValueArray {
      * {@inheritDoc}
      */
     @Override
+    @NotNull
     public Object[] toArray() {
         return values.toArray();
     }
@@ -109,7 +112,7 @@ public class JSONValueArrayMutable extends JSONValueArray {
      * {@inheritDoc}
      */
     @Override
-    public boolean addAll(Collection collection) {
+    public boolean addAll(@NotNull Collection<? extends JSONValue> collection) {
         return values.addAll(collection);
     }
 
@@ -117,7 +120,7 @@ public class JSONValueArrayMutable extends JSONValueArray {
      * {@inheritDoc}
      */
     @Override
-    public boolean addAll(int i, Collection collection) {
+    public boolean addAll(int i, @NotNull Collection<? extends JSONValue> collection) {
         return values.addAll(i, collection);
     }
 
@@ -181,6 +184,7 @@ public class JSONValueArrayMutable extends JSONValueArray {
      * {@inheritDoc}
      */
     @Override
+    @NotNull
     public ListIterator<JSONValue> listIterator() {
         return values.listIterator();
     }
@@ -189,6 +193,7 @@ public class JSONValueArrayMutable extends JSONValueArray {
      * {@inheritDoc}
      */
     @Override
+    @NotNull
     public ListIterator<JSONValue> listIterator(int i) {
         return values.listIterator(i);
     }
@@ -197,6 +202,7 @@ public class JSONValueArrayMutable extends JSONValueArray {
      * {@inheritDoc}
      */
     @Override
+    @NotNull
     public List<JSONValue> subList(int i, int i1) {
         return values.subList(i, i1);
     }
@@ -205,7 +211,7 @@ public class JSONValueArrayMutable extends JSONValueArray {
      * {@inheritDoc}
      */
     @Override
-    public boolean retainAll(Collection collection) {
+    public boolean retainAll(@NotNull Collection<?> collection) {
         return values.retainAll(collection);
     }
 
@@ -213,7 +219,7 @@ public class JSONValueArrayMutable extends JSONValueArray {
      * {@inheritDoc}
      */
     @Override
-    public boolean removeAll(Collection collection) {
+    public boolean removeAll(@NotNull Collection<?> collection) {
         return values.removeAll(collection);
     }
 
@@ -221,7 +227,7 @@ public class JSONValueArrayMutable extends JSONValueArray {
      * {@inheritDoc}
      */
     @Override
-    public boolean containsAll(Collection collection) {
+    public boolean containsAll(@NotNull Collection collection) {
         return values.containsAll(collection);
     }
 
@@ -229,6 +235,7 @@ public class JSONValueArrayMutable extends JSONValueArray {
      * {@inheritDoc}
      */
     @Override
+    @NotNull
     public <T> T[] toArray(T[] ts) {
         return values.toArray(ts);
     }
@@ -240,7 +247,11 @@ public class JSONValueArrayMutable extends JSONValueArray {
 
     @Override
     public boolean equals(Object o) {
-        return values.equals(o);
+        if (o instanceof JSONValueArrayMutable) {
+            return values.equals(((JSONValueArrayMutable) o).values);
+        } else {
+            return false;
+        }
     }
 
     /**

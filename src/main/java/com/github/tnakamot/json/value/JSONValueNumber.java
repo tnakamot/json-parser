@@ -53,7 +53,7 @@ public class JSONValueNumber extends JSONValuePrimitive {
      *                               <a href="https://tools.ietf.org/html/rfc8259#section-6">RFC 8259 - 6. Numbers</a>.
      */
     public JSONValueNumber(String text) throws NumberFormatException {
-        super(JSONValueType.NUMBER, null);
+        super(JSONValueType.NUMBER);
         this.text = text;
 
         if (text == null) {

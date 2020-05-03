@@ -34,7 +34,7 @@ public class JSONValueString extends JSONValuePrimitive {
      *              JSON string value. Null is considered as an empty string.
      */
     public JSONValueString(String value) {
-        super(JSONValueType.STRING, null);
+        super(JSONValueType.STRING);
         this.value = (value == null) ? "" : value;
     }
 

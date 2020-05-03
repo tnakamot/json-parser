@@ -47,7 +47,7 @@ public class JSONValueBoolean extends JSONValuePrimitive {
      *              JSON boolean value.
      */
     private JSONValueBoolean(boolean value) {
-        super(JSONValueType.BOOLEAN, null);
+        super(JSONValueType.BOOLEAN);
         this.value = value;
     }
 

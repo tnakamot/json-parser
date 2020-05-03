@@ -20,6 +20,7 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Represents one JSON 'object' value (mutable).
@@ -27,7 +28,7 @@ import java.util.Set;
  * <p>
  * This implementation retains the order.
  *
- * @see {@link JSONValueObjectImmutable}.
+ * @see JSONValueObjectImmutable
  */
 public class JSONValueObjectMutable extends JSONValueObject {
     private final LinkedHashMap<JSONValueString, JSONValue> members;
@@ -153,7 +154,7 @@ public class JSONValueObjectMutable extends JSONValueObject {
      * {@inheritDoc}
      */
     @Override
-    public void putAll(Map<? extends JSONValueString, ? extends JSONValue> map) {
+    public void putAll(@NotNull Map<? extends JSONValueString, ? extends JSONValue> map) {
         members.putAll(map);
     }
 
@@ -169,6 +170,7 @@ public class JSONValueObjectMutable extends JSONValueObject {
      * {@inheritDoc}
      */
     @Override
+    @NotNull
     public Set<JSONValueString> keySet() {
         return members.keySet();
     }
@@ -177,6 +179,7 @@ public class JSONValueObjectMutable extends JSONValueObject {
      * {@inheritDoc}
      */
     @Override
+    @NotNull
     public Collection<JSONValue> values() {
         return members.values();
     }
@@ -185,6 +188,7 @@ public class JSONValueObjectMutable extends JSONValueObject {
      * {@inheritDoc}
      */
     @Override
+    @NotNull
     public Set<Entry<JSONValueString, JSONValue>> entrySet() {
         return members.entrySet();
     }
@@ -202,7 +206,11 @@ public class JSONValueObjectMutable extends JSONValueObject {
      */
     @Override
     public boolean equals(Object o) {
-        return members.equals(o);
+        if (o instanceof JSONValueObjectMutable) {
+            return members.equals(((JSONValueObjectMutable) o).members);
+        } else {
+            return false;
+        }
     }
 
     /**

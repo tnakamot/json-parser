@@ -16,6 +16,8 @@
 
 package com.github.tnakamot.json.value;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.*;
 
 /**
@@ -51,6 +53,7 @@ public abstract class JSONValueArray extends JSONValue implements List<JSONValue
      * {@inheritDoc}
      */
     @Override
+    @NotNull
     public abstract Iterator<JSONValue> iterator();
 
     /**
@@ -75,13 +78,13 @@ public abstract class JSONValueArray extends JSONValue implements List<JSONValue
      * {@inheritDoc}
      */
     @Override
-    public abstract boolean addAll(Collection collection);
+    public abstract boolean addAll(@NotNull Collection<? extends JSONValue> collection);
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public abstract boolean addAll(int i, Collection collection);
+    public abstract boolean addAll(int i, @NotNull Collection<? extends JSONValue> collection);
 
     /**
      * {@inheritDoc}
@@ -129,37 +132,40 @@ public abstract class JSONValueArray extends JSONValue implements List<JSONValue
      * {@inheritDoc}
      */
     @Override
+    @NotNull
     public abstract ListIterator<JSONValue> listIterator();
 
     /**
      * {@inheritDoc}
      */
     @Override
+    @NotNull
     public abstract ListIterator<JSONValue> listIterator(int i);
 
     /**
      * {@inheritDoc}
      */
     @Override
+    @NotNull
     public abstract List<JSONValue> subList(int i, int i1);
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public abstract boolean retainAll(Collection collection);
+    public abstract boolean retainAll(@NotNull Collection<?> collection);
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public abstract boolean removeAll(Collection collection);
+    public abstract boolean removeAll(@NotNull Collection<?> collection);
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public abstract boolean containsAll(Collection collection);
+    public abstract boolean containsAll(@NotNull Collection<?> collection);
 
     /**
      * {@inheritDoc}

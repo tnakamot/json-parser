@@ -16,6 +16,8 @@
 
 package com.github.tnakamot.json.value;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
@@ -109,7 +111,7 @@ public abstract class JSONValueObject extends JSONValue implements Map<JSONValue
      * {@inheritDoc}
      */
     @Override
-    public abstract void putAll(Map<? extends JSONValueString, ? extends JSONValue> map);
+    public abstract void putAll(@NotNull Map<? extends JSONValueString, ? extends JSONValue> map);
 
     /**
      * {@inheritDoc}
@@ -121,19 +123,19 @@ public abstract class JSONValueObject extends JSONValue implements Map<JSONValue
      * {@inheritDoc}
      */
     @Override
-    public abstract Set<JSONValueString> keySet();
+    public abstract @NotNull Set<JSONValueString> keySet();
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public abstract Collection<JSONValue> values();
+    public abstract @NotNull Collection<JSONValue> values();
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public abstract Set<Entry<JSONValueString, JSONValue>> entrySet();
+    public abstract @NotNull Set<Entry<JSONValueString, JSONValue>> entrySet();
 
     /**
      * {@inheritDoc}

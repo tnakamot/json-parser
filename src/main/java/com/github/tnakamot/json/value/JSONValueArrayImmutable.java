@@ -17,6 +17,7 @@
 package com.github.tnakamot.json.value;
 
 import java.util.*;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Represents one JSON 'array' value (immutable).
@@ -26,7 +27,7 @@ import java.util.*;
  * the modification of the array (e.g. {@link #add(JSONValue)} results in
  * {@link UnsupportedOperationException}.
  *
- * @see {@link JSONValueArrayMutable}
+ * @see JSONValueArrayMutable
  */
 public class JSONValueArrayImmutable extends JSONValueArray {
     private final List<JSONValue> values;
@@ -72,6 +73,7 @@ public class JSONValueArrayImmutable extends JSONValueArray {
      * {@inheritDoc}
      */
     @Override
+    @NotNull
     public Iterator<JSONValue> iterator() {
         return values.iterator();
     }
@@ -80,6 +82,7 @@ public class JSONValueArrayImmutable extends JSONValueArray {
      * {@inheritDoc}
      */
     @Override
+    @NotNull
     public Object[] toArray() {
         return values.toArray();
     }
@@ -88,6 +91,7 @@ public class JSONValueArrayImmutable extends JSONValueArray {
      * {@inheritDoc}
      */
     @Override
+    @NotNull
     public <T> T[] toArray(T[] ts) {
         return values.toArray(ts);
     }
@@ -114,7 +118,7 @@ public class JSONValueArrayImmutable extends JSONValueArray {
      * {@inheritDoc}
      */
     @Override
-    public boolean containsAll(Collection collection) {
+    public boolean containsAll(@NotNull Collection collection) {
         return values.containsAll(collection);
     }
 
@@ -123,7 +127,7 @@ public class JSONValueArrayImmutable extends JSONValueArray {
      */
     @Override
     @Deprecated
-    public boolean addAll(Collection collection) {
+    public boolean addAll(@NotNull Collection collection) {
         throw new UnsupportedOperationException("cannot add values");
     }
 
@@ -132,7 +136,7 @@ public class JSONValueArrayImmutable extends JSONValueArray {
      */
     @Override
     @Deprecated
-    public boolean addAll(int i, Collection collection) {
+    public boolean addAll(int i, @NotNull Collection collection) {
         throw new UnsupportedOperationException("cannot add values");
     }
 
@@ -200,6 +204,7 @@ public class JSONValueArrayImmutable extends JSONValueArray {
      * {@inheritDoc}
      */
     @Override
+    @NotNull
     public ListIterator<JSONValue> listIterator() {
         return values.listIterator();
     }
@@ -208,6 +213,7 @@ public class JSONValueArrayImmutable extends JSONValueArray {
      * {@inheritDoc}
      */
     @Override
+    @NotNull
     public ListIterator<JSONValue> listIterator(int i) {
         return values.listIterator(i);
     }
@@ -216,6 +222,7 @@ public class JSONValueArrayImmutable extends JSONValueArray {
      * {@inheritDoc}
      */
     @Override
+    @NotNull
     public List<JSONValue> subList(int i, int i1) {
         return values.subList(i, i1);
     }
@@ -225,7 +232,7 @@ public class JSONValueArrayImmutable extends JSONValueArray {
      */
     @Override
     @Deprecated
-    public boolean retainAll(Collection collection) {
+    public boolean retainAll(@NotNull Collection<?> collection) {
         throw new UnsupportedOperationException("retainAll is not supported");
     }
 
@@ -234,7 +241,7 @@ public class JSONValueArrayImmutable extends JSONValueArray {
      */
     @Override
     @Deprecated
-    public boolean removeAll(Collection collection) {
+    public boolean removeAll(@NotNull Collection<?> collection) {
         throw new UnsupportedOperationException("cannot remove values");
     }
 
@@ -245,7 +252,11 @@ public class JSONValueArrayImmutable extends JSONValueArray {
 
     @Override
     public boolean equals(Object o) {
-        return values.equals(o);
+        if (o instanceof JSONValueArrayImmutable) {
+            return values.equals(((JSONValueArrayImmutable) o).values);
+        } else {
+            return false;
+        }
     }
 
     /**
