@@ -28,8 +28,6 @@ import com.github.tnakamot.json.token.StringLocation;
  * <p>
  * TODO: document how the error messages are printed
  *
- * <p>
- * TODO: support {@link JSONParserErrorMessageFormat#showErrorLine()}
  */
 public class JSONParserException extends Exception {
     private final String msg;
@@ -99,8 +97,14 @@ public class JSONParserException extends Exception {
         sb.append(msg);
 
         if (errMsgFmt.showErrorLine()) {
-            // TODO: show the error line
-            throw new UnsupportedOperationException("error line is not supported yet");
+            String[] lines = source.get().split("\r|(\r?\n)");
+            String line = lines[location.line() - 1];
+            sb.append(System.lineSeparator());
+            sb.append(line);
+            sb.append(System.lineSeparator());
+            for (int i = 1; i < location.column(); i++)
+                sb.append(" ");
+            sb.append("^");
         }
 
         return sb.toString();
