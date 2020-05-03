@@ -47,6 +47,7 @@ lazy val root = (project in file("."))
     libraryDependencies ++= Seq(
       "commons-io" % "commons-io" % "2.6",
       "net.aichler" % "jupiter-interface" % JupiterKeys.jupiterVersion.value % Test,
+      "org.junit.jupiter" % "junit-jupiter-params" % "5.1.1" % Test,
     ),
 
     // For sbt-sonatype plugin to publish this package to Maven Central.

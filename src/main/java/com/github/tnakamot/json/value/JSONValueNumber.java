@@ -18,6 +18,9 @@ package com.github.tnakamot.json.value;
 
 import com.github.tnakamot.json.token.JSONTokenNumber;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+
 /**
  * Represents one JSON 'number' value.
  *
@@ -144,7 +147,6 @@ public class JSONValueNumber extends JSONValuePrimitive {
      * values like "-2.4E-324" is converted to -0.0.
      *
      * @return a Java double value that this token represents
-     * @throws NumberFormatException if the token cannot be interpreted as a Java double value
      */
     public double toDouble() {
         return Double.parseDouble(text());
@@ -159,14 +161,30 @@ public class JSONValueNumber extends JSONValuePrimitive {
      * does not accept a fraction. If this JSON "number" primitive value cannot be converted to
      * a Java long value, this method raises {@link NumberFormatException}.
      *
-     * <p>
-     * TODO: write unit tests
-     *
      * @return a Java long value that this token represents.
-     * @throws NumberFormatException if the token cannot be interpreted as a Java long value
+     * @throws NumberFormatException if the value cannot be converted to a Java long value
      */
     public long toLong() throws NumberFormatException {
-        return Long.parseLong(text(), 10);
+        BigDecimal bd;
+
+        try {
+            bd = new BigDecimal(text());
+        } catch (NumberFormatException ex) {
+            throw new NumberFormatException("Cannot convert '" + text() + "' to long. " + ex.getMessage());
+        }
+
+        BigInteger bi;
+        try {
+            bi = bd.toBigIntegerExact();
+        } catch (ArithmeticException ex) {
+            throw new NumberFormatException("Cannot convert '" + text() + "' to long because it has a fractional part.");
+        }
+
+        try {
+            return bi.longValueExact();
+        } catch (ArithmeticException ex) {
+            throw new NumberFormatException("Cannot convert '" + text() + "' to long because it is out of long range.");
+        }
     }
 
     /**

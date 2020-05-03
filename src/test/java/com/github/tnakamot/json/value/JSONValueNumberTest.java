@@ -25,11 +25,15 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.platform.commons.logging.Logger;
+import org.junit.platform.commons.logging.LoggerFactory;
 
 import java.io.IOException;
 import java.util.stream.Stream;
 
 public class JSONValueNumberTest {
+    private static final Logger log = LoggerFactory.getLogger(JSONValueNumberTest.class);
+
     @Test
     public void testNull() {
         assertThrows(NullPointerException.class, () -> new JSONValueNumber((String) null));
@@ -119,6 +123,50 @@ public class JSONValueNumberTest {
                 Arguments.of("-2.4E-324", -0.0),
                 Arguments.of("1", 1.0)
         );
+    }
+
+    @ParameterizedTest(name = "testLongNumber: \"{0}\"")
+    @MethodSource("validLongProvider")
+    public void testLongNumber(String text, long expected) {
+        JSONValueNumber num = new JSONValueNumber(text);
+        assertEquals(JSONValueType.NUMBER, num.type());
+        assertEquals(text, num.text());
+        assertEquals(text, num.toString());
+        assertTrue(num.canBeLong());
+        assertEquals(expected, num.toLong());
+    }
+
+    static Stream<Arguments> validLongProvider() {
+        return Stream.of(
+                Arguments.of("0", 0L),
+                Arguments.of("-0", 0L),
+                Arguments.of("9223372036854775807", 9223372036854775807L),
+                Arguments.of("-9223372036854775808", -9223372036854775808L),
+                Arguments.of("1e3", 1000L),
+                Arguments.of("1.52e2", 152L),
+                Arguments.of("0.000", 0L),
+                Arguments.of("2.00000", 2L),
+                Arguments.of("1", 1L)
+        );
+    }
+
+    @ParameterizedTest(name = "testInvalidLongNumber: \"{0}\"")
+    @ValueSource(strings = {
+            "1.52",
+            "9223372036854775808",
+            "-9223372036854775809",
+            "1e2147483648",
+            "1e-2147483649",
+            "1.523e2"
+    })
+    public void testInvalidLongNumber(String text) {
+        JSONValueNumber num = new JSONValueNumber(text);
+        assertEquals(JSONValueType.NUMBER, num.type());
+        assertEquals(text, num.text());
+        assertEquals(text, num.toString());
+        assertFalse(num.canBeLong());
+        NumberFormatException ex = assertThrows(NumberFormatException.class, num::toLong);
+        log.info(ex, () -> "Error message when converting '" + text + "' to long.");
     }
 
     @Test

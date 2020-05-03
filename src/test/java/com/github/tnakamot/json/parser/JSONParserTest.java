@@ -240,7 +240,8 @@ public class JSONParserTest {
         assertEquals("1e6", root.toString());
 
         JSONValueNumber num = (JSONValueNumber) root;
-        assertFalse(num.canBeLong());
+        assertTrue(num.canBeLong());
+        assertEquals(1000000, num.toLong());
         assertEquals(1e6, num.toDouble());
     }
 
@@ -268,7 +269,8 @@ public class JSONParserTest {
         assertEquals("-5.2E+2", root.toString());
 
         JSONValueNumber num = (JSONValueNumber) root;
-        assertFalse(num.canBeLong());
+        assertTrue(num.canBeLong());
+        assertEquals(-520, num.toLong());
         assertEquals(-5.2e2, num.toDouble());
     }
 
