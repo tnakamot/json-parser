@@ -139,7 +139,9 @@ public class JSONValueNumber extends JSONValuePrimitive {
      * original number in the JSON text.
      *
      * <p>
-     * TODO: write unit tests, clarify mapping between the text and Java double representation
+     * This method internally calls {@link Double#parseDouble(String)}. Too big values like
+     * "1e309" is converted to {@link Double#POSITIVE_INFINITY}, for example. Too small
+     * values like "-2.4E-324" is converted to -0.0.
      *
      * @return a Java double value that this token represents
      * @throws NumberFormatException if the token cannot be interpreted as a Java double value
