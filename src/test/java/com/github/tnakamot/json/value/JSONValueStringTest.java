@@ -10,6 +10,25 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class JSONValueStringTest {
     @Test
+    public void testNullAndEmpty() {
+        JSONValueString val1 = new JSONValueString((String)null);
+        JSONValueString val2 = new JSONValueString("");
+
+        assertEquals(JSONValueType.STRING, val1.type());
+        assertEquals(JSONValueType.STRING, val2.type());
+
+        assertEquals(val1.hashCode(), val2.hashCode());
+        assertEquals(val1, val2);
+
+        assertEquals("", val1.value());
+        assertEquals("", val2.value());
+
+        assertEquals("", val1.toString());
+        assertEquals("", val2.toString());
+    }
+
+
+    @Test
     public void testType() throws IOException, JSONParserException {
         JSONValueString val1 = new JSONValueString("abc");
         JSONValueString val2 = (JSONValueString) JSONText.fromString("\"def\"").parse();
