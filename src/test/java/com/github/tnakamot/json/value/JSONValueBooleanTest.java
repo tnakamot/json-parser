@@ -2,7 +2,6 @@ package com.github.tnakamot.json.value;
 
 import com.github.tnakamot.json.JSONText;
 import com.github.tnakamot.json.parser.JSONParserException;
-import com.github.tnakamot.json.token.JSONTokenBoolean;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -108,7 +107,7 @@ public class JSONValueBooleanTest {
     }
 
     @Test
-    public void testInequality1() throws IOException, JSONParserException {
+    public void testInequality1() {
         JSONValueBoolean trueVal1  = JSONValueBoolean.valueOf(true);
         JSONValueBoolean falseVal1 = JSONValueBoolean.valueOf(false);
 
