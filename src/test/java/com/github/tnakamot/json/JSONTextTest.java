@@ -1,12 +1,11 @@
 package com.github.tnakamot.json;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-import com.github.tnakamot.json.JSONText;
 import org.apache.commons.io.FileUtils;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -17,17 +16,17 @@ import java.nio.charset.StandardCharsets;
 public class JSONTextTest {
     private static final String JSON_STR = " { \"key\": \"My name is \u5d07\u5fd7\"} ";
 
-    private File jsonFile;
+    private static File jsonFile;
 
-    @Before
-    public void setUp() throws IOException {
+    @BeforeAll
+    public static void setUp() throws IOException {
         jsonFile = File.createTempFile("JSONTextTest_", ".json");
         jsonFile.deleteOnExit();
         FileUtils.write(jsonFile, JSON_STR, StandardCharsets.UTF_8);
     }
 
-    @After
-    public void tearDown() {
+    @AfterAll
+    public static void tearDown() {
         jsonFile.delete();
     }
 

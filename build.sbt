@@ -18,6 +18,7 @@ import xerial.sbt.Sonatype._
 import ReleaseTransformations._
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
+resolvers += Resolver.jcenterRepo
 
 ParadoxMaterialThemePlugin.paradoxMaterialThemeSettings(Paradox)
 Paradox / paradoxMaterialTheme := {
@@ -45,9 +46,7 @@ lazy val root = (project in file("."))
 
     libraryDependencies ++= Seq(
       "commons-io" % "commons-io" % "2.6",
-
-      "com.novocode" % "junit-interface" % "0.11" % Test,
-      "junit" % "junit" % "4.13" % Test
+      "net.aichler" % "jupiter-interface" % JupiterKeys.jupiterVersion.value % Test,
     ),
 
     // For sbt-sonatype plugin to publish this package to Maven Central.
@@ -81,6 +80,7 @@ lazy val root = (project in file("."))
     addMappingsToSiteDir(mappings in (Compile, packageDoc), siteSubdirName in Compile),
 
     // Customized release process
+    // Just run "sbt release".
     releaseCrossBuild := false,
     releaseProcess := Seq[ReleaseStep](
       checkSnapshotDependencies,

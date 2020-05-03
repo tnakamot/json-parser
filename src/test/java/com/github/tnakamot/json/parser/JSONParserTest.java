@@ -1,10 +1,10 @@
 package com.github.tnakamot.json.parser;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.github.tnakamot.json.JSONText;
 import com.github.tnakamot.json.value.*;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.Map;
@@ -113,7 +113,7 @@ public class JSONParserTest {
 
         JSONValueNumber num = (JSONValueNumber) root;
         assertFalse(num.canBeLong());
-        assertEquals(-15.234e2, num.toDouble(), 0);
+        assertEquals(-15.234e2, num.toDouble());
     }
 
     @Test
@@ -155,7 +155,7 @@ public class JSONParserTest {
 
         JSONValueNumber num = (JSONValueNumber) root;
         assertFalse(num.canBeLong());
-        assertEquals(928.5, num.toDouble(), 0);
+        assertEquals(928.5, num.toDouble());
     }
 
     @Test
@@ -169,7 +169,7 @@ public class JSONParserTest {
 
         JSONValueNumber num = (JSONValueNumber) root;
         assertFalse(num.canBeLong());
-        assertEquals(-872.512, num.toDouble(), 0);
+        assertEquals(-872.512, num.toDouble());
     }
 
     @Test
@@ -197,7 +197,7 @@ public class JSONParserTest {
 
         JSONValueNumber num = (JSONValueNumber) root;
         assertFalse(num.canBeLong());
-        assertEquals(-0.015, num.toDouble(), 0);
+        assertEquals(-0.015, num.toDouble());
     }
 
     @Test
@@ -211,7 +211,7 @@ public class JSONParserTest {
 
         JSONValueNumber num = (JSONValueNumber) root;
         assertFalse(num.canBeLong());
-        assertEquals(0.987, num.toDouble(), 0);
+        assertEquals(0.987, num.toDouble());
     }
 
     @Test
@@ -225,7 +225,7 @@ public class JSONParserTest {
 
         JSONValueNumber num = (JSONValueNumber) root;
         assertFalse(num.canBeLong());
-        assertEquals(1e6, num.toDouble(), 0);
+        assertEquals(1e6, num.toDouble());
     }
 
     @Test
@@ -239,7 +239,7 @@ public class JSONParserTest {
 
         JSONValueNumber num = (JSONValueNumber) root;
         assertFalse(num.canBeLong());
-        assertEquals(1.24e-12, num.toDouble(), 0);
+        assertEquals(1.24e-12, num.toDouble());
     }
 
     @Test
@@ -253,7 +253,7 @@ public class JSONParserTest {
 
         JSONValueNumber num = (JSONValueNumber) root;
         assertFalse(num.canBeLong());
-        assertEquals(-5.2e2, num.toDouble(), 0);
+        assertEquals(-5.2e2, num.toDouble());
     }
 
     @Test
@@ -291,7 +291,7 @@ public class JSONParserTest {
         assertEquals(JSONValueType.NUMBER, rootArray.get(3).type());
         assertTrue(rootArray.get(3) instanceof JSONValueNumber);
         assertEquals("1.52", rootArray.get(3).toString());
-        assertEquals(1.52, ((JSONValueNumber) rootArray.get(3)).toDouble(), 0);
+        assertEquals(1.52, ((JSONValueNumber) rootArray.get(3)).toDouble());
         assertFalse(((JSONValueNumber) rootArray.get(3)).canBeLong());
 
         assertEquals(JSONValueNull.NULL, rootArray.get(4));

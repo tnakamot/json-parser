@@ -1,10 +1,10 @@
 package com.github.tnakamot.json.parser;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.github.tnakamot.json.JSONText;
 import com.github.tnakamot.json.token.*;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.List;

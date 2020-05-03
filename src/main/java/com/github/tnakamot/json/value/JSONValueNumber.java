@@ -35,6 +35,12 @@ public class JSONValueNumber extends JSONValuePrimitive {
     private final String text;
 
     /**
+     * Regex pattern that exactly matches the "number" tokens defined in
+     * <a href="https://tools.ietf.org/html/rfc8259#section-6">RFC 8259 - 6. Numbers</a>.
+     */
+    public static final String NUMBER_PATTERN = "-?(0|([1-9][0-9]*))(\\.[0-9]+)?([eE][-\\+]?[0-9]+)?";
+
+    /**
      * Create an instance of a Java representation of a JSON number value.
      *
      * @param text value represented by a Java {@link String} object of this
@@ -48,7 +54,10 @@ public class JSONValueNumber extends JSONValuePrimitive {
             throw new NullPointerException("text cannot be null");
         }
 
-        // TODO: validate the text
+        if (! text.matches(NUMBER_PATTERN)) {
+            throw new IllegalArgumentException(
+                    "The given text '" + text + "' does not match the pattern of JSON numbers defined in RFC 8259.");
+        }
     }
 
     /**
