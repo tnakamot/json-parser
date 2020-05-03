@@ -167,8 +167,7 @@ public class JSONParserException extends Exception {
             sb.append(System.lineSeparator());
             sb.append(line);
             sb.append(System.lineSeparator());
-            for (int i = 1; i < location.column(); i++)
-                sb.append(" ");
+            sb.append(" ".repeat(location.column() - 1));
             sb.append("^");
         }
 
