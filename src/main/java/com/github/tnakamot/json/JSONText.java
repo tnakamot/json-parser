@@ -106,6 +106,27 @@ public class JSONText {
     /**
      * Parse this JSON text.
      *
+     * @param immutable specify false to create a JSON value tree with modifiable
+     *                  'object' and 'array'. Otherwise, they will be immutable.
+     * @param errMsgFmt settings of error message format of {@link JSONParserException}
+     * @return the root JSON value, or null if there is no value.
+     * @throws JSONParserException if there is a syntax error in the JSON text
+     * @throws IOException if an I/O error occurs
+     * @see <a href="https://tools.ietf.org/html/rfc8259#section-2">RFC 8259 - 2. JSON Grammer</a>
+     */
+    public JSONValue parse(boolean immutable, JSONParserErrorMessageFormat errMsgFmt)
+            throws IOException, JSONParserException {
+        List<JSONToken> tokens = tokens(errMsgFmt);
+        JSONParser parser = new JSONParser(tokens, errMsgFmt);
+        return parser.parse(immutable);
+    }
+
+    /**
+     * Parse this JSON text.
+     *
+     * <p>
+     * The returned object is immutable.
+     *
      * @param errMsgFmt settings of error message format of {@link JSONParserException}
      * @return the root JSON value, or null if there is no value.
      * @throws JSONParserException if there is a syntax error in the JSON text
@@ -114,13 +135,31 @@ public class JSONText {
      */
     public JSONValue parse(JSONParserErrorMessageFormat errMsgFmt)
             throws IOException, JSONParserException {
-        List<JSONToken> tokens = tokens(errMsgFmt);
-        JSONParser parser = new JSONParser(tokens, errMsgFmt);
-        return parser.parse();
+        return parse(true, errMsgFmt);
     }
 
     /**
      * Parse this JSON text.
+     *
+     * @param immutable specify false to create a JSON value tree with modifiable
+     *                  'object' and 'array'. Otherwise, they will be immutable.
+     * @return the root JSON value, or null if there is no value.
+     * @throws JSONParserException if there is a syntax error in the JSON text
+     * @throws IOException if an I/O error occurs
+     * @see <a href="https://tools.ietf.org/html/rfc8259#section-2">RFC 8259 - 2. JSON Grammer</a>
+     */
+    public JSONValue parse(boolean immutable)
+            throws IOException, JSONParserException {
+        JSONParserErrorMessageFormat errMsgFmt =
+                JSONParserErrorMessageFormat.builder().build();
+        return parse(immutable, errMsgFmt);
+    }
+
+    /**
+     * Parse this JSON text.
+     *
+     * <p>
+     * The returned object is immutable.
      *
      * @return the root JSON value, or null if there is no value.
      * @throws JSONParserException if there is a syntax error in the JSON text
@@ -129,9 +168,7 @@ public class JSONText {
      */
     public JSONValue parse()
             throws IOException, JSONParserException {
-        JSONParserErrorMessageFormat errMsgFmt =
-                JSONParserErrorMessageFormat.builder().build();
-        return parse(errMsgFmt);
+        return parse(true);
     }
 
     /**

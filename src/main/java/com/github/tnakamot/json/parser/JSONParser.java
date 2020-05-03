@@ -73,16 +73,32 @@ public class JSONParser {
     /**
      * Parse the given sequence of JSON tokens and return the root JSON value.
      *
+     * <p>
+     * The returned object is immutable.
+     *
      * @return the root JSON value, or null if there is no value.
      * @throws JSONParserException if there is a semantic error in the sequence of JSON tokens
      * @see <a href="https://tools.ietf.org/html/rfc8259#section-2">RFC 8259 - 2. JSON Grammer</a>
      */
     public JSONValue parse() throws JSONParserException {
+        return parse(true);
+    }
+
+    /**
+     * Parse the given sequence of JSON tokens and return the root JSON value.
+     *
+     * @param immutable Specify false to create a JSON value tree with modifiable
+     *                  'object' and 'array'.
+     * @return the root JSON value, or null if there is no value.
+     * @throws JSONParserException if there is a semantic error in the sequence of JSON tokens
+     * @see <a href="https://tools.ietf.org/html/rfc8259#section-2">RFC 8259 - 2. JSON Grammer</a>
+     */
+    public JSONValue parse(boolean immutable) throws JSONParserException {
         if (tokens.size() == 0) {
             return null;
         }
 
-        JSONValue value = readValue();
+        JSONValue value = readValue(immutable);
         if (position < tokens.size()) {
             unexpectedToken(popToken(), "EOF");
         }
@@ -121,15 +137,15 @@ public class JSONParser {
                 token.source(), token.beginningLocation(), errMsgFmt, msg);
     }
 
-    private JSONValue readValue() throws JSONParserException {
+    private JSONValue readValue(boolean immutable) throws JSONParserException {
         try {
             JSONToken token = popToken();
 
             switch (token.type()) {
                 case BEGIN_ARRAY:
-                    return readArray();
+                    return readArray(immutable);
                 case BEGIN_OBJECT:
-                    return readObject();
+                    return readObject(immutable);
                 case NULL:
                     return new JSONValueNull(token);
                 case BOOLEAN:
@@ -148,8 +164,8 @@ public class JSONParser {
         throw new RuntimeException("never reach here");
     }
 
-    private JSONValueArray readArray() throws JSONParserException {
-        List<JSONValue> array = new LinkedList<>();
+    private JSONValueArray readArray(boolean immutable) throws JSONParserException {
+        JSONValueArrayMutable array = new JSONValueArrayMutable();
 
         // read the first value (or it can be an empty array)
         try {
@@ -158,7 +174,11 @@ public class JSONParser {
             switch(token.type()) {
                 case END_ARRAY:
                     // an empty array
-                    return new JSONValueArray(array);
+                    if (immutable) {
+                        return array.toImmutable();
+                    } else {
+                        return array;
+                    }
                 case NULL:
                 case BOOLEAN:
                 case NUMBER:
@@ -166,7 +186,7 @@ public class JSONParser {
                 case BEGIN_ARRAY:
                 case BEGIN_OBJECT:
                     pushBack();
-                    array.add(readValue());
+                    array.add(readValue(immutable));
                     break;
                 default:
                     unexpectedToken(token, valueOrEndArrayToken);
@@ -182,9 +202,12 @@ public class JSONParser {
 
                 switch (token.type()) {
                     case END_ARRAY:
-                        return new JSONValueArray(array);
-                    case VALUE_SEPARATOR:
-                        array.add(readValue());
+                        if (immutable) {
+                            return array.toImmutable();
+                        } else {
+                            return array;
+                        }                    case VALUE_SEPARATOR:
+                        array.add(readValue(immutable));
                         break;
                     default:
                         unexpectedToken(token, valueSepOrEndArrayToken);
@@ -195,7 +218,9 @@ public class JSONParser {
         }
     }
 
-    private Map.Entry<JSONValueString, JSONValue> readMember() throws JSONParserException {
+    private Map.Entry<JSONValueString, JSONValue> readMember(boolean immutable)
+            throws JSONParserException
+    {
         JSONValueString key;
 
         // read a key
@@ -224,7 +249,7 @@ public class JSONParser {
             unexpectedEof(nameSepToken);
         }
 
-        JSONValue value = readValue();
+        JSONValue value = readValue(immutable);
         JSONValueString rKey = key;
 
         return new Map.Entry<>() {
@@ -245,7 +270,7 @@ public class JSONParser {
         };
     }
 
-    private JSONValueObject readObject() throws JSONParserException {
+    private JSONValueObject readObject(boolean immutable) throws JSONParserException {
         LinkedHashMap<JSONValueString, JSONValue> object
                 = new LinkedHashMap<>();
 
@@ -259,7 +284,7 @@ public class JSONParser {
                     return new JSONValueObject(object);
                 case STRING:
                     pushBack();
-                    Map.Entry<JSONValueString, JSONValue> member = readMember();
+                    Map.Entry<JSONValueString, JSONValue> member = readMember(immutable);
                     object.put(member.getKey(), member.getValue());
                     break;
                 default:
@@ -278,7 +303,7 @@ public class JSONParser {
                     case END_OBJECT:
                         return new JSONValueObject(object);
                     case VALUE_SEPARATOR:
-                        Map.Entry<JSONValueString, JSONValue> member = readMember();
+                        Map.Entry<JSONValueString, JSONValue> member = readMember(immutable);
                         object.put(member.getKey(), member.getValue());
                         break;
                     default:

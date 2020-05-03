@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class JSONValueTest {
     @Test
     public void testJSONValueArray() {
-        JSONValue value = new JSONValueArray(new ArrayList<>());
+        JSONValue value = new JSONValueArrayMutable(new ArrayList<>());
         assertEquals(JSONValueType.ARRAY, value.type());
     }
 
