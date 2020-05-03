@@ -139,8 +139,6 @@ public class JSONParserException extends Exception {
 
     @Override
     public String getMessage() {
-        // TODO: write test cases
-
         StringBuilder sb = new StringBuilder();
         if (errMsgFmt.showFullPath()) {
             sb.append(source.fullName());
