@@ -166,4 +166,16 @@ public abstract class JSONValueArray extends JSONValue implements List<JSONValue
      */
     @Override
     public abstract <T> T[] toArray(T[] ts);
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public abstract int hashCode();
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public abstract boolean equals(Object o);
 }

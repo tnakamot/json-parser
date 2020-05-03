@@ -43,9 +43,7 @@ public abstract class JSONValueObject extends JSONValue implements Map<JSONValue
      * @param name a JSON string value which represents a name
      * @return a JSON value of the given name
      */
-    public JSONValue get(JSONValueString name) {
-        throw new UnsupportedOperationException("need to be overridden");
-    }
+    public abstract JSONValue get(JSONValueString name);
 
     /**
      * Returns the JSON value which has the given name.
@@ -54,33 +52,25 @@ public abstract class JSONValueObject extends JSONValue implements Map<JSONValue
      * @return a JSON value of the given name
      * @see #get(JSONValueString)
      */
-    public JSONValue get(String name) {
-        throw new UnsupportedOperationException("need to be overridden");
-    }
+    public abstract JSONValue get(String name);
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public int size() {
-        throw new UnsupportedOperationException("need to be overridden");
-    }
+    public abstract int size();
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public boolean isEmpty() {
-        throw new UnsupportedOperationException("need to be overridden");
-    }
+    public abstract boolean isEmpty();
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public boolean containsKey(Object o) {
-        throw new UnsupportedOperationException("need to be overridden");
-    }
+    public abstract boolean containsKey(Object o);
 
     /**
      * Check if this JSON object has a value which has the given name.
@@ -89,95 +79,71 @@ public abstract class JSONValueObject extends JSONValue implements Map<JSONValue
      * @return true if a value with the given name exists
      * @see #containsKey(Object)
      */
-    public boolean containsKey(String name) {
-        throw new UnsupportedOperationException("need to be overridden");
-    }
+    public abstract boolean containsKey(String name);
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public boolean containsValue(Object o) {
-        throw new UnsupportedOperationException("need to be overridden");
-    }
+    public abstract boolean containsValue(Object o);
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public JSONValue get(Object o) {
-        throw new UnsupportedOperationException("need to be overridden");
-    }
+    public abstract JSONValue get(Object o);
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public JSONValue put(JSONValueString jsonValueString, JSONValue jsonValue) {
-        throw new UnsupportedOperationException("need to be overridden");
-    }
+    public abstract JSONValue put(JSONValueString jsonValueString, JSONValue jsonValue);
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public JSONValue remove(Object o) {
-        throw new UnsupportedOperationException("need to be overridden");
-    }
+    public abstract JSONValue remove(Object o);
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void putAll(Map<? extends JSONValueString, ? extends JSONValue> map) {
-        throw new UnsupportedOperationException("need to be overridden");
-    }
+    public abstract void putAll(Map<? extends JSONValueString, ? extends JSONValue> map);
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void clear() {
-        throw new UnsupportedOperationException("need to be overridden");
-    }
+    public abstract void clear();
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Set<JSONValueString> keySet() {
-        throw new UnsupportedOperationException("need to be overridden");
-    }
+    public abstract Set<JSONValueString> keySet();
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Collection<JSONValue> values() {
-        throw new UnsupportedOperationException("need to be overridden");
-    }
+    public abstract Collection<JSONValue> values();
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Set<Entry<JSONValueString, JSONValue>> entrySet() {
-        throw new UnsupportedOperationException("need to be overridden");
-    }
+    public abstract Set<Entry<JSONValueString, JSONValue>> entrySet();
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public int hashCode() {
-        throw new UnsupportedOperationException("need to be overridden");
-    }
+    public abstract int hashCode();
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public boolean equals(Object o) {
-        throw new UnsupportedOperationException("need to be overridden");
-    }
+    public abstract boolean equals(Object o);
 }
