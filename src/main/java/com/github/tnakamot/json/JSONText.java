@@ -252,9 +252,8 @@ public class JSONText {
         }
 
         /*
-         * TODO: RFC 8259 allows to add BOM (U+FEFF) to the beginning of
-         *       a networked-transmitted JSON text. To improve the interoperability
-         *       remove the BOM if exists.
+         * TODO: To improve the interoperability remove the BOM (U+FEFF) if exists.
+         *       The application may do so according to RFC 8259 (it is not mandatory).
          */
         String text = IOUtils.toString(url, StandardCharsets.UTF_8);
         return new JSONText(text, url);
