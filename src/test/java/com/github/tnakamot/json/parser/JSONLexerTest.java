@@ -40,7 +40,7 @@ public class JSONLexerTest {
 
     @Test
     public void testSimpleObject() throws IOException, JSONParserException {
-        JSONText jsText = JSONText.fromString(" { \"key\":\r\n[true,\nfalse,\rnull, -15.234e2]\n\r} ");
+        JSONText jsText = JSONText.fromString(" { \"key\":\r\n[true,\nfalse,\rnull, -15.234e2\r\n]\n\r} ");
         List<JSONToken> tokens = jsText.tokens();
 
         assertEquals(JSONTokenType.BEGIN_OBJECT, tokens.get(0).type());
@@ -163,21 +163,21 @@ public class JSONLexerTest {
 
         assertEquals(JSONTokenType.END_ARRAY, tokens.get(11).type());
         assertEquals("]", tokens.get(11).text());
-        assertEquals(40, tokens.get(11).beginningLocation().position());
-        assertEquals(4, tokens.get(11).beginningLocation().line());
-        assertEquals(16, tokens.get(11).beginningLocation().column());
-        assertEquals(41, tokens.get(11).endLocation().position());
-        assertEquals(4, tokens.get(11).endLocation().line());
-        assertEquals(17, tokens.get(11).endLocation().column());
+        assertEquals(42, tokens.get(11).beginningLocation().position());
+        assertEquals(5, tokens.get(11).beginningLocation().line());
+        assertEquals(1, tokens.get(11).beginningLocation().column());
+        assertEquals(43, tokens.get(11).endLocation().position());
+        assertEquals(5, tokens.get(11).endLocation().line());
+        assertEquals(2, tokens.get(11).endLocation().column());
         assertEquals(jsText, tokens.get(11).source());
 
         assertEquals(JSONTokenType.END_OBJECT, tokens.get(12).type());
         assertEquals("}", tokens.get(12).text());
-        assertEquals(43, tokens.get(12).beginningLocation().position());
-        assertEquals(6, tokens.get(12).beginningLocation().line());
+        assertEquals(45, tokens.get(12).beginningLocation().position());
+        assertEquals(7, tokens.get(12).beginningLocation().line());
         assertEquals(1, tokens.get(12).beginningLocation().column());
-        assertEquals(44, tokens.get(12).endLocation().position());
-        assertEquals(6, tokens.get(12).endLocation().line());
+        assertEquals(46, tokens.get(12).endLocation().position());
+        assertEquals(7, tokens.get(12).endLocation().line());
         assertEquals(2, tokens.get(12).endLocation().column());
         assertEquals(jsText, tokens.get(12).source());
     }

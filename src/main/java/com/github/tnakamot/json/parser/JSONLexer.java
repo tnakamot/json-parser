@@ -39,6 +39,7 @@ public class JSONLexer {
     private final PushbackReader reader;
 
     StringLocation location;
+    private boolean readCrLf = false;
 
     /**
      * Create an instance of JSON lexical analyzer for the given JSON text.
@@ -55,12 +56,14 @@ public class JSONLexer {
 
         this.source       = source;
         this.errMsgFmt    = errMsgFmt;
-        this.reader       = new PushbackReader(new StringReader(source.get()));
+        this.reader       = new PushbackReader(new StringReader(source.get()), 2);
         this.location     = StringLocation.begin();
     }
 
     private int read() throws IOException {
+        readCrLf = false;
         int ich = reader.read();
+
         if (ich == -1) {
             return -1;
         } else if (ich == '\r') {
@@ -69,6 +72,7 @@ public class JSONLexer {
                 return -1;
             } else if (ich2 == '\n') {
                 location = location.next(false).next(true);
+                readCrLf = true;
                 return ich2;
             } else {
                 location = location.next(true);
@@ -94,12 +98,15 @@ public class JSONLexer {
     }
 
     private void pushBack(int ch) throws IOException {
-        if (ch == '\n' || ch == '\r') {
-            throw new UnsupportedOperationException("cannot push back \\n or \\r");
+        if (readCrLf) {
+            location = location.previous().previous();
+            reader.unread('\n');
+            reader.unread('\r');
+            readCrLf = false;
+        } else {
+            location = location.previous();
+            reader.unread(ch);
         }
-
-        location = location.previous();
-        reader.unread(ch);
     }
 
     /**
