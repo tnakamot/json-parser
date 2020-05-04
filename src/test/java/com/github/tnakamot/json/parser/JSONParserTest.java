@@ -26,8 +26,6 @@ import java.io.IOException;
 import java.util.Map;
 
 public class JSONParserTest {
-    // TODO: more test cases especially for error cases.
-
     @Test
     public void testEmpty() throws IOException, JSONParserException {
         JSONValue root = JSONText.fromString("").parse();
