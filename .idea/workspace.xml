@@ -1,0 +1,644 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="3c5df3ac-ef3e-43a0-b663-864f20b4e52e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.sbt" beforeDir="false" afterPath="$PROJECT_DIR$/build.sbt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/build.properties" beforeDir="false" afterPath="$PROJECT_DIR$/project/build.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/plugins.sbt" beforeDir="false" afterPath="$PROJECT_DIR$/project/plugins.sbt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/tnakamot/json/parser/JSONLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/tnakamot/json/parser/JSONLexer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/tnakamot/json/parser/JSONParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/tnakamot/json/parser/JSONParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/tnakamot/json/parser/package-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/tnakamot/json/parser/package-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/tnakamot/json/token/StringLocation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/tnakamot/json/token/StringLocation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/tnakamot/json/value/JSONValue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/tnakamot/json/value/JSONValue.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/paradox/source_info.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/paradox/source_info.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/github/tnakamot/json/parser/JSONLexerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/tnakamot/json/parser/JSONLexerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/github/tnakamot/json/value/JSONValueNullTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/tnakamot/json/value/JSONValueNullTest.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="SBT">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="json-parser" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="json-parser" type="f1a62948:ProjectNode" />
+                <item name="json-parser" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="json-parser" type="f1a62948:ProjectNode" />
+                <item name="json-parser" type="2d1252cf:ModuleNode" />
+                <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="json-parser" type="f1a62948:ProjectNode" />
+                <item name="json-parser-build" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="json-parser" type="f1a62948:ProjectNode" />
+                <item name="json-parser-build" type="2d1252cf:ModuleNode" />
+                <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Package Object" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="1" />
+  </component>
+  <component name="ProjectId" id="1bIydTQOyacJ6IYQi8f4GHPkUSZ" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="SDKs" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.24597701" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="reference.settings.ide.settings.spelling" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.github.tnakamot.json" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/test/resources/com/github/tnakamot/json/rfc8259" />
+      <recent name="$PROJECT_DIR$/src" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Test All" type="JUnit" factoryName="JUnit" singleton="false">
+      <shortenClasspath name="NONE" />
+      <useClassPathOnly />
+      <option name="PACKAGE_NAME" value="com.github.tnakamot.json" />
+      <option name="MAIN_CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <option name="PARAMETERS" value="" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="wholeProject" />
+      </option>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BSP.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3c5df3ac-ef3e-43a0-b663-864f20b4e52e" name="Default Changelist" comment="" />
+      <created>1588333989494</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1588333989494</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Type test.">
+      <created>1588497665411</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1588497665411</updated>
+    </task>
+    <task id="LOCAL-00014" summary="NULL -&gt; INSTANCE.">
+      <created>1588497697456</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1588497697456</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Test cases of JSONValueNull.">
+      <created>1588497988226</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1588497988226</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Copyright notice.">
+      <created>1588498053488</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1588498053488</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Test type of null.">
+      <created>1588498389438</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1588498389438</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Unit tests of JSONValueString.">
+      <created>1588498745516</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1588498745516</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Test null.">
+      <created>1588499536452</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1588499536452</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Test invalid numbers.">
+      <created>1588500439937</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1588500439937</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Test of double values.">
+      <created>1588502468664</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1588502468664</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Throw NumberFormatException.">
+      <created>1588502514149</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1588502514149</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Resolved one todo.">
+      <created>1588502687662</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1588502687662</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Resolved one TODO.">
+      <created>1588502849053</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1588502849053</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Shortly documented JSONLexer and JSONParser.">
+      <created>1588503140810</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1588503140810</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Resolved one TODO.">
+      <created>1588503254213</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1588503254213</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Clarified mapping to double value.">
+      <created>1588503491846</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1588503491846</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Resolved one warning about regex.">
+      <created>1588503558482</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1588503558482</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Test cases of JSONParserErrorMessageFormat.">
+      <created>1588504014925</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1588504014925</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Test end location of each token.">
+      <created>1588505207820</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1588505207820</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Added one TODO.">
+      <created>1588505278211</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1588505278211</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Show log.">
+      <created>1588506154813</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1588506154813</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Test cases for the error messages.">
+      <created>1588507800438</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1588507800438</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Support showing an error line.">
+      <created>1588511451480</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1588511451480</updated>
+    </task>
+    <task id="LOCAL-00035" summary="Copyright notice.">
+      <created>1588511507621</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1588511507621</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Error message format description.">
+      <created>1588512768862</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1588512768862</updated>
+    </task>
+    <task id="LOCAL-00037" summary="Resolved one warning.">
+      <created>1588512866270</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1588512866270</updated>
+    </task>
+    <task id="LOCAL-00038" summary="Removed TODO which has been already resolved by JSONParserExceptionTest.">
+      <created>1588512911958</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1588512911958</updated>
+    </task>
+    <task id="LOCAL-00039" summary="Convert a number to long as much as possible if no information is lost.">
+      <created>1588515755547</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1588515755547</updated>
+    </task>
+    <task id="LOCAL-00040" summary="Immutable and mutable version of JSONValueArray.">
+      <created>1588533128175</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1588533128175</updated>
+    </task>
+    <task id="LOCAL-00041" summary="Immutable and mutable version of JSONValueObject.">
+      <created>1588535642735</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1588535642735</updated>
+    </task>
+    <task id="LOCAL-00042" summary="Inherit docs.">
+      <created>1588544871535</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1588544871535</updated>
+    </task>
+    <task id="LOCAL-00043" summary="Abstract methods are defined as abstract.">
+      <created>1588545061566</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1588545061566</updated>
+    </task>
+    <task id="LOCAL-00044" summary="Resolved some warnings.">
+      <created>1588546593659</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1588546593659</updated>
+    </task>
+    <task id="LOCAL-00045" summary="Resolved some warnings.">
+      <created>1588546987661</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1588546987661</updated>
+    </task>
+    <task id="LOCAL-00046" summary="Resolved some warnings.">
+      <created>1588547336615</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1588547336615</updated>
+    </task>
+    <task id="LOCAL-00047" summary="Added TODOs to write unit tests.">
+      <created>1588547866831</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1588547866831</updated>
+    </task>
+    <task id="LOCAL-00048" summary="Better version of javadoc.">
+      <created>1588548965027</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1588548965027</updated>
+    </task>
+    <task id="LOCAL-00049" summary="Test the parse with examples in RFC 8259.">
+      <created>1588552784207</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1588552784207</updated>
+    </task>
+    <task id="LOCAL-00050" summary="Handle CRLF correctly.">
+      <created>1588553410505</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1588553410506</updated>
+    </task>
+    <task id="LOCAL-00051" summary="Removed TODO because some errors are covered by JSONParserExceptionTest.">
+      <created>1588553509913</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1588553509913</updated>
+    </task>
+    <task id="LOCAL-00052" summary="Fixed the wrong description of TODO.">
+      <created>1588553879193</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1588553879193</updated>
+    </task>
+    <task id="LOCAL-00053" summary="Implemented toTokenString methods.">
+      <created>1588656386372</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1588656386373</updated>
+    </task>
+    <task id="LOCAL-00054" summary="Removed dependency on Apache Commons IO because IntelliJ IDEA JUnit runner complains.">
+      <created>1588659827697</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1588659827698</updated>
+    </task>
+    <task id="LOCAL-00055" summary="Use a simpler method calls.">
+      <created>1588659870494</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1588659870495</updated>
+    </task>
+    <task id="LOCAL-00056" summary="Call files.writeString and readString methods inline.">
+      <created>1588660024494</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1588660024495</updated>
+    </task>
+    <task id="LOCAL-00057" summary="Tried sbt-jacoco, but it did not work well.">
+      <created>1588664282137</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1588664282137</updated>
+    </task>
+    <task id="LOCAL-00058" summary="Formatted all code with google-java-format IntelliJ plugin.">
+      <created>1588664702324</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1588664702324</updated>
+    </task>
+    <task id="LOCAL-00059" summary="Formatted all code with sbt-java-formatter plugin.">
+      <created>1588666199611</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1588666199611</updated>
+    </task>
+    <task id="LOCAL-00060" summary="Fixed the problems detected by SpotBugs except null checks.">
+      <created>1588668199823</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1588668199823</updated>
+    </task>
+    <task id="LOCAL-00061" summary="Resolved test failures and some warning detected by IntelliJ code analysis.">
+      <created>1588669641166</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1588669641166</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
+    <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Error message format description." />
+    <MESSAGE value="Resolved one warning." />
+    <MESSAGE value="Removed TODO which has been already resolved by JSONParserExceptionTest." />
+    <MESSAGE value="Convert a number to long as much as possible if no information is lost." />
+    <MESSAGE value="Immutable and mutable version of JSONValueArray." />
+    <MESSAGE value="Immutable and mutable version of JSONValueObject." />
+    <MESSAGE value="Inherit docs." />
+    <MESSAGE value="Abstract methods are defined as abtstract." />
+    <MESSAGE value="Abstract methods are defined as abstract." />
+    <MESSAGE value="Resolved some warnings." />
+    <MESSAGE value="Added TODOs to write unit tests." />
+    <MESSAGE value="Better version of javadoc." />
+    <MESSAGE value="Test the parse with examples in RFC 8259." />
+    <MESSAGE value="Handle CRLF correctly." />
+    <MESSAGE value="Removed TODO because some errors are covered by JSONParserExceptionTest." />
+    <MESSAGE value="Fixed the wrong description of TODO." />
+    <MESSAGE value="Implemented toTokenString methods." />
+    <MESSAGE value="Removed dependency on Apache Commons IO because IntelliJ IDEA JUnit runner complains." />
+    <MESSAGE value="Use a simpler method calls." />
+    <MESSAGE value="Call files.writeString and readString methods inline." />
+    <MESSAGE value="Tried sbt-jacoco, but it did not work well." />
+    <MESSAGE value="Formatted all code with google-java-format IntelliJ plugin." />
+    <MESSAGE value="Formatted all code with sbt-java-formatter plugin." />
+    <MESSAGE value="Fixed the problems detected by SpotBugs except null checks." />
+    <MESSAGE value="Resolved test failures and some warning detected by IntelliJ code analysis." />
+    <option name="LAST_COMMIT_MESSAGE" value="Resolved test failures and some warning detected by IntelliJ code analysis." />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="2655" y="203" key="#Auto_Import" timestamp="1588551879551">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2655" y="203" key="#Auto_Import/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588551879551" />
+    <state x="594" y="228" width="1179" height="796" key="#Inspections" timestamp="1588671162209">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="594" y="228" width="1179" height="796" key="#Inspections/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588671162209" />
+    <state x="2479" y="257" key="#JSONLexerTest" timestamp="1588515303855">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2479" y="257" key="#JSONLexerTest/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588515303855" />
+    <state x="2481" y="198" key="#Plugins" timestamp="1588548676514">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2481" y="198" key="#Plugins/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588548676514" />
+    <state x="449" y="132" key="#Project_Structure" timestamp="1588662548722">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="449" y="132" key="#Project_Structure/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588662548722" />
+    <state x="2369" y="132" key="#Project_Structure/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588656968574" />
+    <state x="2684" y="342" key="#Web_Browsers" timestamp="1588402754558">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2684" y="342" key="#Web_Browsers/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588402754558" />
+    <state x="549" y="212" width="1071" height="654" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1588662982785">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="549" y="212" key="#com.intellij.execution.impl.EditConfigurationsDialog/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588662982785" />
+    <state x="2469" y="212" width="1071" height="654" key="#com.intellij.execution.impl.EditConfigurationsDialog/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588660078512" />
+    <state x="2693" y="258" key="#com.intellij.ide.util.MemberChooser" timestamp="1588531739937">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2693" y="258" key="#com.intellij.ide.util.MemberChooser/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588531739937" />
+    <state x="2742" y="334" key="#com.intellij.ide.util.PackageChooserDialog" timestamp="1588657125500">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2742" y="334" key="#com.intellij.ide.util.PackageChooserDialog/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588657125500" />
+    <state x="2568" y="287" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1588547456430">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2568" y="287" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588547456430" />
+    <state x="2666" y="422" width="529" height="228" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1588415733231">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2666" y="422" width="529" height="228" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588415733231" />
+    <state x="2618" y="297" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1588415632452">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2618" y="297" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588415632452" />
+    <state x="714" y="415" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1588670037386">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="714" y="415" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588670037386" />
+    <state x="575" y="121" width="1160" height="845" key="CommitChangelistDialog2" timestamp="1588669640983">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="575" y="121" width="1160" height="845" key="CommitChangelistDialog2/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588669640983" />
+    <state x="2495" y="121" width="1185" height="820" key="CommitChangelistDialog2/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588660024324" />
+    <state x="100" y="123" width="1720" height="817" key="DiffContextDialog" timestamp="1588665400436">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="100" y="123" width="1720" height="817" key="DiffContextDialog/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588665400436" />
+    <state x="872" y="312" key="FileChooserDialogImpl" timestamp="1588670355852">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="872" y="312" key="FileChooserDialogImpl/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588670355852" />
+    <state x="2792" y="312" key="FileChooserDialogImpl/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588657240584" />
+    <state width="1878" height="277" key="GridCell.Tab.0.bottom" timestamp="1588671476739">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1878" height="277" key="GridCell.Tab.0.bottom/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588671476739" />
+    <state width="1878" height="277" key="GridCell.Tab.0.bottom/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588660209558" />
+    <state width="1878" height="277" key="GridCell.Tab.0.center" timestamp="1588671476739">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1878" height="277" key="GridCell.Tab.0.center/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588671476739" />
+    <state width="1878" height="277" key="GridCell.Tab.0.center/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588660209558" />
+    <state width="1878" height="277" key="GridCell.Tab.0.left" timestamp="1588671476739">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1878" height="277" key="GridCell.Tab.0.left/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588671476739" />
+    <state width="1878" height="277" key="GridCell.Tab.0.left/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588660209558" />
+    <state width="1878" height="277" key="GridCell.Tab.0.right" timestamp="1588671476739">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1878" height="277" key="GridCell.Tab.0.right/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588671476739" />
+    <state width="1878" height="277" key="GridCell.Tab.0.right/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588660209558" />
+    <state x="2468" y="292" key="IDE.errors.dialog" timestamp="1588511861342">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2468" y="292" key="IDE.errors.dialog/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588511861342" />
+    <state x="757" y="253" key="RollbackChangesDialog" timestamp="1588662265928">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="757" y="253" key="RollbackChangesDialog/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588662265928" />
+    <state x="470" y="189" key="SettingsEditor" timestamp="1588670559658">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="470" y="189" key="SettingsEditor/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588670559658" />
+    <state x="2390" y="189" key="SettingsEditor/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588658401277" />
+    <state x="2480" y="282" key="Vcs.Push.Dialog.v2" timestamp="1588548980520">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2480" y="282" key="Vcs.Push.Dialog.v2/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588548980520" />
+    <state x="426" y="150" width="375" height="495" key="VcsDiffUtil.ChangesDialog" timestamp="1588665015450">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="426" y="150" width="375" height="495" key="VcsDiffUtil.ChangesDialog/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588665015450" />
+    <state x="1921" y="31" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1588656481132">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1921" y="31" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588656481132" />
+    <state x="2701" y="378" key="export.test.results" timestamp="1588658437283">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2701" y="378" key="export.test.results/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588658437283" />
+    <state x="292" y="275" key="new project wizard" timestamp="1588660366527">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="292" y="275" key="new project wizard/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588660366527" />
+    <state x="2212" y="275" key="new project wizard/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588421887176" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/json_parser$Test_All.ic" NAME="Test All Coverage Results" MODIFIED="1588658332391" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+  </component>
+</project>
