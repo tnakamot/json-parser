@@ -26,10 +26,10 @@ import org.junit.platform.commons.logging.LoggerFactory;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 
 public class JSONTextTest {
@@ -43,7 +43,7 @@ public class JSONTextTest {
     public static void setUp() throws IOException {
         jsonFile = File.createTempFile("JSONTextTest_", ".json");
         jsonFile.deleteOnExit();
-        Utils.writeStringToFile(jsonFile, JSON_STR, StandardCharsets.UTF_8);
+        Files.writeString(jsonFile.toPath(), JSON_STR, StandardCharsets.UTF_8);
     }
 
     @AfterAll

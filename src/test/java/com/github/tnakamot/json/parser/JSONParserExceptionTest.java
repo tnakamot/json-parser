@@ -17,7 +17,6 @@
 package com.github.tnakamot.json.parser;
 
 import com.github.tnakamot.json.JSONText;
-import com.github.tnakamot.json.Utils;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -27,6 +26,7 @@ import org.junit.platform.commons.logging.LoggerFactory;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -43,11 +43,11 @@ public class JSONParserExceptionTest {
     public static void setUp() throws IOException {
         jsonFileSingleLine = File.createTempFile("JSONTextTest_", ".json");
         jsonFileSingleLine.deleteOnExit();
-        Utils.writeStringToFile(jsonFileSingleLine, JSON_STR_SINGLE_LINE, StandardCharsets.UTF_8);
+        Files.writeString(jsonFileSingleLine.toPath(), JSON_STR_SINGLE_LINE, StandardCharsets.UTF_8);
 
         jsonFileMultiLines = File.createTempFile("JSONTextTest_", ".json");
         jsonFileMultiLines.deleteOnExit();
-        Utils.writeStringToFile(jsonFileMultiLines, JSON_STR_MULTI_LINES, StandardCharsets.UTF_8);
+        Files.writeString(jsonFileMultiLines.toPath(), JSON_STR_MULTI_LINES, StandardCharsets.UTF_8);
     }
 
     @AfterAll

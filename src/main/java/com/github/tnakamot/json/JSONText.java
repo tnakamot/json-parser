@@ -27,6 +27,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -231,7 +232,7 @@ public class JSONText {
             throw new NullPointerException("file cannot be null");
         }
 
-        String text = Utils.readFileToString(file, StandardCharsets.UTF_8);
+        String text = Files.readString(file.toPath(), StandardCharsets.UTF_8);
         return new JSONText(text, file);
     }
 

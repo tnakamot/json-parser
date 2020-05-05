@@ -27,17 +27,9 @@ import java.nio.file.Files;
  * Collection of utility methods.
  */
 public class Utils {
-    public static String readFileToString(File file, Charset charset) throws IOException {
-        return Files.readString(file.toPath(), charset);
-    }
-
     public static String readURLToString(URL url, Charset charset) throws IOException {
         try (InputStream in = url.openStream()) {
             return new String(in.readAllBytes(), charset);
         }
-    }
-
-    public static void writeStringToFile(File file, String str, Charset charset) throws IOException {
-        Files.writeString(file.toPath(), str, charset);
     }
 }
