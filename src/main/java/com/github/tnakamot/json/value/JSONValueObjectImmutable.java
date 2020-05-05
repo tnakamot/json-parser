@@ -20,6 +20,8 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
+
+import com.github.tnakamot.json.token.JSONToken;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -209,5 +211,63 @@ public class JSONValueObjectImmutable extends JSONValueObject {
      */
     public JSONValueObjectMutable toMutable() {
         return new JSONValueObjectMutable(this);
+    }
+
+    @Override
+    @NotNull
+    public String toTokenString() {
+        if (size() == 0) {
+            return JSONToken.JSON_BEGIN_OBJECT + JSONToken.JSON_END_OBJECT;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(JSONToken.JSON_BEGIN_OBJECT);
+        for (Map.Entry<JSONValueString, JSONValue> entry: this.entrySet()) {
+            sb.append(entry.getKey().toTokenString());
+            sb.append(JSONToken.JSON_NAME_SEPARATOR);
+            sb.append(entry.getValue().toTokenString());
+            sb.append(JSONToken.JSON_VALUE_SEPARATOR);
+        }
+        sb.deleteCharAt(sb.length() - 1);
+        sb.append(JSONToken.JSON_END_OBJECT);
+        return sb.toString();
+    }
+
+    @Override
+    @NotNull
+    public String toTokenString(String newline, String indent) {
+        validateNewline(newline);
+        validateIndent(indent);
+
+        if (size() == 0) {
+            return JSONToken.JSON_BEGIN_OBJECT + " " + JSONToken.JSON_END_OBJECT;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(JSONToken.JSON_BEGIN_OBJECT);
+
+        for (Map.Entry<JSONValueString, JSONValue> entry: this.entrySet()) {
+            sb.append(newline);
+            sb.append(indent);
+            sb.append(entry.getKey().toTokenString(newline, indent));
+            sb.append(JSONToken.JSON_NAME_SEPARATOR);
+            sb.append(" ");
+
+            String value = entry.getValue().toTokenString(newline, indent);
+            String[] lines = value.split(newline);
+            sb.append(lines[0]);
+            for (int i = 1; i < lines.length; i++) {
+                sb.append(newline);
+                sb.append(indent);
+                sb.append(lines[i]);
+            }
+
+            sb.append(JSONToken.JSON_VALUE_SEPARATOR);
+        }
+        sb.deleteCharAt(sb.length() - 1);
+
+        sb.append(newline);
+        sb.append(JSONToken.JSON_END_OBJECT);
+        return sb.toString();
     }
 }

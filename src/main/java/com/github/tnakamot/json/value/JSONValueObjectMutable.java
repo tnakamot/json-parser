@@ -222,4 +222,16 @@ public class JSONValueObjectMutable extends JSONValueObject {
     public JSONValueObjectImmutable toImmutable() {
         return new JSONValueObjectImmutable(this);
     }
+
+    @Override
+    @NotNull
+    public String toTokenString() {
+        return toImmutable().toTokenString();
+    }
+
+    @Override
+    @NotNull
+    public String toTokenString(String newline, String indent) {
+        return toImmutable().toTokenString(newline, indent);
+    }
 }

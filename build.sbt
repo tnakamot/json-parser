@@ -46,6 +46,7 @@ lazy val root = (project in file("."))
 
     libraryDependencies ++= Seq(
       "commons-io" % "commons-io" % "2.6",
+      "org.apache.commons" % "commons-text" % "1.8",
       "org.jetbrains" % "annotations" % "16.0.1",
       "net.aichler" % "jupiter-interface" % JupiterKeys.jupiterVersion.value % Test,
       "org.junit.jupiter" % "junit-jupiter-params" % "5.1.1" % Test,

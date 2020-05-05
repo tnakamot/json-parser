@@ -17,6 +17,8 @@
 package com.github.tnakamot.json.value;
 
 import com.github.tnakamot.json.token.JSONTokenString;
+import org.apache.commons.text.StringEscapeUtils;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Represents one JSON 'string' value.
@@ -78,5 +80,21 @@ public class JSONValueString extends JSONValuePrimitive {
     @Override
     public String toString() {
         return value;
+    }
+
+    @Override
+    @NotNull
+    public String toTokenString() {
+        if (token() == null) {
+            return "\"" + StringEscapeUtils.escapeJson(value) + "\"";
+        } else {
+            return token().text();
+        }
+    }
+
+    @Override
+    @NotNull
+    public String toTokenString(String newline, String indent) {
+        return toTokenString();
     }
 }

@@ -4,6 +4,10 @@ import com.github.tnakamot.json.parser.JSONParserException;
 
 import com.github.tnakamot.json.value.*;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.platform.commons.logging.Logger;
+import org.junit.platform.commons.logging.LoggerFactory;
 
 import java.io.IOException;
 import java.net.URL;
@@ -13,6 +17,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RFC8259ExampleTest {
+    private static final Logger log = LoggerFactory.getLogger(RFC8259ExampleTest.class);
     private static final String resourceBase = "/com/github/tnakamot/json/rfc8259/";
 
     @Test
@@ -73,7 +78,7 @@ public class RFC8259ExampleTest {
         assertEquals(4, idsArray.size());
         long[] expectedIds = {116, 943, 234, 38793};
         int i = 0;
-        for (JSONValue id: idsArray) {
+        for (JSONValue id : idsArray) {
             assertEquals(JSONValueType.NUMBER, id.type());
             assertTrue(id instanceof JSONValueNumber);
             JSONValueNumber idNum = (JSONValueNumber) id;
@@ -150,14 +155,14 @@ public class RFC8259ExampleTest {
         assertEquals(2, rootArray.size());
         int i = 0;
 
-        for (JSONValue value: rootArray) {
+        for (JSONValue value : rootArray) {
             assertEquals(JSONValueType.OBJECT, value.type());
             assertTrue(value instanceof JSONValueObject);
             JSONValueObject valueObj = (JSONValueObject) value;
 
             assertEquals(expected[i].size(), valueObj.size());
 
-            for (Map.Entry<String, JSONValue> entry: expected[i].entrySet()) {
+            for (Map.Entry<String, JSONValue> entry : expected[i].entrySet()) {
                 String key = entry.getKey();
                 JSONValue expectedVal = entry.getValue();
 
@@ -212,5 +217,28 @@ public class RFC8259ExampleTest {
         assertTrue(root instanceof JSONValueBoolean);
         JSONValueBoolean rootBool = (JSONValueBoolean) root;
         assertTrue(rootBool.value());
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "rfc8259_example1.json",
+            "rfc8259_example2.json",
+            "rfc8259_example3.json",
+            "rfc8259_example4.json",
+            "rfc8259_example5.json",
+    })
+    public void testOutput(String fileName) throws IOException, JSONParserException {
+        URL example = this.getClass().getResource(resourceBase + fileName);
+        JSONText jsText = JSONText.fromURL(example);
+        JSONValue root = jsText.parse();
+
+        // Although it is not necessary to exactly match the output of
+        // toTokenString() with the original JSON text, it is a good
+        // test to check if the original order in the JSON objects are
+        // retained and to check if toTokenString() works as intended.
+        String output = root.toTokenString("\n", "  ");
+        log.info(() -> fileName + " => \n" + output);
+
+        jsText.get().equals(output);
     }
 }

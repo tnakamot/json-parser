@@ -17,6 +17,8 @@
 package com.github.tnakamot.json.value;
 
 import java.util.*;
+
+import com.github.tnakamot.json.token.JSONToken;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -267,5 +269,88 @@ public class JSONValueArrayImmutable extends JSONValueArray {
      */
     public JSONValueArrayMutable toMutable() {
         return new JSONValueArrayMutable(this);
+    }
+
+    @Override
+    @NotNull
+    public String toTokenString() {
+        if (size() == 0) {
+            return JSONToken.JSON_BEGIN_ARRAY + JSONToken.JSON_END_ARRAY;
+        }
+
+        return toTokenStringSingleLine(false);
+    }
+
+    @Override
+    @NotNull
+    public String toTokenString(String newline, String indent) {
+        if (size() == 0) {
+            return JSONToken.JSON_BEGIN_ARRAY + " " + JSONToken.JSON_END_ARRAY;
+        }
+
+        boolean multiLine
+                = this.stream().anyMatch(
+                (value) ->
+                        value.type() == JSONValueType.OBJECT ||
+                        value.type() == JSONValueType.ARRAY);
+
+        if (multiLine) {
+            return toTokenStringMultiLine(newline, indent);
+        }
+
+        String singleLine = toTokenStringSingleLine(true);
+        if (singleLine.length() <= 80) { // TODO: make this limit configurable
+            return singleLine;
+        } else {
+            return toTokenStringMultiLine(newline, indent);
+        }
+    }
+
+    private String toTokenStringSingleLine(boolean wsAfterSeparator) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(JSONToken.JSON_BEGIN_ARRAY);
+
+        for (JSONValue value: this) {
+            sb.append(value.toTokenString());
+            sb.append(JSONToken.JSON_VALUE_SEPARATOR);
+            if (wsAfterSeparator) {
+                sb.append(" ");
+            }
+        }
+
+        if (wsAfterSeparator) {
+            sb.deleteCharAt(sb.length() - 1);
+        }
+        sb.deleteCharAt(sb.length() - 1);
+
+        sb.append(JSONToken.JSON_END_ARRAY);
+        return sb.toString();
+    }
+
+    private String toTokenStringMultiLine(String newline, String indent) {
+        validateNewline(newline);
+        validateIndent(indent);
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(JSONToken.JSON_BEGIN_ARRAY);
+
+        for (JSONValue value: this) {
+            sb.append(newline);
+            sb.append(indent);
+
+            String[] lines = value.toTokenString(newline, indent).split(newline);
+            sb.append(lines[0]);
+            for (int i = 1; i < lines.length; i++) {
+                sb.append(newline);
+                sb.append(indent);
+                sb.append(lines[i]);
+            }
+            sb.append(JSONToken.JSON_VALUE_SEPARATOR);
+        }
+        sb.deleteCharAt(sb.length() - 1);
+
+        sb.append(newline);
+        sb.append(JSONToken.JSON_END_ARRAY);
+        return sb.toString();
     }
 }

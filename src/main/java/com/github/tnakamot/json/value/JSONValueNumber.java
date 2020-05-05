@@ -17,6 +17,7 @@
 package com.github.tnakamot.json.value;
 
 import com.github.tnakamot.json.token.JSONTokenNumber;
+import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -221,5 +222,21 @@ public class JSONValueNumber extends JSONValuePrimitive {
     @Override
     public String toString() {
         return text;
+    }
+
+    @Override
+    @NotNull
+    public String toTokenString() {
+        if (token() == null) {
+            return text;
+        } else {
+            return token().text();
+        }
+    }
+
+    @Override
+    @NotNull
+    public String toTokenString(String newline, String indent) {
+        return toTokenString();
     }
 }

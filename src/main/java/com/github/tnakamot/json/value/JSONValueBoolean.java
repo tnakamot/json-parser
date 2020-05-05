@@ -17,6 +17,7 @@
 package com.github.tnakamot.json.value;
 
 import com.github.tnakamot.json.token.JSONTokenBoolean;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Represents one JSON 'boolean' value.
@@ -90,5 +91,17 @@ public class JSONValueBoolean extends JSONValuePrimitive {
     @Override
     public String toString() {
         return Boolean.toString(value);
+    }
+
+    @Override
+    @NotNull
+    public String toTokenString() {
+        return Boolean.toString(value);
+    }
+
+    @Override
+    @NotNull
+    public String toTokenString(String newline, String indent) {
+        return toTokenString();
     }
 }

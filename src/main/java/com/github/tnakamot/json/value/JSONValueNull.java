@@ -17,6 +17,8 @@
 package com.github.tnakamot.json.value;
 
 import com.github.tnakamot.json.token.JSONToken;
+import com.github.tnakamot.json.token.JSONTokenNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Represents one JSON 'null' value.
@@ -50,7 +52,7 @@ public class JSONValueNull extends JSONValuePrimitive {
 
     @Override
     public int hashCode() {
-        return "null".hashCode();
+        return JSONTokenNull.JSON_NULL.hashCode();
     }
 
     @Override
@@ -60,6 +62,18 @@ public class JSONValueNull extends JSONValuePrimitive {
 
     @Override
     public String toString() {
-        return "null";
+        return JSONTokenNull.JSON_NULL;
+    }
+
+    @Override
+    @NotNull
+    public String toTokenString() {
+        return JSONTokenNull.JSON_NULL;
+    }
+
+    @Override
+    @NotNull
+    public String toTokenString(String newline, String indent) {
+        return toTokenString();
     }
 }
