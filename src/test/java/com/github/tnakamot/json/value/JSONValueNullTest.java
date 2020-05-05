@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class JSONValueNullTest {
   @Test
-  public void testEqulity() throws IOException, JSONParserException {
+  public void testEquality() throws IOException, JSONParserException {
     JSONValueNull val1 = JSONValueNull.INSTANCE;
     JSONValueNull val2 = (JSONValueNull) JSONText.fromString("null").parse();
     JSONValueNull val3 = (JSONValueNull) JSONText.fromString(" null ").parse();

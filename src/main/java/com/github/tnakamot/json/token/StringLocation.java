@@ -31,7 +31,7 @@ package com.github.tnakamot.json.token;
  * <p>Assume this text:
  *
  * <pre>
- *  abc\ndef\r\nghi\rjkl\n\rmn
+ *  abc\n def\r\n ghi\r jkl\n\r mn
  * </pre>
  *
  * <p>Then, the position, line and column of each character are as shown below.
@@ -41,22 +41,26 @@ package com.github.tnakamot.json.token;
  *   <li>'b': position = 1, line = 1, column = 2
  *   <li>'c': position = 2, line = 1, column = 3
  *   <li>\n : position = 3, line = 1, column = 4
- *   <li>'d': position = 4, line = 2, column = 1
- *   <li>'e': position = 5, line = 2, column = 2
- *   <li>'f': position = 6, line = 2, column = 3
- *   <li>\r : position = 7, line = 2, column = 4
- *   <li>\n : position = 8, line = 2, column = 5
- *   <li>'g': position = 9, line = 3, column = 1
- *   <li>'h': position = 10, line = 3, column = 2
- *   <li>'i': position = 11, line = 3, column = 3
- *   <li>\r : position = 12, line = 3, column = 4
- *   <li>'j': position = 13, line = 4, column = 1
- *   <li>'k': position = 14, line = 4, column = 2
- *   <li>'l': position = 15, line = 4, column = 3
- *   <li>\n : position = 16, line = 4, column = 4
- *   <li>\r : position = 17, line = 5, column = 1
- *   <li>'m': position = 18, line = 6, column = 1
- *   <li>'n': position = 19, line = 6, column = 2
+ *   <li>' ': position = 4, line = 2, column = 1
+ *   <li>'d': position = 5, line = 2, column = 2
+ *   <li>'e': position = 6, line = 2, column = 3
+ *   <li>'f': position = 7, line = 2, column = 4
+ *   <li>\r : position = 8, line = 2, column = 5
+ *   <li>\n : position = 9, line = 2, column = 6
+ *   <li>' ': position = 10, line = 3, column = 1
+ *   <li>'g': position = 11, line = 3, column = 2
+ *   <li>'h': position = 12, line = 3, column = 3
+ *   <li>'i': position = 13, line = 3, column = 4
+ *   <li>\r : position = 14, line = 3, column = 5
+ *   <li>' ': position = 15, line = 4, column = 1
+ *   <li>'j': position = 16, line = 4, column = 1
+ *   <li>'k': position = 17, line = 4, column = 2
+ *   <li>'l': position = 18, line = 4, column = 3
+ *   <li>\n : position = 19, line = 4, column = 4
+ *   <li>\r : position = 20, line = 5, column = 1
+ *   <li>' ': position = 21, line = 6, column = 1
+ *   <li>'m': position = 22, line = 6, column = 2
+ *   <li>'n': position = 23, line = 6, column = 3
  * </ul>
  *
  * <p>Instances of this class are immutable.

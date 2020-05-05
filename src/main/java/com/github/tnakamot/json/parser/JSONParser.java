@@ -77,6 +77,7 @@ public class JSONParser {
    * @throws JSONParserException if there is a semantic error in the sequence of JSON tokens
    * @see <a href="https://tools.ietf.org/html/rfc8259#section-2">RFC 8259 - 2. JSON Grammer</a>
    */
+  @SuppressWarnings("unused") // This method is indirectly tested through parse(boolean).
   public JSONValue parse() throws JSONParserException {
     return parse(true);
   }

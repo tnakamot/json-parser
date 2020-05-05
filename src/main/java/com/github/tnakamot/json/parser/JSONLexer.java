@@ -211,7 +211,7 @@ public class JSONLexer {
   /**
    * Read one JSON string token.
    *
-   * @return an instance of {@link JSONTokenString} as a result of tokenization.
+   * @return an instance of {@link JSONTokenString} as a result of lexical analysis.
    * @throws IOException if I/O error happens
    * @throws JSONParserException if there is a syntax error in JSON text
    * @see <a href="https://tools.ietf.org/html/rfc8259#section-7">RFC 8259 - 7. Strings</a>
@@ -314,14 +314,14 @@ public class JSONLexer {
   private enum JSONNumberParserStage {
     MINUS,
     INT,
-    FRAC,
+    FRACTION,
     EXP
   }
 
   /**
    * Read one JSON number token.
    *
-   * @return an instance of {@link JSONTokenNumber} as a result of tokenization.
+   * @return an instance of {@link JSONTokenNumber} as a result of lexical analysis.
    * @throws IOException if I/O error happens
    * @throws JSONParserException if there is a syntax error in JSON text
    * @see <a href="https://tools.ietf.org/html/rfc8259#section-6">RFC 8259 - 6. Numbers</a>
@@ -334,7 +334,7 @@ public class JSONLexer {
     boolean negative = false;
     boolean intStartsWithZero = false;
     int numberOfDigitsInInt = 0;
-    int numberOfDigitsInFrac = 0;
+    int numberOfDigitsInFraction = 0;
     int numberOfDigitsInExp = 0;
     boolean expStartsWithSign = false;
     boolean moreToRead = true;
@@ -345,7 +345,7 @@ public class JSONLexer {
       if (ich == -1) {
         if (tokenText.length() == 0
             || numberOfDigitsInInt == 0
-            || (numberOfDigitsInFrac == 0 && stage == JSONNumberParserStage.FRAC)
+            || (numberOfDigitsInFraction == 0 && stage == JSONNumberParserStage.FRACTION)
             || (numberOfDigitsInExp == 0 && stage == JSONNumberParserStage.EXP)) {
           throw new JSONParserException(source, location, errMsgFmt, "reached EOF unexpectedly");
         } else {
@@ -395,7 +395,7 @@ public class JSONLexer {
           if ((!intStartsWithZero) && '0' <= ch && ch <= '9') {
             numberOfDigitsInInt += 1;
           } else if (ch == '.') {
-            stage = JSONNumberParserStage.FRAC;
+            stage = JSONNumberParserStage.FRACTION;
           } else if (ch == 'e' || ch == 'E') {
             stage = JSONNumberParserStage.EXP;
           } else {
@@ -404,12 +404,12 @@ public class JSONLexer {
             moreToRead = false; // exit the loop
           }
           break;
-        case FRAC:
+        case FRACTION:
           if ('0' <= ch && ch <= '9') {
-            numberOfDigitsInFrac += 1;
+            numberOfDigitsInFraction += 1;
           } else if (ch == 'e' || ch == 'E') {
             stage = JSONNumberParserStage.EXP;
-          } else if (numberOfDigitsInFrac == 0) {
+          } else if (numberOfDigitsInFraction == 0) {
             throw new JSONParserException(
                 source,
                 location.previous(),

@@ -9,10 +9,10 @@ JSONValueString jsStr = ...;
 JSONToken token = jsStr.token();
 ```
 
-An instance of @extref[JSONTOken](javadoc:value/JSONToken.html) holds following
+An instance of @extref[JSONToken](javadoc:value/JSONToken.html) holds following
 information. 
 
-* @extref[begginingLocation()](javadoc:token/JSONToken.html#beginningLocation())
+* @extref[beginningLocation()](javadoc:token/JSONToken.html#beginningLocation())
   returns an object which holds the line and column number of the first character
   of this JSON value within the JSON text.
 * @extref[endLocation()](javadoc:token/JSONToken.html#endLocation())

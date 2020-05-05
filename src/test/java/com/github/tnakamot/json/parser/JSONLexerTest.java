@@ -370,7 +370,7 @@ public class JSONLexerTest {
   @Test
   public void testEscapedString2() throws IOException, JSONParserException {
     JSONText jsText =
-        JSONText.fromString("{ \" \\\\ \\/path\\/test \": \"abc\\b\\f\\n\\r\\txyz\" } ");
+        JSONText.fromString("{ \" \\\\ \\/path\\/test \": \"abc\\b\\f\\n\\r\\t xyz\" } ");
     List<JSONToken> tokens = jsText.tokens();
 
     assertEquals(JSONTokenType.STRING, tokens.get(1).type());
@@ -386,16 +386,16 @@ public class JSONLexerTest {
     assertEquals(" \\ /path/test ", ((JSONTokenString) tokens.get(1)).value());
 
     assertEquals(JSONTokenType.STRING, tokens.get(3).type());
-    assertEquals("\"abc\\b\\f\\n\\r\\txyz\"", tokens.get(3).text());
+    assertEquals("\"abc\\b\\f\\n\\r\\t xyz\"", tokens.get(3).text());
     assertEquals(23, tokens.get(3).beginningLocation().position());
     assertEquals(1, tokens.get(3).beginningLocation().line());
     assertEquals(24, tokens.get(3).beginningLocation().column());
-    assertEquals(41, tokens.get(3).endLocation().position());
+    assertEquals(42, tokens.get(3).endLocation().position());
     assertEquals(1, tokens.get(3).endLocation().line());
-    assertEquals(42, tokens.get(3).endLocation().column());
+    assertEquals(43, tokens.get(3).endLocation().column());
     assertEquals(jsText, tokens.get(3).source());
     assertTrue(tokens.get(3) instanceof JSONTokenString);
-    assertEquals("abc\b\f\n\r\txyz", ((JSONTokenString) tokens.get(3)).value());
+    assertEquals("abc\b\f\n\r\t xyz", ((JSONTokenString) tokens.get(3)).value());
   }
 
   @Test
