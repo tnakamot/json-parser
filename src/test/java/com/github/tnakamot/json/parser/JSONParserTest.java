@@ -348,8 +348,8 @@ public class JSONParserTest {
     public void testSimpleObject() throws IOException, JSONParserException {
         JSONText jsText = JSONText.fromString(
                 " { \"key1\": true, " +
-                "   \"key2\": false," +
-                "   \"key3\": null } ");
+                        "   \"key2\": false," +
+                        "   \"key3\": null } ");
         JSONValue root = jsText.parse();
 
         assertEquals(JSONValueType.OBJECT, root.type());
@@ -384,7 +384,7 @@ public class JSONParserTest {
         assertNull(rootObj.get("key4"));
 
         int i = 0;
-        for (Map.Entry<JSONValueString, JSONValue> entry: rootObj.entrySet()) {
+        for (Map.Entry<JSONValueString, JSONValue> entry : rootObj.entrySet()) {
             switch (i) {
                 case 0:
                     assertEquals("key1", entry.getKey().value());

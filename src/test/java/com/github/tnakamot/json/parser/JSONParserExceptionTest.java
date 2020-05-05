@@ -67,7 +67,8 @@ public class JSONParserExceptionTest {
         JSONText source = JSONText.fromFile(file);
         JSONParserException ex = assertThrows(JSONParserException.class, () -> source.parse(fmt));
 
-        String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
+        String methodName = new Object() {
+        }.getClass().getEnclosingMethod().getName();
         log.info(() -> methodName + ": " + ex.getMessage());
 
         assertEquals(source, ex.source());
@@ -85,7 +86,8 @@ public class JSONParserExceptionTest {
         JSONText source = JSONText.fromFile(file);
         JSONParserException ex = assertThrows(JSONParserException.class, () -> source.parse(fmt));
 
-        String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
+        String methodName = new Object() {
+        }.getClass().getEnclosingMethod().getName();
         log.info(() -> methodName + ": " + ex.getMessage());
 
         assertEquals(source, ex.source());
@@ -103,7 +105,8 @@ public class JSONParserExceptionTest {
         JSONText source = JSONText.fromFile(file);
         JSONParserException ex = assertThrows(JSONParserException.class, () -> source.parse(fmt));
 
-        String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
+        String methodName = new Object() {
+        }.getClass().getEnclosingMethod().getName();
         log.info(() -> methodName + ": " + ex.getMessage());
 
         assertEquals(10, ex.location().position());
@@ -123,13 +126,14 @@ public class JSONParserExceptionTest {
         JSONText source = JSONText.fromFile(file);
         JSONParserException ex = assertThrows(JSONParserException.class, () -> source.parse(fmt));
 
-        String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
+        String methodName = new Object() {
+        }.getClass().getEnclosingMethod().getName();
         log.info(() -> methodName + ": " + ex.getMessage());
 
         assertEquals(1, ex.location().line());
         assertEquals(11, ex.location().column());
 
-        String lineStr   = ex.getMessage().split(":")[1];
+        String lineStr = ex.getMessage().split(":")[1];
         String columnStr = ex.getMessage().split(":")[2];
         assertEquals("1", lineStr);
         assertEquals("11", columnStr);
@@ -146,7 +150,8 @@ public class JSONParserExceptionTest {
         JSONText source = JSONText.fromFile(file);
         JSONParserException ex = assertThrows(JSONParserException.class, () -> source.parse(fmt));
 
-        String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
+        String methodName = new Object() {
+        }.getClass().getEnclosingMethod().getName();
         log.info(() -> methodName + ": " + ex.getMessage());
 
         assertEquals(11, ex.location().position());
@@ -166,13 +171,14 @@ public class JSONParserExceptionTest {
         JSONText source = JSONText.fromFile(file);
         JSONParserException ex = assertThrows(JSONParserException.class, () -> source.parse(fmt));
 
-        String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
+        String methodName = new Object() {
+        }.getClass().getEnclosingMethod().getName();
         log.info(() -> methodName + ": " + ex.getMessage());
 
         assertEquals(2, ex.location().line());
         assertEquals(10, ex.location().column());
 
-        String lineStr   = ex.getMessage().split(":")[1];
+        String lineStr = ex.getMessage().split(":")[1];
         String columnStr = ex.getMessage().split(":")[2];
         assertEquals("2", lineStr);
         assertEquals("10", columnStr);
@@ -189,7 +195,8 @@ public class JSONParserExceptionTest {
         JSONText source = JSONText.fromFile(file);
         JSONParserException ex = assertThrows(JSONParserException.class, () -> source.parse(fmt));
 
-        String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
+        String methodName = new Object() {
+        }.getClass().getEnclosingMethod().getName();
         log.info(() -> methodName + ": " + ex.getMessage());
 
         assertEquals(1, ex.location().line());
@@ -210,7 +217,8 @@ public class JSONParserExceptionTest {
         JSONText source = JSONText.fromFile(file);
         JSONParserException ex = assertThrows(JSONParserException.class, () -> source.parse(fmt));
 
-        String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
+        String methodName = new Object() {
+        }.getClass().getEnclosingMethod().getName();
         log.info(() -> methodName + ": " + ex.getMessage());
 
         assertEquals(2, ex.location().line());

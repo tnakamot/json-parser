@@ -29,7 +29,7 @@ import com.github.tnakamot.json.JSONText;
  * Instances of this class are immutable.
  */
 public class JSONTokenNull extends JSONToken {
-    public static final String JSON_NULL  = "null";
+    public static final String JSON_NULL = "null";
 
     /**
      * Creates one "null" type token of a JSON text.

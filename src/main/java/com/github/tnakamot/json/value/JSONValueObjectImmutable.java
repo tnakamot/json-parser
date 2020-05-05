@@ -222,7 +222,7 @@ public class JSONValueObjectImmutable extends JSONValueObject {
 
         StringBuilder sb = new StringBuilder();
         sb.append(JSONToken.JSON_BEGIN_OBJECT);
-        for (Map.Entry<JSONValueString, JSONValue> entry: this.entrySet()) {
+        for (Map.Entry<JSONValueString, JSONValue> entry : this.entrySet()) {
             sb.append(entry.getKey().toTokenString());
             sb.append(JSONToken.JSON_NAME_SEPARATOR);
             sb.append(entry.getValue().toTokenString());
@@ -246,7 +246,7 @@ public class JSONValueObjectImmutable extends JSONValueObject {
         StringBuilder sb = new StringBuilder();
         sb.append(JSONToken.JSON_BEGIN_OBJECT);
 
-        for (Map.Entry<JSONValueString, JSONValue> entry: this.entrySet()) {
+        for (Map.Entry<JSONValueString, JSONValue> entry : this.entrySet()) {
             sb.append(newline);
             sb.append(indent);
             sb.append(entry.getKey().toTokenString(newline, indent));

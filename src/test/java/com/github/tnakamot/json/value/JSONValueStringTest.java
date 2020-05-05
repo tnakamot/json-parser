@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class JSONValueStringTest {
     @Test
     public void testNullAndEmpty() {
-        JSONValueString val1 = new JSONValueString((String)null);
+        JSONValueString val1 = new JSONValueString((String) null);
         JSONValueString val2 = new JSONValueString("");
 
         assertEquals(JSONValueType.STRING, val1.type());

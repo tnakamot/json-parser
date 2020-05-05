@@ -54,7 +54,7 @@ public abstract class JSONValuePrimitive extends JSONValue {
      * The source token of this JSON value.
      *
      * @return the source token of this JSON value. Can be null if this JSON value
-     *         is not originated from an existing JSON text.
+     * is not originated from an existing JSON text.
      */
     public JSONToken token() {
         return token;

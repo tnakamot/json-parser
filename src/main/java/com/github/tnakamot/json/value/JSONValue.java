@@ -102,13 +102,13 @@ public abstract class JSONValue {
     }
 
     void validateNewline(String newline) {
-        if (! (newline.equals("\n") || newline.equals("\r") || newline.equals("\r\n"))) {
+        if (!(newline.equals("\n") || newline.equals("\r") || newline.equals("\r\n"))) {
             throw new IllegalArgumentException("newline must be \\n, \\r, or \\r\\n.");
         }
     }
 
     void validateIndent(String indent) {
-        if (! indent.matches("[ \t]*")) {
+        if (!indent.matches("[ \t]*")) {
             throw new IllegalArgumentException("indent must include only white spaces ' ' and horizontal tabs '\\t'");
         }
     }

@@ -43,8 +43,8 @@ public class JSONTokenString extends JSONToken {
      * @param text   text of this token
      * @param value  string value that this token represents
      *               (it is a caller's responsibility to parse the token text,
-     *                strip surrounding double quotations and unescape escaped
-     *                characters)
+     *               strip surrounding double quotations and unescape escaped
+     *               characters)
      * @param begin  beginning location of this token within the source JSON text
      * @param end    end location of this token within the source JSON text
      * @param source source JSON text where this token was extracted from

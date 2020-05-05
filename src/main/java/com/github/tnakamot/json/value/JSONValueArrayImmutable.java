@@ -292,7 +292,7 @@ public class JSONValueArrayImmutable extends JSONValueArray {
                 = this.stream().anyMatch(
                 (value) ->
                         value.type() == JSONValueType.OBJECT ||
-                        value.type() == JSONValueType.ARRAY);
+                                value.type() == JSONValueType.ARRAY);
 
         if (multiLine) {
             return toTokenStringMultiLine(newline, indent);
@@ -310,7 +310,7 @@ public class JSONValueArrayImmutable extends JSONValueArray {
         StringBuilder sb = new StringBuilder();
         sb.append(JSONToken.JSON_BEGIN_ARRAY);
 
-        for (JSONValue value: this) {
+        for (JSONValue value : this) {
             sb.append(value.toTokenString());
             sb.append(JSONToken.JSON_VALUE_SEPARATOR);
             if (wsAfterSeparator) {
@@ -334,7 +334,7 @@ public class JSONValueArrayImmutable extends JSONValueArray {
         StringBuilder sb = new StringBuilder();
         sb.append(JSONToken.JSON_BEGIN_ARRAY);
 
-        for (JSONValue value: this) {
+        for (JSONValue value : this) {
             sb.append(newline);
             sb.append(indent);
 

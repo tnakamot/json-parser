@@ -56,7 +56,7 @@ public class JSONValueString extends JSONValuePrimitive {
      * JSON string value.
      *
      * @return value represented by a Java {@link String} object of this JSON
-     *               string value. Never be null.
+     * string value. Never be null.
      */
     public String value() {
         return value;

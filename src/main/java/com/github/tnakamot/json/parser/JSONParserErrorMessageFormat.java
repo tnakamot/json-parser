@@ -45,7 +45,6 @@ package com.github.tnakamot.json.parser;
  * <p>
  * The default value may change in the future, so do not rely on them if you really need a specific
  * error message format.
- *
  */
 public class JSONParserErrorMessageFormat {
     private final boolean showFullPath;
@@ -71,7 +70,7 @@ public class JSONParserErrorMessageFormat {
 
     /**
      * @return represents whether an error message should show line and column number instead of
-     *         character position within a JSON text source
+     * character position within a JSON text source
      */
     public boolean showLineAndColumnNumber() {
         return showLineAndColumnNumber;
@@ -79,7 +78,7 @@ public class JSONParserErrorMessageFormat {
 
     /**
      * @return represents whether an error message should show actual JSON text line where the problem
-     *         happened with the arrow to indicate which character has the problem.
+     * happened with the arrow to indicate which character has the problem.
      */
     public boolean showErrorLine() {
         return showErrorLine;
@@ -96,17 +95,18 @@ public class JSONParserErrorMessageFormat {
      * Builder class of {@link JSONParserErrorMessageFormat}.
      */
     public static class Builder {
-        private boolean showFullPath            = false;
+        private boolean showFullPath = false;
         private boolean showLineAndColumnNumber = true;
-        private boolean showErrorLine           = false;
+        private boolean showErrorLine = false;
 
-        private Builder() {}
+        private Builder() {
+        }
 
         /**
          * Set showFullPath option.
          *
          * @param b option value
-         * @return  this builder
+         * @return this builder
          */
         public Builder showFullPath(boolean b) {
             this.showFullPath = b;
@@ -117,7 +117,7 @@ public class JSONParserErrorMessageFormat {
          * Set showLineAndColumnNumber option.
          *
          * @param b option value
-         * @return  this builder
+         * @return this builder
          */
         public Builder showLineAndColumnNumber(boolean b) {
             this.showLineAndColumnNumber = b;
@@ -128,7 +128,7 @@ public class JSONParserErrorMessageFormat {
          * Set showErrorLine option.
          *
          * @param b option value
-         * @return  this builder
+         * @return this builder
          */
         public Builder showErrorLine(boolean b) {
             this.showErrorLine = b;

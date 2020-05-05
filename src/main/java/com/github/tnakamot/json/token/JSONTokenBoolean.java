@@ -30,7 +30,7 @@ import com.github.tnakamot.json.JSONText;
  * Instances of this class are immutable.
  */
 public class JSONTokenBoolean extends JSONToken {
-    public static final String JSON_TRUE  = "true";
+    public static final String JSON_TRUE = "true";
     public static final String JSON_FALSE = "false";
 
     private final boolean value;

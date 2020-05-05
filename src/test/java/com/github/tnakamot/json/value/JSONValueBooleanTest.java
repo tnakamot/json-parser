@@ -88,7 +88,7 @@ public class JSONValueBooleanTest {
 
         JSONValue root = JSONText.fromString("[true, true, true]").parse();
         JSONValueArray array = (JSONValueArray) root;
-        for (JSONValue value: array) {
+        for (JSONValue value : array) {
             assertTrue(value instanceof JSONValueBoolean);
             JSONValueBoolean boolVal = (JSONValueBoolean) value;
             assertEquals(trueVal.hashCode(), boolVal.hashCode());
@@ -113,7 +113,7 @@ public class JSONValueBooleanTest {
 
         JSONValue root = JSONText.fromString("[false,false,false]").parse();
         JSONValueArray array = (JSONValueArray) root;
-        for (JSONValue value: array) {
+        for (JSONValue value : array) {
             assertTrue(value instanceof JSONValueBoolean);
             JSONValueBoolean boolVal = (JSONValueBoolean) value;
             assertEquals(falseVal.hashCode(), boolVal.hashCode());
@@ -124,11 +124,11 @@ public class JSONValueBooleanTest {
 
     @Test
     public void testInequality1() {
-        JSONValueBoolean trueVal1  = JSONValueBoolean.valueOf(true);
+        JSONValueBoolean trueVal1 = JSONValueBoolean.valueOf(true);
         JSONValueBoolean falseVal1 = JSONValueBoolean.valueOf(false);
 
-        JSONValueBoolean trueVal2   = JSONValueBoolean.TRUE;
-        JSONValueBoolean falseVal2  = JSONValueBoolean.FALSE;
+        JSONValueBoolean trueVal2 = JSONValueBoolean.TRUE;
+        JSONValueBoolean falseVal2 = JSONValueBoolean.FALSE;
 
         assertNotEquals(trueVal1, falseVal1);
         assertNotEquals(falseVal1, trueVal1);
@@ -145,12 +145,12 @@ public class JSONValueBooleanTest {
 
     @Test
     public void testInequality2() throws IOException, JSONParserException {
-        JSONValueBoolean trueVal1  = JSONValueBoolean.valueOf(true);
+        JSONValueBoolean trueVal1 = JSONValueBoolean.valueOf(true);
         JSONValueBoolean falseVal1 = JSONValueBoolean.valueOf(false);
 
         JSONValueArray root = (JSONValueArray) JSONText.fromString("[true,false]").parse();
-        JSONValueBoolean trueVal2  = (JSONValueBoolean) root.get(0);
-        JSONValueBoolean falseVal2  = (JSONValueBoolean) root.get(1);
+        JSONValueBoolean trueVal2 = (JSONValueBoolean) root.get(0);
+        JSONValueBoolean falseVal2 = (JSONValueBoolean) root.get(1);
 
         assertNotEquals(trueVal1, falseVal1);
         assertNotEquals(falseVal1, trueVal1);
@@ -167,12 +167,12 @@ public class JSONValueBooleanTest {
 
     @Test
     public void testInequality3() throws IOException, JSONParserException {
-        JSONValueBoolean trueVal1  = JSONValueBoolean.TRUE;
+        JSONValueBoolean trueVal1 = JSONValueBoolean.TRUE;
         JSONValueBoolean falseVal1 = JSONValueBoolean.FALSE;
 
         JSONValueArray root = (JSONValueArray) JSONText.fromString("[true,false]").parse();
-        JSONValueBoolean trueVal2  = (JSONValueBoolean) root.get(0);
-        JSONValueBoolean falseVal2  = (JSONValueBoolean) root.get(1);
+        JSONValueBoolean trueVal2 = (JSONValueBoolean) root.get(0);
+        JSONValueBoolean falseVal2 = (JSONValueBoolean) root.get(1);
 
         assertNotEquals(trueVal1, falseVal1);
         assertNotEquals(falseVal1, trueVal1);

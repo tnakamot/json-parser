@@ -78,8 +78,8 @@ public class StringLocation {
     private StringLocation(StringLocation previous, int position, int line, int column) {
         this.previous = previous;
         this.position = position;
-        this.line     = line;
-        this.column   = column;
+        this.line = line;
+        this.column = column;
 
         if (position < 0) {
             throw new IllegalArgumentException("position must be zero or  positive");
@@ -115,15 +115,15 @@ public class StringLocation {
 
     /**
      * @return an instance of {@link StringLocation} which represents the
-     *         beginning of a {@link String}
+     * beginning of a {@link String}
      */
     public static StringLocation begin() {
-        return new StringLocation(null,0, 1, 1);
+        return new StringLocation(null, 0, 1, 1);
     }
 
     /**
      * @return the instance of {@link StringLocation} which represents
-     *         the previous location of this instance.
+     * the previous location of this instance.
      */
     public StringLocation previous() {
         return previous;
@@ -132,7 +132,7 @@ public class StringLocation {
     /**
      * @param newline true if the next character is a new line
      * @return an instance of {@link StringLocation} which represents
-     *         the next location of this instance.
+     * the next location of this instance.
      */
     public StringLocation next(boolean newline) {
         if (newline) {

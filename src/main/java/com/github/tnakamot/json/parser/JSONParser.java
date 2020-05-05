@@ -55,7 +55,7 @@ public class JSONParser {
     /**
      * Create an instance of JSON parse for the given sequence of JSON tokens.
      *
-     * @param tokens a sequence of JSON tokens to parse
+     * @param tokens    a sequence of JSON tokens to parse
      * @param errMsgFmt settings of error message format of {@link JSONParserException}
      */
     public JSONParser(List<JSONToken> tokens, JSONParserErrorMessageFormat errMsgFmt) {
@@ -65,9 +65,9 @@ public class JSONParser {
             throw new NullPointerException("errMsgConfig cannot be null");
         }
 
-        this.tokens    = new ArrayList<>(tokens);
+        this.tokens = new ArrayList<>(tokens);
         this.errMsgFmt = errMsgFmt;
-        this.position  = 0;
+        this.position = 0;
     }
 
     /**
@@ -129,8 +129,7 @@ public class JSONParser {
     }
 
     private void unexpectedToken(JSONToken token, String expectedToken)
-            throws JSONParserException
-    {
+            throws JSONParserException {
         String msg = String.format("Unexpected token '%s'. %s was expected.",
                 token.text(), expectedToken);
         throw new JSONParserException(
@@ -149,7 +148,7 @@ public class JSONParser {
                 case NULL:
                     return new JSONValueNull(token);
                 case BOOLEAN:
-                    return new JSONValueBoolean((JSONTokenBoolean)token);
+                    return new JSONValueBoolean((JSONTokenBoolean) token);
                 case NUMBER:
                     return new JSONValueNumber((JSONTokenNumber) token);
                 case STRING:
@@ -171,7 +170,7 @@ public class JSONParser {
         try {
             JSONToken token = popToken();
 
-            switch(token.type()) {
+            switch (token.type()) {
                 case END_ARRAY:
                     // an empty array
                     if (immutable) {
@@ -195,7 +194,7 @@ public class JSONParser {
             unexpectedEof(valueOrEndArrayToken);
         }
 
-        while(true) {
+        while (true) {
             // read a next value or an end array
             try {
                 JSONToken token = popToken();
@@ -220,8 +219,7 @@ public class JSONParser {
     }
 
     private Map.Entry<JSONValueString, JSONValue> readMember(boolean immutable)
-            throws JSONParserException
-    {
+            throws JSONParserException {
         JSONValueString key;
 
         // read a key
@@ -278,7 +276,7 @@ public class JSONParser {
         try {
             JSONToken token = popToken();
 
-            switch(token.type()) {
+            switch (token.type()) {
                 case END_OBJECT:
                     // empty object
                     if (immutable) {
@@ -298,7 +296,7 @@ public class JSONParser {
             unexpectedEof(stringOrEndObjectToken);
         }
 
-        while(true) {
+        while (true) {
             // read a next member or an end object
             try {
                 JSONToken token = popToken();

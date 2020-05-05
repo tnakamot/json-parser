@@ -92,7 +92,6 @@ import com.github.tnakamot.json.token.StringLocation;
  * "key": My name is JSON
  *        ^
  * </pre>
- *
  */
 public class JSONParserException extends Exception {
     private final String msg;
@@ -103,20 +102,19 @@ public class JSONParserException extends Exception {
     /**
      * Instantiate this exception.
      *
-     * @param source       JSON text that has a problem
-     * @param location     location of the problem within the source JSON text
+     * @param source    JSON text that has a problem
+     * @param location  location of the problem within the source JSON text
      * @param errMsgFmt configuration to change the error message format of this exception
-     * @param msg          error message which explains the problem
+     * @param msg       error message which explains the problem
      */
     public JSONParserException(JSONText source,
                                StringLocation location,
                                JSONParserErrorMessageFormat errMsgFmt,
-                               String msg)
-    {
+                               String msg) {
         super(msg);
-        this.msg       = msg;
-        this.source    = source;
-        this.location  = location;
+        this.msg = msg;
+        this.source = source;
+        this.location = location;
         this.errMsgFmt = errMsgFmt;
     }
 

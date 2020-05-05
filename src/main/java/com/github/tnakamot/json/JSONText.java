@@ -42,11 +42,11 @@ public class JSONText {
     private final Object source;
 
     private JSONText(String text, Object source) {
-        this.text       = text;
-        this.source     = source;
+        this.text = text;
+        this.source = source;
 
-        if ( ! ((source instanceof File) ||
-                (source instanceof URL)  ||
+        if (!((source instanceof File) ||
+                (source instanceof URL) ||
                 (source instanceof String))) {
             throw new IllegalArgumentException("source must be File, URL or String");
         }
@@ -73,7 +73,7 @@ public class JSONText {
      *
      * @param errMsgFmt settings of error message format of {@link JSONParserException}
      * @return Sequence of JSON tokens.
-     * @throws IOException if an I/O error occurs
+     * @throws IOException         if an I/O error occurs
      * @throws JSONParserException if there is a syntax error in JSON text
      */
     public List<JSONToken> tokens(JSONParserErrorMessageFormat errMsgFmt)
@@ -92,7 +92,7 @@ public class JSONText {
      * Tokenize this JSON text.
      *
      * @return Sequence of JSON tokens.
-     * @throws IOException if an I/O error occurs
+     * @throws IOException         if an I/O error occurs
      * @throws JSONParserException if there is a syntax error in JSON text
      */
     public List<JSONToken> tokens()
@@ -110,7 +110,7 @@ public class JSONText {
      * @param errMsgFmt settings of error message format of {@link JSONParserException}
      * @return the root JSON value, or null if there is no value.
      * @throws JSONParserException if there is a syntax error in the JSON text
-     * @throws IOException if an I/O error occurs
+     * @throws IOException         if an I/O error occurs
      * @see <a href="https://tools.ietf.org/html/rfc8259#section-2">RFC 8259 - 2. JSON Grammer</a>
      */
     public JSONValue parse(boolean immutable, JSONParserErrorMessageFormat errMsgFmt)
@@ -129,7 +129,7 @@ public class JSONText {
      * @param errMsgFmt settings of error message format of {@link JSONParserException}
      * @return the root JSON value, or null if there is no value.
      * @throws JSONParserException if there is a syntax error in the JSON text
-     * @throws IOException if an I/O error occurs
+     * @throws IOException         if an I/O error occurs
      * @see <a href="https://tools.ietf.org/html/rfc8259#section-2">RFC 8259 - 2. JSON Grammer</a>
      */
     public JSONValue parse(JSONParserErrorMessageFormat errMsgFmt)
@@ -144,7 +144,7 @@ public class JSONText {
      *                  'object' and 'array'. Otherwise, they will be immutable.
      * @return the root JSON value, or null if there is no value.
      * @throws JSONParserException if there is a syntax error in the JSON text
-     * @throws IOException if an I/O error occurs
+     * @throws IOException         if an I/O error occurs
      * @see <a href="https://tools.ietf.org/html/rfc8259#section-2">RFC 8259 - 2. JSON Grammer</a>
      */
     public JSONValue parse(boolean immutable)
@@ -162,7 +162,7 @@ public class JSONText {
      *
      * @return the root JSON value, or null if there is no value.
      * @throws JSONParserException if there is a syntax error in the JSON text
-     * @throws IOException if an I/O error occurs
+     * @throws IOException         if an I/O error occurs
      * @see <a href="https://tools.ietf.org/html/rfc8259#section-2">RFC 8259 - 2. JSON Grammer</a>
      */
     public JSONValue parse()
@@ -204,7 +204,7 @@ public class JSONText {
      */
     public String fullName() {
         if (source instanceof File ||
-            source instanceof URL) {
+                source instanceof URL) {
             return source.toString();
         } else if (source instanceof String) {
             return "(inner-string)";

@@ -50,10 +50,11 @@ public class JSONTokenNumber extends JSONToken {
     public JSONTokenNumber(String text, StringLocation begin, StringLocation end, JSONText source) {
         super(JSONTokenType.NUMBER, text, begin, end, source);
 
-        if (! text.matches(JSONValueNumber.NUMBER_PATTERN)) {
+        if (!text.matches(JSONValueNumber.NUMBER_PATTERN)) {
             throw new NumberFormatException(
                     "The given text '" + text + "' does not match the pattern of JSON numbers defined in RFC 8259.");
-        }    }
+        }
+    }
 
     /**
      * Text representation of this token as it appears in the source JSON text.

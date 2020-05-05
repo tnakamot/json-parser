@@ -442,7 +442,7 @@ public class JSONLexerTest {
     }
 
     @Test
-    public void testInvalidUnicodeEscapeSequence()  {
+    public void testInvalidUnicodeEscapeSequence() {
         JSONText jsText = JSONText.fromString("{ \"key\": \"he \\u1Zff llo\" }");
 
         JSONParserException ex = assertThrows(
@@ -560,7 +560,7 @@ public class JSONLexerTest {
         assertEquals(4, tokens.get(1).endLocation().column());
         assertEquals(jsText, tokens.get(1).source());
         assertTrue(tokens.get(1) instanceof JSONTokenNumber);
-     }
+    }
 
     @Test
     public void testNumberToken06() throws IOException, JSONParserException {

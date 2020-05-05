@@ -25,15 +25,15 @@ import com.github.tnakamot.json.JSONText;
  * Instances of this class are immutable.
  */
 public class JSONToken {
-    public static final String JSON_BEGIN_ARRAY     = "[";
-    public static final String JSON_END_ARRAY       = "]";
-    public static final String JSON_BEGIN_OBJECT    = "{";
-    public static final String JSON_END_OBJECT      = "}";
-    public static final String JSON_NAME_SEPARATOR  = ":";
+    public static final String JSON_BEGIN_ARRAY = "[";
+    public static final String JSON_END_ARRAY = "]";
+    public static final String JSON_BEGIN_OBJECT = "{";
+    public static final String JSON_END_OBJECT = "}";
+    public static final String JSON_NAME_SEPARATOR = ":";
     public static final String JSON_VALUE_SEPARATOR = ",";
 
     private final JSONTokenType type;
-            final String        text;
+    final String text;
     private final StringLocation begin;
     private final StringLocation end;
     private final JSONText source;
@@ -49,10 +49,10 @@ public class JSONToken {
      */
     public JSONToken(JSONTokenType type, String text,
                      StringLocation begin, StringLocation end, JSONText source) {
-        this.type   = type;
-        this.text   = text;
-        this.begin  = begin;
-        this.end    = end;
+        this.type = type;
+        this.text = text;
+        this.begin = begin;
+        this.end = end;
         this.source = source;
 
         if (type == null)
