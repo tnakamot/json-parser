@@ -337,6 +337,8 @@ public class JSONParserTest {
           assertEquals(JSONValueType.NULL, jsonValue.type());
           assertEquals(JSONValueNull.INSTANCE, jsonValue);
           break;
+        default:
+          throw new UnsupportedOperationException("the code must not reach here.");
       }
 
       i++;
@@ -395,6 +397,8 @@ public class JSONParserTest {
           assertEquals("key3", entry.getKey().value());
           assertEquals(JSONValueNull.INSTANCE, entry.getValue());
           break;
+        default:
+          throw new UnsupportedOperationException("the code must not reach here.");
       }
       i++;
     }
