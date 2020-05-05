@@ -8,3 +8,7 @@ addSbtPlugin("io.github.jonas" % "sbt-paradox-material-theme" % "0.6.0")
 
 resolvers += Resolver.jcenterRepo
 addSbtPlugin("net.aichler" % "sbt-jupiter-interface" % "0.8.3")
+
+// This does not work well for unknown error. Use IntelliJ code coverage
+// tool for
+//addSbtPlugin("com.github.sbt" % "sbt-jacoco" % "3.2.0")
