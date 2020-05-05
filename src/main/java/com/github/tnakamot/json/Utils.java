@@ -28,7 +28,7 @@ import java.nio.file.Files;
  */
 public class Utils {
     public static String readFileToString(File file, Charset charset) throws IOException {
-        return new String(Files.readAllBytes(file.toPath()), charset);
+        return Files.readString(file.toPath(), charset);
     }
 
     public static String readURLToString(URL url, Charset charset) throws IOException {
