@@ -20,38 +20,29 @@ import com.github.tnakamot.json.JSONText;
 import com.github.tnakamot.json.token.StringLocation;
 
 /**
- * Thrown when a JSON lexical analyzer fails to tokenize a given JSON text
- * due to a syntax error.
+ * Thrown when a JSON lexical analyzer fails to tokenize a given JSON text due to a syntax error.
  *
- * <p>
- * Instances of this class are immutable.
+ * <p>Instances of this class are immutable.
  *
- * <p>
- * The error message can be customized by {@link JSONParserErrorMessageFormat}.
- * The message format is basically
+ * <p>The error message can be customized by {@link JSONParserErrorMessageFormat}. The message
+ * format is basically
  *
  * <pre>
  * (name):(position): (message)
  * </pre>
  *
- * <p>
- * (name) is the file name of the source JSON text. If
- * {@link JSONParserErrorMessageFormat#showFullPath()} is true, the full path
- * or URL is shown.
+ * <p>(name) is the file name of the source JSON text. If {@link
+ * JSONParserErrorMessageFormat#showFullPath()} is true, the full path or URL is shown.
  *
- * <p>
- * (position) shows the location where the error is detected within the source
- * JSON text. If {@link JSONParserErrorMessageFormat#showLineAndColumnNumber()}
- * is false, the position in number of Unicode characters is shown (starting from
- * zero). If it is true, the line number and the column (both starting from one)
- * separated by ":" is shown.
+ * <p>(position) shows the location where the error is detected within the source JSON text. If
+ * {@link JSONParserErrorMessageFormat#showLineAndColumnNumber()} is false, the position in number
+ * of Unicode characters is shown (starting from zero). If it is true, the line number and the
+ * column (both starting from one) separated by ":" is shown.
  *
- * <p>
- * If {@link JSONParserErrorMessageFormat#showErrorLine()} is true, a line which
- * contains the error is shown additionally with a position marker.
+ * <p>If {@link JSONParserErrorMessageFormat#showErrorLine()} is true, a line which contains the
+ * error is shown additionally with a position marker.
  *
- * <p>
- * Here is an example of a JSON text which has an error:
+ * <p>Here is an example of a JSON text which has an error:
  *
  * <pre>
  * {
@@ -59,33 +50,29 @@ import com.github.tnakamot.json.token.StringLocation;
  * }
  * </pre>
  *
- * <p>
- * If
+ * <p>If
  *
  * <ul>
- *  <li>{@link JSONParserErrorMessageFormat#showFullPath()} is false</li>
- *  <li>{@link JSONParserErrorMessageFormat#showLineAndColumnNumber()} is true</li>
- *  <li>{@link JSONParserErrorMessageFormat#showErrorLine()} is false</li>
+ *   <li>{@link JSONParserErrorMessageFormat#showFullPath()} is false
+ *   <li>{@link JSONParserErrorMessageFormat#showLineAndColumnNumber()} is true
+ *   <li>{@link JSONParserErrorMessageFormat#showErrorLine()} is false
  * </ul>
  *
- * <p>
- * the error message from the parser will be
+ * <p>the error message from the parser will be
  *
  * <pre>
  * hello.json:12: unknown token starting with 'M'
  * </pre>
  *
- * <p>
- * If
+ * <p>If
  *
  * <ul>
- *  <li>{@link JSONParserErrorMessageFormat#showFullPath()} is true</li>
- *  <li>{@link JSONParserErrorMessageFormat#showLineAndColumnNumber()} is false</li>
- *  <li>{@link JSONParserErrorMessageFormat#showErrorLine()} is true</li>
+ *   <li>{@link JSONParserErrorMessageFormat#showFullPath()} is true
+ *   <li>{@link JSONParserErrorMessageFormat#showLineAndColumnNumber()} is false
+ *   <li>{@link JSONParserErrorMessageFormat#showErrorLine()} is true
  * </ul>
  *
- * <p>
- * the error message from the parser will be
+ * <p>the error message from the parser will be
  *
  * <pre>
  * /path/to/hello.json:12: unknown token starting with 'M'
@@ -94,79 +81,78 @@ import com.github.tnakamot.json.token.StringLocation;
  * </pre>
  */
 public class JSONParserException extends Exception {
-    private final String msg;
-    private final JSONText source;
-    private final StringLocation location;
-    private final JSONParserErrorMessageFormat errMsgFmt;
+  private final String msg;
+  private final JSONText source;
+  private final StringLocation location;
+  private final JSONParserErrorMessageFormat errMsgFmt;
 
-    /**
-     * Instantiate this exception.
-     *
-     * @param source    JSON text that has a problem
-     * @param location  location of the problem within the source JSON text
-     * @param errMsgFmt configuration to change the error message format of this exception
-     * @param msg       error message which explains the problem
-     */
-    public JSONParserException(JSONText source,
-                               StringLocation location,
-                               JSONParserErrorMessageFormat errMsgFmt,
-                               String msg) {
-        super(msg);
-        this.msg = msg;
-        this.source = source;
-        this.location = location;
-        this.errMsgFmt = errMsgFmt;
+  /**
+   * Instantiate this exception.
+   *
+   * @param source JSON text that has a problem
+   * @param location location of the problem within the source JSON text
+   * @param errMsgFmt configuration to change the error message format of this exception
+   * @param msg error message which explains the problem
+   */
+  public JSONParserException(
+      JSONText source,
+      StringLocation location,
+      JSONParserErrorMessageFormat errMsgFmt,
+      String msg) {
+    super(msg);
+    this.msg = msg;
+    this.source = source;
+    this.location = location;
+    this.errMsgFmt = errMsgFmt;
+  }
+
+  /** @return the JSON text that cannot be tokenized properly. */
+  public JSONText source() {
+    return source;
+  }
+
+  /**
+   * Returns the location of hte problem where the lexical analyzer failed to tokenize the given
+   * JSON text.
+   *
+   * @return location of the problem within the source JSON text
+   */
+  public StringLocation location() {
+    return location;
+  }
+
+  @Override
+  public String getMessage() {
+    StringBuilder sb = new StringBuilder();
+    if (errMsgFmt.showFullPath()) {
+      sb.append(source.fullName());
+    } else {
+      sb.append(source.name());
     }
 
-    /**
-     * @return the JSON text that cannot be tokenized properly.
-     */
-    public JSONText source() {
-        return source;
+    sb.append(":");
+
+    if (errMsgFmt.showLineAndColumnNumber()) {
+      sb.append(location.line());
+      sb.append(":");
+      sb.append(location.column());
+    } else {
+      sb.append(location.position());
     }
 
-    /**
-     * Returns the location of hte problem where the lexical analyzer failed to tokenize
-     * the given JSON text.
-     *
-     * @return location of the problem within the source JSON text
-     */
-    public StringLocation location() {
-        return location;
+    sb.append(": ");
+    sb.append(msg);
+
+    if (errMsgFmt.showErrorLine()) {
+      String[] lines = source.get().split("\r|(\r?\n)");
+      String line = lines[location.line() - 1];
+      sb.append(System.lineSeparator());
+      sb.append(line);
+      sb.append(System.lineSeparator());
+      sb.append(" ".repeat(location.column() - 1));
+      sb.append("^");
     }
 
-    @Override
-    public String getMessage() {
-        StringBuilder sb = new StringBuilder();
-        if (errMsgFmt.showFullPath()) {
-            sb.append(source.fullName());
-        } else {
-            sb.append(source.name());
-        }
-
-        sb.append(":");
-
-        if (errMsgFmt.showLineAndColumnNumber()) {
-            sb.append(location.line());
-            sb.append(":");
-            sb.append(location.column());
-        } else {
-            sb.append(location.position());
-        }
-
-        sb.append(": ");
-        sb.append(msg);
-
-        if (errMsgFmt.showErrorLine()) {
-            String[] lines = source.get().split("\r|(\r?\n)");
-            String line = lines[location.line() - 1];
-            sb.append(System.lineSeparator());
-            sb.append(line);
-            sb.append(System.lineSeparator());
-            sb.append(" ".repeat(location.column() - 1));
-            sb.append("^");
-        }
-
-        return sb.toString();
-    }
+    return sb.toString();
+  }
 }

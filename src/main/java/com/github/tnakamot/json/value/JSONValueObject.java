@@ -22,130 +22,96 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * Represents one JSON 'object' value.
- */
+/** Represents one JSON 'object' value. */
 public abstract class JSONValueObject extends JSONValue implements Map<JSONValueString, JSONValue> {
-    /**
-     * Create an instance of a Java representation of a JSON 'object' value.
-     */
-    JSONValueObject() {
-        super(JSONValueType.OBJECT);
-    }
+  /** Create an instance of a Java representation of a JSON 'object' value. */
+  JSONValueObject() {
+    super(JSONValueType.OBJECT);
+  }
 
-    /**
-     * Returns the JSON value of the given name.
-     *
-     * <p>
-     * If a value of the given name does not exist, this method
-     * returns null. Do not confuse it with a JSON 'null' value.
-     * If there is a JSON 'null' value of the given name, this
-     * method returns an instance of {@link JSONValueNull} instead.
-     *
-     * @param name a JSON string value which represents a name
-     * @return a JSON value of the given name
-     */
-    public abstract JSONValue get(JSONValueString name);
+  /**
+   * Returns the JSON value of the given name.
+   *
+   * <p>If a value of the given name does not exist, this method returns null. Do not confuse it
+   * with a JSON 'null' value. If there is a JSON 'null' value of the given name, this method
+   * returns an instance of {@link JSONValueNull} instead.
+   *
+   * @param name a JSON string value which represents a name
+   * @return a JSON value of the given name
+   */
+  public abstract JSONValue get(JSONValueString name);
 
-    /**
-     * Returns the JSON value which has the given name.
-     *
-     * @param name name
-     * @return a JSON value of the given name
-     * @see #get(JSONValueString)
-     */
-    public abstract JSONValue get(String name);
+  /**
+   * Returns the JSON value which has the given name.
+   *
+   * @param name name
+   * @return a JSON value of the given name
+   * @see #get(JSONValueString)
+   */
+  public abstract JSONValue get(String name);
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public abstract int size();
+  /** {@inheritDoc} */
+  @Override
+  public abstract int size();
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public abstract boolean isEmpty();
+  /** {@inheritDoc} */
+  @Override
+  public abstract boolean isEmpty();
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public abstract boolean containsKey(Object o);
+  /** {@inheritDoc} */
+  @Override
+  public abstract boolean containsKey(Object o);
 
-    /**
-     * Check if this JSON object has a value which has the given name.
-     *
-     * @param name name
-     * @return true if a value with the given name exists
-     * @see #containsKey(Object)
-     */
-    public abstract boolean containsKey(String name);
+  /**
+   * Check if this JSON object has a value which has the given name.
+   *
+   * @param name name
+   * @return true if a value with the given name exists
+   * @see #containsKey(Object)
+   */
+  public abstract boolean containsKey(String name);
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public abstract boolean containsValue(Object o);
+  /** {@inheritDoc} */
+  @Override
+  public abstract boolean containsValue(Object o);
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public abstract JSONValue get(Object o);
+  /** {@inheritDoc} */
+  @Override
+  public abstract JSONValue get(Object o);
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public abstract JSONValue put(JSONValueString jsonValueString, JSONValue jsonValue);
+  /** {@inheritDoc} */
+  @Override
+  public abstract JSONValue put(JSONValueString jsonValueString, JSONValue jsonValue);
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public abstract JSONValue remove(Object o);
+  /** {@inheritDoc} */
+  @Override
+  public abstract JSONValue remove(Object o);
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public abstract void putAll(@NotNull Map<? extends JSONValueString, ? extends JSONValue> map);
+  /** {@inheritDoc} */
+  @Override
+  public abstract void putAll(@NotNull Map<? extends JSONValueString, ? extends JSONValue> map);
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public abstract void clear();
+  /** {@inheritDoc} */
+  @Override
+  public abstract void clear();
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public abstract @NotNull Set<JSONValueString> keySet();
+  /** {@inheritDoc} */
+  @Override
+  public abstract @NotNull Set<JSONValueString> keySet();
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public abstract @NotNull Collection<JSONValue> values();
+  /** {@inheritDoc} */
+  @Override
+  public abstract @NotNull Collection<JSONValue> values();
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public abstract @NotNull Set<Entry<JSONValueString, JSONValue>> entrySet();
+  /** {@inheritDoc} */
+  @Override
+  public abstract @NotNull Set<Entry<JSONValueString, JSONValue>> entrySet();
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public abstract int hashCode();
+  /** {@inheritDoc} */
+  @Override
+  public abstract int hashCode();
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public abstract boolean equals(Object o);
+  /** {@inheritDoc} */
+  @Override
+  public abstract boolean equals(Object o);
 }

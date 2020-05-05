@@ -22,86 +22,81 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Represents one JSON 'boolean' value.
  *
- * <p>
- * Instances of this class are immutable.
+ * <p>Instances of this class are immutable.
  */
 public class JSONValueBoolean extends JSONValuePrimitive {
-    public static final JSONValueBoolean TRUE = new JSONValueBoolean(true);
-    public static final JSONValueBoolean FALSE = new JSONValueBoolean(false);
+  public static final JSONValueBoolean TRUE = new JSONValueBoolean(true);
+  public static final JSONValueBoolean FALSE = new JSONValueBoolean(false);
 
-    private final boolean value;
+  private final boolean value;
 
-    /**
-     * Return an instance of a Java representation of a JSON boolean value.
-     *
-     * @param value value represented by Java boolean primitive of this
-     *              JSON boolean value.
-     */
-    public static JSONValueBoolean valueOf(boolean value) {
-        return value ? TRUE : FALSE;
+  /**
+   * Return an instance of a Java representation of a JSON boolean value.
+   *
+   * @param value value represented by Java boolean primitive of this JSON boolean value.
+   */
+  public static JSONValueBoolean valueOf(boolean value) {
+    return value ? TRUE : FALSE;
+  }
+
+  /**
+   * Create an instance of a Java representation of a JSON boolean value.
+   *
+   * @param value value represented by Java boolean primitive of this JSON boolean value.
+   */
+  private JSONValueBoolean(boolean value) {
+    super(JSONValueType.BOOLEAN);
+    this.value = value;
+  }
+
+  /**
+   * Create an instance of a Java representation of a JSON boolean value from a JSON boolean token.
+   *
+   * @param token source token of this JSON boolean value.
+   */
+  public JSONValueBoolean(JSONTokenBoolean token) {
+    super(JSONValueType.BOOLEAN, token);
+    this.value = token.value();
+  }
+
+  /**
+   * Return the value represented by Java boolean primitives of this JSON boolean value.
+   *
+   * @return value represented by Java boolean primitives of this JSON boolean value
+   */
+  public boolean value() {
+    return value;
+  }
+
+  @Override
+  public int hashCode() {
+    return Boolean.valueOf(value).hashCode();
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj instanceof JSONValueBoolean) {
+      JSONValueBoolean b = (JSONValueBoolean) obj;
+      return this.value == b.value;
+    } else {
+      return false;
     }
+  }
 
-    /**
-     * Create an instance of a Java representation of a JSON boolean value.
-     *
-     * @param value value represented by Java boolean primitive of this
-     *              JSON boolean value.
-     */
-    private JSONValueBoolean(boolean value) {
-        super(JSONValueType.BOOLEAN);
-        this.value = value;
-    }
+  @Override
+  public String toString() {
+    return Boolean.toString(value);
+  }
 
-    /**
-     * Create an instance of a Java representation of a JSON boolean value
-     * from a JSON boolean token.
-     *
-     * @param token source token of this JSON boolean value.
-     */
-    public JSONValueBoolean(JSONTokenBoolean token) {
-        super(JSONValueType.BOOLEAN, token);
-        this.value = token.value();
-    }
+  @Override
+  @NotNull
+  public String toTokenString() {
+    return Boolean.toString(value);
+  }
 
-    /**
-     * Return the value represented by Java boolean primitives of this
-     * JSON boolean value.
-     *
-     * @return value represented by Java boolean primitives of this JSON boolean value
-     */
-    public boolean value() {
-        return value;
-    }
-
-    @Override
-    public int hashCode() {
-        return Boolean.valueOf(value).hashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof JSONValueBoolean) {
-            JSONValueBoolean b = (JSONValueBoolean) obj;
-            return this.value == b.value;
-        } else {
-            return false;
-        }
-    }
-
-    @Override
-    public String toString() {
-        return Boolean.toString(value);
-    }
-
-    @Override
-    @NotNull
-    public String toTokenString() {
-        return Boolean.toString(value);
-    }
-
-    @Override
-    @NotNull
-    public String toTokenString(String newline, String indent) {
-        return toTokenString();
-    }
+  @Override
+  @NotNull
+  public String toTokenString(String newline, String indent) {
+    return toTokenString();
+  }
 }

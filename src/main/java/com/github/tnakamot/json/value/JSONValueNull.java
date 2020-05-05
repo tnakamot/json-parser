@@ -23,57 +23,52 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Represents one JSON 'null' value.
  *
- * <p>
- * Instances of this class are immutable.
+ * <p>Instances of this class are immutable.
  */
 public class JSONValueNull extends JSONValuePrimitive {
-    /**
-     * An instance of null value without token information.
-     */
-    public static final JSONValueNull INSTANCE = new JSONValueNull();
+  /** An instance of null value without token information. */
+  public static final JSONValueNull INSTANCE = new JSONValueNull();
 
-    /**
-     * Create an instance of a Java representation of a JSON null value.
-     */
-    private JSONValueNull() {
-        this(null);
-    }
+  /** Create an instance of a Java representation of a JSON null value. */
+  private JSONValueNull() {
+    this(null);
+  }
 
-    /**
-     * Create an instance of a Java representation of a JSON null value
-     * with source JSON text information.
-     *
-     * @param token source of this JSON null value. Can be null if this JSON
-     *              null value is not originated from an exiting JSON text.
-     */
-    public JSONValueNull(JSONToken token) {
-        super(JSONValueType.NULL, token);
-    }
+  /**
+   * Create an instance of a Java representation of a JSON null value with source JSON text
+   * information.
+   *
+   * @param token source of this JSON null value. Can be null if this JSON null value is not
+   *     originated from an exiting JSON text.
+   */
+  public JSONValueNull(JSONToken token) {
+    super(JSONValueType.NULL, token);
+  }
 
-    @Override
-    public int hashCode() {
-        return JSONTokenNull.JSON_NULL.hashCode();
-    }
+  @Override
+  public int hashCode() {
+    return JSONTokenNull.JSON_NULL.hashCode();
+  }
 
-    @Override
-    public boolean equals(Object obj) {
-        return obj instanceof JSONValueNull;
-    }
+  @Override
+  public boolean equals(Object obj) {
+    return obj instanceof JSONValueNull;
+  }
 
-    @Override
-    public String toString() {
-        return JSONTokenNull.JSON_NULL;
-    }
+  @Override
+  public String toString() {
+    return JSONTokenNull.JSON_NULL;
+  }
 
-    @Override
-    @NotNull
-    public String toTokenString() {
-        return JSONTokenNull.JSON_NULL;
-    }
+  @Override
+  @NotNull
+  public String toTokenString() {
+    return JSONTokenNull.JSON_NULL;
+  }
 
-    @Override
-    @NotNull
-    public String toTokenString(String newline, String indent) {
-        return toTokenString();
-    }
+  @Override
+  @NotNull
+  public String toTokenString(String newline, String indent) {
+    return toTokenString();
+  }
 }

@@ -22,14 +22,14 @@ package com.github.tnakamot.json.token;
  * @see <a href="https://tools.ietf.org/html/rfc8259">RFC 8259</a>
  */
 public enum JSONTokenType {
-    BEGIN_ARRAY,
-    BEGIN_OBJECT,
-    END_ARRAY,
-    END_OBJECT,
-    NAME_SEPARATOR,
-    VALUE_SEPARATOR,
-    NULL,
-    BOOLEAN,
-    NUMBER,
-    STRING
+  BEGIN_ARRAY,
+  BEGIN_OBJECT,
+  END_ARRAY,
+  END_OBJECT,
+  NAME_SEPARATOR,
+  VALUE_SEPARATOR,
+  NULL,
+  BOOLEAN,
+  NUMBER,
+  STRING
 }

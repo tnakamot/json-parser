@@ -33,107 +33,95 @@ import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 
 public class JSONTextTest {
-    private static final String JSON_STR = " { \"key\": \"My name is \u5d07\u5fd7\"} ";
+  private static final String JSON_STR = " { \"key\": \"My name is \u5d07\u5fd7\"} ";
 
-    private static File jsonFile;
+  private static File jsonFile;
 
-    private static final Logger log = LoggerFactory.getLogger(JSONTextTest.class);
+  private static final Logger log = LoggerFactory.getLogger(JSONTextTest.class);
 
-    @BeforeAll
-    public static void setUp() throws IOException {
-        jsonFile = File.createTempFile("JSONTextTest_", ".json");
-        jsonFile.deleteOnExit();
-        Files.writeString(jsonFile.toPath(), JSON_STR, StandardCharsets.UTF_8);
-    }
+  @BeforeAll
+  public static void setUp() throws IOException {
+    jsonFile = File.createTempFile("JSONTextTest_", ".json");
+    jsonFile.deleteOnExit();
+    Files.writeString(jsonFile.toPath(), JSON_STR, StandardCharsets.UTF_8);
+  }
 
-    @AfterAll
-    public static void tearDown() {
-        assertTrue(jsonFile.delete());
-    }
+  @AfterAll
+  public static void tearDown() {
+    assertTrue(jsonFile.delete());
+  }
 
-    @Test
-    public void testFromFile() throws IOException {
-        File file = new File(jsonFile.getPath());
-        JSONText jsText = JSONText.fromFile(file);
+  @Test
+  public void testFromFile() throws IOException {
+    File file = new File(jsonFile.getPath());
+    JSONText jsText = JSONText.fromFile(file);
 
-        assertEquals(JSON_STR, jsText.get());
-        assertEquals(file, jsText.source());
-        assertEquals(file.getPath(), jsText.fullName());
-        assertEquals(file.getName(), jsText.name());
+    assertEquals(JSON_STR, jsText.get());
+    assertEquals(file, jsText.source());
+    assertEquals(file.getPath(), jsText.fullName());
+    assertEquals(file.getName(), jsText.name());
 
-        String methodName = new Object() {
-        }.getClass().getEnclosingMethod().getName();
-        log.info(() -> methodName + ": (original): " + file.getPath());
-        log.info(() -> methodName + ": fullName(): " + jsText.fullName());
-        log.info(() -> methodName + ": name()    : " + jsText.name());
-    }
+    String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
+    log.info(() -> methodName + ": (original): " + file.getPath());
+    log.info(() -> methodName + ": fullName(): " + jsText.fullName());
+    log.info(() -> methodName + ": name()    : " + jsText.name());
+  }
 
-    @Test
-    public void testFromFileNotExist() throws IOException {
-        File file = File.createTempFile("JSONTextTest_", ".json");
-        assertTrue(file.delete());
+  @Test
+  public void testFromFileNotExist() throws IOException {
+    File file = File.createTempFile("JSONTextTest_", ".json");
+    assertTrue(file.delete());
 
-        assertThrows(
-                NoSuchFileException.class,
-                () -> JSONText.fromFile(file));
-    }
+    assertThrows(NoSuchFileException.class, () -> JSONText.fromFile(file));
+  }
 
-    @Test
-    public void testFromFileNull() {
-        assertThrows(
-                NullPointerException.class,
-                () -> JSONText.fromFile(null));
-    }
+  @Test
+  public void testFromFileNull() {
+    assertThrows(NullPointerException.class, () -> JSONText.fromFile(null));
+  }
 
-    @Test
-    public void testFromURL() throws IOException {
-        URL url = jsonFile.toURI().toURL();
-        JSONText jsText = JSONText.fromURL(url);
+  @Test
+  public void testFromURL() throws IOException {
+    URL url = jsonFile.toURI().toURL();
+    JSONText jsText = JSONText.fromURL(url);
 
-        assertEquals(JSON_STR, jsText.get());
-        assertEquals(url, jsText.source());
-        assertEquals(url.toString(), jsText.fullName());
-        assertEquals(jsonFile.getName(), jsText.name());
+    assertEquals(JSON_STR, jsText.get());
+    assertEquals(url, jsText.source());
+    assertEquals(url.toString(), jsText.fullName());
+    assertEquals(jsonFile.getName(), jsText.name());
 
-        String methodName = new Object() {
-        }.getClass().getEnclosingMethod().getName();
-        log.info(() -> methodName + ": (original): " + url);
-        log.info(() -> methodName + ": fullName(): " + jsText.fullName());
-        log.info(() -> methodName + ": name()    : " + jsText.name());
-    }
+    String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
+    log.info(() -> methodName + ": (original): " + url);
+    log.info(() -> methodName + ": fullName(): " + jsText.fullName());
+    log.info(() -> methodName + ": name()    : " + jsText.name());
+  }
 
-    @Test
-    public void testFromURLNotExist() throws IOException {
-        File file = File.createTempFile("JSONTextTest_", ".json");
-        assertTrue(file.delete());
-        URL url = file.toURI().toURL();
+  @Test
+  public void testFromURLNotExist() throws IOException {
+    File file = File.createTempFile("JSONTextTest_", ".json");
+    assertTrue(file.delete());
+    URL url = file.toURI().toURL();
 
-        assertThrows(
-                FileNotFoundException.class,
-                () -> JSONText.fromURL(url));
-    }
+    assertThrows(FileNotFoundException.class, () -> JSONText.fromURL(url));
+  }
 
-    @Test
-    public void testFromURLNull() {
-        assertThrows(
-                NullPointerException.class,
-                () -> JSONText.fromURL(null));
-    }
+  @Test
+  public void testFromURLNull() {
+    assertThrows(NullPointerException.class, () -> JSONText.fromURL(null));
+  }
 
-    @Test
-    public void testFromString() {
-        JSONText jsText = JSONText.fromString(JSON_STR);
+  @Test
+  public void testFromString() {
+    JSONText jsText = JSONText.fromString(JSON_STR);
 
-        assertEquals(JSON_STR, jsText.get());
-        assertEquals(JSON_STR, jsText.source());
-        assertEquals("(inner-string)", jsText.fullName());
-        assertEquals("(inner-string)", jsText.name());
-    }
+    assertEquals(JSON_STR, jsText.get());
+    assertEquals(JSON_STR, jsText.source());
+    assertEquals("(inner-string)", jsText.fullName());
+    assertEquals("(inner-string)", jsText.name());
+  }
 
-    @Test
-    public void testFromStringNull() {
-        assertThrows(
-                NullPointerException.class,
-                () -> JSONText.fromString(null));
-    }
+  @Test
+  public void testFromStringNull() {
+    assertThrows(NullPointerException.class, () -> JSONText.fromString(null));
+  }
 }

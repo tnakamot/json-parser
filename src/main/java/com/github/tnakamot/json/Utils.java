@@ -23,13 +23,11 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 
-/**
- * Collection of utility methods.
- */
+/** Collection of utility methods. */
 public class Utils {
-    public static String readURLToString(URL url, Charset charset) throws IOException {
-        try (InputStream in = url.openStream()) {
-            return new String(in.readAllBytes(), charset);
-        }
+  public static String readURLToString(URL url, Charset charset) throws IOException {
+    try (InputStream in = url.openStream()) {
+      return new String(in.readAllBytes(), charset);
     }
+  }
 }
