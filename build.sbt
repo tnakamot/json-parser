@@ -45,7 +45,6 @@ lazy val root = (project in file("."))
     crossPaths   := false, // Do not use Scala version in artifacts.
 
     libraryDependencies ++= Seq(
-      "commons-io" % "commons-io" % "2.6",
       "org.apache.commons" % "commons-text" % "1.8",
       "org.jetbrains" % "annotations" % "16.0.1",
       "net.aichler" % "jupiter-interface" % JupiterKeys.jupiterVersion.value % Test,

@@ -22,8 +22,6 @@ import com.github.tnakamot.json.parser.JSONParserErrorMessageFormat;
 import com.github.tnakamot.json.parser.JSONParserException;
 import com.github.tnakamot.json.token.JSONToken;
 import com.github.tnakamot.json.value.JSONValue;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -233,7 +231,7 @@ public class JSONText {
             throw new NullPointerException("file cannot be null");
         }
 
-        String text = FileUtils.readFileToString(file, StandardCharsets.UTF_8);
+        String text = Utils.readFileToString(file, StandardCharsets.UTF_8);
         return new JSONText(text, file);
     }
 
@@ -255,7 +253,7 @@ public class JSONText {
          * TODO: To improve the interoperability remove the BOM (U+FEFF) if exists.
          *       The application may do so according to RFC 8259 (it is not mandatory).
          */
-        String text = IOUtils.toString(url, StandardCharsets.UTF_8);
+        String text = Utils.readURLToString(url, StandardCharsets.UTF_8);
         return new JSONText(text, url);
     }
 

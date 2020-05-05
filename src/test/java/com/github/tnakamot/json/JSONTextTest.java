@@ -18,7 +18,6 @@ package com.github.tnakamot.json;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -27,9 +26,11 @@ import org.junit.platform.commons.logging.LoggerFactory;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.NoSuchFileException;
 
 public class JSONTextTest {
     private static final String JSON_STR = " { \"key\": \"My name is \u5d07\u5fd7\"} ";
@@ -42,7 +43,7 @@ public class JSONTextTest {
     public static void setUp() throws IOException {
         jsonFile = File.createTempFile("JSONTextTest_", ".json");
         jsonFile.deleteOnExit();
-        FileUtils.write(jsonFile, JSON_STR, StandardCharsets.UTF_8);
+        Utils.writeStringToFile(jsonFile, JSON_STR, StandardCharsets.UTF_8);
     }
 
     @AfterAll
@@ -72,7 +73,7 @@ public class JSONTextTest {
         assertTrue(file.delete());
 
         assertThrows(
-                FileNotFoundException.class,
+                NoSuchFileException.class,
                 () -> JSONText.fromFile(file));
     }
 
