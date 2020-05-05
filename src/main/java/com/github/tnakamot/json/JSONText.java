@@ -123,6 +123,9 @@ public class JSONText {
    * @throws IOException if an I/O error occurs
    * @see <a href="https://tools.ietf.org/html/rfc8259#section-2">RFC 8259 - 2. JSON Grammer</a>
    */
+  @SuppressWarnings(
+      "UnusedReturnValue") // Unit tests only the exceptions. The return values are tested through
+                           // unit test of the underlying method.
   public JSONValue parse(JSONParserErrorMessageFormat errMsgFmt)
       throws IOException, JSONParserException {
     return parse(true, errMsgFmt);

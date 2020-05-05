@@ -147,6 +147,7 @@ public class RFC8259ExampleTest {
           }
         };
 
+    @SuppressWarnings("unchecked")
     Map<String, JSONValue>[] expected = new Map[] {expected1, expected2};
 
     URL example = this.getClass().getResource(resourceBase + "rfc8259_example2.json");
@@ -246,6 +247,7 @@ public class RFC8259ExampleTest {
     String output = root.toTokenString("\n", "  ");
     log.info(() -> fileName + " => \n" + output);
 
-    jsText.get().equals(output);
+    // TODO: enable this line
+    // assertTrue(jsText.get().equals(output));
   }
 }

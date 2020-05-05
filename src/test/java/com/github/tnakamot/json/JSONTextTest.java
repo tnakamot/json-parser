@@ -61,7 +61,7 @@ public class JSONTextTest {
     assertEquals(file.getPath(), jsText.fullName());
     assertEquals(file.getName(), jsText.name());
 
-    String methodName = JSONTextTest.class.getEnclosingMethod().getName();
+    String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
     log.info(() -> methodName + ": (original): " + file.getPath());
     log.info(() -> methodName + ": fullName(): " + jsText.fullName());
     log.info(() -> methodName + ": name()    : " + jsText.name());
@@ -90,7 +90,7 @@ public class JSONTextTest {
     assertEquals(url.toString(), jsText.fullName());
     assertEquals(jsonFile.getName(), jsText.name());
 
-    String methodName = JSONTextTest.class.getEnclosingMethod().getName();
+    String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
     log.info(() -> methodName + ": (original): " + url);
     log.info(() -> methodName + ": fullName(): " + jsText.fullName());
     log.info(() -> methodName + ": name()    : " + jsText.name());
