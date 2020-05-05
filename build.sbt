@@ -32,6 +32,7 @@ Paradox / paradoxMaterialTheme := {
     .withSearch()
 }
 
+//noinspection SpellCheckingInspection,SpellCheckingInspection,SpellCheckingInspection,SpellCheckingInspection,SpellCheckingInspection
 lazy val root = (project in file("."))
   .enablePlugins(GhpagesPlugin)
   .enablePlugins(ParadoxPlugin)
