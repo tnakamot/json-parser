@@ -2,18 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3c5df3ac-ef3e-43a0-b663-864f20b4e52e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.sbt" beforeDir="false" afterPath="$PROJECT_DIR$/build.sbt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/build.properties" beforeDir="false" afterPath="$PROJECT_DIR$/project/build.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/plugins.sbt" beforeDir="false" afterPath="$PROJECT_DIR$/project/plugins.sbt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/tnakamot/json/parser/JSONLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/tnakamot/json/parser/JSONLexer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/tnakamot/json/parser/JSONParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/tnakamot/json/parser/JSONParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/tnakamot/json/parser/package-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/tnakamot/json/parser/package-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/tnakamot/json/token/StringLocation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/tnakamot/json/token/StringLocation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/tnakamot/json/value/JSONValue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/tnakamot/json/value/JSONValue.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/paradox/source_info.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/paradox/source_info.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/github/tnakamot/json/parser/JSONLexerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/tnakamot/json/parser/JSONLexerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/github/tnakamot/json/value/JSONValueNullTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/tnakamot/json/value/JSONValueNullTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,6 +67,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="NamedScopeManager">
+    <scope name="Except LICENSE" pattern="(file[json-parser]:*/||file[json-parser-build]:*/)&amp;&amp;!file[json-parser]:LICENSE" />
+  </component>
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="1" />
   </component>
@@ -89,12 +81,13 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.24597701" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="reference.settings.ide.settings.spelling" />
+    <property name="settings.editor.selected.configurable" value="project.scopes" />
   </component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
@@ -139,48 +132,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1588333989494</updated>
-    </task>
-    <task id="LOCAL-00013" summary="Type test.">
-      <created>1588497665411</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1588497665411</updated>
-    </task>
-    <task id="LOCAL-00014" summary="NULL -&gt; INSTANCE.">
-      <created>1588497697456</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1588497697456</updated>
-    </task>
-    <task id="LOCAL-00015" summary="Test cases of JSONValueNull.">
-      <created>1588497988226</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1588497988226</updated>
-    </task>
-    <task id="LOCAL-00016" summary="Copyright notice.">
-      <created>1588498053488</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1588498053488</updated>
-    </task>
-    <task id="LOCAL-00017" summary="Test type of null.">
-      <created>1588498389438</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1588498389438</updated>
-    </task>
-    <task id="LOCAL-00018" summary="Unit tests of JSONValueString.">
-      <created>1588498745516</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1588498745516</updated>
     </task>
     <task id="LOCAL-00019" summary="Test null.">
       <created>1588499536452</created>
@@ -483,14 +434,52 @@
       <option name="project" value="LOCAL" />
       <updated>1588669641166</updated>
     </task>
-    <option name="localTasksCounter" value="62" />
+    <task id="LOCAL-00062" summary="Resolved typos detected by IntelliJ.">
+      <created>1588671567333</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1588671567334</updated>
+    </task>
+    <task id="LOCAL-00063" summary="Now that project level dictionary plays an important role for spellchecking in the code quality, IntelliJ settings are imported to the repository.">
+      <created>1588671640801</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1588671640801</updated>
+    </task>
+    <task id="LOCAL-00064" summary="Now that project level dictionary plays an important role for spellchecking in the code quality, IntelliJ settings are imported to the repository.">
+      <created>1588671666288</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1588671666288</updated>
+    </task>
+    <task id="LOCAL-00065" summary="Added annotations so that IntelliJ will not report unwanted warnings.">
+      <created>1588671700916</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1588671700916</updated>
+    </task>
+    <task id="LOCAL-00066" summary="Added annotations so that IntelliJ will not report unwanted warnings.">
+      <created>1588672303178</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1588672303178</updated>
+    </task>
+    <task id="LOCAL-00067" summary="Exclude LICENSE from the spellchecking.">
+      <created>1588672362379</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1588672362379</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Error message format description." />
-    <MESSAGE value="Resolved one warning." />
-    <MESSAGE value="Removed TODO which has been already resolved by JSONParserExceptionTest." />
-    <MESSAGE value="Convert a number to long as much as possible if no information is lost." />
     <MESSAGE value="Immutable and mutable version of JSONValueArray." />
     <MESSAGE value="Immutable and mutable version of JSONValueObject." />
     <MESSAGE value="Inherit docs." />
@@ -511,18 +500,22 @@
     <MESSAGE value="Formatted all code with google-java-format IntelliJ plugin." />
     <MESSAGE value="Formatted all code with sbt-java-formatter plugin." />
     <MESSAGE value="Fixed the problems detected by SpotBugs except null checks." />
+    <MESSAGE value="Resolved typos detected by IntelliJ." />
     <MESSAGE value="Resolved test failures and some warning detected by IntelliJ code analysis." />
-    <option name="LAST_COMMIT_MESSAGE" value="Resolved test failures and some warning detected by IntelliJ code analysis." />
+    <MESSAGE value="Now that project level dictionary plays an important role for spellchecking in the code quality, IntelliJ settings are imported to the repository." />
+    <MESSAGE value="Added annotations so that IntelliJ will not report unwanted warnings." />
+    <MESSAGE value="Exclude LICENSE from the spellchecking." />
+    <option name="LAST_COMMIT_MESSAGE" value="Exclude LICENSE from the spellchecking." />
   </component>
   <component name="WindowStateProjectService">
     <state x="2655" y="203" key="#Auto_Import" timestamp="1588551879551">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2655" y="203" key="#Auto_Import/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588551879551" />
-    <state x="594" y="228" width="1179" height="796" key="#Inspections" timestamp="1588671162209">
+    <state x="594" y="228" width="1179" height="796" key="#Inspections" timestamp="1588672253778">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="594" y="228" width="1179" height="796" key="#Inspections/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588671162209" />
+    <state x="594" y="228" width="1179" height="796" key="#Inspections/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588672253778" />
     <state x="2479" y="257" key="#JSONLexerTest" timestamp="1588515303855">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
@@ -569,10 +562,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="714" y="415" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588670037386" />
-    <state x="575" y="121" width="1160" height="845" key="CommitChangelistDialog2" timestamp="1588669640983">
+    <state x="575" y="121" width="1160" height="845" key="CommitChangelistDialog2" timestamp="1588672362254">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="575" y="121" width="1160" height="845" key="CommitChangelistDialog2/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588669640983" />
+    <state x="575" y="121" width="1160" height="845" key="CommitChangelistDialog2/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588672362254" />
     <state x="2495" y="121" width="1185" height="820" key="CommitChangelistDialog2/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588660024324" />
     <state x="100" y="123" width="1720" height="817" key="DiffContextDialog" timestamp="1588665400436">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -611,10 +604,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="757" y="253" key="RollbackChangesDialog/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588662265928" />
-    <state x="470" y="189" key="SettingsEditor" timestamp="1588670559658">
+    <state x="470" y="189" width="982" height="700" key="SettingsEditor" timestamp="1588672220006">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="470" y="189" key="SettingsEditor/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588670559658" />
+    <state x="470" y="189" width="982" height="700" key="SettingsEditor/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588672220006" />
     <state x="2390" y="189" key="SettingsEditor/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588658401277" />
     <state x="2480" y="282" key="Vcs.Push.Dialog.v2" timestamp="1588548980520">
       <screen x="1920" y="0" width="1920" height="1040" />
