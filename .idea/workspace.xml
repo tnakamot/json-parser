@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3c5df3ac-ef3e-43a0-b663-864f20b4e52e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/github/tnakamot/json/value/JSONValueArrayTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/github/tnakamot/json/value/JSONValueObjectTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/tnakamot/json/value/JSONValueObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/tnakamot/json/value/JSONValueObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/tnakamot/json/value/JSONValueObjectMutable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/tnakamot/json/value/JSONValueObjectMutable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/github/tnakamot/json/parser/JSONParserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/tnakamot/json/parser/JSONParserTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -100,31 +102,8 @@
       <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.JSONParserTest (2)">
-    <configuration name="JSONParserExceptionTest.testNameOfStringSource" type="JUnit" factoryName="JUnit" singleton="false" temporary="true" nameIsGenerated="true">
-      <module name="json-parser" />
-      <shortenClasspath name="NONE" />
-      <useClassPathOnly />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.github.tnakamot.json.parser.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.github.tnakamot.json.parser" />
-      <option name="MAIN_CLASS_NAME" value="com.github.tnakamot.json.parser.JSONParserExceptionTest" />
-      <option name="METHOD_NAME" value="testNameOfStringSource" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="PARAMETERS" value="" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="wholeProject" />
-      </option>
-      <method v="2">
-        <option name="Make" enabled="true" />
-        <option name="BSP.BeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="JSONParserTest (1)" type="JUnit" factoryName="JUnit" singleton="false" temporary="true">
+  <component name="RunManager" selected="JUnit.Test All">
+    <configuration name="JSONValueObjectMutableTest" type="JUnit" factoryName="JUnit" singleton="false" temporary="true">
       <module name="json-parser" />
       <shortenClasspath name="NONE" />
       <useClassPathOnly />
@@ -137,73 +116,7 @@
         <value defaultName="wholeProject" />
       </option>
       <uniqueIds>
-        <uniqueId value="[engine:junit-jupiter]/[class:com.github.tnakamot.json.parser.JSONParserTest]" />
-      </uniqueIds>
-      <method v="2">
-        <option name="Make" enabled="true" />
-        <option name="BSP.BeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="JSONParserTest (2)" type="JUnit" factoryName="JUnit" singleton="false" temporary="true">
-      <module name="json-parser" />
-      <shortenClasspath name="NONE" />
-      <useClassPathOnly />
-      <option name="PACKAGE_NAME" value="com.github.tnakamot.json" />
-      <option name="MAIN_CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="TEST_OBJECT" value="uniqueId" />
-      <option name="PARAMETERS" value="" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="wholeProject" />
-      </option>
-      <uniqueIds>
-        <uniqueId value="[engine:junit-jupiter]/[class:com.github.tnakamot.json.parser.JSONParserTest]" />
-      </uniqueIds>
-      <method v="2">
-        <option name="Make" enabled="true" />
-        <option name="BSP.BeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="JSONParserTest" type="JUnit" factoryName="JUnit" singleton="false" temporary="true">
-      <module name="json-parser" />
-      <shortenClasspath name="NONE" />
-      <useClassPathOnly />
-      <option name="PACKAGE_NAME" value="com.github.tnakamot.json" />
-      <option name="MAIN_CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="TEST_OBJECT" value="uniqueId" />
-      <option name="PARAMETERS" value="" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="wholeProject" />
-      </option>
-      <uniqueIds>
-        <uniqueId value="[engine:junit-jupiter]/[class:com.github.tnakamot.json.parser.JSONParserTest]" />
-      </uniqueIds>
-      <method v="2">
-        <option name="Make" enabled="true" />
-        <option name="BSP.BeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RFC8259ExampleTest.testOutputWithoutWhitespaces" type="JUnit" factoryName="JUnit" singleton="false" temporary="true" nameIsGenerated="true">
-      <module name="json-parser" />
-      <shortenClasspath name="NONE" />
-      <useClassPathOnly />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.github.tnakamot.json.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.github.tnakamot.json" />
-      <option name="MAIN_CLASS_NAME" value="com.github.tnakamot.json.RFC8259ExampleTest" />
-      <option name="METHOD_NAME" value="testOutputWithoutWhitespaces(java.lang.String)" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="PARAMETERS" value="" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="wholeProject" />
-      </option>
-      <uniqueIds>
-        <uniqueId value="[engine:junit-jupiter]/[class:com.github.tnakamot.json.RFC8259ExampleTest]" />
+        <uniqueId value="[engine:junit-jupiter]/[class:com.github.tnakamot.json.value.JSONValueObjectMutableTest]" />
       </uniqueIds>
       <method v="2">
         <option name="Make" enabled="true" />
@@ -232,13 +145,13 @@
         <option name="BSP.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="JUnit.Test All" />
+      <item itemvalue="JUnit.JSONValueObjectMutableTest" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.JSONParserTest (2)" />
-        <item itemvalue="JUnit.JSONParserTest (1)" />
-        <item itemvalue="JUnit.JSONParserTest" />
-        <item itemvalue="JUnit.JSONParserExceptionTest.testNameOfStringSource" />
-        <item itemvalue="JUnit.RFC8259ExampleTest.testOutputWithoutWhitespaces" />
+        <item itemvalue="JUnit.JSONValueObjectMutableTest" />
       </list>
     </recent_temporary>
   </component>
@@ -252,20 +165,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1588333989494</updated>
-    </task>
-    <task id="LOCAL-00028" summary="Resolved one warning about regex.">
-      <created>1588503558482</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1588503558482</updated>
-    </task>
-    <task id="LOCAL-00029" summary="Test cases of JSONParserErrorMessageFormat.">
-      <created>1588504014925</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1588504014925</updated>
     </task>
     <task id="LOCAL-00030" summary="Test end location of each token.">
       <created>1588505207820</created>
@@ -596,12 +495,24 @@
       <option name="project" value="LOCAL" />
       <updated>1588760403828</updated>
     </task>
-    <option name="localTasksCounter" value="77" />
+    <task id="LOCAL-00077" summary="Test immutable option of parse() method.">
+      <created>1588760977758</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1588760977758</updated>
+    </task>
+    <task id="LOCAL-00078" summary="Resolved minor warnings.">
+      <created>1588761043284</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1588761043284</updated>
+    </task>
+    <option name="localTasksCounter" value="79" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Test the parse with examples in RFC 8259." />
-    <MESSAGE value="Handle CRLF correctly." />
     <MESSAGE value="Removed TODO because some errors are covered by JSONParserExceptionTest." />
     <MESSAGE value="Fixed the wrong description of TODO." />
     <MESSAGE value="Implemented toTokenString methods." />
@@ -625,7 +536,9 @@
     <MESSAGE value="Test output without whitespaces." />
     <MESSAGE value="fromString method now accepts a source name." />
     <MESSAGE value="Resolved TODOs in toMutable and toImmutable." />
-    <option name="LAST_COMMIT_MESSAGE" value="Resolved TODOs in toMutable and toImmutable." />
+    <MESSAGE value="Test immutable option of parse() method." />
+    <MESSAGE value="Resolved minor warnings." />
+    <option name="LAST_COMMIT_MESSAGE" value="Resolved minor warnings." />
   </component>
   <component name="WindowStateProjectService">
     <state x="2655" y="203" key="#Auto_Import" timestamp="1588551879551">
@@ -641,6 +554,10 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2479" y="257" key="#JSONLexerTest/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588515303855" />
+    <state x="2479" y="170" key="#JSONValueObjectMutableTest" timestamp="1588761239852">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2479" y="170" key="#JSONValueObjectMutableTest/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588761239852" />
     <state x="2481" y="198" key="#Plugins" timestamp="1588548676514">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
@@ -654,15 +571,15 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2684" y="342" key="#Web_Browsers/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588402754558" />
-    <state x="549" y="212" width="1071" height="654" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1588662982785">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="549" y="212" key="#com.intellij.execution.impl.EditConfigurationsDialog/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588662982785" />
-    <state x="2469" y="212" width="1071" height="654" key="#com.intellij.execution.impl.EditConfigurationsDialog/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588660078512" />
-    <state x="2020" y="123" width="1720" height="817" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1588760701901">
+    <state x="2469" y="212" width="1071" height="654" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1588761274382">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="2020" y="123" width="1720" height="817" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588760701901" />
+    <state x="549" y="212" key="#com.intellij.execution.impl.EditConfigurationsDialog/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588662982785" />
+    <state x="2469" y="212" width="1071" height="654" key="#com.intellij.execution.impl.EditConfigurationsDialog/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588761274382" />
+    <state x="2020" y="123" width="1720" height="817" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1588762960328">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2020" y="123" width="1720" height="817" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588762960328" />
     <state x="2553" y="353" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1588755398783">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
@@ -692,11 +609,11 @@
     </state>
     <state x="714" y="415" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588670037386" />
     <state x="2634" y="415" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588746867130" />
-    <state x="2495" y="121" width="1160" height="845" key="CommitChangelistDialog2" timestamp="1588760403679">
+    <state x="2495" y="121" width="1160" height="845" key="CommitChangelistDialog2" timestamp="1588761043145">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="575" y="121" width="1160" height="845" key="CommitChangelistDialog2/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588672371314" />
-    <state x="2495" y="121" width="1185" height="820" key="CommitChangelistDialog2/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588760403679" />
+    <state x="2495" y="121" width="1185" height="820" key="CommitChangelistDialog2/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588761043145" />
     <state x="100" y="123" width="1720" height="817" key="DiffContextDialog" timestamp="1588665400436">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -706,26 +623,26 @@
     </state>
     <state x="872" y="312" key="FileChooserDialogImpl/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588670355852" />
     <state x="2792" y="312" key="FileChooserDialogImpl/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588657240584" />
-    <state width="1878" height="277" key="GridCell.Tab.0.bottom" timestamp="1588760942918">
+    <state width="1878" height="277" key="GridCell.Tab.0.bottom" timestamp="1588763189659">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1878" height="277" key="GridCell.Tab.0.bottom/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588675384478" />
-    <state width="1878" height="277" key="GridCell.Tab.0.bottom/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588760942918" />
-    <state width="1878" height="277" key="GridCell.Tab.0.center" timestamp="1588760942917">
+    <state width="1878" height="277" key="GridCell.Tab.0.bottom/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588763189659" />
+    <state width="1878" height="277" key="GridCell.Tab.0.center" timestamp="1588763189659">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1878" height="277" key="GridCell.Tab.0.center/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588675384478" />
-    <state width="1878" height="277" key="GridCell.Tab.0.center/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588760942917" />
-    <state width="1878" height="277" key="GridCell.Tab.0.left" timestamp="1588760942917">
+    <state width="1878" height="277" key="GridCell.Tab.0.center/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588763189659" />
+    <state width="1878" height="277" key="GridCell.Tab.0.left" timestamp="1588763189659">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1878" height="277" key="GridCell.Tab.0.left/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588675384478" />
-    <state width="1878" height="277" key="GridCell.Tab.0.left/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588760942917" />
-    <state width="1878" height="277" key="GridCell.Tab.0.right" timestamp="1588760942917">
+    <state width="1878" height="277" key="GridCell.Tab.0.left/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588763189659" />
+    <state width="1878" height="277" key="GridCell.Tab.0.right" timestamp="1588763189659">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1878" height="277" key="GridCell.Tab.0.right/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588675384478" />
-    <state width="1878" height="277" key="GridCell.Tab.0.right/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588760942917" />
+    <state width="1878" height="277" key="GridCell.Tab.0.right/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588763189659" />
     <state x="2468" y="292" key="IDE.errors.dialog" timestamp="1588511861342">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>

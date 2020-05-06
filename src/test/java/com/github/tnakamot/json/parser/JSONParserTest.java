@@ -29,7 +29,7 @@ import org.junit.platform.commons.logging.Logger;
 import org.junit.platform.commons.logging.LoggerFactory;
 
 public class JSONParserTest {
-  private static final Logger log = LoggerFactory.getLogger(JSONParserExceptionTest.class);
+  private static final Logger log = LoggerFactory.getLogger(JSONParserTest.class);
 
   @Test
   public void testEmpty() throws IOException, JSONParserException {
