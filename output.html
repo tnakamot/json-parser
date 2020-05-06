@@ -20,7 +20,7 @@
 
 <meta name="description" content="An implementation of Java JSON Parser">
 <link rel="shortcut icon" href="assets/images/json_logo.png">
-<title>Source Code · Java JSON Parser</title>
+<title>Output JSON text · Java JSON Parser</title>
 <link rel="stylesheet" href="assets/stylesheets/application.451f80e5.css">
 <link rel="stylesheet" href="assets/stylesheets/application-palette.22915126.css">
 <meta name="theme-color" content="#546e7a" />
@@ -60,7 +60,7 @@ data-md-color-accent="indigo"
 Java JSON Parser
 </span>
 <span class="md-header-nav__topic">
-Source Code
+Output JSON text
 </span>
 </div>
 </div>
@@ -113,11 +113,18 @@ Java JSON Parser
   <li><a href="immutable.html" class="page">Immutable and Mutable</a></li>
   <li><a href="json_source.html" class="page">Load JSON text from various sources</a></li>
   <li><a href="source_info.html" class="page">JSON source information</a></li>
-  <li><a href="output.html" class="page">Output JSON text</a></li>
-  <li><a href="source.html" class="active page">Source Code</a></li>
+  <li><a href="output.html" class="active page">Output JSON text</a></li>
+  <li><a href="source.html" class="page">Source Code</a></li>
   <li><a href="javadoc.html" class="page">Javadoc</a></li>
 </ul>
 <nav class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">Table of contents</label>
+<ul>
+  <li><a href="output.html#output-json-text" class="header">Output JSON text</a>
+  <ul>
+    <li><a href="output.html#examples" class="header">Examples</a></li>
+  </ul></li>
+</ul>
 </nav>
 
 </nav>
@@ -131,14 +138,59 @@ Java JSON Parser
 </div>
 </div>
 </div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">Table of contents</label>
+<ul>
+  <li><a href="output.html#output-json-text" class="header">Output JSON text</a>
+  <ul>
+    <li><a href="output.html#examples" class="header">Examples</a></li>
+  </ul></li>
+</ul>
+</nav>
+
+</div>
+</div>
+</div>
 <div class="md-content">
 <article class="md-content__inner md-typeset">
 <div class="md-content__searchable">
-<h1><a href="#source-code" name="source-code" class="anchor"><span class="anchor-link"></span></a>Source Code</h1>
-<p>The source code of this library is available at <a href="https://github.com/tnakamot/json-parser">GitHub</a>.</p>
+<h1><a href="#output-json-text" name="output-json-text" class="anchor"><span class="anchor-link"></span></a>Output JSON text</h1>
+<p><a href="javadoc/com/github/tnakamot/json/value/JSONValue.html">JSONValue</a> has the following methods to output JSON text.</p>
+<ul>
+  <li><a href="javadoc/com/github/tnakamot/json/value/JSONValue.html#toTokenBytes()">toTokenBytes</a></li>
+  <li><a href="javadoc/com/github/tnakamot/json/value/JSONValue.html#toTokenBytes(java.lang.String,java.lang.String)">toTokenBytes(String newline, String indent)</a></li>
+  <li><a href="javadoc/com/github/tnakamot/json/value/JSONValue.html#toTokenString()">toTokenString</a></li>
+  <li><a href="javadoc/com/github/tnakamot/json/value/JSONValue.html#toTokenString(java.lang.String,java.lang.String)">toTokenString(String newline, String indent)</a></li>
+</ul>
+<p>There are two versions for each method; one with no argument outputs a JSON text which does not include any white spaces or new line characters. It is suitable if the output will be processed by another program or library.</p>
+<p>The other version has two arguments. This method is suitable for human-reading because it adds new lines and indent accordingly. You need to specify the new line character(s) and indent.</p>
+<p><code>toTokenString</code> methods return a String. It is the caller&rsquo;s responsibility to encode the returned String. According to <a href="https://tools.ietf.org/html/rfc8259#section-8.1">RFC 8259 - 8.1 Character Encoding</a>, your application must encode it using UTF-8 without BOM before saving them to a file or transmitted to a network.</p>
+<p><code>toTokenBytes</code> methods return a byte array. The returned byte array contains the JSON text encoded in UTF-8 without BOM. </p>
+<h2><a href="#examples" name="examples" class="anchor"><span class="anchor-link"></span></a>Examples</h2>
+<p>Let&rsquo;s assume you constructed a JSON data structure with the code below and output the text with the last line where you specified &lsquo;\n&rsquo; as the new line character and two white spaces as indent.</p>
+<pre class="prettyprint"><code class="language-java">JSONValueObjectMutable obj = new JSONValueObjectMutable();
+obj.put(&quot;key1&quot;, new JSONValueNumber(&quot;123&quot;));
+obj.put(new JSONValueString(&quot;key2&quot;), new JSONValueNumber(&quot;789&quot;));
+System.out.println(obj.toTokenString(&quot;\n&quot;, &quot;  &quot;));
+</code></pre>
+<p>Then, you will get this result.</p>
+<pre class="prettyprint"><code class="language-json">{
+  &quot;key1&quot;: 123,
+  &quot;key2&quot;: 789
+}
+</code></pre>
+<p>If you do not specify new line or indent like this code,</p>
+<pre class="prettyprint"><code class="language-java">System.out.println(obj.toTokenString());
+</code></pre>
+<p>then you will get this one line result.</p>
+<pre class="prettyprint"><code class="language-json">{&quot;key1&quot;:123,&quot;key2&quot;:789}
+</code></pre>
 </div>
 <div>
-<a href="https://github.com/tnakamot/json-parser/tree/v0.1.0/src/paradox/source.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/tnakamot/json-parser/tree/v0.1.0/src/paradox/output.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
@@ -154,7 +206,7 @@ Edit this page
 <footer class="md-footer">
 <div class="md-footer-nav">
 <nav class="md-footer-nav__inner md-grid">
-<a href="output.html" title="Output JSON text" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+<a href="source_info.html" title="JSON source information" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
 <div class="md-flex__cell md-flex__cell--shrink">
 <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
 </div>
@@ -163,17 +215,17 @@ Edit this page
 <span class="md-footer-nav__direction">
 Previous
 </span>
-Output JSON text
+JSON source information
 </span>
 </div>
 </a>
-<a href="javadoc.html" title="Javadoc" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<a href="source.html" title="Source Code" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
 <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
 <span class="md-flex__ellipsis">
 <span class="md-footer-nav__direction">
 Next
 </span>
-Javadoc
+Source Code
 </span>
 </div>
 <div class="md-flex__cell md-flex__cell--shrink">

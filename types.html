@@ -110,8 +110,10 @@ Java JSON Parser
 </label>
 <ul>
   <li><a href="types.html" class="active page">Types</a></li>
+  <li><a href="immutable.html" class="page">Immutable and Mutable</a></li>
   <li><a href="json_source.html" class="page">Load JSON text from various sources</a></li>
   <li><a href="source_info.html" class="page">JSON source information</a></li>
+  <li><a href="output.html" class="page">Output JSON text</a></li>
   <li><a href="source.html" class="page">Source Code</a></li>
   <li><a href="javadoc.html" class="page">Javadoc</a></li>
 </ul>
@@ -134,7 +136,7 @@ Java JSON Parser
 <ul style="display: none">
 <li class="md-nav__item md-version" id="project.version">
 <label class="md-nav__link" for="__version">
-<i class="md-icon" title="Version">label_outline</i> 0.0.6
+<i class="md-icon" title="Version">label_outline</i> 0.1.0
 </label>
 </li>
 </ul>
@@ -166,7 +168,7 @@ Java JSON Parser
 <article class="md-content__inner md-typeset">
 <div class="md-content__searchable">
 <h1><a href="#types" name="types" class="anchor"><span class="anchor-link"></span></a>Types</h1>
-<p><a href="javadoc/com/github/tnakamot/json/value/JSONValue.html">JSONValue</a> is an abstract class and the realization of JSON value is done by child classes. The type of the JSON value can be obtained by calling <a href="javadoc/com/github/tnakamot/json/value/JSONValue.html#type()">type()</a>. Depending on the returned type, the instance of <a href="javadoc/com/github/tnakamot/json/value/JSONValue.html">JSONValue</a> can be safely casted in a dedicated class. The table below shows the correspondence between the type and the class.</p>
+<p><a href="javadoc/com/github/tnakamot/json/value/JSONValue.html">JSONValue</a> is an abstract class, and child classes represent actual JSON values. Call <a href="javadoc/com/github/tnakamot/json/value/JSONValue.html#type()">type()</a> to get the type of the JSON value you have. The returned type tells you to which dedicated class you can cast the instance of <a href="javadoc/com/github/tnakamot/json/value/JSONValue.html">JSONValue</a> safely. The table below shows the correspondence between the type returned by <a href="javadoc/com/github/tnakamot/json/value/JSONValue.html#type()">type()</a> and the class which you can cast to.</p>
 <table>
   <thead>
     <tr>
@@ -201,16 +203,20 @@ Java JSON Parser
     </tr>
   </tbody>
 </table>
+<p>Instead of checking the value returned by <a href="javadoc/com/github/tnakamot/json/value/JSONValue.html#type()">type()</a>, you can also use <code>instanceof</code> operator.</p>
 <p>The following sections explain the details of each type.</p>
 <h1><a href="#null" name="null" class="anchor"><span class="anchor-link"></span></a>null</h1>
 <p><a href="javadoc/com/github/tnakamot/json/value/JSONValueNull.html">JSONValueNull</a> has no value.</p>
 <h1><a href="#boolean" name="boolean" class="anchor"><span class="anchor-link"></span></a>boolean</h1>
 <p><a href="javadoc/com/github/tnakamot/json/value/JSONValueBoolean.html">JSONValueBoolean</a> holds a boolean value. Call <a href="javadoc/com/github/tnakamot/json/value/JSONValueBoolean.html#value()">value()</a> to extract the boolean value.</p>
 <h1><a href="#string" name="string" class="anchor"><span class="anchor-link"></span></a>string</h1>
-<p><a href="javadoc/com/github/tnakamot/json/value/JSONValueString.html">JSONValueString</a> holds an unescaped string value. Call <a href="javadoc/com/github/tnakamot/json/value/JSONValueString.html#value()">value()</a> to extract the String value.</p>
+<p><a href="javadoc/com/github/tnakamot/json/value/JSONValueString.html">JSONValueString</a> holds an unescaped string value. Call <a href="javadoc/com/github/tnakamot/json/value/JSONValueString.html#value()">value()</a> to extract the string value.</p>
 <h1><a href="#number" name="number" class="anchor"><span class="anchor-link"></span></a>number</h1>
-<p><a href="javadoc/com/github/tnakamot/json/value/JSONValueNumber.html">JSONValueNumber</a> holds a number value as String. Because no Java class in the standard Java library cannot represent all possible numeric values that the JSON number notation can express. For example, JSON allows an extremely large value like 1E100000 or an extremely precise value like 3.14159265358979323846264338327950288. No standard Java class or primitives cannot represent those values without loosing information. Therefore, <a href="javadoc/com/github/tnakamot/json/value/JSONValueNumber.html">JSONValueNumber</a> holds the text that represents the number as it appears in the JSON text.</p>
-<p>You can call <a href="javadoc/com/github/tnakamot/json/value/JSONValueNumber.html#toDouble()">toDouble()</a> or <a href="javadoc/com/github/tnakamot/json/value/JSONValueNumber.html#toLong()">toLong()</a> to get a corresponding Java primitive value.</p>
+<p><a href="javadoc/com/github/tnakamot/json/value/JSONValueNumber.html">JSONValueNumber</a> holds a number value as String. Unfortunately, no Java class in the standard Java library can represent all possible numeric values that the JSON number notation can express without information loss.</p>
+<p><a href="https://tools.ietf.org/html/rfc8259#section-6">RFC 8259 - 6. Numbers</a> explains all possible numeric expressions in JSON. It allows an extremely large value like 1E100000, and an extremely precise value like 3.14159265358979323846264338327950288. Although the <a href="https://tools.ietf.org/html/rfc8259#section-6">RFC 8259</a> allows libraries and applications to set limits on the range and precision of numbers accepted, this library does not set such limits to maximize interoperability. <a href="javadoc/com/github/tnakamot/json/value/JSONValueNumber.html">JSONValueNumber</a> of this library holds each numeric value in a string as it appears in your original JSON text.</p>
+<p>For your convenience, you can call <a href="javadoc/com/github/tnakamot/json/value/JSONValueNumber.html#toDouble()">toDouble()</a> or <a href="javadoc/com/github/tnakamot/json/value/JSONValueNumber.html#toLong()">toLong()</a> to get a corresponding Java primitive value.</p>
+<p><a href="javadoc/com/github/tnakamot/json/value/JSONValueNumber.html#toDouble()">toDouble()</a> internally calls <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html#parseDouble(java.lang.String)" title="java.lang.Double"><code>Double.parseDouble(String)</code></a>. As far as the library author knows, this method does not throw an exception as long as you pass a valid JSON numeric expression. However, you loose information if you pass an extremely precise value, and you will get <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html#POSITIVE_INFINITY" title="java.lang.Double"><code>POSITIVE_INFINITY</code></a> or <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Double.html#NEGATIVE_INFINITY" title="java.lang.Double"><code>NEGATIVE_INFINITY</code></a> if you pass an extremely large value.</p>
+<p><a href="javadoc/com/github/tnakamot/json/value/JSONValueNumber.html#toLong()">toLong()</a> tries to convert the String representation of the JSON numeric value into long, but if it cannot convert without loosing information, it throws <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/NumberFormatException.html" title="java.lang.NumberFormatException"><code>NumberFormatException</code></a>. For example, <code>1.52e2</code> appears to be a floating point value, but it is actually an integer <code>152</code>. Therefore, <a href="javadoc/com/github/tnakamot/json/value/JSONValueNumber.html#toLong()">toLong()</a> returns <code>152</code>. However, if there is a fractional part (e.g. <code>1.523e2</code>), or if the value is too large (e.g. <code>9223372036854775808</code>), this method throws <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/NumberFormatException.html" title="java.lang.NumberFormatException"><code>NumberFormatException</code></a>.</p>
 <h1><a href="#array" name="array" class="anchor"><span class="anchor-link"></span></a>array</h1>
 <p><a href="javadoc/com/github/tnakamot/json/value/JSONValueArray.html">JSONValueArray</a> holds an ordered sequence of <a href="javadoc/com/github/tnakamot/json/value/JSONValue.html">JSONValue</a>. It implements <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/List.html" title="java.util.List"><code>List</code></a> interface, so all values can be iterated using <code>for</code> statement, for example.</p>
 <pre class="prettyprint"><code class="language-java">JSONText jsText = JSONText.fromString(&quot; [ true, false, \&quot;abc\&quot;, 1.52, null ] &quot;);
@@ -223,8 +229,7 @@ if (root.type() == JSONValueType.ARRAY) {
         ...
     }
 }
-</code></pre><div class="callout note "><div class="callout-title">Note</div>
-<p>Instances of <a href="javadoc/com/github/tnakamot/json/value/JSONValueArray.html">JSONValueArray</a> are immutable. All methods of <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/List.html" title="java.util.List"><code>List</code></a> interface that may change the list contents like <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/List.html#add(E)" title="java.util.List"><code>add()</code></a> result in <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/UnsupportedOperationException.html" title="java.lang.UnsupportedOperationException"><code>UnsupportedOperationException</code></a>.</p></div>
+</code></pre>
 <h1><a href="#object" name="object" class="anchor"><span class="anchor-link"></span></a>object</h1>
 <p><a href="javadoc/com/github/tnakamot/json/value/JSONValueObject.html">JSONValueObject</a> holds a key-value map. It implements <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Map.html" title="java.util.Map"><code>Map</code></a> interface. The class of the key is <a href="javadoc/com/github/tnakamot/json/value/JSONValueString.html">JSONValueString</a> and that of the value is <a href="javadoc/com/github/tnakamot/json/value/JSONValue.html">JSONValue</a>. All key-value pairs can be iterated as shown below.</p>
 <pre class="prettyprint"><code class="language-java">JSONText jsText = JSONText.fromString(
@@ -242,17 +247,16 @@ if (root.type() == JSONValueType.OBJECT) {
         ...
     }
 }
-</code></pre><div class="callout note "><div class="callout-title">Note</div>
-<p>Instances of <a href="javadoc/com/github/tnakamot/json/value/JSONValueObject.html">JSONValueObject</a> are immutable. All methods of <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Map.html" title="java.util.Map"><code>Map</code></a> interface that may change the contents like <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Map.html#put(K,V)" title="java.util.Map"><code>put()</code></a> result in <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/UnsupportedOperationException.html" title="java.lang.UnsupportedOperationException"><code>UnsupportedOperationException</code></a>.</p></div>
+</code></pre>
 </div>
 <div>
-<a href="https://github.com/tnakamot/json-parser/tree/v0.0.6/src/paradox/types.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/tnakamot/json-parser/tree/v0.1.0/src/paradox/types.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-0.0.6
+0.1.0
 </span>
 </div>
 </article>
@@ -275,13 +279,13 @@ Java JSON Parser
 </span>
 </div>
 </a>
-<a href="json_source.html" title="Load JSON text from various sources" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<a href="immutable.html" title="Immutable and Mutable" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
 <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
 <span class="md-flex__ellipsis">
 <span class="md-footer-nav__direction">
 Next
 </span>
-Load JSON text from various sources
+Immutable and Mutable
 </span>
 </div>
 <div class="md-flex__cell md-flex__cell--shrink">
