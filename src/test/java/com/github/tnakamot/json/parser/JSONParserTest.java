@@ -428,16 +428,14 @@ public class JSONParserTest {
     assertTrue(image instanceof JSONValueObjectImmutable);
     JSONValueObject imageObj = (JSONValueObject) image;
     UnsupportedOperationException ex2 =
-        assertThrows(UnsupportedOperationException.class, () -> imageObj.clear());
+        assertThrows(UnsupportedOperationException.class, imageObj::clear);
     log.info(ex2, ex2::getMessage);
 
     JSONValue thumbnail = imageObj.get("Thumbnail");
     assertTrue(thumbnail instanceof JSONValueObjectImmutable);
     JSONValueObject thumbnailObj = (JSONValueObject) thumbnail;
     UnsupportedOperationException ex3 =
-        assertThrows(
-            UnsupportedOperationException.class,
-            () -> thumbnailObj.remove(thumbnailObj.get("Url")));
+        assertThrows(UnsupportedOperationException.class, () -> thumbnailObj.remove("Url"));
     log.info(ex3, ex3::getMessage);
 
     JSONValue ids = imageObj.get("IDs");
@@ -467,7 +465,7 @@ public class JSONParserTest {
     assertTrue(element1 instanceof JSONValueObjectImmutable);
     JSONValueObject element1Obj = (JSONValueObject) element1;
     UnsupportedOperationException ex2 =
-        assertThrows(UnsupportedOperationException.class, () -> element1Obj.clear());
+        assertThrows(UnsupportedOperationException.class, element1Obj::clear);
     log.info(ex2, ex2::getMessage);
 
     JSONValue element2 = rootArray.get(1);
