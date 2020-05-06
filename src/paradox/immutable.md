@@ -38,4 +38,18 @@ a JSON text from a file, modify the contents and write back to another file.
 
 ## Conversion
 
-TODO: write about conversion between immutable and mutable.
+You can get a mutable copy of an immutable JSON object or array and get an
+immutable copy of a mutable version with the following methods 
+
+* @extref[JSONValueArrayImmutable#toMutable()](javadoc:value/JSONValueArrayImmutable.html#toMutable())
+* @extref[JSONValueObjectImmutable#toMutable()](javadoc:value/JSONValueObjectImmutable.html#toMutable())
+* @extref[JSONValueArrayMutable#toImutable()](javadoc:value/JSONValueArrayMutable.html#toImmutable())
+* @extref[JSONValueObjectMutable#toImutable()](javadoc:value/JSONValueObjectMutable.html#toImmutable())
+
+These methods turn the inner JSON objects and arrays to immutable or mutable.
+For example, if there is a mutable JSON object which contains two mutable JSON
+arrays,
+@extref[JSONValueObjectImmutable#toMutable()](javadoc:value/JSONValueObjectImmutable.html#toMutable())
+turns the given JSON object and two JSON arrays to immutable.
+
+
