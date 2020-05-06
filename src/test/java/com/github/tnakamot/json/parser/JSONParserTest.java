@@ -20,12 +20,17 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.github.tnakamot.json.JSONText;
 import com.github.tnakamot.json.value.*;
+import java.net.URL;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.Map;
+import org.junit.platform.commons.logging.Logger;
+import org.junit.platform.commons.logging.LoggerFactory;
 
 public class JSONParserTest {
+  private static final Logger log = LoggerFactory.getLogger(JSONParserExceptionTest.class);
+
   @Test
   public void testEmpty() throws IOException, JSONParserException {
     JSONValue root = JSONText.fromString("").parse();
@@ -402,5 +407,134 @@ public class JSONParserTest {
       }
       i++;
     }
+  }
+
+  @Test
+  public void testImmutable1() throws IOException, JSONParserException {
+    URL example =
+        this.getClass().getResource("/com/github/tnakamot/json/rfc8259/rfc8259_example1.json");
+    JSONText jsText = JSONText.fromURL(example);
+    JSONValue root = jsText.parse(true);
+
+    assertTrue(root instanceof JSONValueObjectImmutable);
+    JSONValueObject rootObj = (JSONValueObject) root;
+    UnsupportedOperationException ex1 =
+        assertThrows(
+            UnsupportedOperationException.class,
+            () -> rootObj.put(new JSONValueString("test"), new JSONValueString("value")));
+    log.info(ex1, ex1::getMessage);
+
+    JSONValue image = rootObj.get("Image");
+    assertTrue(image instanceof JSONValueObjectImmutable);
+    JSONValueObject imageObj = (JSONValueObject) image;
+    UnsupportedOperationException ex2 =
+        assertThrows(UnsupportedOperationException.class, () -> imageObj.clear());
+    log.info(ex2, ex2::getMessage);
+
+    JSONValue thumbnail = imageObj.get("Thumbnail");
+    assertTrue(thumbnail instanceof JSONValueObjectImmutable);
+    JSONValueObject thumbnailObj = (JSONValueObject) thumbnail;
+    UnsupportedOperationException ex3 =
+        assertThrows(
+            UnsupportedOperationException.class,
+            () -> thumbnailObj.remove(thumbnailObj.get("Url")));
+    log.info(ex3, ex3::getMessage);
+
+    JSONValue ids = imageObj.get("IDs");
+    assertTrue(ids instanceof JSONValueArrayImmutable);
+    JSONValueArray idsArray = (JSONValueArray) ids;
+    UnsupportedOperationException ex4 =
+        assertThrows(
+            UnsupportedOperationException.class, () -> idsArray.add(new JSONValueString("value")));
+    log.info(ex4, ex4::getMessage);
+  }
+
+  @Test
+  public void testImmutable2() throws IOException, JSONParserException {
+    URL example =
+        this.getClass().getResource("/com/github/tnakamot/json/rfc8259/rfc8259_example2.json");
+    JSONText jsText = JSONText.fromURL(example);
+    JSONValue root = jsText.parse(true);
+
+    assertTrue(root instanceof JSONValueArrayImmutable);
+    JSONValueArray rootArray = (JSONValueArray) root;
+    UnsupportedOperationException ex1 =
+        assertThrows(
+            UnsupportedOperationException.class, () -> rootArray.add(new JSONValueString("test")));
+    log.info(ex1, ex1::getMessage);
+
+    JSONValue element1 = rootArray.get(0);
+    assertTrue(element1 instanceof JSONValueObjectImmutable);
+    JSONValueObject element1Obj = (JSONValueObject) element1;
+    UnsupportedOperationException ex2 =
+        assertThrows(UnsupportedOperationException.class, () -> element1Obj.clear());
+    log.info(ex2, ex2::getMessage);
+
+    JSONValue element2 = rootArray.get(1);
+    assertTrue(element2 instanceof JSONValueObjectImmutable);
+    JSONValueObject element2Obj = (JSONValueObject) element2;
+    UnsupportedOperationException ex3 =
+        assertThrows(
+            UnsupportedOperationException.class,
+            () -> element2Obj.remove(new JSONValueString("Zip")));
+    log.info(ex3, ex3::getMessage);
+  }
+
+  @Test
+  public void testMutable1() throws IOException, JSONParserException {
+    URL example =
+        this.getClass().getResource("/com/github/tnakamot/json/rfc8259/rfc8259_example1.json");
+    JSONText jsText = JSONText.fromURL(example);
+    JSONValue root = jsText.parse(false);
+
+    assertTrue(root instanceof JSONValueObjectMutable);
+    JSONValueObject rootObj = (JSONValueObject) root;
+    rootObj.put(new JSONValueString("test"), new JSONValueString("value"));
+    assertEquals(new JSONValueString("value"), rootObj.get("test"));
+
+    JSONValue image = rootObj.get("Image");
+    assertTrue(image instanceof JSONValueObjectMutable);
+    JSONValueObject imageObj = (JSONValueObject) image;
+    imageObj.put("newKey", new JSONValueString("hello"));
+    assertEquals(new JSONValueString("hello"), imageObj.get("newKey"));
+
+    JSONValue thumbnail = imageObj.get("Thumbnail");
+    assertTrue(thumbnail instanceof JSONValueObjectMutable);
+    JSONValueObject thumbnailObj = (JSONValueObject) thumbnail;
+    thumbnailObj.clear();
+    assertEquals(0, thumbnailObj.size());
+
+    JSONValue ids = imageObj.get("IDs");
+    assertTrue(ids instanceof JSONValueArrayMutable);
+    JSONValueArray idsArray = (JSONValueArray) ids;
+    idsArray.add(new JSONValueNumber("6123"));
+    assertEquals(new JSONValueNumber("6123"), idsArray.get(idsArray.size() - 1));
+  }
+
+  @Test
+  public void testMutable2() throws IOException, JSONParserException {
+    URL example =
+        this.getClass().getResource("/com/github/tnakamot/json/rfc8259/rfc8259_example2.json");
+    JSONText jsText = JSONText.fromURL(example);
+    JSONValue root = jsText.parse(false);
+
+    assertTrue(root instanceof JSONValueArrayMutable);
+    JSONValueArray rootArray = (JSONValueArray) root;
+    int originalSize = rootArray.size();
+    rootArray.add(new JSONValueString("test"));
+    assertEquals(originalSize + 1, rootArray.size());
+
+    JSONValue element1 = rootArray.get(0);
+    assertTrue(element1 instanceof JSONValueObjectMutable);
+    JSONValueObject element1Obj = (JSONValueObject) element1;
+    element1Obj.clear();
+    assertEquals(0, element1Obj.size());
+
+    JSONValue element2 = rootArray.get(1);
+    assertTrue(element2 instanceof JSONValueObjectMutable);
+    JSONValueObject element2Obj = (JSONValueObject) element2;
+    assertTrue(element2Obj.containsKey("Zip"));
+    element2Obj.remove("Zip");
+    assertFalse(element2Obj.containsKey("Zip"));
   }
 }

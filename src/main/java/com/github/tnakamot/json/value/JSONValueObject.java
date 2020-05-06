@@ -83,9 +83,17 @@ public abstract class JSONValueObject extends JSONValue implements Map<JSONValue
   @Override
   public abstract JSONValue put(JSONValueString jsonValueString, JSONValue jsonValue);
 
+  public JSONValue put(String key, JSONValue jsonValue) {
+    return put(new JSONValueString(key), jsonValue);
+  }
+
   /** {@inheritDoc} */
   @Override
   public abstract JSONValue remove(Object o);
+
+  public JSONValue remove(String key) {
+    return remove(new JSONValueString(key));
+  }
 
   /** {@inheritDoc} */
   @Override
