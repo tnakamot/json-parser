@@ -203,4 +203,21 @@ public class JSONValueNumberTest {
     assertNotEquals(val2, val3);
     assertNotEquals(val3, val2);
   }
+
+  @Test
+  public void testFromDouble() {
+    JSONValueNumber val = new JSONValueNumber(1.23);
+    assertEquals(1.23, val.toDouble());
+    assertEquals("1.23", val.toString());
+    assertEquals("1.23", val.toTokenString());
+  }
+
+  @Test
+  public void testFromLong() {
+    JSONValueNumber val = new JSONValueNumber(512);
+    assertTrue(val.canBeLong());
+    assertEquals(512, val.toLong());
+    assertEquals("512", val.toString());
+    assertEquals("512", val.toTokenString());
+  }
 }

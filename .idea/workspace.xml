@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3c5df3ac-ef3e-43a0-b663-864f20b4e52e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/paradox/output.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/paradox/index.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/paradox/index.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/github/tnakamot/json/RFC8259ExampleTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/tnakamot/json/RFC8259ExampleTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/github/tnakamot/json/parser/JSONParserExceptionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/tnakamot/json/parser/JSONParserExceptionTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/github/tnakamot/json/value/JSONValueNumberTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/tnakamot/json/value/JSONValueNumberTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/github/tnakamot/json/value/JSONValueObjectTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/tnakamot/json/value/JSONValueObjectTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -164,13 +165,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1588333989494</updated>
-    </task>
-    <task id="LOCAL-00035" summary="Copyright notice.">
-      <created>1588511507621</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1588511507621</updated>
     </task>
     <task id="LOCAL-00036" summary="Error message format description.">
       <created>1588512768862</created>
@@ -508,11 +502,17 @@
       <option name="project" value="LOCAL" />
       <updated>1588764565746</updated>
     </task>
-    <option name="localTasksCounter" value="84" />
+    <task id="LOCAL-00084" summary="Added document about how to output JSON text.">
+      <created>1588765660554</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1588765660554</updated>
+    </task>
+    <option name="localTasksCounter" value="85" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Use a simpler method calls." />
     <MESSAGE value="Call files.writeString and readString methods inline." />
     <MESSAGE value="Tried sbt-jacoco, but it did not work well." />
     <MESSAGE value="Formatted all code with google-java-format IntelliJ plugin." />
@@ -537,7 +537,8 @@
     <MESSAGE value="Documented conversion between immutable and mutable." />
     <MESSAGE value="Resolved TODOs." />
     <MESSAGE value="Test toTokenBytes." />
-    <option name="LAST_COMMIT_MESSAGE" value="Test toTokenBytes." />
+    <MESSAGE value="Added document about how to output JSON text." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added document about how to output JSON text." />
   </component>
   <component name="WindowStateProjectService">
     <state x="2655" y="203" key="#Auto_Import" timestamp="1588551879551">
@@ -603,16 +604,16 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2618" y="297" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588415632452" />
-    <state x="2634" y="415" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1588746867130">
+    <state x="2634" y="415" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1588766256844">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="714" y="415" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588670037386" />
-    <state x="2634" y="415" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588746867130" />
-    <state x="2479" y="91" width="1160" height="845" key="CommitChangelistDialog2" timestamp="1588764565606">
+    <state x="2634" y="415" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588766256844" />
+    <state x="2479" y="91" width="1160" height="845" key="CommitChangelistDialog2" timestamp="1588765660422">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="575" y="121" width="1160" height="845" key="CommitChangelistDialog2/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588672371314" />
-    <state x="2479" y="91" width="1185" height="820" key="CommitChangelistDialog2/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588764565606" />
+    <state x="2479" y="91" width="1185" height="820" key="CommitChangelistDialog2/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588765660422" />
     <state x="100" y="123" width="1720" height="817" key="DiffContextDialog" timestamp="1588665400436">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -622,26 +623,26 @@
     </state>
     <state x="872" y="312" key="FileChooserDialogImpl/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588670355852" />
     <state x="2792" y="312" key="FileChooserDialogImpl/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588657240584" />
-    <state width="1878" height="277" key="GridCell.Tab.0.bottom" timestamp="1588765406244">
+    <state width="1878" height="277" key="GridCell.Tab.0.bottom" timestamp="1588766224508">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1878" height="277" key="GridCell.Tab.0.bottom/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588675384478" />
-    <state width="1878" height="277" key="GridCell.Tab.0.bottom/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588765406244" />
-    <state width="1878" height="277" key="GridCell.Tab.0.center" timestamp="1588765406244">
+    <state width="1878" height="277" key="GridCell.Tab.0.bottom/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588766224508" />
+    <state width="1878" height="277" key="GridCell.Tab.0.center" timestamp="1588766224508">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1878" height="277" key="GridCell.Tab.0.center/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588675384478" />
-    <state width="1878" height="277" key="GridCell.Tab.0.center/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588765406244" />
-    <state width="1878" height="277" key="GridCell.Tab.0.left" timestamp="1588765406244">
+    <state width="1878" height="277" key="GridCell.Tab.0.center/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588766224508" />
+    <state width="1878" height="277" key="GridCell.Tab.0.left" timestamp="1588766224508">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1878" height="277" key="GridCell.Tab.0.left/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588675384478" />
-    <state width="1878" height="277" key="GridCell.Tab.0.left/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588765406244" />
-    <state width="1878" height="277" key="GridCell.Tab.0.right" timestamp="1588765406244">
+    <state width="1878" height="277" key="GridCell.Tab.0.left/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588766224508" />
+    <state width="1878" height="277" key="GridCell.Tab.0.right" timestamp="1588766224508">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1878" height="277" key="GridCell.Tab.0.right/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588675384478" />
-    <state width="1878" height="277" key="GridCell.Tab.0.right/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588765406244" />
+    <state width="1878" height="277" key="GridCell.Tab.0.right/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588766224508" />
     <state x="2468" y="292" key="IDE.errors.dialog" timestamp="1588511861342">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>

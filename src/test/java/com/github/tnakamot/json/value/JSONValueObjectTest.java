@@ -18,9 +18,15 @@ public class JSONValueObjectTest {
 
   @Test
   public void testPut() {
-    JSONValueObjectMutable obj = new JSONValueObjectMutable();
-    obj.put("key1", new JSONValueNumber("123"));
-    obj.put(new JSONValueString("key2"), new JSONValueNumber("789"));
+    JSONValueObject obj = new JSONValueObjectMutable();
+
+    JSONValue toAdd1 = new JSONValueNumber("123");
+    JSONValue toAdd2 = new JSONValueNumber("456");
+    JSONValue toAdd3 = new JSONValueNumber("789");
+
+    assertNull(obj.put("key1", toAdd1));
+    assertNull(obj.put("key2", toAdd2));
+    assertEquals(toAdd2, obj.put("key2", toAdd3));
 
     assertEquals(2, obj.size());
     assertTrue(obj.containsKey("key1"));
@@ -44,6 +50,28 @@ public class JSONValueObjectTest {
   }
 
   @Test
+  public void testRemove() {
+    JSONValueObjectMutable obj = new JSONValueObjectMutable();
+
+    JSONValue toAdd1 = new JSONValueNumber("123");
+    JSONValue toAdd2 = new JSONValueNumber("456");
+
+    assertNull(obj.put("key1", toAdd1));
+    assertNull(obj.put("key2", toAdd2));
+
+    assertEquals(2, obj.size());
+
+    assertNull(obj.remove("key3"));
+    assertEquals(2, obj.size());
+
+    assertEquals(toAdd1, obj.remove("key1"));
+    assertEquals(1, obj.size());
+
+    assertEquals(toAdd2, obj.remove(new JSONValueString("key2")));
+    assertEquals(0, obj.size());
+  }
+
+  @Test
   public void testToImmutable() {
     JSONValueObjectMutable rootObj = new JSONValueObjectMutable();
     JSONValueObjectMutable childObj = new JSONValueObjectMutable();
@@ -53,7 +81,6 @@ public class JSONValueObjectTest {
     rootObj.put("childArray", childArray);
 
     JSONValueObject rootObjImmutable = rootObj.toImmutable();
-    assertTrue(rootObjImmutable instanceof JSONValueObjectImmutable);
     assertTrue(rootObjImmutable.get("childObj") instanceof JSONValueObjectImmutable);
     assertTrue(rootObjImmutable.get("childArray") instanceof JSONValueArrayImmutable);
 

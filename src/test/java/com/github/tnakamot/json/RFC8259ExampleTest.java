@@ -3,7 +3,6 @@ package com.github.tnakamot.json;
 import com.github.tnakamot.json.parser.JSONParserException;
 
 import com.github.tnakamot.json.value.*;
-import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;

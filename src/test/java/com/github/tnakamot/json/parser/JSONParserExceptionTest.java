@@ -89,10 +89,10 @@ public class JSONParserExceptionTest {
   }
 
   @Test
-  public void testNameOfStringSource() throws IOException {
+  public void testNameOfStringSource() {
     String text = "{ \"key\": value }";
     JSONText source = JSONText.fromString(text, "text_in_memory.json");
-    JSONParserException ex = assertThrows(JSONParserException.class, () -> source.parse());
+    JSONParserException ex = assertThrows(JSONParserException.class, source::parse);
 
     String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
     log.info(() -> methodName + ": " + ex.getMessage());
