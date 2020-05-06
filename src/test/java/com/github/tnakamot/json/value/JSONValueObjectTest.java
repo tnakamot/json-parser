@@ -40,6 +40,7 @@ public class JSONValueObjectTest {
     assertNull(obj.get(new JSONValueString("key3")));
 
     assertEquals("{\"key1\":123,\"key2\":789}", obj.toTokenString());
+    log.info(() -> obj.toTokenString("\n", "  "));
   }
 
   @Test
