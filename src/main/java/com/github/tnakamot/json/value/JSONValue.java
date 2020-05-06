@@ -63,8 +63,25 @@ public abstract class JSONValue {
   public abstract String toTokenString(String newline, String indent);
 
   /**
-   * Convert this JSON value to String which can be saved as a JSON text to a file or transmitted to
-   * network. The output text is optimized for human.
+   * Convert this JSON value to a byte array which can be saved as a JSON text to a file or
+   * transmitted to network. The output text is optimized for machine, so no indent or new lines
+   * will be inserted.
+   *
+   * <p>The returned byte array is encoded using UTF-8 without BOM in accordance with <a
+   * href="https://tools.ietf.org/html/rfc8259#section-8.1">RFC 8259 - 8.1 Character Encoding</a>.
+   *
+   * @return a byte array representation of this JSON value
+   */
+  @NotNull
+  public byte[] toTokenBytes() {
+    String tokenStr = toTokenString();
+    return tokenStr.getBytes(StandardCharsets.UTF_8);
+  }
+
+  /**
+   * Convert this JSON value to a byte array which can be saved as a JSON text to a file or
+   * transmitted to network. The output text is optimized for human. Indents and new line characters
+   * * are inserted accordingly.
    *
    * <p>The returned byte array is encoded using UTF-8 without BOM in accordance with <a
    * href="https://tools.ietf.org/html/rfc8259#section-8.1">RFC 8259 - 8.1 Character Encoding</a>.
