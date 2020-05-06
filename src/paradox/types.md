@@ -1,12 +1,13 @@
 # Types
 
-@extref[JSONValue](javadoc:value/JSONValue.html) is an abstract class and
-the realization of JSON value is done by child classes. The type of the
-JSON value can be obtained by calling 
-@extref[type()](javadoc:value/JSONValue.html#type()). Depending on the
-returned type, the instance of @extref[JSONValue](javadoc:value/JSONValue.html)
-can be safely casted in a dedicated class. The table below shows the correspondence
-between the type and the class.
+@extref[JSONValue](javadoc:value/JSONValue.html) is an abstract class, and
+child classes represent actual JSON values. Call
+@extref[type()](javadoc:value/JSONValue.html#type()) to get the type of the
+JSON value you have. The returned type tells you to which dedicated class 
+you can cast the instance of @extref[JSONValue](javadoc:value/JSONValue.html)
+safely. The table below shows the correspondence between the type returned
+by @extref[type()](javadoc:value/JSONValue.html#type()) and the class which
+you can cast to.
 
 | Type                                                       | Class                                                          |
 | ---------------------------------------------------------- | -------------------------------------------------------------- |
@@ -16,6 +17,10 @@ between the type and the class.
 | @extref[NUMBER](javadoc:value/JSONValueType.html#NUMBER)   | @extref[JSONValueNumber](javadoc:value/JSONValueNumber.html)   |
 | @extref[ARRAY](javadoc:value/JSONValueType.html#ARRAY)     | @extref[JSONValueArray](javadoc:value/JSONValueArray.html)     |
 | @extref[OBJECT](javadoc:value/JSONValueType.html#OBJECT)   | @extref[JSONValueObject](javadoc:value/JSONValueObject.html)   |
+
+Instead of checking the value returned by
+@extref[type()](javadoc:value/JSONValue.html#type()), you can also use `instanceof`
+operator.
 
 The following sections explain the details of each type.
 
@@ -33,22 +38,47 @@ boolean value.
 
 @extref[JSONValueString](javadoc:value/JSONValueString.html) holds an unescaped
 string value. Call @extref[value()](javadoc:value/JSONValueString.html#value())
-to extract the String value.
+to extract the string value.
 
 # number
 
 @extref[JSONValueNumber](javadoc:value/JSONValueNumber.html) holds a number value
-as String. Because no Java class in the standard Java library cannot represent 
-all possible numeric values that the JSON number notation can express. For example,
-JSON allows an extremely large value like 1E100000 or an extremely precise value
-like 3.14159265358979323846264338327950288. No standard Java class or primitives
-cannot represent those values without loosing information. Therefore, 
-@extref[JSONValueNumber](javadoc:value/JSONValueNumber.html) holds the text that
-represents the number as it appears in the JSON text.
+as String. Unfortunately, no Java class in the standard Java library can represent 
+all possible numeric values that the JSON number notation can express without
+information loss.
+ 
+[RFC 8259 - 6. Numbers](https://tools.ietf.org/html/rfc8259#section-6) explains
+all possible numeric expressions in JSON. It allows an extremely large value
+like 1E100000, and an extremely precise value like 3.14159265358979323846264338327950288.
+Although the [RFC 8259](https://tools.ietf.org/html/rfc8259#section-6) allows libraries
+and applications to set limits on the range and precision of numbers accepted,
+this library does not set such limits to maximize interoperability. 
+@extref[JSONValueNumber](javadoc:value/JSONValueNumber.html) of this library
+holds each numeric value in a string as it appears in your original JSON text.
 
-You can call @extref[toDouble()](javadoc:value/JSONValueNumber.html#toDouble()) or
-@extref[toLong()](javadoc:value/JSONValueNumber.html#toLong()) to get a corresponding Java
-primitive value.
+For your convenience, you can call
+@extref[toDouble()](javadoc:value/JSONValueNumber.html#toDouble()) or
+@extref[toLong()](javadoc:value/JSONValueNumber.html#toLong()) to get a corresponding
+Java primitive value.
+
+@extref[toDouble()](javadoc:value/JSONValueNumber.html#toDouble()) internally
+calls @javadoc[Double.parseDouble(String)](java.lang.Double#parseDouble(java.lang.String)).
+As far as the library author knows, this method does not throw an exception as long
+as you pass a valid JSON numeric expression. However, you loose information if you
+pass an extremely precise value, and you will get
+@javadoc[POSITIVE_INFINITY](java.lang.Double#POSITIVE_INFINITY) or 
+@javadoc[NEGATIVE_INFINITY](java.lang.Double#NEGATIVE_INFINITY) if you pass an extremely
+large value.
+
+@extref[toLong()](javadoc:value/JSONValueNumber.html#toLong()) tries to convert
+the String representation of the JSON numeric value into long, but if it cannot
+convert without loosing information, it throws
+@javadoc[NumberFormatExceptiuon](java.lang.NumberFormatException).
+For example, `1.52e2` appears to be a floating point value, but it is actually
+an integer `152`. Therefore, @extref[toLong()](javadoc:value/JSONValueNumber.html#toLong())
+returns `152`. However, if there is a fractional part (e.g. `1.523e2`), or if 
+the value is too large (e.g. `9223372036854775808`), this method throws 
+@javadoc[NumberFormatExceptiuon](java.lang.NumberFormatException).
 
 # array
 
@@ -69,13 +99,6 @@ if (root.type() == JSONValueType.ARRAY) {
     }
 }
 ```
-
-@@@ note
-Instances of @extref[JSONValueArray](javadoc:value/JSONValueArray.html) are immutable.
-All methods of @javadoc[List](java.util.List) interface that may change the list
-contents like @javadoc[add()](java.util.List#add(E)) result in 
-@javadoc[UnsupportedOperationException](java.lang.UnsupportedOperationException).
-@@@
 
 # object
 
@@ -102,10 +125,3 @@ if (root.type() == JSONValueType.OBJECT) {
     }
 }
 ```
-
-@@@ note
-Instances of @extref[JSONValueObject](javadoc:value/JSONValueObject.html) are immutable.
-All methods of @javadoc[Map](java.util.Map) interface that may change the 
-contents like @javadoc[put()](java.util.Map#put(K,V)) result in 
-@javadoc[UnsupportedOperationException](java.lang.UnsupportedOperationException).
-@@@

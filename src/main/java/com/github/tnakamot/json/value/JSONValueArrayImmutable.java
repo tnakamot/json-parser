@@ -217,6 +217,7 @@ public class JSONValueArrayImmutable extends JSONValueArray {
 
   /** @return a mutable version of the same JSON array. */
   public JSONValueArrayMutable toMutable() {
+    // TODO: also convert the inner objects and arrays to mutable
     return new JSONValueArrayMutable(this);
   }
 

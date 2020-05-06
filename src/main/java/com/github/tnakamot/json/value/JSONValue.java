@@ -31,12 +31,14 @@ public abstract class JSONValue {
   }
 
   /**
-   * Convert this JSON value to String which can be saved as a JSON text to a file or transmitted to
-   * network. The output text is optimized for machine, so no indent or new lines will be inserted.
+   * Convert this JSON value to {@link String} which can be saved as a JSON text to a file or
+   * transmitted to network. The output text is optimized for machine, so no indent or new lines
+   * will be inserted.
    *
    * <p>Note that, according to <a href="https://tools.ietf.org/html/rfc8259#section-8.1">RFC 8259 -
    * 8.1 Character Encoding</a>, your application program must encode the returned String using
-   * UTF-8 without BOM. It is caller's responsibility to correctly encode the returned String.
+   * UTF-8 without BOM before writing the returned {@link String} to a file or a network stream,
+   * or network datagram(s). It is caller's responsibility to correctly encode it.
    *
    * @return a string representation of this JSON value
    */
@@ -44,12 +46,14 @@ public abstract class JSONValue {
   public abstract String toTokenString();
 
   /**
-   * Convert this JSON value to String which can be saved as a JSON text to a file or transmitted to
-   * network. The output text is optimized for human.
+   * Convert this JSON value to {@link String} which can be saved as a JSON text to a file or
+   * transmitted to network. The output text is optimized for human. Indents and new line
+   * characters are inserted accordingly.
    *
    * <p>Note that, according to <a href="https://tools.ietf.org/html/rfc8259#section-8.1">RFC 8259 -
    * 8.1 Character Encoding</a>, your application program must encode the returned String using
-   * UTF-8 without BOM. It is caller's responsibility to correctly encode the returned String.
+   * UTF-8 without BOM before writing the returned {@link String} to a file or a network stream,
+   * or network datagram(s). It is caller's responsibility to correctly encode it.
    *
    * @param newline line separator; "\r", "\n" or "\r\n"
    * @param indent indent string. Must consist of " " and "\t".

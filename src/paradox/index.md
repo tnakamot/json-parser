@@ -57,6 +57,7 @@ if (root.type() == JSONValueType.OBJECT) {
 
 @@@ index
 * [Types](types.md)
+* [Mutable and Immutable](immutable.md)
 * [Load JSON text from various sources](json_source.md)
 * [JSON source information](source_info.md)
 * [Source Code](source.md)

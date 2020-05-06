@@ -19,11 +19,11 @@ information.
   returns an object which holds the line and column number of the character
   after the last character of this JSON value within the JSON text.
 * @extref[source()](javadoc:token/JSONToken.html#source()) returns an instance of
-  @extref[JSONText](javadoc:JSONText.html) from which this JSON value was extracted.
+  @extref[JSONText](javadoc:JSONText.html) from which the parser extracted the JSON value.
    * @extref[JSONText#name()](javadoc:JSONText.html#name()) holds the short name
      (i.e. file name) of the JSON text.
    * @extref[JSONText#fullName()](javadoc:JSONText.html#fullName()) holds the full
      name (i.e. URL or full path) of the JSON text.
-   * The above methods do not make sense if the JSON text was loaded from String.
+   * The above methods do not make sense if you loaded the JSON text from String.
 
 

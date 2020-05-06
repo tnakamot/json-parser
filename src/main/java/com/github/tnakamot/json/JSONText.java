@@ -125,7 +125,7 @@ public class JSONText {
    */
   @SuppressWarnings(
       "UnusedReturnValue") // Unit tests only the exceptions. The return values are tested through
-                           // unit test of the underlying method.
+  // unit test of the underlying method.
   public JSONValue parse(JSONParserErrorMessageFormat errMsgFmt)
       throws IOException, JSONParserException {
     return parse(true, errMsgFmt);
@@ -261,5 +261,7 @@ public class JSONText {
     }
 
     return new JSONText(str, str);
+
+    // TODO: support name and fullName
   }
 }

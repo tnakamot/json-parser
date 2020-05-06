@@ -183,6 +183,7 @@ public class JSONValueObjectMutable extends JSONValueObject {
 
   /** @return an immutable version of the same JSON object. */
   public JSONValueObjectImmutable toImmutable() {
+    // TODO: also convert the inner objects and arrays to immutable
     return new JSONValueObjectImmutable(this);
   }
 
