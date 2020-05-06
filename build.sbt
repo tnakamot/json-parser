@@ -32,7 +32,6 @@ Paradox / paradoxMaterialTheme := {
     .withSearch()
 }
 
-//noinspection SpellCheckingInspection,SpellCheckingInspection,SpellCheckingInspection,SpellCheckingInspection,SpellCheckingInspection
 lazy val root = (project in file("."))
   .enablePlugins(GhpagesPlugin)
   .enablePlugins(ParadoxPlugin)
@@ -46,9 +45,16 @@ lazy val root = (project in file("."))
     crossPaths   := false, // Do not use Scala version in artifacts.
 
     libraryDependencies ++= Seq(
+      //noinspection SpellCheckingInspection,Annotator
       "org.apache.commons" % "commons-text" % "1.8",
+
+      //noinspection SpellCheckingInspection,Annotator
       "org.jetbrains" % "annotations" % "16.0.1",
+
+      //noinspection SpellCheckingInspection,Annotator
       "net.aichler" % "jupiter-interface" % JupiterKeys.jupiterVersion.value % Test,
+
+      //noinspection SpellCheckingInspection,Annotator
       "org.junit.jupiter" % "junit-jupiter-params" % "5.1.1" % Test,
     ),
 
