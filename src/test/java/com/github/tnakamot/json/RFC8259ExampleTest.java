@@ -229,8 +229,8 @@ public class RFC8259ExampleTest {
   @ParameterizedTest
   @ValueSource(
       strings = {
-        "rfc8259_example1.json",
-        "rfc8259_example2.json",
+        "rfc8259_example1_modified.json",
+        "rfc8259_example2_modified.json",
         "rfc8259_example3.json",
         "rfc8259_example4.json",
         "rfc8259_example5.json",
@@ -248,6 +248,6 @@ public class RFC8259ExampleTest {
     log.info(() -> fileName + " => \n" + output);
 
     // TODO: enable this line
-    // assertTrue(jsText.get().equals(output));
+    assertEquals(jsText.get(), output);
   }
 }

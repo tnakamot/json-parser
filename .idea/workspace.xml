@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3c5df3ac-ef3e-43a0-b663-864f20b4e52e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/tnakamoto.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/tnakamoto.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+    <list default="true" id="3c5df3ac-ef3e-43a0-b663-864f20b4e52e" name="Default Changelist" comment="Fixed some problems reported by IntelliJ code analysis.">
+      <change afterPath="$PROJECT_DIR$/src/test/resources/com/github/tnakamot/json/rfc8259/rfc8259_example1_modified.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/com/github/tnakamot/json/rfc8259/rfc8259_example2_modified.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.sbt" beforeDir="false" afterPath="$PROJECT_DIR$/build.sbt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/plugins.sbt" beforeDir="false" afterPath="$PROJECT_DIR$/project/plugins.sbt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/tnakamot/json/value/JSONValue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/tnakamot/json/value/JSONValue.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/github/tnakamot/json/RFC8259ExampleTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/tnakamot/json/RFC8259ExampleTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,7 +102,56 @@
       <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.RFC8259ExampleTest">
+    <configuration name="RFC8259ExampleTest" type="JUnit" factoryName="JUnit" singleton="false" temporary="true" nameIsGenerated="true">
+      <module name="json-parser" />
+      <shortenClasspath name="NONE" />
+      <useClassPathOnly />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.github.tnakamot.json.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.github.tnakamot.json" />
+      <option name="MAIN_CLASS_NAME" value="com.github.tnakamot.json.RFC8259ExampleTest" />
+      <option name="METHOD_NAME" value="testOutput(java.lang.String)" />
+      <option name="TEST_OBJECT" value="uniqueId" />
+      <option name="PARAMETERS" value="" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="wholeProject" />
+      </option>
+      <uniqueIds>
+        <uniqueId value="[engine:junit-jupiter]/[class:com.github.tnakamot.json.RFC8259ExampleTest]" />
+      </uniqueIds>
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BSP.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RFC8259ExampleTest.testOutput" type="JUnit" factoryName="JUnit" singleton="false" temporary="true" nameIsGenerated="true">
+      <module name="json-parser" />
+      <shortenClasspath name="NONE" />
+      <useClassPathOnly />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.github.tnakamot.json.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.github.tnakamot.json" />
+      <option name="MAIN_CLASS_NAME" value="com.github.tnakamot.json.RFC8259ExampleTest" />
+      <option name="METHOD_NAME" value="testOutput(java.lang.String)" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="PARAMETERS" value="" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="wholeProject" />
+      </option>
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BSP.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Test All" type="JUnit" factoryName="JUnit" singleton="false">
       <shortenClasspath name="NONE" />
       <useClassPathOnly />
@@ -125,6 +174,12 @@
         <option name="BSP.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.RFC8259ExampleTest" />
+        <item itemvalue="JUnit.RFC8259ExampleTest.testOutput" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -136,20 +191,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1588333989494</updated>
-    </task>
-    <task id="LOCAL-00022" summary="Throw NumberFormatException.">
-      <created>1588502514149</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1588502514149</updated>
-    </task>
-    <task id="LOCAL-00023" summary="Resolved one todo.">
-      <created>1588502687662</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1588502687662</updated>
     </task>
     <task id="LOCAL-00024" summary="Resolved one TODO.">
       <created>1588502849053</created>
@@ -480,12 +521,24 @@
       <option name="project" value="LOCAL" />
       <updated>1588751769411</updated>
     </task>
-    <option name="localTasksCounter" value="71" />
+    <task id="LOCAL-00071" summary="Fixed some problems reported by IntelliJ code analysis.">
+      <created>1588752220882</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1588752220883</updated>
+    </task>
+    <task id="LOCAL-00072" summary="Removed last new line.">
+      <created>1588755012377</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1588755012377</updated>
+    </task>
+    <option name="localTasksCounter" value="73" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Inherit docs." />
-    <MESSAGE value="Abstract methods are defined as abtstract." />
     <MESSAGE value="Abstract methods are defined as abstract." />
     <MESSAGE value="Resolved some warnings." />
     <MESSAGE value="Added TODOs to write unit tests." />
@@ -509,7 +562,9 @@
     <MESSAGE value="Exclude LICENSE from the spellchecking." />
     <MESSAGE value="More documents about immutable and mutable." />
     <MESSAGE value="Fixed typos." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed typos." />
+    <MESSAGE value="Fixed some problems reported by IntelliJ code analysis." />
+    <MESSAGE value="Removed last new line." />
+    <option name="LAST_COMMIT_MESSAGE" value="Removed last new line." />
   </component>
   <component name="WindowStateProjectService">
     <state x="2655" y="203" key="#Auto_Import" timestamp="1588551879551">
@@ -543,10 +598,14 @@
     </state>
     <state x="549" y="212" key="#com.intellij.execution.impl.EditConfigurationsDialog/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588662982785" />
     <state x="2469" y="212" width="1071" height="654" key="#com.intellij.execution.impl.EditConfigurationsDialog/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588660078512" />
-    <state x="2693" y="258" key="#com.intellij.ide.util.MemberChooser" timestamp="1588531739937">
+    <state x="2020" y="123" width="1720" height="817" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1588755193381">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="2693" y="258" key="#com.intellij.ide.util.MemberChooser/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588531739937" />
+    <state x="2020" y="123" width="1720" height="817" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588755193381" />
+    <state x="2693" y="258" key="#com.intellij.ide.util.MemberChooser" timestamp="1588752405633">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2693" y="258" key="#com.intellij.ide.util.MemberChooser/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588752405633" />
     <state x="2742" y="334" key="#com.intellij.ide.util.PackageChooserDialog" timestamp="1588657125500">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
@@ -568,11 +627,11 @@
     </state>
     <state x="714" y="415" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588670037386" />
     <state x="2634" y="415" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588746867130" />
-    <state x="2495" y="121" width="1160" height="845" key="CommitChangelistDialog2" timestamp="1588751769267">
+    <state x="2495" y="121" width="1160" height="845" key="CommitChangelistDialog2" timestamp="1588755012227">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="575" y="121" width="1160" height="845" key="CommitChangelistDialog2/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588672371314" />
-    <state x="2495" y="121" width="1185" height="820" key="CommitChangelistDialog2/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588751769267" />
+    <state x="2495" y="121" width="1185" height="820" key="CommitChangelistDialog2/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588755012227" />
     <state x="100" y="123" width="1720" height="817" key="DiffContextDialog" timestamp="1588665400436">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -582,26 +641,26 @@
     </state>
     <state x="872" y="312" key="FileChooserDialogImpl/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588670355852" />
     <state x="2792" y="312" key="FileChooserDialogImpl/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588657240584" />
-    <state width="1878" height="277" key="GridCell.Tab.0.bottom" timestamp="1588675384478">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1878" height="277" key="GridCell.Tab.0.bottom" timestamp="1588755178402">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1878" height="277" key="GridCell.Tab.0.bottom/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588675384478" />
-    <state width="1878" height="277" key="GridCell.Tab.0.bottom/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588660209558" />
-    <state width="1878" height="277" key="GridCell.Tab.0.center" timestamp="1588675384478">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1878" height="277" key="GridCell.Tab.0.bottom/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588755178402" />
+    <state width="1878" height="277" key="GridCell.Tab.0.center" timestamp="1588755178401">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1878" height="277" key="GridCell.Tab.0.center/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588675384478" />
-    <state width="1878" height="277" key="GridCell.Tab.0.center/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588660209558" />
-    <state width="1878" height="277" key="GridCell.Tab.0.left" timestamp="1588675384478">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1878" height="277" key="GridCell.Tab.0.center/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588755178401" />
+    <state width="1878" height="277" key="GridCell.Tab.0.left" timestamp="1588755178401">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1878" height="277" key="GridCell.Tab.0.left/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588675384478" />
-    <state width="1878" height="277" key="GridCell.Tab.0.left/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588660209558" />
-    <state width="1878" height="277" key="GridCell.Tab.0.right" timestamp="1588675384478">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1878" height="277" key="GridCell.Tab.0.left/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588755178401" />
+    <state width="1878" height="277" key="GridCell.Tab.0.right" timestamp="1588755178401">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1878" height="277" key="GridCell.Tab.0.right/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588675384478" />
-    <state width="1878" height="277" key="GridCell.Tab.0.right/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588660209558" />
+    <state width="1878" height="277" key="GridCell.Tab.0.right/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588755178401" />
     <state x="2468" y="292" key="IDE.errors.dialog" timestamp="1588511861342">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
@@ -636,6 +695,10 @@
     </state>
     <state x="292" y="275" key="new project wizard/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588660366527" />
     <state x="2212" y="275" key="new project wizard/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588421887176" />
+    <state x="2543" y="246" width="672" height="678" key="search.everywhere.popup" timestamp="1588755100150">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2543" y="246" width="672" height="678" key="search.everywhere.popup/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588755100150" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/json_parser$Test_All.ic" NAME="Test All Coverage Results" MODIFIED="1588658332391" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
