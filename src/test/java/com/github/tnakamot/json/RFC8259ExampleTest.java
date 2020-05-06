@@ -247,7 +247,31 @@ public class RFC8259ExampleTest {
     String output = root.toTokenString("\n", "  ");
     log.info(() -> fileName + " => \n" + output);
 
-    // TODO: enable this line
+    assertEquals(jsText.get(), output);
+  }
+
+  @ParameterizedTest
+  @ValueSource(
+      strings = {
+        "rfc8259_example1_no_whitespaces.json",
+        "rfc8259_example2_no_whitespaces.json",
+        "rfc8259_example3.json",
+        "rfc8259_example4.json",
+        "rfc8259_example5.json",
+      })
+  public void testOutputWithoutWhitespaces(String fileName)
+      throws IOException, JSONParserException {
+    URL example = this.getClass().getResource(resourceBase + fileName);
+    JSONText jsText = JSONText.fromURL(example);
+    JSONValue root = jsText.parse();
+
+    // Although it is not necessary to exactly match the output of
+    // toTokenString() with the original JSON text, it is a good
+    // test to check if the original order in the JSON objects are
+    // retained and to check if toTokenString() works as intended.
+    String output = root.toTokenString();
+    log.info(() -> fileName + " => \n" + output);
+
     assertEquals(jsText.get(), output);
   }
 }
