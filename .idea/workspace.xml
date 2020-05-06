@@ -2,17 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3c5df3ac-ef3e-43a0-b663-864f20b4e52e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/paradox/immutable.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/tnakamoto.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/tnakamoto.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/tnakamot/json/JSONText.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/tnakamot/json/JSONText.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/tnakamot/json/value/JSONValue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/tnakamot/json/value/JSONValue.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/tnakamot/json/value/JSONValueArrayImmutable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/tnakamot/json/value/JSONValueArrayImmutable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/tnakamot/json/value/JSONValueArrayMutable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/tnakamot/json/value/JSONValueArrayMutable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/tnakamot/json/value/JSONValueObjectImmutable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/tnakamot/json/value/JSONValueObjectImmutable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/tnakamot/json/value/JSONValueObjectMutable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/tnakamot/json/value/JSONValueObjectMutable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/paradox/index.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/paradox/index.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/paradox/source_info.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/paradox/source_info.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/paradox/types.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/paradox/types.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -143,13 +132,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1588333989494</updated>
-    </task>
-    <task id="LOCAL-00020" summary="Test invalid numbers.">
-      <created>1588500439937</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1588500439937</updated>
     </task>
     <task id="LOCAL-00021" summary="Test of double values.">
       <created>1588502468664</created>
@@ -487,11 +469,17 @@
       <option name="project" value="LOCAL" />
       <updated>1588672371431</updated>
     </task>
-    <option name="localTasksCounter" value="69" />
+    <task id="LOCAL-00069" summary="More documents about immutable and mutable.">
+      <created>1588751718982</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1588751718982</updated>
+    </task>
+    <option name="localTasksCounter" value="70" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Immutable and mutable version of JSONValueArray." />
     <MESSAGE value="Immutable and mutable version of JSONValueObject." />
     <MESSAGE value="Inherit docs." />
     <MESSAGE value="Abstract methods are defined as abtstract." />
@@ -516,7 +504,8 @@
     <MESSAGE value="Now that project level dictionary plays an important role for spellchecking in the code quality, IntelliJ settings are imported to the repository." />
     <MESSAGE value="Added annotations so that IntelliJ will not report unwanted warnings." />
     <MESSAGE value="Exclude LICENSE from the spellchecking." />
-    <option name="LAST_COMMIT_MESSAGE" value="Exclude LICENSE from the spellchecking." />
+    <MESSAGE value="More documents about immutable and mutable." />
+    <option name="LAST_COMMIT_MESSAGE" value="More documents about immutable and mutable." />
   </component>
   <component name="WindowStateProjectService">
     <state x="2655" y="203" key="#Auto_Import" timestamp="1588551879551">
@@ -574,11 +563,11 @@
     </state>
     <state x="714" y="415" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588670037386" />
     <state x="2634" y="415" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588746867130" />
-    <state x="575" y="121" width="1160" height="845" key="CommitChangelistDialog2" timestamp="1588672371314">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="2495" y="121" width="1160" height="845" key="CommitChangelistDialog2" timestamp="1588751718746">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="575" y="121" width="1160" height="845" key="CommitChangelistDialog2/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588672371314" />
-    <state x="2495" y="121" width="1185" height="820" key="CommitChangelistDialog2/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588660024324" />
+    <state x="2495" y="121" width="1185" height="820" key="CommitChangelistDialog2/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588751718746" />
     <state x="100" y="123" width="1720" height="817" key="DiffContextDialog" timestamp="1588665400436">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

@@ -73,12 +73,12 @@ large value.
 @extref[toLong()](javadoc:value/JSONValueNumber.html#toLong()) tries to convert
 the String representation of the JSON numeric value into long, but if it cannot
 convert without loosing information, it throws
-@javadoc[NumberFormatExceptiuon](java.lang.NumberFormatException).
+@javadoc[NumberFormatException](java.lang.NumberFormatException).
 For example, `1.52e2` appears to be a floating point value, but it is actually
 an integer `152`. Therefore, @extref[toLong()](javadoc:value/JSONValueNumber.html#toLong())
 returns `152`. However, if there is a fractional part (e.g. `1.523e2`), or if 
 the value is too large (e.g. `9223372036854775808`), this method throws 
-@javadoc[NumberFormatExceptiuon](java.lang.NumberFormatException).
+@javadoc[NumberFormatException](java.lang.NumberFormatException).
 
 # array
 
