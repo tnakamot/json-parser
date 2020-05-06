@@ -39,10 +39,14 @@ import java.util.List;
 public class JSONText {
   private final String text;
   private final Object source;
+  private final String name;
+  private final String fullName;
 
-  private JSONText(String text, Object source) {
+  private JSONText(String text, Object source, String name, String fullName) {
     this.text = text;
     this.source = source;
+    this.name = name;
+    this.fullName = fullName;
 
     if (!((source instanceof File) || (source instanceof URL) || (source instanceof String))) {
       throw new IllegalArgumentException("source must be File, URL or String");
@@ -167,21 +171,7 @@ public class JSONText {
    * @return name of this JSON text.
    */
   public String name() {
-    if (source instanceof File) {
-      return ((File) source).getName();
-    } else if (source instanceof URL) {
-      URL url = (URL) source;
-      String[] paths = url.getPath().split("/");
-      if (paths.length == 0) {
-        return url.toString();
-      } else {
-        return paths[paths.length - 1];
-      }
-    } else if (source instanceof String) {
-      return "(inner-string)";
-    }
-
-    throw new UnsupportedOperationException("source must be File, URL or String");
+    return name;
   }
 
   /**
@@ -191,13 +181,7 @@ public class JSONText {
    * @return full path of this JSON text.
    */
   public String fullName() {
-    if (source instanceof File || source instanceof URL) {
-      return source.toString();
-    } else if (source instanceof String) {
-      return "(inner-string)";
-    }
-
-    throw new UnsupportedOperationException("source must be File, URL or String");
+    return fullName;
   }
 
   @Override
@@ -221,7 +205,7 @@ public class JSONText {
     }
 
     String text = Files.readString(file.toPath(), StandardCharsets.UTF_8);
-    return new JSONText(text, file);
+    return new JSONText(text, file, file.getName(), file.toString());
   }
 
   /**
@@ -244,11 +228,22 @@ public class JSONText {
      *       The application may do so according to RFC 8259 (it is not mandatory).
      */
     String text = Utils.readURLToString(url, StandardCharsets.UTF_8);
-    return new JSONText(text, url);
+
+    String[] paths = url.getPath().split("/");
+    String name;
+    if (paths.length == 0) {
+      name = url.toString();
+    } else {
+      name = paths[paths.length - 1];
+    }
+
+    return new JSONText(text, url, name, url.toString());
   }
 
   /**
    * Convert the given String to an instance of {@link JSONText}.
+   *
+   * <p>The name of this source is automatically determined.
    *
    * @param str A string which contains JSON text.
    * @return An instance of JSON text.
@@ -256,12 +251,28 @@ public class JSONText {
    *     Encoding</a>
    */
   public static JSONText fromString(String str) {
+    return fromString(str, "(inner-string)");
+  }
+
+  /**
+   * Convert the given String to an instance of {@link JSONText}.
+   *
+   * <p>You can specify the name of this source string. {@link #name()} and {@link #fullName()}
+   * return the specified string. The specified will be used, for example, to show an error message
+   * from the parse with the name. With a meaningful name, the users of your application will be
+   * able to know which JSON text has a syntax error.
+   *
+   * @param str A string which contains JSON text.
+   * @param name A name of this source string.
+   * @return An instance of JSON text.
+   * @see <a href="https://tools.ietf.org/html/rfc8259#section-8.1">RFC 8259 - 8.1. Character
+   *     Encoding</a>
+   */
+  public static JSONText fromString(String str, String name) {
     if (str == null) {
       throw new NullPointerException("str cannot be null");
     }
 
-    return new JSONText(str, str);
-
-    // TODO: support name and fullName
+    return new JSONText(str, str, name, name);
   }
 }

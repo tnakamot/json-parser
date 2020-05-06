@@ -121,6 +121,16 @@ public class JSONTextTest {
   }
 
   @Test
+  public void testFromStringWithName() {
+    JSONText jsText = JSONText.fromString(JSON_STR, "test.json");
+
+    assertEquals(JSON_STR, jsText.get());
+    assertEquals(JSON_STR, jsText.source());
+    assertEquals("test.json", jsText.fullName());
+    assertEquals("test.json", jsText.name());
+  }
+
+  @Test
   public void testFromStringNull() {
     assertThrows(NullPointerException.class, () -> JSONText.fromString(null));
   }

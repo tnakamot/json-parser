@@ -89,6 +89,19 @@ public class JSONParserExceptionTest {
   }
 
   @Test
+  public void testNameOfStringSource() throws IOException {
+    String text = "{ \"key\": value }";
+    JSONText source = JSONText.fromString(text, "text_in_memory.json");
+    JSONParserException ex = assertThrows(JSONParserException.class, () -> source.parse());
+
+    String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
+    log.info(() -> methodName + ": " + ex.getMessage());
+
+    assertEquals(source, ex.source());
+    assertTrue(ex.getMessage().startsWith("text_in_memory.json"));
+  }
+
+  @Test
   public void testPositionSingleLine() throws IOException {
     JSONParserErrorMessageFormat fmt =
         JSONParserErrorMessageFormat.builder().showLineAndColumnNumber(false).build();
