@@ -1,8 +1,6 @@
 package com.github.tnakamot.json.value;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -43,7 +41,6 @@ public class JSONValueArrayTest {
     rootArray.add(childArray);
 
     JSONValueArray rootArrayImmutable = rootArray.toImmutable();
-    assertTrue(rootArrayImmutable instanceof JSONValueArrayImmutable);
     assertTrue(rootArrayImmutable.get(0) instanceof JSONValueObjectImmutable);
     assertTrue(rootArrayImmutable.get(1) instanceof JSONValueArrayImmutable);
 

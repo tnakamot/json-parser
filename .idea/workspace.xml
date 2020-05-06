@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3c5df3ac-ef3e-43a0-b663-864f20b4e52e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/github/tnakamot/json/value/JSONValueArrayTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/github/tnakamot/json/value/JSONValueObjectTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/tnakamot/json/value/JSONValueObjectMutable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/tnakamot/json/value/JSONValueObjectMutable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/github/tnakamot/json/parser/JSONParserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/tnakamot/json/parser/JSONParserTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/github/tnakamot/json/value/JSONValueArrayTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/tnakamot/json/value/JSONValueArrayTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -165,13 +162,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1588333989494</updated>
-    </task>
-    <task id="LOCAL-00030" summary="Test end location of each token.">
-      <created>1588505207820</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1588505207820</updated>
     </task>
     <task id="LOCAL-00031" summary="Added one TODO.">
       <created>1588505278211</created>
@@ -509,11 +499,17 @@
       <option name="project" value="LOCAL" />
       <updated>1588761043284</updated>
     </task>
-    <option name="localTasksCounter" value="79" />
+    <task id="LOCAL-00079" summary="Test toMutable and toImmutable.">
+      <created>1588763227871</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1588763227872</updated>
+    </task>
+    <option name="localTasksCounter" value="80" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Removed TODO because some errors are covered by JSONParserExceptionTest." />
     <MESSAGE value="Fixed the wrong description of TODO." />
     <MESSAGE value="Implemented toTokenString methods." />
     <MESSAGE value="Removed dependency on Apache Commons IO because IntelliJ IDEA JUnit runner complains." />
@@ -538,7 +534,8 @@
     <MESSAGE value="Resolved TODOs in toMutable and toImmutable." />
     <MESSAGE value="Test immutable option of parse() method." />
     <MESSAGE value="Resolved minor warnings." />
-    <option name="LAST_COMMIT_MESSAGE" value="Resolved minor warnings." />
+    <MESSAGE value="Test toMutable and toImmutable." />
+    <option name="LAST_COMMIT_MESSAGE" value="Test toMutable and toImmutable." />
   </component>
   <component name="WindowStateProjectService">
     <state x="2655" y="203" key="#Auto_Import" timestamp="1588551879551">
@@ -609,11 +606,11 @@
     </state>
     <state x="714" y="415" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588670037386" />
     <state x="2634" y="415" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588746867130" />
-    <state x="2495" y="121" width="1160" height="845" key="CommitChangelistDialog2" timestamp="1588761043145">
+    <state x="2495" y="121" width="1160" height="845" key="CommitChangelistDialog2" timestamp="1588763227724">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="575" y="121" width="1160" height="845" key="CommitChangelistDialog2/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588672371314" />
-    <state x="2495" y="121" width="1185" height="820" key="CommitChangelistDialog2/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588761043145" />
+    <state x="2495" y="121" width="1185" height="820" key="CommitChangelistDialog2/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588763227724" />
     <state x="100" y="123" width="1720" height="817" key="DiffContextDialog" timestamp="1588665400436">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -623,26 +620,26 @@
     </state>
     <state x="872" y="312" key="FileChooserDialogImpl/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588670355852" />
     <state x="2792" y="312" key="FileChooserDialogImpl/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588657240584" />
-    <state width="1878" height="277" key="GridCell.Tab.0.bottom" timestamp="1588763189659">
+    <state width="1878" height="277" key="GridCell.Tab.0.bottom" timestamp="1588763203953">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1878" height="277" key="GridCell.Tab.0.bottom/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588675384478" />
-    <state width="1878" height="277" key="GridCell.Tab.0.bottom/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588763189659" />
-    <state width="1878" height="277" key="GridCell.Tab.0.center" timestamp="1588763189659">
+    <state width="1878" height="277" key="GridCell.Tab.0.bottom/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588763203953" />
+    <state width="1878" height="277" key="GridCell.Tab.0.center" timestamp="1588763203952">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1878" height="277" key="GridCell.Tab.0.center/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588675384478" />
-    <state width="1878" height="277" key="GridCell.Tab.0.center/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588763189659" />
-    <state width="1878" height="277" key="GridCell.Tab.0.left" timestamp="1588763189659">
+    <state width="1878" height="277" key="GridCell.Tab.0.center/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588763203952" />
+    <state width="1878" height="277" key="GridCell.Tab.0.left" timestamp="1588763203952">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1878" height="277" key="GridCell.Tab.0.left/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588675384478" />
-    <state width="1878" height="277" key="GridCell.Tab.0.left/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588763189659" />
-    <state width="1878" height="277" key="GridCell.Tab.0.right" timestamp="1588763189659">
+    <state width="1878" height="277" key="GridCell.Tab.0.left/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588763203952" />
+    <state width="1878" height="277" key="GridCell.Tab.0.right" timestamp="1588763203953">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1878" height="277" key="GridCell.Tab.0.right/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588675384478" />
-    <state width="1878" height="277" key="GridCell.Tab.0.right/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588763189659" />
+    <state width="1878" height="277" key="GridCell.Tab.0.right/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588763203953" />
     <state x="2468" y="292" key="IDE.errors.dialog" timestamp="1588511861342">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
