@@ -90,7 +90,7 @@ public class JSONValueArrayImmutable extends JSONValueArray {
   @Override
   @Deprecated
   public boolean add(JSONValue jsonValue) {
-    throw new UnsupportedOperationException("cannot add a value");
+    throw new UnsupportedOperationException("this object is immutable.");
   }
 
   /** {@inheritDoc} */
@@ -110,21 +110,21 @@ public class JSONValueArrayImmutable extends JSONValueArray {
   @Override
   @Deprecated
   public boolean addAll(@NotNull Collection collection) {
-    throw new UnsupportedOperationException("cannot add values");
+    throw new UnsupportedOperationException("this object is immutable.");
   }
 
   /** {@inheritDoc} */
   @Override
   @Deprecated
   public boolean addAll(int i, @NotNull Collection collection) {
-    throw new UnsupportedOperationException("cannot add values");
+    throw new UnsupportedOperationException("this object is immutable.");
   }
 
   /** {@inheritDoc} */
   @Override
   @Deprecated
   public void clear() {
-    throw new UnsupportedOperationException("cannot clear values");
+    throw new UnsupportedOperationException("this object is immutable.");
   }
 
   /** {@inheritDoc} */
@@ -137,21 +137,21 @@ public class JSONValueArrayImmutable extends JSONValueArray {
   @Override
   @Deprecated
   public JSONValue set(int i, JSONValue jsonValue) {
-    throw new UnsupportedOperationException("cannot set a value");
+    throw new UnsupportedOperationException("this object is immutable.");
   }
 
   /** {@inheritDoc} */
   @Override
   @Deprecated
   public void add(int i, JSONValue jsonValue) {
-    throw new UnsupportedOperationException("cannot add a value");
+    throw new UnsupportedOperationException("this object is immutable.");
   }
 
   /** {@inheritDoc} */
   @Override
   @Deprecated
   public JSONValue remove(int i) {
-    throw new UnsupportedOperationException("cannot remove a value");
+    throw new UnsupportedOperationException("this object is immutable.");
   }
 
   /** {@inheritDoc} */
@@ -191,14 +191,14 @@ public class JSONValueArrayImmutable extends JSONValueArray {
   @Override
   @Deprecated
   public boolean retainAll(@NotNull Collection<?> collection) {
-    throw new UnsupportedOperationException("retainAll is not supported");
+    throw new UnsupportedOperationException("this object is immutable.");
   }
 
   /** {@inheritDoc} */
   @Override
   @Deprecated
   public boolean removeAll(@NotNull Collection<?> collection) {
-    throw new UnsupportedOperationException("cannot remove values");
+    throw new UnsupportedOperationException("this object is immutable.");
   }
 
   @Override
@@ -215,10 +215,26 @@ public class JSONValueArrayImmutable extends JSONValueArray {
     }
   }
 
-  /** @return a mutable version of the same JSON array. */
+  /**
+   * Return the copy of this JSON array as a mutable Java object.
+   *
+   * <p>All inner JSON objects and JSON arrays are also turned to be mutable.
+   *
+   * @return a mutable version of the same JSON array.
+   */
   public JSONValueArrayMutable toMutable() {
-    // TODO: also convert the inner objects and arrays to mutable
-    return new JSONValueArrayMutable(this);
+    JSONValueArrayMutable ret = new JSONValueArrayMutable();
+    for (JSONValue value : this) {
+      if (value instanceof JSONValueArrayImmutable) {
+        ret.add(((JSONValueArrayImmutable) value).toMutable());
+      } else if (value instanceof JSONValueObjectImmutable) {
+        ret.add(((JSONValueObjectImmutable) value).toMutable());
+      } else {
+        ret.add(value);
+      }
+    }
+
+    return ret;
   }
 
   @Override

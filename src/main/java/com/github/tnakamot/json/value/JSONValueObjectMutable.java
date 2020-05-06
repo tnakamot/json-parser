@@ -181,10 +181,28 @@ public class JSONValueObjectMutable extends JSONValueObject {
     }
   }
 
-  /** @return an immutable version of the same JSON object. */
+  /**
+   * Return the copy of this JSON object as an immutable Java object.
+   *
+   * <p>All inner JSON objects and JSON arrays are also turned to be immutable.
+   *
+   * @return an immutable version of the same JSON object.
+   */
   public JSONValueObjectImmutable toImmutable() {
-    // TODO: also convert the inner objects and arrays to immutable
-    return new JSONValueObjectImmutable(this);
+    JSONValueObjectMutable ret = new JSONValueObjectMutable();
+
+    for (Map.Entry<JSONValueString, JSONValue> entry : entrySet()) {
+      JSONValue value = entry.getValue();
+      if (value instanceof JSONValueArrayMutable) {
+        ret.put(entry.getKey(), ((JSONValueArrayMutable) value).toImmutable());
+      } else if (value instanceof JSONValueObjectMutable) {
+        ret.put(entry.getKey(), ((JSONValueObjectMutable) value).toImmutable());
+      } else {
+        ret.put(entry.getKey(), value);
+      }
+    }
+
+    return new JSONValueObjectImmutable(ret);
   }
 
   @Override

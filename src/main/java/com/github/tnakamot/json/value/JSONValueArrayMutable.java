@@ -208,10 +208,26 @@ public class JSONValueArrayMutable extends JSONValueArray {
     }
   }
 
-  /** @return an immutable version of the same JSON array. */
+  /**
+   * Return the copy of this JSON array as an immutable Java object.
+   *
+   * <p>All inner JSON objects and JSON arrays are also turned to be immutable.
+   *
+   * @return an immutable version of the same JSON array.
+   */
   public JSONValueArrayImmutable toImmutable() {
-    // TODO: also convert the inner objects and arrays to immutable
-    return new JSONValueArrayImmutable(this);
+    JSONValueArrayMutable ret = new JSONValueArrayMutable();
+    for (JSONValue value : this) {
+      if (value instanceof JSONValueArrayMutable) {
+        ret.add(((JSONValueArrayMutable) value).toImmutable());
+      } else if (value instanceof JSONValueObjectMutable) {
+        ret.add(((JSONValueObjectMutable) value).toImmutable());
+      } else {
+        ret.add(value);
+      }
+    }
+
+    return new JSONValueArrayImmutable(ret);
   }
 
   @Override

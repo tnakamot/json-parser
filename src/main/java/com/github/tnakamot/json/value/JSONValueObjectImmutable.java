@@ -108,14 +108,14 @@ public class JSONValueObjectImmutable extends JSONValueObject {
   @Deprecated
   @Override
   public JSONValue put(JSONValueString jsonValueString, JSONValue jsonValue) {
-    throw new UnsupportedOperationException("cannot be put");
+    throw new UnsupportedOperationException("this object is immutable.");
   }
 
   /** {@inheritDoc} */
   @Deprecated
   @Override
   public JSONValue remove(Object o) {
-    throw new UnsupportedOperationException("cannot be removed");
+    throw new UnsupportedOperationException("this object is immutable.");
   }
 
   /** {@inheritDoc} */
@@ -129,7 +129,7 @@ public class JSONValueObjectImmutable extends JSONValueObject {
   @Deprecated
   @Override
   public void clear() {
-    throw new UnsupportedOperationException("cannot clear");
+    throw new UnsupportedOperationException("this object is immutable.");
   }
 
   /** {@inheritDoc} */
@@ -169,10 +169,28 @@ public class JSONValueObjectImmutable extends JSONValueObject {
     }
   }
 
-  /** @return a mutable version of the same JSON object. */
+  /**
+   * Return the copy of this JSON object as a mutable Java object.
+   *
+   * <p>All inner JSON objects and JSON arrays are also turned to be mutable.
+   *
+   * @return a mutable version of the same JSON object.
+   */
   public JSONValueObjectMutable toMutable() {
-    // TODO: also convert the inner objects and arrays to mutable
-    return new JSONValueObjectMutable(this);
+    JSONValueObjectMutable ret = new JSONValueObjectMutable();
+
+    for (Map.Entry<JSONValueString, JSONValue> entry : entrySet()) {
+      JSONValue value = entry.getValue();
+      if (value instanceof JSONValueArrayImmutable) {
+        ret.put(entry.getKey(), ((JSONValueArrayImmutable) value).toMutable());
+      } else if (value instanceof JSONValueObjectImmutable) {
+        ret.put(entry.getKey(), ((JSONValueObjectImmutable) value).toMutable());
+      } else {
+        ret.put(entry.getKey(), value);
+      }
+    }
+
+    return ret;
   }
 
   @Override
