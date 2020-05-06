@@ -33,8 +33,9 @@ Then, instantiate @extref[JSONText](javadoc:JSONText.html) and call
 
 ```java
 JSONText jsText = JSONText.fromString(
-        " { \"key1\": true, " +
-        "   \"key2\": false," +
+        " { \"key1\": \"value\", " +
+        "   \"key1\": 1.53, " +
+        "   \"key2\": true," +
         "   \"key3\": null } ");
 JSONValue root = jsText.parse();
 ```
@@ -49,9 +50,29 @@ Then, you will be able to get values as shown below.
 ```java
 if (root.type() == JSONValueType.OBJECT) {
     JSONValueObject rootObject = (JSONValueObject) root;
+
     JSONValue value1 = rootObject.get("key1");
+    if (value1.type() == JSONValueType.STRING) { 
+        String value1Str = ((JSONValueString) value1).value();
+        System.out.println(value1Str);
+    }
+
     JSONValue value2 = rootObject.get("key2");
+    if (value2.type() == JSONValueType.NUMBER) { 
+        double value2Dbl = ((JSONValueNumber) value2).toDouble();
+        System.out.println(value2Dbl);
+    }
+
     JSONValue value3 = rootObject.get("key3");
+    if (value3.type() == JSONValueType.BOOLEAN) {
+        boolean value3Bool = ((JSONValueBoolean) value3).value();
+        System.out.println(value3Bool);
+    }
+
+    JSONValue value4 = rootObject.get("key4");
+    if (value4.type() == JSONValueType.NULL) {
+        System.out.println("null");
+    }
 }
 ```
 
