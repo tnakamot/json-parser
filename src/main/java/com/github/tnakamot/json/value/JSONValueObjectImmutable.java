@@ -33,8 +33,6 @@ import org.jetbrains.annotations.NotNull;
  *
  * <p>This implementation retains the order.
  *
- * <p>TODO: write unit tests
- *
  * @see JSONValueObjectMutable
  */
 public class JSONValueObjectImmutable extends JSONValueObject {

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3c5df3ac-ef3e-43a0-b663-864f20b4e52e" name="Default Changelist" comment="">
+    <list default="true" id="3c5df3ac-ef3e-43a0-b663-864f20b4e52e" name="Default Changelist" comment="Documented conversion between immutable and mutable.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/github/tnakamot/json/value/JSONValueArrayTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/tnakamot/json/value/JSONValueArrayTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/tnakamot/json/value/JSONValueArrayImmutable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/tnakamot/json/value/JSONValueArrayImmutable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/tnakamot/json/value/JSONValueArrayMutable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/tnakamot/json/value/JSONValueArrayMutable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/tnakamot/json/value/JSONValueObjectImmutable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/tnakamot/json/value/JSONValueObjectImmutable.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -162,20 +164,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1588333989494</updated>
-    </task>
-    <task id="LOCAL-00031" summary="Added one TODO.">
-      <created>1588505278211</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1588505278211</updated>
-    </task>
-    <task id="LOCAL-00032" summary="Show log.">
-      <created>1588506154813</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1588506154813</updated>
     </task>
     <task id="LOCAL-00033" summary="Test cases for the error messages.">
       <created>1588507800438</created>
@@ -506,11 +494,24 @@
       <option name="project" value="LOCAL" />
       <updated>1588763227872</updated>
     </task>
-    <option name="localTasksCounter" value="80" />
+    <task id="LOCAL-00080" summary="Resolved minor warnings.">
+      <created>1588763264529</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1588763264529</updated>
+    </task>
+    <task id="LOCAL-00081" summary="Documented conversion between immutable and mutable.">
+      <created>1588763839291</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1588763839291</updated>
+    </task>
+    <option name="localTasksCounter" value="82" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Fixed the wrong description of TODO." />
     <MESSAGE value="Implemented toTokenString methods." />
     <MESSAGE value="Removed dependency on Apache Commons IO because IntelliJ IDEA JUnit runner complains." />
     <MESSAGE value="Use a simpler method calls." />
@@ -533,9 +534,10 @@
     <MESSAGE value="fromString method now accepts a source name." />
     <MESSAGE value="Resolved TODOs in toMutable and toImmutable." />
     <MESSAGE value="Test immutable option of parse() method." />
-    <MESSAGE value="Resolved minor warnings." />
     <MESSAGE value="Test toMutable and toImmutable." />
-    <option name="LAST_COMMIT_MESSAGE" value="Test toMutable and toImmutable." />
+    <MESSAGE value="Resolved minor warnings." />
+    <MESSAGE value="Documented conversion between immutable and mutable." />
+    <option name="LAST_COMMIT_MESSAGE" value="Documented conversion between immutable and mutable." />
   </component>
   <component name="WindowStateProjectService">
     <state x="2655" y="203" key="#Auto_Import" timestamp="1588551879551">
@@ -606,11 +608,11 @@
     </state>
     <state x="714" y="415" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588670037386" />
     <state x="2634" y="415" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588746867130" />
-    <state x="2495" y="121" width="1160" height="845" key="CommitChangelistDialog2" timestamp="1588763227724">
+    <state x="2495" y="121" width="1160" height="845" key="CommitChangelistDialog2" timestamp="1588763873693">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="575" y="121" width="1160" height="845" key="CommitChangelistDialog2/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588672371314" />
-    <state x="2495" y="121" width="1185" height="820" key="CommitChangelistDialog2/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588763227724" />
+    <state x="2495" y="121" width="1185" height="820" key="CommitChangelistDialog2/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588763873693" />
     <state x="100" y="123" width="1720" height="817" key="DiffContextDialog" timestamp="1588665400436">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -620,26 +622,26 @@
     </state>
     <state x="872" y="312" key="FileChooserDialogImpl/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588670355852" />
     <state x="2792" y="312" key="FileChooserDialogImpl/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588657240584" />
-    <state width="1878" height="277" key="GridCell.Tab.0.bottom" timestamp="1588763203953">
+    <state width="1878" height="277" key="GridCell.Tab.0.bottom" timestamp="1588763307767">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1878" height="277" key="GridCell.Tab.0.bottom/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588675384478" />
-    <state width="1878" height="277" key="GridCell.Tab.0.bottom/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588763203953" />
-    <state width="1878" height="277" key="GridCell.Tab.0.center" timestamp="1588763203952">
+    <state width="1878" height="277" key="GridCell.Tab.0.bottom/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588763307767" />
+    <state width="1878" height="277" key="GridCell.Tab.0.center" timestamp="1588763307766">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1878" height="277" key="GridCell.Tab.0.center/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588675384478" />
-    <state width="1878" height="277" key="GridCell.Tab.0.center/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588763203952" />
-    <state width="1878" height="277" key="GridCell.Tab.0.left" timestamp="1588763203952">
+    <state width="1878" height="277" key="GridCell.Tab.0.center/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588763307766" />
+    <state width="1878" height="277" key="GridCell.Tab.0.left" timestamp="1588763307766">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1878" height="277" key="GridCell.Tab.0.left/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588675384478" />
-    <state width="1878" height="277" key="GridCell.Tab.0.left/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588763203952" />
-    <state width="1878" height="277" key="GridCell.Tab.0.right" timestamp="1588763203953">
+    <state width="1878" height="277" key="GridCell.Tab.0.left/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588763307766" />
+    <state width="1878" height="277" key="GridCell.Tab.0.right" timestamp="1588763307766">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1878" height="277" key="GridCell.Tab.0.right/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588675384478" />
-    <state width="1878" height="277" key="GridCell.Tab.0.right/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588763203953" />
+    <state width="1878" height="277" key="GridCell.Tab.0.right/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588763307766" />
     <state x="2468" y="292" key="IDE.errors.dialog" timestamp="1588511861342">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
@@ -653,10 +655,10 @@
     </state>
     <state x="470" y="189" width="982" height="700" key="SettingsEditor/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588672220006" />
     <state x="2390" y="189" key="SettingsEditor/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588658401277" />
-    <state x="2480" y="282" key="Vcs.Push.Dialog.v2" timestamp="1588548980520">
+    <state x="2480" y="282" key="Vcs.Push.Dialog.v2" timestamp="1588763881172">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="2480" y="282" key="Vcs.Push.Dialog.v2/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588548980520" />
+    <state x="2480" y="282" key="Vcs.Push.Dialog.v2/3840.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588763881172" />
     <state x="426" y="150" width="375" height="495" key="VcsDiffUtil.ChangesDialog" timestamp="1588665015450">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

@@ -25,8 +25,6 @@ import org.jetbrains.annotations.NotNull;
  *
  * <p>This is a mutable version of {@link JSONValueArray}.
  *
- * <p>TODO: write unit tests
- *
  * @see JSONValueArrayImmutable
  */
 public class JSONValueArrayMutable extends JSONValueArray {

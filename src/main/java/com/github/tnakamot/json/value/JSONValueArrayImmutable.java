@@ -27,8 +27,6 @@ import org.jetbrains.annotations.NotNull;
  * <p>Instances of this class are immutable. Any method call that may result in the modification of
  * the array (e.g. {@link #add(JSONValue)} results in {@link UnsupportedOperationException}.
  *
- * <p>TODO: write unit tests
- *
  * @see JSONValueArrayMutable
  */
 public class JSONValueArrayImmutable extends JSONValueArray {
