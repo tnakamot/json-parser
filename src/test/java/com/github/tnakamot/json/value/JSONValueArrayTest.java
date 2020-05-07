@@ -54,6 +54,55 @@ public class JSONValueArrayTest {
   }
 
   @Test
+  public void testGet1() throws IOException, JSONParserException {
+    JSONValueArray root =
+        (JSONValueArray) JSONText.fromString("[true,1.53,512,\"hello\",[],{}]").parse(true);
+
+    assertEquals(true, root.getBoolean(0));
+    assertEquals(1.53, root.getDouble(1));
+    assertEquals(512, root.getLong(2));
+    assertEquals("hello", root.getString(3));
+    assertEquals(0, root.getArray(4).size());
+    assertEquals(0, root.getObject(5).size());
+
+    WrongValueTypeException ex;
+    ex = assertThrows(WrongValueTypeException.class, () -> root.getBoolean(1));
+    log.info(ex, ex::getMessage);
+
+    ex = assertThrows(WrongValueTypeException.class, () -> root.getLong(0));
+    log.info(ex, ex::getMessage);
+
+    ex = assertThrows(WrongValueTypeException.class, () -> root.getDouble(3));
+    log.info(ex, ex::getMessage);
+
+    ex = assertThrows(WrongValueTypeException.class, () -> root.getString(2));
+    log.info(ex, ex::getMessage);
+
+    ex = assertThrows(WrongValueTypeException.class, () -> root.getArray(5));
+    log.info(ex, ex::getMessage);
+
+    ex = assertThrows(WrongValueTypeException.class, () -> root.getObject(4));
+    log.info(ex, ex::getMessage);
+
+    NumberFormatException ex2 = assertThrows(NumberFormatException.class, () -> root.getLong(1));
+    log.info(ex2, ex2::getMessage);
+
+    assertThrows(IndexOutOfBoundsException.class, () -> root.getBoolean(-1));
+    assertThrows(IndexOutOfBoundsException.class, () -> root.getLong(-1));
+    assertThrows(IndexOutOfBoundsException.class, () -> root.getDouble(-1));
+    assertThrows(IndexOutOfBoundsException.class, () -> root.getString(-1));
+    assertThrows(IndexOutOfBoundsException.class, () -> root.getArray(-1));
+    assertThrows(IndexOutOfBoundsException.class, () -> root.getObject(-1));
+
+    assertThrows(IndexOutOfBoundsException.class, () -> root.getBoolean(6));
+    assertThrows(IndexOutOfBoundsException.class, () -> root.getLong(6));
+    assertThrows(IndexOutOfBoundsException.class, () -> root.getDouble(6));
+    assertThrows(IndexOutOfBoundsException.class, () -> root.getString(6));
+    assertThrows(IndexOutOfBoundsException.class, () -> root.getArray(6));
+    assertThrows(IndexOutOfBoundsException.class, () -> root.getObject(6));
+  }
+
+  @Test
   public void testToImmutable() {
     JSONValueArrayMutable rootArray = new JSONValueArrayMutable();
     JSONValueObjectMutable childObj = new JSONValueObjectMutable();

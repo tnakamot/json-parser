@@ -170,4 +170,117 @@ public abstract class JSONValueArray extends JSONValue implements List<JSONValue
   public boolean add(String value) {
     return add(new JSONValueString(value));
   }
+
+  /**
+   * Returns a boolean value at the specified position in this array.
+   *
+   * @param index index of the value to return
+   * @return the boolean value at the specified position in this array
+   * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= size())
+   * @throws WrongValueTypeException if the value type at the specified index is not boolean
+   */
+  public boolean getBoolean(int index) throws IndexOutOfBoundsException, WrongValueTypeException {
+    JSONValue val = get(index);
+    if (val instanceof JSONValueBoolean) {
+      return ((JSONValueBoolean) val).value();
+    } else {
+      throw new WrongValueTypeException(
+          "Wrong value type at index " + index + ".", JSONValueType.BOOLEAN, val.type());
+    }
+  }
+
+  /**
+   * Returns a number value at the specified position in this array.
+   *
+   * @param index index of the value to return
+   * @return the long value at the specified position in this array
+   * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= size())
+   * @throws WrongValueTypeException if the value type at the specified index is not number
+   * @throws NumberFormatException if the value cannot be converted to a Java long value
+   */
+  public long getLong(int index)
+      throws IndexOutOfBoundsException, WrongValueTypeException, NumberFormatException {
+    JSONValue val = get(index);
+    if (val instanceof JSONValueNumber) {
+      return ((JSONValueNumber) val).toLong();
+    } else {
+      throw new WrongValueTypeException(
+          "Wrong value type at index " + index + ".", JSONValueType.NUMBER, val.type());
+    }
+  }
+
+  /**
+   * Returns a number value at the specified position in this array.
+   *
+   * @param index index of the value to return
+   * @return the double value at the specified position in this array
+   * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= size())
+   * @throws WrongValueTypeException if the value type at the specified index is not number
+   */
+  public double getDouble(int index)
+      throws IndexOutOfBoundsException, WrongValueTypeException, NumberFormatException {
+    JSONValue val = get(index);
+    if (val instanceof JSONValueNumber) {
+      return ((JSONValueNumber) val).toDouble();
+    } else {
+      throw new WrongValueTypeException(
+          "Wrong value type at index " + index + ".", JSONValueType.NUMBER, val.type());
+    }
+  }
+
+  /**
+   * Returns a string value at the specified position in this array.
+   *
+   * @param index index of the value to return
+   * @return the string value at the specified position in this array
+   * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= size())
+   * @throws WrongValueTypeException if the value type at the specified index is not string
+   */
+  public String getString(int index) throws IndexOutOfBoundsException, WrongValueTypeException {
+    JSONValue val = get(index);
+    if (val instanceof JSONValueString) {
+      return ((JSONValueString) val).value();
+    } else {
+      throw new WrongValueTypeException(
+          "Wrong value type at index " + index + ".", JSONValueType.STRING, val.type());
+    }
+  }
+
+  /**
+   * Returns an array value at the specified position in this array.
+   *
+   * @param index index of the value to return
+   * @return the array value at the specified position in this array
+   * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= size())
+   * @throws WrongValueTypeException if the value type at the specified index is not array
+   */
+  public JSONValueArray getArray(int index)
+      throws IndexOutOfBoundsException, WrongValueTypeException {
+    JSONValue val = get(index);
+    if (val instanceof JSONValueArray) {
+      return (JSONValueArray) val;
+    } else {
+      throw new WrongValueTypeException(
+          "Wrong value type at index " + index + ".", JSONValueType.ARRAY, val.type());
+    }
+  }
+
+  /**
+   * Returns an object value at the specified position in this array.
+   *
+   * @param index index of the value to return
+   * @return the object value at the specified position in this array
+   * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= size())
+   * @throws WrongValueTypeException if the value type at the specified index is not object
+   */
+  public JSONValueObject getObject(int index)
+      throws IndexOutOfBoundsException, WrongValueTypeException {
+    JSONValue val = get(index);
+    if (val instanceof JSONValueObject) {
+      return (JSONValueObject) val;
+    } else {
+      throw new WrongValueTypeException(
+          "Wrong value type at index " + index + ".", JSONValueType.OBJECT, val.type());
+    }
+  }
 }
