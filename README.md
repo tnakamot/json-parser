@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/tnakamot/json-parser.svg?branch=master)](https://travis-ci.org/tnakamot/json-parser)
 [![GitHub](https://img.shields.io/github/license/tnakamot/json-parser)](LICENSE)
-![Maven Central](https://img.shields.io/maven-central/v/com.github.tnakamot/json-parser)
+[![Maven Central](https://img.shields.io/maven-central/v/com.github.tnakamot/json-parser)](https://mvnrepository.com/artifact/com.github.tnakamot/json-parser)
 
 This is a Java library to parse JSON text into Java objects.
 This library is compatible with [RFC 8259](https://tools.ietf.org/html/rfc8259).
