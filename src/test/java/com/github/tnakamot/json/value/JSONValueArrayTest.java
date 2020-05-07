@@ -58,7 +58,7 @@ public class JSONValueArrayTest {
     JSONValueArray root =
         (JSONValueArray) JSONText.fromString("[true,1.53,512,\"hello\",[],{}]").parse(true);
 
-    assertEquals(true, root.getBoolean(0));
+    assertTrue(root.getBoolean(0));
     assertEquals(1.53, root.getDouble(1));
     assertEquals(512, root.getLong(2));
     assertEquals("hello", root.getString(3));
