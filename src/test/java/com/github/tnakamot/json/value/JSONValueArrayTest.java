@@ -17,10 +17,10 @@ public class JSONValueArrayTest {
   @Test
   public void testAdd1() {
     JSONValueArrayMutable array = new JSONValueArrayMutable();
-    array.add(new JSONValueString("test"));
-    array.add(JSONValueBoolean.TRUE);
-    array.add(new JSONValueNumber("3.14"));
-    array.add(JSONValueNull.INSTANCE);
+    assertTrue(array.add(new JSONValueString("test")));
+    assertTrue(array.add(JSONValueBoolean.TRUE));
+    assertTrue(array.add(new JSONValueNumber("3.14")));
+    assertTrue(array.add(JSONValueNull.INSTANCE));
 
     assertEquals(4, array.size());
     assertEquals(new JSONValueString("test"), array.get(0));
@@ -35,12 +35,12 @@ public class JSONValueArrayTest {
   public void testAdd2() {
     JSONValueArrayMutable array = new JSONValueArrayMutable();
 
-    array.add(true);
-    array.add(false);
-    array.add("hello");
-    array.add(1024);
-    array.add(3.14);
-    array.add((String) null);
+    assertTrue(array.add(true));
+    assertTrue(array.add(false));
+    assertTrue(array.add("hello"));
+    assertTrue(array.add(1024));
+    assertTrue(array.add(3.14));
+    assertTrue(array.add((String) null));
 
     assertEquals(6, array.size());
     assertEquals(JSONValueBoolean.TRUE, array.get(0));
