@@ -224,7 +224,8 @@ public class JSONValueNumberTest {
   @Test
   public void testNaN() {
     assertThrows(IllegalArgumentException.class, () -> new JSONValueNumber(Double.NaN));
-    assertThrows(IllegalArgumentException.class, () -> new JSONValueNumber(Double.parseDouble("NaN")));
+    assertThrows(
+        IllegalArgumentException.class, () -> new JSONValueNumber(Double.parseDouble("NaN")));
   }
 
   @Test

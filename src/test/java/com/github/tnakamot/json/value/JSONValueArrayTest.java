@@ -1,6 +1,7 @@
 package com.github.tnakamot.json.value;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -23,6 +24,7 @@ public class JSONValueArrayTest {
     assertTrue(array.add(JSONValueNull.INSTANCE));
 
     assertEquals(4, array.size());
+    assertFalse(array.isEmpty());
     assertEquals(new JSONValueString("test"), array.get(0));
     assertEquals(JSONValueBoolean.TRUE, array.get(1));
     assertEquals(new JSONValueNumber("3.14"), array.get(2));
@@ -43,6 +45,7 @@ public class JSONValueArrayTest {
     assertTrue(array.add((String) null));
 
     assertEquals(6, array.size());
+    assertFalse(array.isEmpty());
     assertEquals(JSONValueBoolean.TRUE, array.get(0));
     assertEquals(JSONValueBoolean.FALSE, array.get(1));
     assertEquals(new JSONValueString("hello"), array.get(2));
@@ -63,7 +66,9 @@ public class JSONValueArrayTest {
     assertEquals(512, root.getLong(2));
     assertEquals("hello", root.getString(3));
     assertEquals(0, root.getArray(4).size());
+    assertTrue(root.getArray(4).isEmpty());
     assertEquals(0, root.getObject(5).size());
+    assertTrue(root.getObject(5).isEmpty());
 
     WrongValueTypeException ex;
     ex = assertThrows(WrongValueTypeException.class, () -> root.getBoolean(1));
