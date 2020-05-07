@@ -76,6 +76,8 @@ if (root.type() == JSONValueType.OBJECT) {
 }
 ```
 
+## More simple usage
+
 If you already know the data structure and data types exactly, your Java program
 can be concise using convenience getXxxx() methods like shown below.
 
