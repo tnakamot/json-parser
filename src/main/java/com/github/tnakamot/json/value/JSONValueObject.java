@@ -83,10 +83,6 @@ public abstract class JSONValueObject extends JSONValue implements Map<JSONValue
   @Override
   public abstract JSONValue put(JSONValueString jsonValueString, JSONValue jsonValue);
 
-  public JSONValue put(String key, JSONValue jsonValue) {
-    return put(new JSONValueString(key), jsonValue);
-  }
-
   /** {@inheritDoc} */
   @Override
   public abstract JSONValue remove(Object o);
@@ -122,4 +118,70 @@ public abstract class JSONValueObject extends JSONValue implements Map<JSONValue
   /** {@inheritDoc} */
   @Override
   public abstract boolean equals(Object o);
+
+  /**
+   * Associates the specified value with the specified key in this JSON object.
+   *
+   * @param key key with which the specified value is to be associated
+   * @param value value to be associated with the specified key
+   * @return the previous value associated with key, or null if there was no mapping for key. (A
+   *     null return can also indicate that the map previously associated null with key, if the
+   *     implementation supports null values.)
+   */
+  public JSONValue put(String key, JSONValue value) {
+    return put(new JSONValueString(key), value);
+  }
+
+  /**
+   * Associates the specified boolean value with the specified key in this JSON object.
+   *
+   * @param key key with which the specified value is to be associated
+   * @param value booolean value to be associated with the specified key
+   * @return the previous value associated with key, or null if there was no mapping for key. (A
+   *     null return can also indicate that the map previously associated null with key, if the
+   *     implementation supports null values.)
+   */
+  public JSONValue put(String key, boolean value) {
+    return put(key, JSONValueBoolean.valueOf(value));
+  }
+
+  /**
+   * Associates the specified number value with the specified key in this JSON object.
+   *
+   * @param key key with which the specified value is to be associated
+   * @param value number value to be associated with the specified key
+   * @return the previous value associated with key, or null if there was no mapping for key. (A
+   *     null return can also indicate that the map previously associated null with key, if the
+   *     implementation supports null values.)
+   */
+  public JSONValue put(String key, long value) {
+    return put(key, new JSONValueNumber(value));
+  }
+
+  /**
+   * Associates the specified number value with the specified key in this JSON object.
+   *
+   * @param key key with which the specified value is to be associated
+   * @param value number value to be associated with the specified key
+   * @return the previous value associated with key, or null if there was no mapping for key. (A
+   *     null return can also indicate that the map previously associated null with key, if the
+   *     implementation supports null values.)
+   */
+  public JSONValue put(String key, double value) {
+    return put(key, new JSONValueNumber(value));
+  }
+
+  /**
+   * Associates the specified string value with the specified key in this JSON object.
+   *
+   * @param key key with which the specified value is to be associated
+   * @param value string alue to be associated with the specified key. Null is considered as an
+   *     empty string.
+   * @return the previous value associated with key, or null if there was no mapping for key. (A
+   *     null return can also indicate that the map previously associated null with key, if the
+   *     implementation supports null values.)
+   */
+  public JSONValue put(String key, String value) {
+    return put(key, new JSONValueString(value));
+  }
 }

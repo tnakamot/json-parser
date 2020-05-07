@@ -17,7 +17,7 @@ public class JSONValueObjectTest {
   private static final Logger log = LoggerFactory.getLogger(JSONValueObjectTest.class);
 
   @Test
-  public void testPut() {
+  public void testPut1() {
     JSONValueObject obj = new JSONValueObjectMutable();
 
     JSONValue toAdd1 = new JSONValueNumber("123");
@@ -47,6 +47,37 @@ public class JSONValueObjectTest {
 
     assertEquals("{\"key1\":123,\"key2\":789}", obj.toTokenString());
     log.info(() -> obj.toTokenString("\n", "  "));
+  }
+
+  @Test
+  public void testPut2() {
+    JSONValueObject obj = new JSONValueObjectMutable();
+
+    assertNull(obj.put("key1", true));
+    assertNull(obj.put("key2", false));
+    assertNull(obj.put("key3", 9.99));
+    assertNull(obj.put("key4", 512));
+    assertNull(obj.put("key5", "hello"));
+    assertNull(obj.put("key6", (String) null));
+
+    assertEquals(6, obj.size());
+    assertTrue(obj.containsKey("key1"));
+    assertTrue(obj.containsKey("key2"));
+    assertTrue(obj.containsKey("key3"));
+    assertTrue(obj.containsKey("key4"));
+    assertTrue(obj.containsKey("key5"));
+    assertTrue(obj.containsKey("key6"));
+
+    assertTrue(((JSONValueBoolean) obj.get("key1")).value());
+    assertFalse(((JSONValueBoolean) obj.get("key2")).value());
+    assertEquals(9.99, ((JSONValueNumber) obj.get("key3")).toDouble());
+    assertEquals(512, ((JSONValueNumber) obj.get("key4")).toLong());
+    assertEquals("hello", ((JSONValueString) obj.get("key5")).value());
+    assertEquals("", ((JSONValueString) obj.get("key6")).value());
+
+    assertEquals(
+        "{\"key1\":true,\"key2\":false,\"key3\":9.99,\"key4\":512,\"key5\":\"hello\",\"key6\":\"\"}",
+        obj.toTokenString());
   }
 
   @Test
