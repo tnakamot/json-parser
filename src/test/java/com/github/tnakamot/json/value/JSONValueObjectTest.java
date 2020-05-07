@@ -81,6 +81,71 @@ public class JSONValueObjectTest {
   }
 
   @Test
+  public void testGet1() throws IOException, JSONParserException {
+    JSONValueObject root =
+        (JSONValueObject)
+            JSONText.fromString(
+                    "{"
+                        + "\"key1\": true,"
+                        + "\"key2\": 1.53,"
+                        + "\"key3\": 512,"
+                        + "\"key4\": \"hello\","
+                        + "\"key5\": [],"
+                        + "\"key6\": {}"
+                        + "}")
+                .parse(true);
+
+    assertTrue(root.getBoolean("key1"));
+    assertEquals(1.53, root.getDouble("key2"));
+    assertEquals(512, root.getLong("key3"));
+    assertEquals("hello", root.getString("key4"));
+    assertEquals(0, root.getArray("key5").size());
+    assertEquals(0, root.getObject("key6").size());
+
+    WrongValueTypeException ex;
+    ex = assertThrows(WrongValueTypeException.class, () -> root.getBoolean("key2"));
+    assertEquals(JSONValueType.BOOLEAN, ex.expected());
+    assertEquals(JSONValueType.NUMBER, ex.actual());
+    log.info(ex, ex::getMessage);
+
+    ex = assertThrows(WrongValueTypeException.class, () -> root.getLong("key1"));
+    assertEquals(JSONValueType.NUMBER, ex.expected());
+    assertEquals(JSONValueType.BOOLEAN, ex.actual());
+    log.info(ex, ex::getMessage);
+
+    ex = assertThrows(WrongValueTypeException.class, () -> root.getDouble("key4"));
+    assertEquals(JSONValueType.NUMBER, ex.expected());
+    assertEquals(JSONValueType.STRING, ex.actual());
+    log.info(ex, ex::getMessage);
+
+    ex = assertThrows(WrongValueTypeException.class, () -> root.getString("key3"));
+    assertEquals(JSONValueType.STRING, ex.expected());
+    assertEquals(JSONValueType.NUMBER, ex.actual());
+    log.info(ex, ex::getMessage);
+
+    ex = assertThrows(WrongValueTypeException.class, () -> root.getArray("key6"));
+    assertEquals(JSONValueType.ARRAY, ex.expected());
+    assertEquals(JSONValueType.OBJECT, ex.actual());
+    log.info(ex, ex::getMessage);
+
+    ex = assertThrows(WrongValueTypeException.class, () -> root.getObject("key5"));
+    assertEquals(JSONValueType.OBJECT, ex.expected());
+    assertEquals(JSONValueType.ARRAY, ex.actual());
+    log.info(ex, ex::getMessage);
+
+    NumberFormatException ex2 =
+        assertThrows(NumberFormatException.class, () -> root.getLong("key2"));
+    log.info(ex2, ex2::getMessage);
+
+    assertThrows(IllegalArgumentException.class, () -> root.getBoolean("key7"));
+    assertThrows(IllegalArgumentException.class, () -> root.getLong("key7"));
+    assertThrows(IllegalArgumentException.class, () -> root.getDouble("key7"));
+    assertThrows(IllegalArgumentException.class, () -> root.getString("key7"));
+    assertThrows(IllegalArgumentException.class, () -> root.getArray("key7"));
+    assertThrows(IllegalArgumentException.class, () -> root.getObject("key7"));
+  }
+
+  @Test
   public void testRemove() {
     JSONValueObjectMutable obj = new JSONValueObjectMutable();
 

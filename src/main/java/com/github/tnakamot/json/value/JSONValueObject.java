@@ -184,4 +184,131 @@ public abstract class JSONValueObject extends JSONValue implements Map<JSONValue
   public JSONValue put(String key, String value) {
     return put(key, new JSONValueString(value));
   }
+
+  /**
+   * Returns the boolean value to which the specified key is mapped, or null if this map contains no
+   * mapping for the key.
+   *
+   * @param key the key whose associated value is to be returned
+   * @return the value to which the specified key is mapped
+   * @throws WrongValueTypeException if the value type is not boolean
+   * @throws IllegalArgumentException if this object contains no mapping for the key
+   */
+  public boolean getBoolean(String key) {
+    JSONValue val = get(key);
+    if (val == null) {
+      throw new IllegalArgumentException("Key '" + key + "' does not exist.");
+    } else if (val instanceof JSONValueBoolean) {
+      return ((JSONValueBoolean) val).value();
+    } else {
+      throw new WrongValueTypeException(
+          "Wrong value type for key '" + key + "'.", JSONValueType.BOOLEAN, val.type());
+    }
+  }
+
+  /**
+   * Returns the long value to which the specified key is mapped, or null if this map contains no
+   * mapping for the key.
+   *
+   * @param key the key whose associated value is to be returned
+   * @return the value to which the specified key is mapped
+   * @throws WrongValueTypeException if the value type is not number
+   * @throws NumberFormatException if the value cannot be converted to a Java long value
+   * @throws IllegalArgumentException if this object contains no mapping for the key
+   */
+  public long getLong(String key) {
+    JSONValue val = get(key);
+    if (val == null) {
+      throw new IllegalArgumentException("Key '" + key + "' does not exist.");
+    } else if (val instanceof JSONValueNumber) {
+      return ((JSONValueNumber) val).toLong();
+    } else {
+      throw new WrongValueTypeException(
+          "Wrong value type for key '" + key + "'.", JSONValueType.NUMBER, val.type());
+    }
+  }
+
+  /**
+   * Returns the double value to which the specified key is mapped, or null if this map contains no
+   * mapping for the key.
+   *
+   * @param key the key whose associated value is to be returned
+   * @return the value to which the specified key is mapped
+   * @throws WrongValueTypeException if the value type is not number
+   * @throws IllegalArgumentException if this object contains no mapping for the key
+   */
+  public double getDouble(String key) {
+    JSONValue val = get(key);
+    if (val == null) {
+      throw new IllegalArgumentException("Key '" + key + "' does not exist.");
+    } else if (val instanceof JSONValueNumber) {
+      return ((JSONValueNumber) val).toDouble();
+    } else {
+      throw new WrongValueTypeException(
+          "Wrong value type for key '" + key + "'.", JSONValueType.NUMBER, val.type());
+    }
+  }
+
+  /**
+   * Returns the string value to which the specified key is mapped, or null if this map contains no
+   * mapping for the key.
+   *
+   * @param key the key whose associated value is to be returned
+   * @return the value to which the specified key is mapped
+   * @throws WrongValueTypeException if the value type is not string
+   * @throws IllegalArgumentException if this object contains no mapping for the key
+   */
+  public String getString(String key) {
+    JSONValue val = get(key);
+    if (val == null) {
+      throw new IllegalArgumentException("Key '" + key + "' does not exist.");
+    } else if (val instanceof JSONValueString) {
+      return ((JSONValueString) val).value();
+    } else {
+      throw new WrongValueTypeException(
+          "Wrong value type for key '" + key + "'.", JSONValueType.STRING, val.type());
+    }
+  }
+
+  /**
+   * Returns the array value to which the specified key is mapped, or null if this map contains no
+   * mapping for the key.
+   *
+   * @param key the key whose associated value is to be returned
+   * @return the value to which the specified key is mapped
+   * @throws WrongValueTypeException if the value type is not array
+   * @throws IllegalArgumentException if this object contains no mapping for the key
+   */
+  public JSONValueArray getArray(String key) {
+    JSONValue val = get(key);
+    if (val == null) {
+      throw new IllegalArgumentException("Key '" + key + "' does not exist.");
+    } else if (val instanceof JSONValueArray) {
+      return (JSONValueArray) val;
+    } else {
+      throw new WrongValueTypeException(
+          "Wrong value type for key '" + key + "'.", JSONValueType.ARRAY, val.type());
+    }
+  }
+
+  /**
+   * Returns the object value to which the specified key is mapped, or null if this map contains no
+   * mapping for the key.
+   *
+   * @param key the key whose associated value is to be returned
+   * @return the value to which the specified key is mapped
+   * @throws WrongValueTypeException if the value type is not object
+   * @throws IllegalArgumentException if this object contains no mapping for the key
+   */
+  public JSONValueObject getObject(String key) {
+    JSONValue val = get(key);
+    if (val == null) {
+      throw new IllegalArgumentException("Key '" + key + "' does not exist.");
+    } else if (val instanceof JSONValueObject) {
+      return (JSONValueObject) val;
+    } else {
+      throw new WrongValueTypeException(
+          "Wrong value type for key '" + key + "'.", JSONValueType.OBJECT, val.type());
+    }
+  }
 }
