@@ -63,4 +63,10 @@ public class JSONValueNullTest {
     assertEquals(JSONValueType.NULL, val1.type());
     assertEquals(JSONValueType.NULL, val2.type());
   }
+
+  @Test
+  public void testToTokenString() {
+    assertEquals("null", JSONValueNull.INSTANCE.toTokenString());
+    assertEquals("null", JSONValueNull.INSTANCE.toTokenString("\n", "  "));
+  }
 }

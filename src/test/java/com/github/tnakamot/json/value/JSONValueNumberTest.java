@@ -220,4 +220,22 @@ public class JSONValueNumberTest {
     assertEquals("512", val.toString());
     assertEquals("512", val.toTokenString());
   }
+
+  @Test
+  public void testNaN() {
+    assertThrows(IllegalArgumentException.class, () -> new JSONValueNumber(Double.NaN));
+    assertThrows(IllegalArgumentException.class, () -> new JSONValueNumber(Double.valueOf("NaN")));
+  }
+
+  @Test
+  public void testInfinite() {
+    assertThrows(
+        IllegalArgumentException.class, () -> new JSONValueNumber(Double.POSITIVE_INFINITY));
+    assertThrows(
+        IllegalArgumentException.class, () -> new JSONValueNumber(Double.valueOf("Infinity")));
+    assertThrows(
+        IllegalArgumentException.class, () -> new JSONValueNumber(Double.NEGATIVE_INFINITY));
+    assertThrows(
+        IllegalArgumentException.class, () -> new JSONValueNumber(Double.valueOf("-Infinity")));
+  }
 }

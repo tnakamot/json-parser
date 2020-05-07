@@ -172,6 +172,10 @@ public class JSONValueBooleanTest {
     JSONValueArray root = (JSONValueArray) JSONText.fromString("[true,false]").parse();
     JSONValueBoolean trueVal2 = (JSONValueBoolean) root.get(0);
     JSONValueBoolean falseVal2 = (JSONValueBoolean) root.get(1);
+    JSONValueString strVal = new JSONValueString("abc");
+    JSONValueNumber numVal1 = new JSONValueNumber(0);
+    JSONValueNumber numVal2 = new JSONValueNumber(3.14);
+    JSONValueNull nullVal = JSONValueNull.INSTANCE;
 
     assertNotEquals(trueVal1, falseVal1);
     assertNotEquals(falseVal1, trueVal1);
@@ -184,5 +188,14 @@ public class JSONValueBooleanTest {
 
     assertNotEquals(falseVal2, trueVal1);
     assertNotEquals(trueVal1, falseVal2);
+
+    assertNotEquals(trueVal1, strVal);
+    assertNotEquals(trueVal1, numVal1);
+    assertNotEquals(trueVal1, numVal2);
+    assertNotEquals(trueVal1, nullVal);
+    assertNotEquals(falseVal1, strVal);
+    assertNotEquals(falseVal1, numVal1);
+    assertNotEquals(falseVal1, numVal2);
+    assertNotEquals(falseVal1, nullVal);
   }
 }
