@@ -130,4 +130,44 @@ public abstract class JSONValueArray extends JSONValue implements List<JSONValue
   /** {@inheritDoc} */
   @Override
   public abstract boolean equals(Object o);
+
+  /**
+   * Add a JSON boolean value to this array.
+   *
+   * @param value boolean value to add
+   * @return true (as specified by {@link Collection#add(Object)}
+   */
+  public boolean add(boolean value) {
+    return add(JSONValueBoolean.valueOf(value));
+  }
+
+  /**
+   * Add a JSON number value to this array.
+   *
+   * @param value a number value to add
+   * @return true (as specified by {@link Collection#add(Object)}
+   */
+  public boolean add(long value) {
+    return add(new JSONValueNumber(value));
+  }
+
+  /**
+   * Add a JSON number value to this array.
+   *
+   * @param value a number value to add
+   * @return true (as specified by {@link Collection#add(Object)}
+   */
+  public boolean add(double value) {
+    return add(new JSONValueNumber(value));
+  }
+
+  /**
+   * Add a JSON string value to this array.
+   *
+   * @param value a String value to add. Null is considered as an empty string.
+   * @return true (as specified by {@link Collection#add(Object)}
+   */
+  public boolean add(String value) {
+    return add(new JSONValueString(value));
+  }
 }

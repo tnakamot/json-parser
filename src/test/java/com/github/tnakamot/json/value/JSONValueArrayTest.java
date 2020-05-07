@@ -15,7 +15,7 @@ public class JSONValueArrayTest {
   private static final Logger log = LoggerFactory.getLogger(JSONValueObjectTest.class);
 
   @Test
-  public void testAdd() {
+  public void testAdd1() {
     JSONValueArrayMutable array = new JSONValueArrayMutable();
     array.add(new JSONValueString("test"));
     array.add(JSONValueBoolean.TRUE);
@@ -29,6 +29,28 @@ public class JSONValueArrayTest {
     assertEquals(JSONValueNull.INSTANCE, array.get(3));
 
     assertEquals("[\"test\",true,3.14,null]", array.toTokenString());
+  }
+
+  @Test
+  public void testAdd2() {
+    JSONValueArrayMutable array = new JSONValueArrayMutable();
+
+    array.add(true);
+    array.add(false);
+    array.add("hello");
+    array.add(1024);
+    array.add(3.14);
+    array.add((String) null);
+
+    assertEquals(6, array.size());
+    assertEquals(JSONValueBoolean.TRUE, array.get(0));
+    assertEquals(JSONValueBoolean.FALSE, array.get(1));
+    assertEquals(new JSONValueString("hello"), array.get(2));
+    assertEquals(new JSONValueNumber(1024), array.get(3));
+    assertEquals(new JSONValueNumber(3.14), array.get(4));
+    assertEquals(new JSONValueString(""), array.get(5));
+
+    assertEquals("[true,false,\"hello\",1024,3.14,\"\"]", array.toTokenString());
   }
 
   @Test
