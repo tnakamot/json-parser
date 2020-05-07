@@ -67,21 +67,33 @@ public class JSONValueArrayTest {
 
     WrongValueTypeException ex;
     ex = assertThrows(WrongValueTypeException.class, () -> root.getBoolean(1));
+    assertEquals(JSONValueType.BOOLEAN, ex.expected());
+    assertEquals(JSONValueType.NUMBER, ex.actual());
     log.info(ex, ex::getMessage);
 
     ex = assertThrows(WrongValueTypeException.class, () -> root.getLong(0));
+    assertEquals(JSONValueType.NUMBER, ex.expected());
+    assertEquals(JSONValueType.BOOLEAN, ex.actual());
     log.info(ex, ex::getMessage);
 
     ex = assertThrows(WrongValueTypeException.class, () -> root.getDouble(3));
+    assertEquals(JSONValueType.NUMBER, ex.expected());
+    assertEquals(JSONValueType.STRING, ex.actual());
     log.info(ex, ex::getMessage);
 
     ex = assertThrows(WrongValueTypeException.class, () -> root.getString(2));
+    assertEquals(JSONValueType.STRING, ex.expected());
+    assertEquals(JSONValueType.NUMBER, ex.actual());
     log.info(ex, ex::getMessage);
 
     ex = assertThrows(WrongValueTypeException.class, () -> root.getArray(5));
+    assertEquals(JSONValueType.ARRAY, ex.expected());
+    assertEquals(JSONValueType.OBJECT, ex.actual());
     log.info(ex, ex::getMessage);
 
     ex = assertThrows(WrongValueTypeException.class, () -> root.getObject(4));
+    assertEquals(JSONValueType.OBJECT, ex.expected());
+    assertEquals(JSONValueType.ARRAY, ex.actual());
     log.info(ex, ex::getMessage);
 
     NumberFormatException ex2 = assertThrows(NumberFormatException.class, () -> root.getLong(1));
