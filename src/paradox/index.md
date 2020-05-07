@@ -34,9 +34,9 @@ Then, instantiate @extref[JSONText](javadoc:JSONText.html) and call
 ```java
 JSONText jsText = JSONText.fromString(
         " { \"key1\": \"value\", " +
-        "   \"key1\": 1.53, " +
-        "   \"key2\": true," +
-        "   \"key3\": null } ");
+        "   \"key2\": 1.53, " +
+        "   \"key3\": true," +
+        "   \"key4\": null } ");
 JSONValue root = jsText.parse();
 ```
 
@@ -74,6 +74,40 @@ if (root.type() == JSONValueType.OBJECT) {
         System.out.println("null");
     }
 }
+```
+
+If you already know the data structure and data types exactly, your Java program
+can be concise using convenience getXxxx() methods like shown below.
+
+```java
+JSONText jsText = JSONText.fromString(
+        " { \"key1\": \"value\", " +
+        "   \"key2\": 3.14, " +
+        "   \"key3\": false," +
+        "   \"key4\": 1024," +
+        "   \"key5\": [5, 1, 2], "+
+        "   \"key6\": {\"key6-1\": 0} }");
+JSONValueObject root = (JSONValueObject) jsText.parse();
+
+String  value1Str = root.getString("key1");
+System.out.println(value1Str);
+
+double value2Dbl = root.getDouble("key2");
+System.out.println(value2Dbl);
+
+boolean value3Bool = root.getBoolean("key3");
+System.out.println(value3Bool);
+
+long value4Lng = root.getLong("key4");
+System.out.println(value4Lng);
+
+JSONValueArray value5Arr = root.getArray("key5");
+System.out.println(value5Arr.getLong(0));
+System.out.println(value5Arr.getLong(1));
+System.out.println(value5Arr.getLong(2));
+
+JSONValueObject value6Obj = root.getObject("key6");
+System.out.println(value6Obj.getLong("key6-1"));
 ```
 
 @@@ index
