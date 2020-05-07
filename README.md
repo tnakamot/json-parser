@@ -1,9 +1,7 @@
 # Java JSON Parser
 
 [![Build Status](https://travis-ci.org/tnakamot/json-parser.svg?branch=master)](https://travis-ci.org/tnakamot/json-parser)
-
 [![GitHub](https://img.shields.io/github/license/tnakamot/json-parser)](LICENSE)
-
 ![Maven Central](https://img.shields.io/maven-central/v/com.github.tnakamot/json-parser)
 
 This is a Java library to parse JSON text into Java objects.
