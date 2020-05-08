@@ -172,11 +172,11 @@ public class JSONValueNumberTest {
   @Test
   public void testEquality() throws IOException, JSONParserException {
     JSONValueNumber val1 = new JSONValueNumber("123");
-    JSONValueNumber val2 = new JSONValueNumber("123");
+    JSONValueNumber val2 = new JSONValueNumber("1.23e2");
     JSONValueNumber val3 = (JSONValueNumber) JSONText.fromString("123").parse();
 
     assertEquals(val1.hashCode(), val2.hashCode());
-    assertEquals(val1.hashCode(), val3.hashCode());
+    assertEquals(val2.hashCode(), val3.hashCode());
 
     assertEquals(val1, val2);
     assertEquals(val2, val1);
@@ -187,14 +187,10 @@ public class JSONValueNumberTest {
   }
 
   @Test
-  public void testInequality() throws IOException, JSONParserException {
+  public void testInequality1() throws IOException, JSONParserException {
     JSONValueNumber val1 = new JSONValueNumber("123");
-    JSONValueNumber val2 = new JSONValueNumber("1.23e2");
-    JSONValueNumber val3 = (JSONValueNumber) JSONText.fromString("12300E-2").parse();
-
-    assertNotEquals(val1.hashCode(), val2.hashCode());
-    assertNotEquals(val2.hashCode(), val3.hashCode());
-    assertNotEquals(val3.hashCode(), val1.hashCode());
+    JSONValueNumber val2 = new JSONValueNumber("1.234e2");
+    JSONValueNumber val3 = (JSONValueNumber) JSONText.fromString("12350E-2").parse();
 
     assertNotEquals(val1, val2);
     assertNotEquals(val2, val1);
@@ -202,6 +198,15 @@ public class JSONValueNumberTest {
     assertNotEquals(val3, val1);
     assertNotEquals(val2, val3);
     assertNotEquals(val3, val2);
+  }
+
+  @Test
+  public void testInequalityTooBigValues() {
+    JSONValueNumber val1 = new JSONValueNumber("10e10000000000");
+    JSONValueNumber val2 = new JSONValueNumber("1e10000000001");
+
+    assertNotEquals(val1, val2);
+    assertNotEquals(val2, val1);
   }
 
   @Test

@@ -195,16 +195,54 @@ public class JSONValueNumber extends JSONValuePrimitive {
     }
   }
 
+  /**
+   * To best comply with <a
+   * href="https://tools.ietf.org/html/draft-handrews-json-schema-02#section-4.2.3">JSON Schema</a>
+   * this method tries to return the same hash for two JSONValueNumber which have mathematically
+   * have the same numeric value. For example, 10e9 and 1e10 returns the same hash.
+   *
+   * <p>However, big values which {@link BigDecimal} cannot handle may or may not return the same
+   * hash.
+   *
+   * @return hash code for this JSONValueNumber
+   */
   @Override
   public int hashCode() {
-    return text.hashCode();
+    try {
+      BigDecimal a = new BigDecimal(this.text);
+      return a.intValue();
+    } catch (Exception e) {
+      return text.hashCode();
+    }
   }
 
+  /**
+   * To best comply with <a
+   * href="https://tools.ietf.org/html/draft-handrews-json-schema-02#section-4.2.3">JSON Schema</a>
+   * this method tries to compare the value mathematically using {@link BigDecimal}. However, big
+   * values which {@link BigDecimal} cannot handle will not be mathematically evaluated. For
+   * example, 10e10000000000 and 1e10000000001 are mathematically equal, but this method considers
+   * that they are different.
+   *
+   * @param obj Object to which this JSONValueNumber is to be compared.
+   * @return true if and only if the specified Object is a JSONValueNumber whose value and scale are
+   *     equal to this JSONValueNumber's.
+   */
   @Override
   public boolean equals(Object obj) {
     if (obj instanceof JSONValueNumber) {
       JSONValueNumber num = (JSONValueNumber) obj;
-      return this.text.equals(num.text);
+      if (this.text.equals(num.text)) {
+        return true;
+      } else {
+        try {
+          BigDecimal a = new BigDecimal(this.text);
+          BigDecimal b = new BigDecimal(num.text);
+          return a.compareTo(b) == 0;
+        } catch (Exception ex) {
+          return false;
+        }
+      }
     } else {
       return false;
     }
