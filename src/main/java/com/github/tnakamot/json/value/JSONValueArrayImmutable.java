@@ -199,20 +199,6 @@ public class JSONValueArrayImmutable extends JSONValueArray {
     throw new UnsupportedOperationException("this object is immutable.");
   }
 
-  @Override
-  public int hashCode() {
-    return values.hashCode();
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (o instanceof JSONValueArrayImmutable) {
-      return values.equals(((JSONValueArrayImmutable) o).values);
-    } else {
-      return false;
-    }
-  }
-
   /**
    * Return the copy of this JSON array as a mutable Java object.
    *

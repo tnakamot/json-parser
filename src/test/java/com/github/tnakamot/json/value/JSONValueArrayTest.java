@@ -175,8 +175,8 @@ public class JSONValueArrayTest {
   }
 
   @Test
-  public void testEqualityMutable() throws IOException, JSONParserException {
-    JSONValue array1 = JSONText.fromString("[[true, 123], {\"key1\": 5.2}]").parse(false);
+  public void testEquality() throws IOException, JSONParserException {
+    JSONValue array1 = JSONText.fromString("[[true, 123], {\"key1\": 5.2}]").parse();
     JSONValueArray array2 = new JSONValueArrayMutable();
     array2.add(new JSONValueArrayMutable());
     array2.getArray(0).add(true);
@@ -184,19 +184,6 @@ public class JSONValueArrayTest {
     array2.add(new JSONValueObjectMutable());
     array2.getObject(1).put("key1", 5.2);
 
-    assertEquals(array1, array2);
-  }
-
-  @Test
-  public void testEqualityImmutable() throws IOException, JSONParserException {
-    JSONValue array1 = JSONText.fromString("[[true, 123], {\"key1\": 5.2}]").parse(true);
-    JSONValueArrayMutable array2 = new JSONValueArrayMutable();
-    array2.add(new JSONValueArrayMutable());
-    array2.getArray(0).add(true);
-    array2.getArray(0).add(123);
-    array2.add(new JSONValueObjectMutable());
-    array2.getObject(1).put("key1", 5.2);
-
-    assertEquals(array1, array2.toImmutable());
+    assertTrue(array2.equals(array1));
   }
 }

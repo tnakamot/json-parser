@@ -192,20 +192,6 @@ public class JSONValueArrayMutable extends JSONValueArray {
     return values.toArray(ts);
   }
 
-  @Override
-  public int hashCode() {
-    return values.hashCode();
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (o instanceof JSONValueArrayMutable) {
-      return values.equals(((JSONValueArrayMutable) o).values);
-    } else {
-      return false;
-    }
-  }
-
   /**
    * Return the copy of this JSON array as an immutable Java object.
    *

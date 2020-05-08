@@ -163,22 +163,6 @@ public class JSONValueObjectMutable extends JSONValueObject {
     return members.entrySet();
   }
 
-  /** {@inheritDoc} */
-  @Override
-  public int hashCode() {
-    return members.hashCode();
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public boolean equals(Object o) {
-    if (o instanceof JSONValueObjectMutable) {
-      return members.equals(((JSONValueObjectMutable) o).members);
-    } else {
-      return false;
-    }
-  }
-
   /**
    * Return the copy of this JSON object as an immutable Java object.
    *

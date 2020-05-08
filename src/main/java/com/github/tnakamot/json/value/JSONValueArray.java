@@ -123,14 +123,6 @@ public abstract class JSONValueArray extends JSONValue implements List<JSONValue
   @Override
   public abstract <T> T[] toArray(T[] ts);
 
-  /** {@inheritDoc} */
-  @Override
-  public abstract int hashCode();
-
-  /** {@inheritDoc} */
-  @Override
-  public abstract boolean equals(Object o);
-
   /**
    * Add a JSON boolean value to this array.
    *
@@ -282,5 +274,35 @@ public abstract class JSONValueArray extends JSONValue implements List<JSONValue
       throw new WrongValueTypeException(
           "Wrong value type at index " + index + ".", JSONValueType.OBJECT, val.type());
     }
+  }
+
+  @Override
+  public int hashCode() {
+    int hash = 0;
+    for (JSONValue val : this) {
+      hash += val.hashCode();
+    }
+    return hash;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (!(o instanceof JSONValueArray)) {
+      return false;
+    }
+    JSONValueArray a = (JSONValueArray) o;
+    if (size() != a.size()) {
+      return false;
+    }
+
+    for (int i = 0; i < size(); i++) {
+      JSONValue v1 = get(i);
+      JSONValue v2 = a.get(i);
+      if (!v1.equals(v2)) {
+        return false;
+      }
+    }
+
+    return true;
   }
 }

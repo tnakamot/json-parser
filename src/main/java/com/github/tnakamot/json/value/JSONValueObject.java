@@ -111,14 +111,6 @@ public abstract class JSONValueObject extends JSONValue implements Map<JSONValue
   @Override
   public abstract @NotNull Set<Entry<JSONValueString, JSONValue>> entrySet();
 
-  /** {@inheritDoc} */
-  @Override
-  public abstract int hashCode();
-
-  /** {@inheritDoc} */
-  @Override
-  public abstract boolean equals(Object o);
-
   /**
    * Associates the specified value with the specified key in this JSON object.
    *
@@ -310,5 +302,35 @@ public abstract class JSONValueObject extends JSONValue implements Map<JSONValue
       throw new WrongValueTypeException(
           "Wrong value type for key '" + key + "'.", JSONValueType.OBJECT, val.type());
     }
+  }
+
+  @Override
+  public int hashCode() {
+    int hash = 0;
+    for (Map.Entry<JSONValueString, JSONValue> entry : this.entrySet()) {
+      hash += entry.getKey().hashCode();
+      hash += entry.getValue().hashCode();
+    }
+
+    return hash;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (!(o instanceof JSONValueObject)) {
+      return false;
+    }
+    JSONValueObject obj = (JSONValueObject) o;
+    if (size() != obj.size()) {
+      return false;
+    }
+
+    for (Map.Entry<JSONValueString, JSONValue> entry : this.entrySet()) {
+      if (!obj.get(entry.getKey()).equals(entry.getValue())) {
+        return false;
+      }
+    }
+
+    return true;
   }
 }
