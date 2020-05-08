@@ -257,4 +257,32 @@ public class JSONValueObjectTest {
         "{\"key1\":[true,123,null],\"key2\":{\"key3\":5.2,\"key4\":3.14},\"key5\":512}",
         rootObjMutable.toTokenString());
   }
+
+  @Test
+  public void testEqualityMutable() throws IOException, JSONParserException {
+    JSONValue obj1 =
+        JSONText.fromString("{\"key1\": [true, 123], \"key2\": {\"key3\": 5.2}}").parse(false);
+    JSONValueObject obj2 = new JSONValueObjectMutable();
+    obj2.put("key1", new JSONValueArrayMutable());
+    obj2.getArray("key1").add(true);
+    obj2.getArray("key1").add(123);
+    obj2.put("key2", new JSONValueObjectMutable());
+    obj2.getObject("key2").put("key3", 5.2);
+
+    assertEquals(obj1, obj2);
+  }
+
+  @Test
+  public void testEqualityImmutable() throws IOException, JSONParserException {
+    JSONValue obj1 =
+        JSONText.fromString("{\"key1\": [true, 123], \"key2\": {\"key3\": 5.2}}").parse(true);
+    JSONValueObjectMutable obj2 = new JSONValueObjectMutable();
+    obj2.put("key1", new JSONValueArrayMutable());
+    obj2.getArray("key1").add(true);
+    obj2.getArray("key1").add(123);
+    obj2.put("key2", new JSONValueObjectMutable());
+    obj2.getObject("key2").put("key3", 5.2);
+
+    assertEquals(obj1, obj2.toImmutable());
+  }
 }
