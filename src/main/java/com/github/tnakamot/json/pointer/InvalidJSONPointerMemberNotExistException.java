@@ -5,9 +5,10 @@ public class InvalidJSONPointerMemberNotExistException
     extends InvalidJSONPointerWithTokenException {
   public InvalidJSONPointerMemberNotExistException(JSONPointerReferenceToken token) {
     super(
-        "The JSON object '"
-            + token.parent()
-            + "' does not have a member with the name '"
+        (token.previous() == null
+                ? "The root JSON object"
+                : "The JSON object '" + token.parent() + "'")
+            + " does not have a member '"
             + token.name()
             + "'.",
         token);

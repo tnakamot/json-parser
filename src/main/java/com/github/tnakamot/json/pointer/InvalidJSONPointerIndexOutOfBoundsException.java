@@ -7,9 +7,11 @@ public class InvalidJSONPointerIndexOutOfBoundsException
     super(
         "Index "
             + token.text()
-            + " is out of bounds of the JSON array '"
-            + token.parent()
-            + "' (size: "
+            + " is out of bounds of "
+            + (token.previous() == null
+                ? "the root JSON array"
+                : "the JSON array '" + token.parent() + "'")
+            + " (size: "
             + size
             + ").",
         token);

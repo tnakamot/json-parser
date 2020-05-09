@@ -8,6 +8,8 @@ import com.github.tnakamot.json.JSONText;
 import com.github.tnakamot.json.parser.JSONParserException;
 import com.github.tnakamot.json.value.JSONValue;
 import com.github.tnakamot.json.value.JSONValueArray;
+import com.github.tnakamot.json.value.JSONValueBoolean;
+import com.github.tnakamot.json.value.JSONValueNull;
 import com.github.tnakamot.json.value.JSONValueNumber;
 import com.github.tnakamot.json.value.JSONValueString;
 import com.github.tnakamot.json.value.JSONValueType;
@@ -296,5 +298,57 @@ public class JSONPointerTest {
     assertEquals(new JSONValueNumber(6), jsText.evaluate("/k\"l"));
     assertEquals(new JSONValueNumber(7), jsText.evaluate("/ "));
     assertEquals(new JSONValueNumber(8), jsText.evaluate("/m~0n"));
+
+    InvalidJSONPointerException ex;
+    ex =
+        assertThrows(
+            InvalidJSONPointerMemberNotExistException.class, () -> jsText.evaluate("/abc"));
+    log.info(ex::getMessage);
+
+    ex =
+        assertThrows(
+            InvalidJSONPointerIndexOutOfBoundsException.class, () -> jsText.evaluate("/foo/2"));
+    log.info(ex::getMessage);
+
+    ex = assertThrows(InvalidJSONPointerNotIndexException.class, () -> jsText.evaluate("/foo/a"));
+    log.info(ex::getMessage);
+
+    ex =
+        assertThrows(
+            InvalidJSONPointerReachedPrimitiveException.class, () -> jsText.evaluate("//abc"));
+    log.info(ex::getMessage);
+  }
+
+  @Test
+  public void testInvalidJSONPointerForRootArray()
+      throws InvalidJSONPointerException, IOException, JSONParserException {
+    JSONText jsText = JSONText.fromString("[5, true, null, {\"key1\": 3.14}]");
+    JSONValue root = jsText.parse();
+
+    assertEquals(root, jsText.evaluate(""));
+
+    assertEquals(new JSONValueNumber(5), jsText.evaluate("/0"));
+    assertEquals(JSONValueBoolean.TRUE, jsText.evaluate("/1"));
+    assertEquals(JSONValueNull.INSTANCE, jsText.evaluate("/2"));
+    assertEquals(JSONValueType.OBJECT, jsText.evaluate("/3").type());
+    assertEquals(new JSONValueNumber(3.14), jsText.evaluate("/3/key1"));
+
+    InvalidJSONPointerException ex;
+    ex = assertThrows(InvalidJSONPointerNotIndexException.class, () -> jsText.evaluate("/abc"));
+    log.info(ex::getMessage);
+
+    ex =
+        assertThrows(
+            InvalidJSONPointerIndexOutOfBoundsException.class, () -> jsText.evaluate("/4"));
+    log.info(ex::getMessage);
+
+    ex =
+        assertThrows(
+            InvalidJSONPointerReachedPrimitiveException.class, () -> jsText.evaluate("/0/1"));
+    log.info(ex::getMessage);
+
+    ex =
+        assertThrows(InvalidJSONPointerMemberNotExistException.class, () -> jsText.evaluate("/3/"));
+    log.info(ex::getMessage);
   }
 }
