@@ -41,6 +41,7 @@ public class JSONPointerTest {
       assertEquals(1 + offset, p.tokens()[0].beginningLocation());
       assertEquals(1 + offset, p.tokens()[0].endLocation());
       assertEquals("", p.tokens()[0].text());
+      assertEquals("", p.tokens()[0].parent());
       assertEquals("", p.tokens()[0].name());
       ex = assertThrows(InvalidJSONPointerNotIndexException.class, () -> p.tokens()[0].index());
       log.info(ex::getMessage);
@@ -66,6 +67,7 @@ public class JSONPointerTest {
       assertEquals(1 + offset, p.tokens()[0].beginningLocation());
       assertEquals(2 + offset, p.tokens()[0].endLocation());
       assertEquals("x", p.tokens()[0].text());
+      assertEquals("", p.tokens()[0].parent());
       assertEquals("x", p.tokens()[0].name());
       ex = assertThrows(InvalidJSONPointerNotIndexException.class, () -> p.tokens()[0].index());
       log.info(ex::getMessage);
@@ -92,12 +94,14 @@ public class JSONPointerTest {
       assertEquals(1 + offset, p.tokens()[0].beginningLocation());
       assertEquals(2 + offset, p.tokens()[0].endLocation());
       assertEquals("x", p.tokens()[0].text());
+      assertEquals("", p.tokens()[0].parent());
       assertEquals("x", p.tokens()[0].name());
       assertThrows(InvalidJSONPointerNotIndexException.class, () -> p.tokens()[0].index());
 
       assertEquals(3 + offset, p.tokens()[1].beginningLocation());
       assertEquals(3 + offset, p.tokens()[1].endLocation());
       assertEquals("", p.tokens()[1].text());
+      assertEquals("/x", p.tokens()[1].parent());
       assertEquals("", p.tokens()[1].name());
       ex = assertThrows(InvalidJSONPointerNotIndexException.class, () -> p.tokens()[1].index());
       log.info(ex::getMessage);
@@ -125,6 +129,7 @@ public class JSONPointerTest {
       assertEquals(1 + offset, p.tokens()[0].beginningLocation());
       assertEquals(4 + offset, p.tokens()[0].endLocation());
       assertEquals("abc", p.tokens()[0].text());
+      assertEquals("", p.tokens()[0].parent());
       assertEquals("abc", p.tokens()[0].name());
       ex = assertThrows(InvalidJSONPointerNotIndexException.class, () -> p.tokens()[0].index());
       log.info(ex::getMessage);
@@ -132,6 +137,7 @@ public class JSONPointerTest {
       assertEquals(5 + offset, p.tokens()[1].beginningLocation());
       assertEquals(8 + offset, p.tokens()[1].endLocation());
       assertEquals("def", p.tokens()[1].text());
+      assertEquals("/abc", p.tokens()[1].parent());
       assertEquals("def", p.tokens()[1].name());
       ex = assertThrows(InvalidJSONPointerNotIndexException.class, () -> p.tokens()[1].index());
       log.info(ex::getMessage);
@@ -139,6 +145,7 @@ public class JSONPointerTest {
       assertEquals(9 + offset, p.tokens()[2].beginningLocation());
       assertEquals(11 + offset, p.tokens()[2].endLocation());
       assertEquals("19", p.tokens()[2].text());
+      assertEquals("/abc/def", p.tokens()[2].parent());
       assertEquals("19", p.tokens()[2].name());
       assertEquals(19, p.tokens()[2].index());
     }
@@ -165,6 +172,7 @@ public class JSONPointerTest {
       assertEquals(1 + offset, p.tokens()[0].beginningLocation());
       assertEquals(5 + offset, p.tokens()[0].endLocation());
       assertEquals("test", p.tokens()[0].text());
+      assertEquals("", p.tokens()[0].parent());
       assertEquals("test", p.tokens()[0].name());
       ex = assertThrows(InvalidJSONPointerNotIndexException.class, () -> p.tokens()[0].index());
       log.info(ex::getMessage);
@@ -172,6 +180,7 @@ public class JSONPointerTest {
       assertEquals(6 + offset, p.tokens()[1].beginningLocation());
       assertEquals(6 + offset, p.tokens()[1].endLocation());
       assertEquals("", p.tokens()[1].text());
+      assertEquals("/test", p.tokens()[1].parent());
       assertEquals("", p.tokens()[1].name());
       ex = assertThrows(InvalidJSONPointerNotIndexException.class, () -> p.tokens()[1].index());
       log.info(ex::getMessage);
@@ -179,6 +188,7 @@ public class JSONPointerTest {
       assertEquals(7 + offset, p.tokens()[2].beginningLocation());
       assertEquals(9 + offset, p.tokens()[2].endLocation());
       assertEquals("11", p.tokens()[2].text());
+      assertEquals("/test/", p.tokens()[2].parent());
       assertEquals("11", p.tokens()[2].name());
       assertEquals(11, p.tokens()[2].index());
     }
@@ -204,6 +214,7 @@ public class JSONPointerTest {
       assertEquals(1 + offset, p.tokens()[0].beginningLocation());
       assertEquals(5 + offset, p.tokens()[0].endLocation());
       assertEquals("a~1c", p.tokens()[0].text());
+      assertEquals("", p.tokens()[0].parent());
       assertEquals("a/c", p.tokens()[0].name());
       ex = assertThrows(InvalidJSONPointerNotIndexException.class, () -> p.tokens()[0].index());
       log.info(ex::getMessage);
@@ -211,6 +222,7 @@ public class JSONPointerTest {
       assertEquals(6 + offset, p.tokens()[1].beginningLocation());
       assertEquals(10 + offset, p.tokens()[1].endLocation());
       assertEquals("d~0f", p.tokens()[1].text());
+      assertEquals("/a~1c", p.tokens()[1].parent());
       assertEquals("d~f", p.tokens()[1].name());
       ex = assertThrows(InvalidJSONPointerNotIndexException.class, () -> p.tokens()[1].index());
       log.info(ex::getMessage);

@@ -64,7 +64,8 @@ public class JSONPointerLexer {
     }
   }
 
-  private JSONPointerReferenceToken next() throws InvalidJSONPointerSyntaxException {
+  private JSONPointerReferenceToken next(JSONPointerReferenceToken current)
+      throws InvalidJSONPointerSyntaxException {
     StringBuilder tokenSB = new StringBuilder();
     int begin = location;
     boolean escaped = false;
@@ -85,12 +86,14 @@ public class JSONPointerLexer {
         }
       } else {
         if (eof) {
-          return new JSONPointerReferenceToken(tokenSB.toString(), begin, location - 1, pointer);
+          return new JSONPointerReferenceToken(
+              current, tokenSB.toString(), begin, location - 1, pointer);
         } else if (ch == '~') {
           escaped = true;
           tokenSB.append('~');
         } else if (ch == '/') {
-          return new JSONPointerReferenceToken(tokenSB.toString(), begin, location - 1, pointer);
+          return new JSONPointerReferenceToken(
+              current, tokenSB.toString(), begin, location - 1, pointer);
         } else {
           tokenSB.append(ch);
         }
@@ -110,6 +113,7 @@ public class JSONPointerLexer {
       throws InvalidJSONPointerSyntaxException {
 
     List<JSONPointerReferenceToken> tokens = new LinkedList<>();
+    JSONPointerReferenceToken current = null;
 
     if (fragment) {
       readAsFragment();
@@ -125,7 +129,8 @@ public class JSONPointerLexer {
     }
 
     while (!eof) {
-      tokens.add(next());
+      current = next(current);
+      tokens.add(current);
     }
 
     return tokens;
