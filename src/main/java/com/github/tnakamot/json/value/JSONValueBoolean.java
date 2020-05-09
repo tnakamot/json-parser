@@ -31,9 +31,10 @@ public class JSONValueBoolean extends JSONValuePrimitive {
   private final boolean value;
 
   /**
-   * Return an instance of a Java representation of a JSON boolean value.
+   * Convert Java boolean primitive to a JSON boolean value
    *
-   * @param value value represented by Java boolean primitive of this JSON boolean value.
+   * @param value value Java boolean primitive to convert
+   * @return converted JSON boolean value
    */
   public static JSONValueBoolean valueOf(boolean value) {
     return value ? TRUE : FALSE;
