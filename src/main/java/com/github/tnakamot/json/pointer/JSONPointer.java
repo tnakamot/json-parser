@@ -50,15 +50,6 @@ public class JSONPointer {
   }
 
   /**
-   * Return the unescaped reference tokens.
-   *
-   * @return unescaped reference tokens.
-   */
-  public String[] tokens() {
-    return Arrays.copyOf(tokens, tokens.length);
-  }
-
-  /**
    * Create a new JSON Pointer instance from a JSON string value.
    *
    * @param pointer a JSON string value which represents a JSON pointer
@@ -70,6 +61,15 @@ public class JSONPointer {
   public JSONPointer(JSONValueString pointer, boolean fragment)
       throws InvalidJSONPointerSyntaxException {
     this(pointer.value(), fragment);
+  }
+
+  /**
+   * Return the unescaped reference tokens.
+   *
+   * @return unescaped reference tokens.
+   */
+  public String[] tokens() {
+    return Arrays.copyOf(tokens, tokens.length);
   }
 
   private static String[] parse(String pointer, boolean fragment)
