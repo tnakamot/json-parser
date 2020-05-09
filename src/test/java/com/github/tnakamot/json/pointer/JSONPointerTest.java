@@ -367,7 +367,7 @@ public class JSONPointerTest {
                 + "  \"key3\": true,"
                 + "  \"key4\": {\"key5\": \"hello!\" }"
                 + "} ");
-    JSONValue root = jsText.parse();
+    jsText.parse();
 
     JSONValueString val1 = (JSONValueString) jsText.evaluate("/key1");
     assertEquals("value", val1.value());

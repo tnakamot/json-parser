@@ -2,6 +2,7 @@ package com.github.tnakamot.json.value;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -278,28 +279,28 @@ public class JSONValueObjectTest {
     JSONValue obj1 =
         JSONText.fromString("{\"key1\": [true, 123], \"key2\": {\"key3\": 5.2}}").parse();
 
-    assertFalse(obj1.equals(JSONValueNull.INSTANCE));
-    assertFalse(obj1.equals(JSONValueBoolean.TRUE));
-    assertFalse(obj1.equals(JSONValueBoolean.FALSE));
-    assertFalse(obj1.equals(new JSONValueNumber(5.2)));
-    assertFalse(obj1.equals(new JSONValueNumber(134)));
-    assertFalse(obj1.equals(new JSONValueString("key1")));
-    assertFalse(obj1.equals(new JSONValueArrayMutable()));
+    assertNotEquals(obj1, JSONValueNull.INSTANCE);
+    assertNotEquals(obj1, JSONValueBoolean.TRUE);
+    assertNotEquals(obj1, JSONValueBoolean.FALSE);
+    assertNotEquals(obj1, new JSONValueNumber(5.2));
+    assertNotEquals(obj1, new JSONValueNumber(134));
+    assertNotEquals(obj1, new JSONValueString("key1"));
+    assertNotEquals(obj1, new JSONValueArrayMutable());
 
     JSONValueObject obj2 = new JSONValueObjectMutable();
     obj2.put("key1", new JSONValueArrayMutable());
     obj2.getArray("key1").add(true);
     obj2.getArray("key1").add(123);
-    assertFalse(obj1.equals(obj2));
+    assertNotEquals(obj1, obj2);
 
     obj2.put("key2", new JSONValueNumber(5.2));
-    assertFalse(obj1.equals(obj2));
+    assertNotEquals(obj1, obj2);
 
     obj2.put("key2", new JSONValueObjectMutable());
     obj2.getObject("key2").put("key3", 5.2);
-    assertTrue(obj1.equals(obj2));
+    assertEquals(obj1, obj2);
 
     obj2.put("key4", new JSONValueNumber(2.3));
-    assertFalse(obj1.equals(obj2));
+    assertNotEquals(obj1, obj2);
   }
 }

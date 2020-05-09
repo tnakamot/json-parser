@@ -4,7 +4,6 @@ import com.github.tnakamot.json.value.JSONValue;
 import com.github.tnakamot.json.value.JSONValueArray;
 import com.github.tnakamot.json.value.JSONValueObject;
 import com.github.tnakamot.json.value.JSONValueString;
-import com.github.tnakamot.json.value.JSONValueType;
 import java.util.List;
 import org.jetbrains.annotations.NotNull;
 

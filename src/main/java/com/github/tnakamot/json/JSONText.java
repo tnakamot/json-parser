@@ -21,18 +21,12 @@ import com.github.tnakamot.json.parser.JSONParser;
 import com.github.tnakamot.json.parser.JSONParserErrorMessageFormat;
 import com.github.tnakamot.json.parser.JSONParserException;
 import com.github.tnakamot.json.pointer.InvalidJSONPointerException;
-import com.github.tnakamot.json.pointer.InvalidJSONPointerSyntaxException;
-import com.github.tnakamot.json.pointer.InvalidJSONPointerWithTokenException;
 import com.github.tnakamot.json.pointer.JSONPointer;
 import com.github.tnakamot.json.token.JSONToken;
 import com.github.tnakamot.json.value.JSONValue;
 
-import com.github.tnakamot.json.value.JSONValueArray;
 import com.github.tnakamot.json.value.JSONValueArrayImmutable;
-import com.github.tnakamot.json.value.JSONValueObject;
 import com.github.tnakamot.json.value.JSONValueObjectImmutable;
-import com.github.tnakamot.json.value.JSONValueObjectMutable;
-import com.github.tnakamot.json.value.JSONValueType;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;

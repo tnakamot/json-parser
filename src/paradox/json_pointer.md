@@ -48,7 +48,7 @@ If you want to make sure the JSON text has been parsed, your application may cal
 
 [RFC 6901 - 6. URI Fragment Identifier Representation](https://tools.ietf.org/html/rfc6901#section-6)
 allows us to represent a JSON Pointer in a URI fragment identifier, which is a text
-starting from '#' (0x23). Normally, JSON Pointer is represented like `/key1/5/key2`.
+starting from '#' (0x23). Normally, JSON Pointer looks like `/key1/5/key2`.
 In URI fragment identifier, it turns to be `#/key1/5/key2`. However, RFC 6901 asks
 the application programs and libraries to check the media type (e.g. `application/json`)
 to judge if the JSON Pointer should be handled as a URI fragment identifier.
