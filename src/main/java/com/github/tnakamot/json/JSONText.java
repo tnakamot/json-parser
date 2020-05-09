@@ -23,6 +23,12 @@ import com.github.tnakamot.json.parser.JSONParserException;
 import com.github.tnakamot.json.token.JSONToken;
 import com.github.tnakamot.json.value.JSONValue;
 
+import com.github.tnakamot.json.value.JSONValueArray;
+import com.github.tnakamot.json.value.JSONValueArrayImmutable;
+import com.github.tnakamot.json.value.JSONValueObject;
+import com.github.tnakamot.json.value.JSONValueObjectImmutable;
+import com.github.tnakamot.json.value.JSONValueObjectMutable;
+import com.github.tnakamot.json.value.JSONValueType;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -41,12 +47,14 @@ public class JSONText {
   private final Object source;
   private final String name;
   private final String fullName;
+  private JSONValue root;
 
   private JSONText(String text, Object source, String name, String fullName) {
     this.text = text;
     this.source = source;
     this.name = name;
     this.fullName = fullName;
+    this.root = null;
 
     if (!((source instanceof File) || (source instanceof URL) || (source instanceof String))) {
       throw new IllegalArgumentException("source must be File, URL or String");
@@ -111,9 +119,26 @@ public class JSONText {
    */
   public JSONValue parse(boolean immutable, JSONParserErrorMessageFormat errMsgFmt)
       throws IOException, JSONParserException {
-    List<JSONToken> tokens = tokens(errMsgFmt);
-    JSONParser parser = new JSONParser(tokens, errMsgFmt);
-    return parser.parse(immutable);
+    if (root == null) {
+      List<JSONToken> tokens = tokens(errMsgFmt);
+      JSONParser parser = new JSONParser(tokens, errMsgFmt);
+      root = parser.parse();
+    }
+
+    if (immutable) {
+      return root;
+    } else {
+      switch (root.type()) {
+        case OBJECT:
+          JSONValueObjectImmutable rootObject = (JSONValueObjectImmutable) root;
+          return rootObject.toMutable();
+        case ARRAY:
+          JSONValueArrayImmutable rootArray = (JSONValueArrayImmutable) root;
+          return rootArray.toMutable();
+        default:
+          return root;
+      }
+    }
   }
 
   /**
