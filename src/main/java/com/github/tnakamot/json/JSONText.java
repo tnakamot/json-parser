@@ -45,7 +45,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Represents one JSON text.
  *
- * <p>Instances of this class is mutable, but thread-safe.
+ * <p>Instances of this class is not immutable, but thread-safe.
  */
 public class JSONText {
   private final String text;
@@ -66,7 +66,10 @@ public class JSONText {
     }
   }
 
-  /** @return Contents of this JSON text. */
+  /**
+   * Returns the content of this JSON text as a string.
+   * @return Contents of this JSON text.
+   */
   public String get() {
     return text;
   }
@@ -195,16 +198,29 @@ public class JSONText {
   }
 
   /**
+   * Returns whether this JSON text has been successfully parsed in the past.
+   *
+   * <p>If this method returns false, {@link #evaluate(String)} and its variants result in {@link
+   * IllegalStateException};
+   *
+   * @return whether this JSON text has been successfully parsed in the past.
+   */
+  public synchronized boolean isParsed() {
+    return root != null;
+  }
+
+  /**
    * Evaluate the given JSON Pointer and return the found JSON value.
    *
-   * <p>{@link #parse()} (or its variant) must be called before this method.
+   * <p>{@link #parse()} (or its variant) must be successfully called before this method.
    *
    * @param pointer a string representation of a JSON Pointer
    * @return the JSON value of the pointer evaluation result
    * @throws InvalidJSONPointerException when the JSON Pointer has an error
+   * @throws IllegalStateException if this JSON text has not been parsed yet
    */
   public synchronized JSONValue evaluate(@NotNull String pointer)
-      throws InvalidJSONPointerException, IOException, JSONParserException {
+      throws InvalidJSONPointerException {
     // TODO: judge the content type and set 'fragment' argument accordingly
     return evaluate(pointer, false);
   }
@@ -212,37 +228,33 @@ public class JSONText {
   /**
    * Evaluate the given JSON Pointer and return the found JSON value.
    *
-   * <p>{@link #parse()} (or its variant) must be called before this method.
+   * <p>{@link #parse()} (or its variant) must be successfully called before this method.
    *
    * @param pointer a string representation of a JSON Pointer
    * @param fragment specify true to handle the given string as a URI fragment identifier starting
    *     with '#".
    * @return the JSON value of the pointer evaluation result
    * @throws InvalidJSONPointerException when the JSON Pointer has an error
+   * @throws IllegalStateException if this JSON text has not been parsed yet
    */
   public synchronized JSONValue evaluate(@NotNull String pointer, boolean fragment)
       throws InvalidJSONPointerException {
-    if (pointer == null) {
-      throw new NullPointerException("pointer cannot be null");
-    }
-
     return evaluate(new JSONPointer(pointer, fragment));
   }
 
   /**
    * Evaluate the given JSON Pointer and return the found JSON value.
    *
-   * <p>{@link #parse()} (or its variant) must be called before this method.
+   * <p>{@link #parse()} (or its variant) must be successfully called before this method.
    *
    * @param pointer JSON pointer
    * @return the JSON value of the pointer evaluation result
    * @throws InvalidJSONPointerException when the JSON Pointer has an error
+   * @throws IllegalStateException if this JSON text has not been parsed yet
    */
   public synchronized JSONValue evaluate(@NotNull JSONPointer pointer)
       throws InvalidJSONPointerException {
-    if (pointer == null) {
-      throw new NullPointerException("pointer cannot be null");
-    } else if (root == null) {
+    if (root == null) {
       throw new IllegalStateException(
           "JSON Text needs to be parsed first before evaluating a JSON Pointer");
     }

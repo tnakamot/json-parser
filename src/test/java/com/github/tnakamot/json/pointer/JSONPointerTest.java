@@ -2,7 +2,9 @@ package com.github.tnakamot.json.pointer;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.github.tnakamot.json.JSONText;
 import com.github.tnakamot.json.parser.JSONParserException;
@@ -323,7 +325,11 @@ public class JSONPointerTest {
   public void testInvalidJSONPointerForRootArray()
       throws InvalidJSONPointerException, IOException, JSONParserException {
     JSONText jsText = JSONText.fromString("[5, true, null, {\"key1\": 3.14}]");
+    assertFalse(jsText.isParsed());
+    assertThrows(IllegalStateException.class, () -> jsText.evaluate("/0"));
+
     JSONValue root = jsText.parse();
+    assertTrue(jsText.isParsed());
 
     assertEquals(root, jsText.evaluate(""));
 
@@ -350,5 +356,30 @@ public class JSONPointerTest {
     ex =
         assertThrows(InvalidJSONPointerMemberNotExistException.class, () -> jsText.evaluate("/3/"));
     log.info(ex::getMessage);
+  }
+
+  @Test
+  public void testExample() throws InvalidJSONPointerException, IOException, JSONParserException {
+    JSONText jsText =
+        JSONText.fromString(
+            "{"
+                + "  \"key1\": \"value\", "
+                + "  \"key2\": [3, 1, 4], "
+                + "  \"key3\": true,"
+                + "  \"key4\": {\"key5\": \"hello!\" }"
+                + "} ");
+    JSONValue root = jsText.parse();
+
+    JSONValueString val1 = (JSONValueString) jsText.evaluate("/key1");
+    assertEquals("value", val1.value());
+    System.out.println(val1.value());
+
+    JSONValueNumber val2 = (JSONValueNumber) jsText.evaluate("/key2/1");
+    assertEquals(1, val2.toLong());
+    System.out.println(val2.toLong());
+
+    JSONValueString val3 = (JSONValueString) jsText.evaluate("/key4/key5");
+    assertEquals("hello!", val3.value());
+    System.out.println(val3.value());
   }
 }
