@@ -2,7 +2,7 @@ package com.github.tnakamot.json.pointer;
 
 import java.util.regex.Pattern;
 
-public class InvalidJSONPointerException extends Exception {
+public abstract class InvalidJSONPointerException extends Exception {
   private final String text;
   private final int begin;
   private final int end;

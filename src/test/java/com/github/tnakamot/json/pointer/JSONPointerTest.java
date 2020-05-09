@@ -4,13 +4,21 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import com.github.tnakamot.json.JSONText;
+import com.github.tnakamot.json.parser.JSONParserException;
+import com.github.tnakamot.json.value.JSONValue;
+import com.github.tnakamot.json.value.JSONValueArray;
+import com.github.tnakamot.json.value.JSONValueNumber;
 import com.github.tnakamot.json.value.JSONValueString;
+import com.github.tnakamot.json.value.JSONValueType;
+import java.io.IOException;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.logging.Logger;
 import org.junit.platform.commons.logging.LoggerFactory;
 
 public class JSONPointerTest {
   private static final Logger log = LoggerFactory.getLogger(JSONPointerTest.class);
+  private static final String rfc6901Example = "/com/github/tnakamot/json/rfc6901_example.json";
 
   @Test
   public void testPointerEmpty() throws InvalidJSONPointerSyntaxException {
@@ -262,5 +270,31 @@ public class JSONPointerTest {
     ex =
         assertThrows(InvalidJSONPointerSyntaxException.class, () -> new JSONPointer("#/ab~", true));
     log.info(ex::getMessage);
+  }
+
+  @Test
+  public void testRFC6901Example()
+      throws InvalidJSONPointerException, IOException, JSONParserException {
+    JSONText jsText = JSONText.fromURL(this.getClass().getResource(rfc6901Example));
+    JSONValue root = jsText.parse();
+
+    assertEquals(root, jsText.evaluate(""));
+
+    assertEquals(JSONValueType.ARRAY, jsText.evaluate("/foo").type());
+    JSONValueArray array = (JSONValueArray) jsText.evaluate("/foo");
+    assertEquals(2, array.size());
+    assertEquals("bar", array.getString(0));
+    assertEquals("baz", array.getString(1));
+
+    assertEquals(new JSONValueString("bar"), jsText.evaluate("/foo/0"));
+    assertEquals(new JSONValueNumber(0), jsText.evaluate("/"));
+    assertEquals(new JSONValueNumber(1), jsText.evaluate("/a~1b"));
+    assertEquals(new JSONValueNumber(2), jsText.evaluate("/c%d"));
+    assertEquals(new JSONValueNumber(3), jsText.evaluate("/e^f"));
+    assertEquals(new JSONValueNumber(4), jsText.evaluate("/g|h"));
+    assertEquals(new JSONValueNumber(5), jsText.evaluate("/i\\j"));
+    assertEquals(new JSONValueNumber(6), jsText.evaluate("/k\"l"));
+    assertEquals(new JSONValueNumber(7), jsText.evaluate("/ "));
+    assertEquals(new JSONValueNumber(8), jsText.evaluate("/m~0n"));
   }
 }

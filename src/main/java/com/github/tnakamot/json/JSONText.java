@@ -20,6 +20,10 @@ import com.github.tnakamot.json.parser.JSONLexer;
 import com.github.tnakamot.json.parser.JSONParser;
 import com.github.tnakamot.json.parser.JSONParserErrorMessageFormat;
 import com.github.tnakamot.json.parser.JSONParserException;
+import com.github.tnakamot.json.pointer.InvalidJSONPointerException;
+import com.github.tnakamot.json.pointer.InvalidJSONPointerSyntaxException;
+import com.github.tnakamot.json.pointer.InvalidJSONPointerWithTokenException;
+import com.github.tnakamot.json.pointer.JSONPointer;
 import com.github.tnakamot.json.token.JSONToken;
 import com.github.tnakamot.json.value.JSONValue;
 
@@ -36,11 +40,12 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Represents one JSON text.
  *
- * <p>Instances of this class are immutable.
+ * <p>Instances of this class is mutable, but thread-safe.
  */
 public class JSONText {
   private final String text;
@@ -83,7 +88,7 @@ public class JSONText {
    * @throws IOException if an I/O error occurs
    * @throws JSONParserException if there is a syntax error in JSON text
    */
-  public List<JSONToken> tokens(JSONParserErrorMessageFormat errMsgFmt)
+  public synchronized List<JSONToken> tokens(JSONParserErrorMessageFormat errMsgFmt)
       throws IOException, JSONParserException {
     List<JSONToken> tokens = new ArrayList<>();
     JSONLexer lexer = new JSONLexer(this, errMsgFmt);
@@ -101,7 +106,7 @@ public class JSONText {
    * @throws IOException if an I/O error occurs
    * @throws JSONParserException if there is a syntax error in JSON text
    */
-  public List<JSONToken> tokens() throws IOException, JSONParserException {
+  public synchronized List<JSONToken> tokens() throws IOException, JSONParserException {
     JSONParserErrorMessageFormat errMsgFmt = JSONParserErrorMessageFormat.builder().build();
     return tokens(errMsgFmt);
   }
@@ -117,7 +122,7 @@ public class JSONText {
    * @throws IOException if an I/O error occurs
    * @see <a href="https://tools.ietf.org/html/rfc8259#section-2">RFC 8259 - 2. JSON Grammer</a>
    */
-  public JSONValue parse(boolean immutable, JSONParserErrorMessageFormat errMsgFmt)
+  public synchronized JSONValue parse(boolean immutable, JSONParserErrorMessageFormat errMsgFmt)
       throws IOException, JSONParserException {
     if (root == null) {
       List<JSONToken> tokens = tokens(errMsgFmt);
@@ -155,7 +160,7 @@ public class JSONText {
   @SuppressWarnings(
       "UnusedReturnValue") // Unit tests only the exceptions. The return values are tested through
   // unit test of the underlying method.
-  public JSONValue parse(JSONParserErrorMessageFormat errMsgFmt)
+  public synchronized JSONValue parse(JSONParserErrorMessageFormat errMsgFmt)
       throws IOException, JSONParserException {
     return parse(true, errMsgFmt);
   }
@@ -170,7 +175,7 @@ public class JSONText {
    * @throws IOException if an I/O error occurs
    * @see <a href="https://tools.ietf.org/html/rfc8259#section-2">RFC 8259 - 2. JSON Grammer</a>
    */
-  public JSONValue parse(boolean immutable) throws IOException, JSONParserException {
+  public synchronized JSONValue parse(boolean immutable) throws IOException, JSONParserException {
     JSONParserErrorMessageFormat errMsgFmt = JSONParserErrorMessageFormat.builder().build();
     return parse(immutable, errMsgFmt);
   }
@@ -185,8 +190,64 @@ public class JSONText {
    * @throws IOException if an I/O error occurs
    * @see <a href="https://tools.ietf.org/html/rfc8259#section-2">RFC 8259 - 2. JSON Grammer</a>
    */
-  public JSONValue parse() throws IOException, JSONParserException {
+  public synchronized JSONValue parse() throws IOException, JSONParserException {
     return parse(true);
+  }
+
+  /**
+   * Evaluate the given JSON Pointer and return the found JSON value.
+   *
+   * <p>{@link #parse()} (or its variant) must be called before this method.
+   *
+   * @param pointer a string representation of a JSON Pointer
+   * @return the JSON value of the pointer evaluation result
+   * @throws InvalidJSONPointerException when the JSON Pointer has an error
+   */
+  public synchronized JSONValue evaluate(@NotNull String pointer)
+      throws InvalidJSONPointerException, IOException, JSONParserException {
+    // TODO: judge the content type and set 'fragment' argument accordingly
+    return evaluate(pointer, false);
+  }
+
+  /**
+   * Evaluate the given JSON Pointer and return the found JSON value.
+   *
+   * <p>{@link #parse()} (or its variant) must be called before this method.
+   *
+   * @param pointer a string representation of a JSON Pointer
+   * @param fragment specify true to handle the given string as a URI fragment identifier starting
+   *     with '#".
+   * @return the JSON value of the pointer evaluation result
+   * @throws InvalidJSONPointerException when the JSON Pointer has an error
+   */
+  public synchronized JSONValue evaluate(@NotNull String pointer, boolean fragment)
+      throws InvalidJSONPointerException {
+    if (pointer == null) {
+      throw new NullPointerException("pointer cannot be null");
+    }
+
+    return evaluate(new JSONPointer(pointer, fragment));
+  }
+
+  /**
+   * Evaluate the given JSON Pointer and return the found JSON value.
+   *
+   * <p>{@link #parse()} (or its variant) must be called before this method.
+   *
+   * @param pointer JSON pointer
+   * @return the JSON value of the pointer evaluation result
+   * @throws InvalidJSONPointerException when the JSON Pointer has an error
+   */
+  public synchronized JSONValue evaluate(@NotNull JSONPointer pointer)
+      throws InvalidJSONPointerException {
+    if (pointer == null) {
+      throw new NullPointerException("pointer cannot be null");
+    } else if (root == null) {
+      throw new IllegalStateException(
+          "JSON Text needs to be parsed first before evaluating a JSON Pointer");
+    }
+
+    return pointer.evaluate(root);
   }
 
   /**

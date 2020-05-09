@@ -1,7 +1,10 @@
 package com.github.tnakamot.json.pointer;
 
 import com.github.tnakamot.json.value.JSONValue;
+import com.github.tnakamot.json.value.JSONValueArray;
+import com.github.tnakamot.json.value.JSONValueObject;
 import com.github.tnakamot.json.value.JSONValueString;
+import com.github.tnakamot.json.value.JSONValueType;
 import java.util.List;
 import org.jetbrains.annotations.NotNull;
 
@@ -91,28 +94,38 @@ public class JSONPointer {
    * Evaluate this JSON pointer in the context of the given root value of a JSON document.
    *
    * @param root root value of a JSON document
-   * @return
+   * @return the JSON value that this JSON Pointer points to
+   * @throws InvalidJSONPointerWithTokenException when the JSON Pointer does not point to an
+   *     existing JSON value
    */
-  public JSONValue evaluate(@NotNull JSONValue root) {
+  public JSONValue evaluate(@NotNull JSONValue root) throws InvalidJSONPointerWithTokenException {
     if (root == null) {
       throw new NullPointerException("root cannot be null");
     }
 
-    return null;
-
-    /*
     JSONValue current = root;
-    for (int i = 0; i < tokens.length; i++) {
-      if (current.type() == JSONValueType.OBJECT) {
-
-      } else if (current.type() == JSONValueType.ARRAY) {
-
-      } else {
-
+    for (JSONPointerReferenceToken token : tokens) {
+      switch (current.type()) {
+        case OBJECT:
+          JSONValueObject currentObj = (JSONValueObject) current;
+          current = currentObj.get(token.name());
+          if (current == null) {
+            throw new InvalidJSONPointerMemberNotExistException(token);
+          }
+          break;
+        case ARRAY:
+          JSONValueArray currentArray = (JSONValueArray) current;
+          try {
+            current = currentArray.get(token.index());
+          } catch (IndexOutOfBoundsException ex) {
+            throw new InvalidJSONPointerIndexOutOfBoundsException(token, currentArray.size());
+          }
+          break;
+        default:
+          throw new InvalidJSONPointerReachedPrimitiveException(token);
       }
     }
 
     return current;
-    */
   }
 }
