@@ -247,7 +247,7 @@ public abstract class JSONValueArray extends JSONValue implements List<JSONValue
    *
    * @param index index of the value to return
    * @return the array value at the specified position in this array
-   * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= size())
+   * @throws IndexOutOfBoundsException if the index is out of range (index &lt; 0 || index &gt;= size())
    * @throws WrongValueTypeException if the value type at the specified index is not array
    */
   public JSONValueArray getArray(int index)
@@ -266,7 +266,7 @@ public abstract class JSONValueArray extends JSONValue implements List<JSONValue
    *
    * @param index index of the value to return
    * @return the object value at the specified position in this array
-   * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= size())
+   * @throws IndexOutOfBoundsException if the index is out of range (index &lt; 0 || index &gt;= size())
    * @throws WrongValueTypeException if the value type at the specified index is not object
    */
   public JSONValueObject getObject(int index)
