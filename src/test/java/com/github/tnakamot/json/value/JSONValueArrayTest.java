@@ -2,6 +2,7 @@ package com.github.tnakamot.json.value;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -184,6 +185,46 @@ public class JSONValueArrayTest {
     array2.add(new JSONValueObjectMutable());
     array2.getObject(1).put("key1", 5.2);
 
-    assertTrue(array2.equals(array1));
+    assertEquals(array1.hashCode(), array2.hashCode());
+    assertEquals(array2, array1);
+  }
+
+  @Test
+  public void testInequality() throws IOException, JSONParserException {
+    JSONValue array1 = JSONText.fromString("[[true, 123], {\"key1\": 5.2}]").parse();
+
+    assertNotEquals(array1, JSONValueNull.INSTANCE);
+    assertNotEquals(array1, JSONValueBoolean.TRUE);
+    assertNotEquals(array1, JSONValueBoolean.FALSE);
+    assertNotEquals(array1, new JSONValueNumber(5.2));
+    assertNotEquals(array1, new JSONValueNumber(134));
+    assertNotEquals(array1, new JSONValueString("key1"));
+    assertNotEquals(array1, new JSONValueObjectMutable());
+
+    JSONValueArray array2 = new JSONValueArrayMutable();
+    array2.add(new JSONValueArrayMutable());
+    array2.getArray(0).add(true);
+    array2.getArray(0).add(123);
+    assertNotEquals(array1, array2);
+
+    array2.add(new JSONValueNumber(5.2));
+    assertNotEquals(array1, array2);
+
+    array2.remove(1);
+    array2.add(new JSONValueObjectMutable());
+    array2.getObject(1).put("key1", 5.2);
+    assertEquals(array1, array2);
+
+    array2.add(5.2);
+    assertNotEquals(array1, array2);
+  }
+
+  @Test
+  public void testEmpty() {
+    JSONValueArrayMutable array = new JSONValueArrayMutable();
+    assertEquals(0, array.size());
+    assertTrue(array.isEmpty());
+    assertEquals("[]", array.toTokenString());
+    assertEquals("[ ]", array.toTokenString("\n", "  "));
   }
 }

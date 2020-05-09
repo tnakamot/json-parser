@@ -269,6 +269,37 @@ public class JSONValueObjectTest {
     obj2.put("key2", new JSONValueObjectMutable());
     obj2.getObject("key2").put("key3", 5.2);
 
+    assertEquals(obj1.hashCode(), obj2.hashCode());
     assertEquals(obj1, obj2);
+  }
+
+  @Test
+  public void testInequality() throws IOException, JSONParserException {
+    JSONValue obj1 =
+        JSONText.fromString("{\"key1\": [true, 123], \"key2\": {\"key3\": 5.2}}").parse();
+
+    assertFalse(obj1.equals(JSONValueNull.INSTANCE));
+    assertFalse(obj1.equals(JSONValueBoolean.TRUE));
+    assertFalse(obj1.equals(JSONValueBoolean.FALSE));
+    assertFalse(obj1.equals(new JSONValueNumber(5.2)));
+    assertFalse(obj1.equals(new JSONValueNumber(134)));
+    assertFalse(obj1.equals(new JSONValueString("key1")));
+    assertFalse(obj1.equals(new JSONValueArrayMutable()));
+
+    JSONValueObject obj2 = new JSONValueObjectMutable();
+    obj2.put("key1", new JSONValueArrayMutable());
+    obj2.getArray("key1").add(true);
+    obj2.getArray("key1").add(123);
+    assertFalse(obj1.equals(obj2));
+
+    obj2.put("key2", new JSONValueNumber(5.2));
+    assertFalse(obj1.equals(obj2));
+
+    obj2.put("key2", new JSONValueObjectMutable());
+    obj2.getObject("key2").put("key3", 5.2);
+    assertTrue(obj1.equals(obj2));
+
+    obj2.put("key4", new JSONValueNumber(2.3));
+    assertFalse(obj1.equals(obj2));
   }
 }
