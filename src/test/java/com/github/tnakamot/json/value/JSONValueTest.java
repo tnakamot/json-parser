@@ -73,7 +73,7 @@ public class JSONValueTest {
   public void testToTokenString() {
     JSONValueObject root = new JSONValueObjectMutable();
     root.put("key1", "test");
-    root.put("key2", 3.14);
+    root.put("key2", 3.15);
 
     assertThrows(IllegalArgumentException.class, () -> root.toTokenString("\n\r", "  "));
     assertThrows(IllegalArgumentException.class, () -> root.toTokenString("\n", "abc"));

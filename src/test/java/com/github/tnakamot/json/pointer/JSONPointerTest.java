@@ -1,6 +1,5 @@
 package com.github.tnakamot.json.pointer;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -324,7 +323,7 @@ public class JSONPointerTest {
   @Test
   public void testInvalidJSONPointerForRootArray()
       throws InvalidJSONPointerException, IOException, JSONParserException {
-    JSONText jsText = JSONText.fromString("[5, true, null, {\"key1\": 3.14}]");
+    JSONText jsText = JSONText.fromString("[5, true, null, {\"key1\": 3.15}]");
     assertFalse(jsText.isParsed());
     assertThrows(IllegalStateException.class, () -> jsText.evaluate("/0"));
 
@@ -337,7 +336,7 @@ public class JSONPointerTest {
     assertEquals(JSONValueBoolean.TRUE, jsText.evaluate("/1"));
     assertEquals(JSONValueNull.INSTANCE, jsText.evaluate("/2"));
     assertEquals(JSONValueType.OBJECT, jsText.evaluate("/3").type());
-    assertEquals(new JSONValueNumber(3.14), jsText.evaluate("/3/key1"));
+    assertEquals(new JSONValueNumber(3.15), jsText.evaluate("/3/key1"));
 
     InvalidJSONPointerException ex;
     ex = assertThrows(InvalidJSONPointerNotIndexException.class, () -> jsText.evaluate("/abc"));

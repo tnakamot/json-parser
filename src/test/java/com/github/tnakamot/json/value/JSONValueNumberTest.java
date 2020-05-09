@@ -100,7 +100,7 @@ public class JSONValueNumberTest {
         Arguments.of("82E+2", 82e2),
         Arguments.of("0E-2", 0e2),
         Arguments.of("2.5e5", 2.5e5),
-        Arguments.of("-3.14e+2", -3.14e2),
+        Arguments.of("-3.15e+2", -3.15e2),
         Arguments.of("93.2e-22", 93.2e-22),
         Arguments.of("999.9E1", 999.9e1),
         Arguments.of("-22.5E+3", -22.5e3),

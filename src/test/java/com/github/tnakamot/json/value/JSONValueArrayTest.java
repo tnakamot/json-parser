@@ -21,17 +21,17 @@ public class JSONValueArrayTest {
     JSONValueArrayMutable array = new JSONValueArrayMutable();
     assertTrue(array.add(new JSONValueString("test")));
     assertTrue(array.add(JSONValueBoolean.TRUE));
-    assertTrue(array.add(new JSONValueNumber("3.14")));
+    assertTrue(array.add(new JSONValueNumber("3.15")));
     assertTrue(array.add(JSONValueNull.INSTANCE));
 
     assertEquals(4, array.size());
     assertFalse(array.isEmpty());
     assertEquals(new JSONValueString("test"), array.get(0));
     assertEquals(JSONValueBoolean.TRUE, array.get(1));
-    assertEquals(new JSONValueNumber("3.14"), array.get(2));
+    assertEquals(new JSONValueNumber("3.15"), array.get(2));
     assertEquals(JSONValueNull.INSTANCE, array.get(3));
 
-    assertEquals("[\"test\",true,3.14,null]", array.toTokenString());
+    assertEquals("[\"test\",true,3.15,null]", array.toTokenString());
   }
 
   @Test
@@ -42,7 +42,7 @@ public class JSONValueArrayTest {
     assertTrue(array.add(false));
     assertTrue(array.add("hello"));
     assertTrue(array.add(1024));
-    assertTrue(array.add(3.14));
+    assertTrue(array.add(3.15));
     assertTrue(array.add((String) null));
 
     assertEquals(6, array.size());
@@ -51,10 +51,10 @@ public class JSONValueArrayTest {
     assertEquals(JSONValueBoolean.FALSE, array.get(1));
     assertEquals(new JSONValueString("hello"), array.get(2));
     assertEquals(new JSONValueNumber(1024), array.get(3));
-    assertEquals(new JSONValueNumber(3.14), array.get(4));
+    assertEquals(new JSONValueNumber(3.15), array.get(4));
     assertEquals(new JSONValueString(""), array.get(5));
 
-    assertEquals("[true,false,\"hello\",1024,3.14,\"\"]", array.toTokenString());
+    assertEquals("[true,false,\"hello\",1024,3.15,\"\"]", array.toTokenString());
   }
 
   @Test

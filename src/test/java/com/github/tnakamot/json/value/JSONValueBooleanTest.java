@@ -174,7 +174,7 @@ public class JSONValueBooleanTest {
     JSONValueBoolean falseVal2 = (JSONValueBoolean) root.get(1);
     JSONValueString strVal = new JSONValueString("abc");
     JSONValueNumber numVal1 = new JSONValueNumber(0);
-    JSONValueNumber numVal2 = new JSONValueNumber(3.14);
+    JSONValueNumber numVal2 = new JSONValueNumber(3.15);
     JSONValueNull nullVal = JSONValueNull.INSTANCE;
 
     assertNotEquals(trueVal1, falseVal1);

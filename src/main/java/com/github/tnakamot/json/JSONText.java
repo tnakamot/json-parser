@@ -68,6 +68,7 @@ public class JSONText {
 
   /**
    * Returns the content of this JSON text as a string.
+   *
    * @return Contents of this JSON text.
    */
   public String get() {

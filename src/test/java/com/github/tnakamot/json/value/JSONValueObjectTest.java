@@ -150,7 +150,7 @@ public class JSONValueObjectTest {
     JSONText jsText =
         JSONText.fromString(
             " { \"key1\": \"value\", "
-                + "   \"key2\": 3.14, "
+                + "   \"key2\": 3.15, "
                 + "   \"key3\": false,"
                 + "   \"key4\": 1024,"
                 + "   \"key5\": [5, 1, 2], "
@@ -250,11 +250,11 @@ public class JSONValueObjectTest {
     JSONValueObject rootObjMutable = rootObj.toMutable();
 
     ((JSONValueArray) rootObjMutable.get("key1")).add(JSONValueNull.INSTANCE);
-    ((JSONValueObject) rootObjMutable.get("key2")).put("key4", new JSONValueNumber("3.14"));
+    ((JSONValueObject) rootObjMutable.get("key2")).put("key4", new JSONValueNumber("3.15"));
     rootObjMutable.put("key5", new JSONValueNumber("512"));
 
     assertEquals(
-        "{\"key1\":[true,123,null],\"key2\":{\"key3\":5.2,\"key4\":3.14},\"key5\":512}",
+        "{\"key1\":[true,123,null],\"key2\":{\"key3\":5.2,\"key4\":3.15},\"key5\":512}",
         rootObjMutable.toTokenString());
   }
 
