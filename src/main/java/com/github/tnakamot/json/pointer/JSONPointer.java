@@ -99,10 +99,6 @@ public class JSONPointer {
    *     existing JSON value
    */
   public JSONValue evaluate(@NotNull JSONValue root) throws InvalidJSONPointerWithTokenException {
-    if (root == null) {
-      throw new NullPointerException("root cannot be null");
-    }
-
     JSONValue current = root;
     for (JSONPointerReferenceToken token : tokens) {
       switch (current.type()) {
