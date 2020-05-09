@@ -58,7 +58,7 @@ public class JSONPointerReferenceToken {
       throw new InvalidJSONPointerNotIndexException(this);
     }
 
-    return Integer.valueOf(text);
+    return Integer.parseInt(text);
   }
 
   /**

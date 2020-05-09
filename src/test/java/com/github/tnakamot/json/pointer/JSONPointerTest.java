@@ -185,8 +185,7 @@ public class JSONPointerTest {
   }
 
   @Test
-  public void testPointerValidSyntax6()
-      throws InvalidJSONPointerSyntaxException, InvalidJSONPointerNotIndexException {
+  public void testPointerValidSyntax6() throws InvalidJSONPointerSyntaxException {
     InvalidJSONPointerException ex;
     JSONPointer[] ps =
         new JSONPointer[] {

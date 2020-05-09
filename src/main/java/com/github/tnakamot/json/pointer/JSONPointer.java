@@ -2,8 +2,6 @@ package com.github.tnakamot.json.pointer;
 
 import com.github.tnakamot.json.value.JSONValue;
 import com.github.tnakamot.json.value.JSONValueString;
-import com.github.tnakamot.json.value.JSONValueType;
-import java.util.Arrays;
 import java.util.List;
 import org.jetbrains.annotations.NotNull;
 
