@@ -1,7 +1,11 @@
 package com.github.tnakamot.json.pointer;
 
+import com.github.tnakamot.json.value.JSONValue;
 import com.github.tnakamot.json.value.JSONValueString;
+import com.github.tnakamot.json.value.JSONValueType;
 import java.util.Arrays;
+import java.util.List;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * JSON Pointer implementation compliant with <a href="https://tools.ietf.org/html/rfc6901">RFC
@@ -12,105 +16,105 @@ import java.util.Arrays;
  * @see <a href="https://tools.ietf.org/html/rfc6901">RFC 6901</a>
  */
 public class JSONPointer {
-  private final String[] tokens;
+  private final String text;
+  private final List<JSONPointerReferenceToken> tokens;
 
   /**
    * Create a new JSON Pointer instance from a Java String.
    *
-   * @param pointer String which represents a JSON pointer
+   * @param text String which represents a JSON pointer
    * @throws InvalidJSONPointerSyntaxException when the given String cannot be interpreted as a JSON
    *     Pointer.
    */
-  public JSONPointer(String pointer) throws InvalidJSONPointerSyntaxException {
-    this(pointer, false);
+  public JSONPointer(String text) throws InvalidJSONPointerSyntaxException {
+    this(text, false);
   }
 
   /**
    * Create a new JSON Pointer instance from a Java String.
    *
-   * @param pointer String which represents a JSON pointer
+   * @param text String which represents a JSON pointer
    * @param fragment specify true to handle the given string as a URI fragment identifier starting
    *     with '#".
    * @throws InvalidJSONPointerSyntaxException when the given String cannot be interpreted as a JSON
    *     Pointer.
    */
-  public JSONPointer(String pointer, boolean fragment) throws InvalidJSONPointerSyntaxException {
-    this.tokens = parse(pointer, fragment);
+  public JSONPointer(String text, boolean fragment) throws InvalidJSONPointerSyntaxException {
+    this.text = text;
+
+    JSONPointerLexer lexer = new JSONPointerLexer(this);
+    this.tokens = lexer.tokenize(fragment);
   }
 
   /**
    * Create a new JSON Pointer instance from a JSON string value.
    *
-   * @param pointer String which represents a JSON pointer
+   * @param value a JSON string value which represents a JSON pointer
    * @throws InvalidJSONPointerSyntaxException when the given string cannot be interpreted as a JSON
    *     Pointer.
    */
-  public JSONPointer(JSONValueString pointer) throws InvalidJSONPointerSyntaxException {
-    this(pointer.value());
+  public JSONPointer(JSONValueString value) throws InvalidJSONPointerSyntaxException {
+    this(value.value());
   }
 
   /**
    * Create a new JSON Pointer instance from a JSON string value.
    *
-   * @param pointer a JSON string value which represents a JSON pointer
+   * @param value a JSON string value which represents a JSON pointer
    * @param fragment specify true to handle the given string as a URI fragment identifier starting
    *     with '#".
    * @throws InvalidJSONPointerSyntaxException when the given string cannot be interpreted as a JSON
    *     Pointer.
    */
-  public JSONPointer(JSONValueString pointer, boolean fragment)
+  public JSONPointer(JSONValueString value, boolean fragment)
       throws InvalidJSONPointerSyntaxException {
-    this(pointer.value(), fragment);
+    this(value.value(), fragment);
   }
 
   /**
-   * Return the unescaped reference tokens.
+   * Return the reference tokens.
    *
-   * @return unescaped reference tokens.
+   * @return reference tokens
    */
-  public String[] tokens() {
-    return Arrays.copyOf(tokens, tokens.length);
+  public JSONPointerReferenceToken[] tokens() {
+    return tokens.toArray(new JSONPointerReferenceToken[0]);
   }
 
-  private static String[] parse(String pointer, boolean fragment)
-      throws InvalidJSONPointerSyntaxException {
-    String str;
+  /**
+   * Return the pointer string.
+   *
+   * @return the original pointer string
+   */
+  public String text() {
+    return text;
+  }
 
-    if (fragment) {
-      if (pointer.equals("#")) {
-        return new String[0];
-      } else if (pointer.startsWith("#/")) {
-        str = pointer.substring(2);
-      } else {
-        throw new InvalidJSONPointerSyntaxException(
-            "JSON Pointer (as URI fragment identifier) must be '#' or start with '#/'", pointer);
-      }
-    } else {
-      if (pointer.isEmpty()) {
-        return new String[0];
-      } else if (pointer.startsWith("/")) {
-        str = pointer.substring(1);
-      } else {
-        throw new InvalidJSONPointerSyntaxException(
-            "JSON Pointer must be an empty string or start with '/'", pointer);
-      }
+  /**
+   * Evaluate this JSON pointer in the context of the given root value of a JSON document.
+   *
+   * @param root root value of a JSON document
+   * @return
+   */
+  public JSONValue evaluate(@NotNull JSONValue root) {
+    if (root == null) {
+      throw new NullPointerException("root cannot be null");
     }
 
-    if (pointer.endsWith("/")) {
-      throw new InvalidJSONPointerSyntaxException("JSON Pointer must not end with '/'", pointer);
-    }
+    return null;
 
-    String[] tokens = str.split("/");
+    /*
+    JSONValue current = root;
     for (int i = 0; i < tokens.length; i++) {
-      if (tokens[i].isEmpty()) {
-        throw new InvalidJSONPointerSyntaxException(
-            "JSON Pointer must not have '/' in row", pointer);
-      }
+      if (current.type() == JSONValueType.OBJECT) {
 
-      tokens[i] = tokens[i].replace("~1", "/");
-      tokens[i] = tokens[i].replace("~0", "~");
+      } else if (current.type() == JSONValueType.ARRAY) {
+
+      } else {
+
+      }
     }
 
-    return tokens;
+    return current;
+    */
   }
 }
