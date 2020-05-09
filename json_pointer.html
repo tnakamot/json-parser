@@ -20,7 +20,7 @@
 
 <meta name="description" content="An implementation of Java JSON Parser">
 <link rel="shortcut icon" href="assets/images/json_logo.png">
-<title>Load JSON text from various sources · Java JSON Parser</title>
+<title>JSON Pointer · Java JSON Parser</title>
 <link rel="stylesheet" href="assets/stylesheets/application.451f80e5.css">
 <link rel="stylesheet" href="assets/stylesheets/application-palette.22915126.css">
 <meta name="theme-color" content="#546e7a" />
@@ -60,7 +60,7 @@ data-md-color-accent="indigo"
 Java JSON Parser
 </span>
 <span class="md-header-nav__topic">
-Load JSON text from various sources
+JSON Pointer
 </span>
 </div>
 </div>
@@ -111,21 +111,19 @@ Java JSON Parser
 <ul>
   <li><a href="types.html" class="page">Types</a></li>
   <li><a href="immutable.html" class="page">Immutable and Mutable</a></li>
-  <li><a href="json_source.html" class="active page">Load JSON text from various sources</a></li>
+  <li><a href="json_source.html" class="page">Load JSON text from various sources</a></li>
   <li><a href="source_info.html" class="page">JSON source information</a></li>
   <li><a href="output.html" class="page">Output JSON text</a></li>
-  <li><a href="json_pointer.html" class="page">JSON Pointer</a></li>
+  <li><a href="json_pointer.html" class="active page">JSON Pointer</a></li>
   <li><a href="source.html" class="page">Source Code</a></li>
   <li><a href="javadoc.html" class="page">Javadoc</a></li>
 </ul>
 <nav class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="__toc">Table of contents</label>
 <ul>
-  <li><a href="json_source.html#load-json-text-from-various-sources" class="header">Load JSON text from various sources</a>
+  <li><a href="json_pointer.html#json-pointer" class="header">JSON Pointer</a>
   <ul>
-    <li><a href="json_source.html#local-file" class="header">Local file</a></li>
-    <li><a href="json_source.html#url" class="header">URL</a></li>
-    <li><a href="json_source.html#string" class="header">String</a></li>
+    <li><a href="json_pointer.html#uri-fragment-identifier-representation" class="header">URI Fragment Identifier Representation</a></li>
   </ul></li>
 </ul>
 </nav>
@@ -147,11 +145,9 @@ Java JSON Parser
 <nav class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="__toc">Table of contents</label>
 <ul>
-  <li><a href="json_source.html#load-json-text-from-various-sources" class="header">Load JSON text from various sources</a>
+  <li><a href="json_pointer.html#json-pointer" class="header">JSON Pointer</a>
   <ul>
-    <li><a href="json_source.html#local-file" class="header">Local file</a></li>
-    <li><a href="json_source.html#url" class="header">URL</a></li>
-    <li><a href="json_source.html#string" class="header">String</a></li>
+    <li><a href="json_pointer.html#uri-fragment-identifier-representation" class="header">URI Fragment Identifier Representation</a></li>
   </ul></li>
 </ul>
 </nav>
@@ -162,32 +158,36 @@ Java JSON Parser
 <div class="md-content">
 <article class="md-content__inner md-typeset">
 <div class="md-content__searchable">
-<h1><a href="#load-json-text-from-various-sources" name="load-json-text-from-various-sources" class="anchor"><span class="anchor-link"></span></a>Load JSON text from various sources</h1>
-<p>JSON text can be loaded from various sources.</p>
-<h2><a href="#local-file" name="local-file" class="anchor"><span class="anchor-link"></span></a>Local file</h2>
-<pre class="prettyprint"><code class="language-java">JSONText jsText = JSONText.fromFile(new File(&quot;/path/to/file.json&quot;));
-</code></pre>
-<h2><a href="#url" name="url" class="anchor"><span class="anchor-link"></span></a>URL</h2>
-<pre class="prettyprint"><code class="language-java">JSONText jsText = JSONText.fromURL(new URL(&quot;http://example.jp/test.json&quot;))
-</code></pre>
-<h2><a href="#string" name="string" class="anchor"><span class="anchor-link"></span></a>String</h2>
-<pre class="prettyprint"><code class="language-java">JSONText jsText = JSONText.fromString(
-        &quot; { \&quot;key1\&quot;: true, &quot; +
-        &quot;   \&quot;key2\&quot;: false,&quot; +
-        &quot;   \&quot;key3\&quot;: null } &quot;);
-</code></pre>
-<p>The above example does not specify the source name. For better user experience, it is recommended to specify the source name of the JSON text by calling <a href="javadoc/com/github/tnakamot/json/JSONText.html#fromString(java.lang.String,java.lang.String)">fromString(String, String)</a>. The second string parameter specifies the name. This name will be shown when the parser encounters a syntax error. For example, the code below results in <a href="javadoc/com/github/tnakamot/json/parser/JSONParserException.html">JSONParserException</a> (because the string <code>value</code> is not enclosed by double quotes).</p>
-<pre class="prettyprint"><code class="language-java">String text = &quot;{ \&quot;key\&quot;: value }&quot;;
-JSONText source = JSONText.fromString(text, &quot;text_in_memory.json&quot;);
-JSONValue value root = source.parse()
-</code></pre>
-<p>As this example sets the source name to &ldquo;text_in_memory.json&rdquo;, the error message of the exception is shown as follows.</p>
-<pre><code>text_in_memory.json:1:10: unknown token starting with &#39;v&#39;
-</code></pre>
-<p>From this error message, the user can quickly know the error is in the 10th character of line 1 in text_in_memory.json. Therefore, it is highly recommended specifying the name that the user of your application can understand.</p>
+<h1><a href="#json-pointer" name="json-pointer" class="anchor"><span class="anchor-link"></span></a>JSON Pointer</h1>
+<p>This library also implements JSON Pointer in accorance with <a href="https://tools.ietf.org/html/rfc6901">RFC 6901</a>.</p>
+<p>To get a JSON value using a JSON Pointer, call <a href="javadoc/com/github/tnakamot/json/JSONText.html#evaluate(java.lang.String)">JSONText#evaluate(String)</a>. Below is an example.</p>
+<pre class="prettyprint"><code class="language-java">    JSONText jsText = JSONText.fromString(
+        &quot;{&quot; +
+        &quot;  \&quot;key1\&quot;: \&quot;value\&quot;, &quot; +
+        &quot;  \&quot;key2\&quot;: [3, 1, 4], &quot; +
+        &quot;  \&quot;key3\&quot;: true,&quot; +
+        &quot;  \&quot;key4\&quot;: {\&quot;key5\&quot;: \&quot;hello!\&quot; }&quot; +
+        &quot;} &quot;);
+    JSONValue root = jsText.parse();
+
+    JSONValueString val1 = (JSONValueString) jsText.evaluate(&quot;/key1&quot;);
+    System.out.println(val1.value());
+
+    JSONValueNumber val2 = (JSONValueNumber) jsText.evaluate(&quot;/key2/1&quot;);
+    System.out.println(val2.toLong());
+
+    JSONValueString val3 = (JSONValueString) jsText.evaluate(&quot;/key4/key5&quot;);
+    System.out.println(val3.value());
+</code></pre><div class="callout note "><div class="callout-title">Note</div>
+<p>Before your application calls <a href="javadoc/com/github/tnakamot/json/JSONText.html#evaluate(java.lang.String)">evaluate(String)</a> or its variant, it needs to explicitly call <a href="javadoc/com/github/tnakamot/json/JSONText.html#parse()">parse()</a> or its variant and the JSON test must be parsed successfully.</p>
+<p>This is the design choice to allow your application code to separately handle possible exceptions caused by the JSON parser. Your application typically needs to call <a href="javadoc/com/github/tnakamot/json/JSONText.html#parse()">parse()</a> only once and may evaluate JSON Pointers many times after that. You do not want to handle exceptions that may be caused by the JSON parser every time this library evaluates a JSON Pointer.</p>
+<p>If you want to make sure the JSON text has been parsed, your application may call <a href="javadoc/com/github/tnakamot/json/JSONText.html#isParsed()">isParsed()</a> and call <a href="javadoc/com/github/tnakamot/json/JSONText.html#parse()">parse()</a> if it has not been parsed.</p></div>
+<h2><a href="#uri-fragment-identifier-representation" name="uri-fragment-identifier-representation" class="anchor"><span class="anchor-link"></span></a>URI Fragment Identifier Representation</h2>
+<p><a href="https://tools.ietf.org/html/rfc6901#section-6">RFC 6901 - 6. URI Fragment Identifier Representation</a> allows us to represent a JSON Pointer in a URI fragment identifier, which is a text starting from &lsquo;#&rsquo; (0x23). Normally, JSON Pointer looks like <code>/key1/5/key2</code>. In URI fragment identifier, it turns to be <code>#/key1/5/key2</code>. However, RFC 6901 asks the application programs and libraries to check the media type (e.g. <code>application/json</code>) to judge if the JSON Pointer should be handled as a URI fragment identifier.</p>
+<p>This library does not obtain the media type from the JSON text source because local file system does not typically provide it. Instead, your application programs to judge if JSON Pointers should be handled a URI fragment identifier. Once judged, pass <code>true</code> to the second argument of<br/><a href="javadoc/com/github/tnakamot/json/JSONText.html#evaluate(java.lang.String,boolean)">evaluate(String, boolean)</a>. Then, this library considers the given JSON Pointer as a URI fragument identifier, strips the first &ldquo;#&rdquo; (0x23) and evaluates the JSON Pointer in the normal way. </p>
 </div>
 <div>
-<a href="https://github.com/tnakamot/json-parser/tree/v0.2.0/src/paradox/json_source.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/tnakamot/json-parser/tree/v0.2.0/src/paradox/json_pointer.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
@@ -203,7 +203,7 @@ Edit this page
 <footer class="md-footer">
 <div class="md-footer-nav">
 <nav class="md-footer-nav__inner md-grid">
-<a href="immutable.html" title="Immutable and Mutable" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+<a href="output.html" title="Output JSON text" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
 <div class="md-flex__cell md-flex__cell--shrink">
 <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
 </div>
@@ -212,17 +212,17 @@ Edit this page
 <span class="md-footer-nav__direction">
 Previous
 </span>
-Immutable and Mutable
+Output JSON text
 </span>
 </div>
 </a>
-<a href="source_info.html" title="JSON source information" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<a href="source.html" title="Source Code" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
 <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
 <span class="md-flex__ellipsis">
 <span class="md-footer-nav__direction">
 Next
 </span>
-JSON source information
+Source Code
 </span>
 </div>
 <div class="md-flex__cell md-flex__cell--shrink">

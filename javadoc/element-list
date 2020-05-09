@@ -1,4 +1,5 @@
 com.github.tnakamot.json
 com.github.tnakamot.json.parser
+com.github.tnakamot.json.pointer
 com.github.tnakamot.json.token
 com.github.tnakamot.json.value
