@@ -211,9 +211,13 @@ public class JSONParserTest {
 
     JSONParserException ex = assertThrows(JSONParserException.class, jsText::parse);
     assertEquals(jsText, ex.source());
-    assertEquals(2, ex.begin().position());
-    assertEquals(1, ex.begin().line());
-    assertEquals(3, ex.begin().column());
+    assertEquals(2, ex.location().beginning().position());
+    assertEquals(1, ex.location().beginning().line());
+    assertEquals(3, ex.location().beginning().column());
+    assertEquals(4, ex.location().end().position());
+    assertEquals(1, ex.location().end().line());
+    assertEquals(5, ex.location().end().column());
+    log.info(ex::getMessage);
   }
 
   @Test

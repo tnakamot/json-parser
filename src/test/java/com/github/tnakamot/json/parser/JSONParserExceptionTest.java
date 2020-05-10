@@ -114,7 +114,8 @@ public class JSONParserExceptionTest {
     String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
     log.info(() -> methodName + ": " + ex.getMessage());
 
-    assertEquals(10, ex.begin().position());
+    assertEquals(10, ex.location().beginning().position());
+    assertEquals(10, ex.location().end().position());
 
     String positionStr = ex.getMessage().split(":")[1];
     assertEquals("10", positionStr);
@@ -132,8 +133,10 @@ public class JSONParserExceptionTest {
     String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
     log.info(() -> methodName + ": " + ex.getMessage());
 
-    assertEquals(1, ex.begin().line());
-    assertEquals(11, ex.begin().column());
+    assertEquals(1, ex.location().beginning().line());
+    assertEquals(11, ex.location().beginning().column());
+    assertEquals(1, ex.location().end().line());
+    assertEquals(11, ex.location().end().column());
 
     String lineStr = ex.getMessage().split(":")[1];
     String columnStr = ex.getMessage().split(":")[2];
@@ -153,7 +156,8 @@ public class JSONParserExceptionTest {
     String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
     log.info(() -> methodName + ": " + ex.getMessage());
 
-    assertEquals(11, ex.begin().position());
+    assertEquals(11, ex.location().beginning().position());
+    assertEquals(11, ex.location().end().position());
 
     String positionStr = ex.getMessage().split(":")[1];
     assertEquals("11", positionStr);
@@ -171,8 +175,10 @@ public class JSONParserExceptionTest {
     String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
     log.info(() -> methodName + ": " + ex.getMessage());
 
-    assertEquals(2, ex.begin().line());
-    assertEquals(10, ex.begin().column());
+    assertEquals(2, ex.location().beginning().line());
+    assertEquals(10, ex.location().beginning().column());
+    assertEquals(2, ex.location().end().line());
+    assertEquals(10, ex.location().end().column());
 
     String lineStr = ex.getMessage().split(":")[1];
     String columnStr = ex.getMessage().split(":")[2];
@@ -192,8 +198,10 @@ public class JSONParserExceptionTest {
     String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
     log.info(() -> methodName + ": " + ex.getMessage());
 
-    assertEquals(1, ex.begin().line());
-    assertEquals(11, ex.begin().column());
+    assertEquals(1, ex.location().beginning().line());
+    assertEquals(11, ex.location().beginning().column());
+    assertEquals(1, ex.location().end().line());
+    assertEquals(11, ex.location().end().column());
 
     String errorLine = ex.getMessage().split(System.lineSeparator())[1];
     assertEquals(JSON_STR_SINGLE_LINE, errorLine);
@@ -211,8 +219,10 @@ public class JSONParserExceptionTest {
     String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
     log.info(() -> methodName + ": " + ex.getMessage());
 
-    assertEquals(2, ex.begin().line());
-    assertEquals(10, ex.begin().column());
+    assertEquals(2, ex.location().beginning().line());
+    assertEquals(10, ex.location().beginning().column());
+    assertEquals(2, ex.location().end().line());
+    assertEquals(10, ex.location().end().column());
 
     String errorLine = ex.getMessage().split(System.lineSeparator())[1];
     String expectedLine = JSON_STR_MULTI_LINES.split("\n")[1];

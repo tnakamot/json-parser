@@ -18,10 +18,12 @@ package com.github.tnakamot.json.parser;
 
 import com.github.tnakamot.json.JSONText;
 import com.github.tnakamot.json.token.StringLocation;
+import com.github.tnakamot.json.token.StringRange;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Thrown when a JSON lexical analyzer fails to tokenize a given JSON text due to a syntax error.
+ * Thrown when a JSON lexical analyzer fails to tokenize a given JSON text or the parser fails due
+ * to a syntax error.
  *
  * <p>Instances of this class are immutable.
  *
@@ -84,8 +86,7 @@ import org.jetbrains.annotations.NotNull;
 public class JSONParserException extends Exception {
   private final String msg;
   private final JSONText source;
-  private final StringLocation begin;
-  private final StringLocation end;
+  private final StringRange location;
   private final JSONParserErrorHandlingOptions errMsgFmt;
 
   /**
@@ -98,14 +99,13 @@ public class JSONParserException extends Exception {
    */
   public JSONParserException(
       @NotNull JSONText source,
-      @NotNull StringLocation location,
+      @NotNull StringRange location,
       @NotNull JSONParserErrorHandlingOptions errMsgFmt,
       @NotNull String msg) {
     super(msg);
     this.msg = msg;
     this.source = source;
-    this.begin = location;
-    this.end = location;
+    this.location = location;
     this.errMsgFmt = errMsgFmt;
   }
 
@@ -127,8 +127,27 @@ public class JSONParserException extends Exception {
     super(msg);
     this.msg = msg;
     this.source = source;
-    this.begin = begin;
-    this.end = end;
+    this.location = new StringRange(begin, end);
+    this.errMsgFmt = errMsgFmt;
+  }
+
+  /**
+   * Instantiate this exception.
+   *
+   * @param source JSON text that has a problem
+   * @param location location of the problem within the source JSON text
+   * @param errMsgFmt configuration to change the error message format of this exception
+   * @param msg error message which explains the problem
+   */
+  public JSONParserException(
+      @NotNull JSONText source,
+      @NotNull StringLocation location,
+      @NotNull JSONParserErrorHandlingOptions errMsgFmt,
+      @NotNull String msg) {
+    super(msg);
+    this.msg = msg;
+    this.source = source;
+    this.location = new StringRange(location, location);
     this.errMsgFmt = errMsgFmt;
   }
 
@@ -138,23 +157,13 @@ public class JSONParserException extends Exception {
   }
 
   /**
-   * Returns the beginning location of hte problem where the lexical analyzer failed to tokenize the
-   * given JSON text.
+   * Returns the location of the problem where the lexical analyzer failed to tokenize the given
+   * JSON text or the parse failed.
    *
    * @return beginning location of the problem within the source JSON text
    */
-  public StringLocation begin() {
-    return begin;
-  }
-
-  /**
-   * Returns the end location of hte problem where the lexical analyzer failed to tokenize the given
-   * JSON text.
-   *
-   * @return end location of the problem within the source JSON text
-   */
-  public StringLocation end() {
-    return begin;
+  public StringRange location() {
+    return location;
   }
 
   @Override
@@ -169,11 +178,11 @@ public class JSONParserException extends Exception {
     sb.append(":");
 
     if (errMsgFmt.showLineAndColumnNumber()) {
-      sb.append(begin.line());
+      sb.append(location.beginning().line());
       sb.append(":");
-      sb.append(begin.column());
+      sb.append(location.beginning().column());
     } else {
-      sb.append(begin.position());
+      sb.append(location.beginning().position());
     }
 
     sb.append(": ");
@@ -184,11 +193,11 @@ public class JSONParserException extends Exception {
       // TODO: show range
 
       String[] lines = source.get().split("\r|(\r?\n)");
-      String line = lines[begin.line() - 1];
+      String line = lines[location.beginning().line() - 1];
       sb.append(System.lineSeparator());
       sb.append(line);
       sb.append(System.lineSeparator());
-      sb.append(" ".repeat(begin.column() - 1));
+      sb.append(" ".repeat(location.beginning().column() - 1));
       sb.append("^");
     }
 
