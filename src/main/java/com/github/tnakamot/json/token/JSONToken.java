@@ -34,8 +34,7 @@ public class JSONToken {
 
   private final JSONTokenType type;
   final String text;
-  private final StringLocation begin;
-  private final StringLocation end;
+  private final StringRange range;
   private final JSONText source;
 
   /**
@@ -55,8 +54,7 @@ public class JSONToken {
       @NotNull JSONText source) {
     this.type = type;
     this.text = text;
-    this.begin = begin;
-    this.end = end;
+    this.range = new StringRange(begin, end);
     this.source = source;
   }
 
@@ -81,13 +79,23 @@ public class JSONToken {
   }
 
   /**
+   * Location of this token within the source JSON text.
+   *
+   * @return location of this token within the source JSON text.
+   */
+  @NotNull
+  public StringRange range() {
+    return range;
+  }
+
+  /**
    * Location of the beginning of the token within the source JSON text.
    *
    * @return location of the beginning of the token within the source JSON text.
    */
   @NotNull
   public StringLocation beginningLocation() {
-    return begin;
+    return range.beginning();
   }
 
   /**
@@ -97,7 +105,7 @@ public class JSONToken {
    */
   @NotNull
   public StringLocation endLocation() {
-    return end;
+    return range.end();
   }
 
   /**

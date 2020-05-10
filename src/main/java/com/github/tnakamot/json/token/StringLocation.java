@@ -16,6 +16,8 @@
 
 package com.github.tnakamot.json.token;
 
+import org.jetbrains.annotations.Nullable;
+
 /**
  * Represents a location in a {@link String}.
  *
@@ -71,7 +73,7 @@ public class StringLocation {
   private final int line;
   private final int column;
 
-  private StringLocation(StringLocation previous, int position, int line, int column) {
+  private StringLocation(@Nullable StringLocation previous, int position, int line, int column) {
     this.previous = previous;
     this.position = position;
     this.line = line;
@@ -115,6 +117,7 @@ public class StringLocation {
    * @return the instance of {@link StringLocation} which represents the previous location of this
    *     instance.
    */
+  @Nullable
   public StringLocation previous() {
     return previous;
   }
