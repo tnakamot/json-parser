@@ -49,6 +49,9 @@ lazy val root = (project in file("."))
       "org.apache.commons" % "commons-text" % "1.8",
 
       //noinspection SpellCheckingInspection,Annotator
+      "org.dmfs" % "rfc3986-uri" % "0.8.1",
+
+      //noinspection SpellCheckingInspection,Annotator
       "org.jetbrains" % "annotations" % "16.0.1",
 
       //noinspection SpellCheckingInspection,Annotator
