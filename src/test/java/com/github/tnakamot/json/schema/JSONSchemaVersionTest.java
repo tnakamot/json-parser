@@ -1,14 +1,8 @@
 package com.github.tnakamot.json.schema;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.dmfs.rfc3986.encoding.Precoded;
-import org.dmfs.rfc3986.uris.LazyUri;
-import org.dmfs.rfc3986.uris.Normalized;
-import org.dmfs.rfc3986.uris.Text;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.logging.Logger;
 import org.junit.platform.commons.logging.LoggerFactory;

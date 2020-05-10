@@ -17,6 +17,7 @@
 package com.github.tnakamot.json.token;
 
 import com.github.tnakamot.json.JSONText;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Represents one token in JSON text.
@@ -47,18 +48,16 @@ public class JSONToken {
    * @param source source JSON text where this token was extracted from
    */
   public JSONToken(
-      JSONTokenType type, String text, StringLocation begin, StringLocation end, JSONText source) {
+      @NotNull JSONTokenType type,
+      @NotNull String text,
+      @NotNull StringLocation begin,
+      @NotNull StringLocation end,
+      @NotNull JSONText source) {
     this.type = type;
     this.text = text;
     this.begin = begin;
     this.end = end;
     this.source = source;
-
-    if (type == null) throw new NullPointerException("type cannot be null");
-    if (text == null) throw new NullPointerException("text cannot be null");
-    if (begin == null) throw new NullPointerException("begin cannot be null");
-    if (end == null) throw new NullPointerException("end cannot be null");
-    if (source == null) throw new NullPointerException("source cannot be null");
   }
 
   /**
@@ -66,6 +65,7 @@ public class JSONToken {
    *
    * @return type of this token
    */
+  @NotNull
   public JSONTokenType type() {
     return type;
   }
@@ -75,6 +75,7 @@ public class JSONToken {
    *
    * @return text representation of this token as it appears in the source JSON text.
    */
+  @NotNull
   public String text() {
     return text;
   }
@@ -84,6 +85,7 @@ public class JSONToken {
    *
    * @return location of the beginning of the token within the source JSON text.
    */
+  @NotNull
   public StringLocation beginningLocation() {
     return begin;
   }
@@ -93,6 +95,7 @@ public class JSONToken {
    *
    * @return location of the end of the token within the source JSON text.
    */
+  @NotNull
   public StringLocation endLocation() {
     return end;
   }
@@ -102,6 +105,7 @@ public class JSONToken {
    *
    * @return source JSON text where this token was extracted from.
    */
+  @NotNull
   public JSONText source() {
     return source;
   }

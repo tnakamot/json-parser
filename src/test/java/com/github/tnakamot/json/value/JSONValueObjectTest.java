@@ -3,6 +3,7 @@ package com.github.tnakamot.json.value;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -96,6 +97,7 @@ public class JSONValueObjectTest {
                         + "}")
                 .parse(true);
 
+    assertNotNull(root);
     assertTrue(root.getBoolean("key1"));
     assertEquals(1.53, root.getDouble("key2"));
     assertEquals(512, root.getLong("key3"));
@@ -158,6 +160,7 @@ public class JSONValueObjectTest {
                 + "   \"key6\": {\"key6-1\": 0} }");
     JSONValueObject root = (JSONValueObject) jsText.parse();
 
+    assertNotNull(root);
     String value1Str = root.getString("key1");
     System.out.println(value1Str);
 
@@ -263,6 +266,8 @@ public class JSONValueObjectTest {
   public void testEquality() throws IOException, JSONParserException {
     JSONValue obj1 =
         JSONText.fromString("{\"key1\": [true, 123], \"key2\": {\"key3\": 5.2}}").parse();
+    assertNotNull(obj1);
+
     JSONValueObject obj2 = new JSONValueObjectMutable();
     obj2.put("key1", new JSONValueArrayMutable());
     obj2.getArray("key1").add(true);

@@ -25,6 +25,14 @@ public class JSONRootSchema extends JSONSchema {
     }
   }
 
+  public JSONSchemaVersion version() {
+    return schemaVersion;
+  }
+
+  public JSONValue jsonRoot() {
+    return root;
+  }
+
   /**
    * Read the given JSON Text (JSON Document) as JSON Schema.
    *
@@ -35,7 +43,7 @@ public class JSONRootSchema extends JSONSchema {
       throws IOException, JSONParserException, InvalidJSONSchemaURIException {
 
     JSONValue rootValue = jsonText.parse();
-    if (rootValue.type() != JSONValueType.OBJECT) {
+    if (rootValue == null || rootValue.type() != JSONValueType.OBJECT) {
       // TODO: throw an appropriate exception
       throw new RuntimeException("the root JSON value must be an object for JSON Schema");
 
@@ -43,8 +51,6 @@ public class JSONRootSchema extends JSONSchema {
       //       https://json-schema.org/draft/2019-09/json-schema-core.html#rfc.section.4.3.2
     }
 
-    JSONRootSchema rootSchema = new JSONRootSchema((JSONValueObject) rootValue);
-
-    return rootSchema;
+    return new JSONRootSchema((JSONValueObject) rootValue);
   }
 }

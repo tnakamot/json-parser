@@ -47,6 +47,7 @@ public class JSONValueStringTest {
   public void testType() throws IOException, JSONParserException {
     JSONValueString val1 = new JSONValueString("abc");
     JSONValueString val2 = (JSONValueString) JSONText.fromString("\"def\"").parse();
+    assertNotNull(val2);
 
     assertEquals(JSONValueType.STRING, val1.type());
     assertEquals(JSONValueType.STRING, val2.type());
@@ -57,6 +58,7 @@ public class JSONValueStringTest {
     JSONValueString val1 = new JSONValueString("abc");
     JSONValueString val2 = new JSONValueString("abc");
     JSONValueString val3 = (JSONValueString) JSONText.fromString("\"abc\"").parse();
+    assertNotNull(val3);
 
     assertEquals(val1.hashCode(), val2.hashCode());
     assertEquals(val1.hashCode(), val3.hashCode());
@@ -74,6 +76,7 @@ public class JSONValueStringTest {
     JSONValueString val1 = new JSONValueString("abc");
     JSONValueString val2 = new JSONValueString("xyz");
     JSONValueString val3 = (JSONValueString) JSONText.fromString("\"hello\"").parse();
+    assertNotNull(val3);
 
     assertNotEquals(val1.hashCode(), val2.hashCode());
     assertNotEquals(val2.hashCode(), val3.hashCode());
@@ -92,6 +95,7 @@ public class JSONValueStringTest {
     JSONValueString val1 = new JSONValueString("abc");
     JSONValueString val2 = new JSONValueString("xyz");
     JSONValueString val3 = (JSONValueString) JSONText.fromString("\"hello\"").parse();
+    assertNotNull(val3);
 
     assertEquals("abc", val1.value());
     assertEquals("xyz", val2.value());
@@ -103,6 +107,7 @@ public class JSONValueStringTest {
     JSONValueString val1 = new JSONValueString("abc");
     JSONValueString val2 = new JSONValueString("xyz");
     JSONValueString val3 = (JSONValueString) JSONText.fromString("\"hello\"").parse();
+    assertNotNull(val3);
 
     assertEquals("abc", val1.toString());
     assertEquals("xyz", val2.toString());

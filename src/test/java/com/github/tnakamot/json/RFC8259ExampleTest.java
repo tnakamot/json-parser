@@ -28,6 +28,7 @@ public class RFC8259ExampleTest {
     assertEquals("rfc8259_example1.json", jsText.name());
 
     JSONValue root = jsText.parse();
+    assertNotNull(root);
 
     assertEquals(JSONValueType.OBJECT, root.type());
     assertTrue(root instanceof JSONValueObject);
@@ -156,6 +157,7 @@ public class RFC8259ExampleTest {
     assertEquals("rfc8259_example2.json", jsText.name());
 
     JSONValue root = jsText.parse();
+    assertNotNull(root);
 
     assertEquals(JSONValueType.ARRAY, root.type());
     assertTrue(root instanceof JSONValueArray);
@@ -191,6 +193,7 @@ public class RFC8259ExampleTest {
     assertEquals("rfc8259_example3.json", jsText.name());
 
     JSONValue root = jsText.parse();
+    assertNotNull(root);
 
     assertEquals(JSONValueType.STRING, root.type());
     assertTrue(root instanceof JSONValueString);
@@ -205,6 +208,7 @@ public class RFC8259ExampleTest {
     assertEquals("rfc8259_example4.json", jsText.name());
 
     JSONValue root = jsText.parse();
+    assertNotNull(root);
 
     assertEquals(JSONValueType.NUMBER, root.type());
     assertTrue(root instanceof JSONValueNumber);
@@ -220,6 +224,7 @@ public class RFC8259ExampleTest {
     assertEquals("rfc8259_example5.json", jsText.name());
 
     JSONValue root = jsText.parse();
+    assertNotNull(root);
 
     assertEquals(JSONValueType.BOOLEAN, root.type());
     assertTrue(root instanceof JSONValueBoolean);
@@ -241,6 +246,7 @@ public class RFC8259ExampleTest {
     URL example = this.getClass().getResource(resourceBase + fileName);
     JSONText jsText = JSONText.fromURL(example);
     JSONValue root = jsText.parse();
+    assertNotNull(root);
 
     // Although it is not necessary to exactly match the output of
     // toTokenString() with the original JSON text, it is a good
@@ -267,6 +273,7 @@ public class RFC8259ExampleTest {
     URL example = this.getClass().getResource(resourceBase + fileName);
     JSONText jsText = JSONText.fromURL(example);
     JSONValue root = jsText.parse();
+    assertNotNull(root);
 
     // Although it is not necessary to exactly match the output of
     // toTokenString() with the original JSON text, it is a good

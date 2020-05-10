@@ -174,6 +174,7 @@ public class JSONValueNumberTest {
     JSONValueNumber val1 = new JSONValueNumber("123");
     JSONValueNumber val2 = new JSONValueNumber("1.23e2");
     JSONValueNumber val3 = (JSONValueNumber) JSONText.fromString("123").parse();
+    assertNotNull(val3);
 
     assertEquals(val1.hashCode(), val2.hashCode());
     assertEquals(val2.hashCode(), val3.hashCode());

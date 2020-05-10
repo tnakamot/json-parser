@@ -18,6 +18,7 @@ package com.github.tnakamot.json.token;
 
 import com.github.tnakamot.json.JSONText;
 import com.github.tnakamot.json.value.JSONValueNumber;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Represents one "number" type token in JSON text.
@@ -43,7 +44,11 @@ public class JSONTokenNumber extends JSONToken {
    * @param end end location of this token within the source JSON text
    * @param source source JSON text where this token was extracted from
    */
-  public JSONTokenNumber(String text, StringLocation begin, StringLocation end, JSONText source) {
+  public JSONTokenNumber(
+      @NotNull String text,
+      @NotNull StringLocation begin,
+      @NotNull StringLocation end,
+      @NotNull JSONText source) {
     super(JSONTokenType.NUMBER, text, begin, end, source);
 
     if (!text.matches(JSONValueNumber.NUMBER_PATTERN)) {
@@ -62,7 +67,7 @@ public class JSONTokenNumber extends JSONToken {
    *
    * @return text representation of this token as it appears in the source JSON text.
    */
-  public String text() {
+  public @NotNull String text() {
     return text;
   }
 }

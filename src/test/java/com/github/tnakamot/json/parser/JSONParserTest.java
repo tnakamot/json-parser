@@ -48,6 +48,7 @@ public class JSONParserTest {
   public void testEmptyObject() throws IOException, JSONParserException {
     JSONValue root = JSONText.fromString(" { } ").parse();
 
+    assertNotNull(root);
     assertEquals(JSONValueType.OBJECT, root.type());
     assertTrue(root instanceof JSONValueObject);
 
@@ -62,6 +63,7 @@ public class JSONParserTest {
   public void testEmptyArray() throws IOException, JSONParserException {
     JSONValue root = JSONText.fromString("[]").parse();
 
+    assertNotNull(root);
     assertEquals(JSONValueType.ARRAY, root.type());
     assertTrue(root instanceof JSONValueArray);
 
@@ -76,6 +78,7 @@ public class JSONParserTest {
   public void testNullOnly() throws IOException, JSONParserException {
     JSONValue root = JSONText.fromString("null").parse();
 
+    assertNotNull(root);
     assertEquals(JSONValueType.NULL, root.type());
     assertTrue(root instanceof JSONValueNull);
     assertEquals(JSONValueNull.INSTANCE, root);
@@ -86,6 +89,7 @@ public class JSONParserTest {
   public void testTrueOnly() throws IOException, JSONParserException {
     JSONValue root = JSONText.fromString(" true ").parse();
 
+    assertNotNull(root);
     assertEquals(JSONValueType.BOOLEAN, root.type());
     assertTrue(root instanceof JSONValueBoolean);
     assertEquals(JSONValueBoolean.TRUE, root);
@@ -99,6 +103,7 @@ public class JSONParserTest {
   public void testFalseOnly() throws IOException, JSONParserException {
     JSONValue root = JSONText.fromString("false").parse();
 
+    assertNotNull(root);
     assertEquals(JSONValueType.BOOLEAN, root.type());
     assertTrue(root instanceof JSONValueBoolean);
     assertEquals(JSONValueBoolean.FALSE, root);
@@ -112,6 +117,7 @@ public class JSONParserTest {
   public void testStringOnly() throws IOException, JSONParserException {
     JSONValue root = JSONText.fromString(" \"abc\"").parse();
 
+    assertNotNull(root);
     assertEquals(JSONValueType.STRING, root.type());
     assertTrue(root instanceof JSONValueString);
     assertEquals(new JSONValueString("abc"), root);
@@ -125,6 +131,7 @@ public class JSONParserTest {
   public void testNumberOnly00() throws IOException, JSONParserException {
     JSONValue root = JSONText.fromString(" -15.234e2 ").parse();
 
+    assertNotNull(root);
     assertEquals(JSONValueType.NUMBER, root.type());
     assertTrue(root instanceof JSONValueNumber);
     assertEquals(new JSONValueNumber("-15.234e2"), root);
@@ -139,6 +146,7 @@ public class JSONParserTest {
   public void testNumberOnly01() throws IOException, JSONParserException {
     JSONValue root = JSONText.fromString("523 ").parse();
 
+    assertNotNull(root);
     assertEquals(JSONValueType.NUMBER, root.type());
     assertTrue(root instanceof JSONValueNumber);
     assertEquals(new JSONValueNumber("523"), root);
@@ -153,6 +161,7 @@ public class JSONParserTest {
   public void testNumberOnly02() throws IOException, JSONParserException {
     JSONValue root = JSONText.fromString("-124 ").parse();
 
+    assertNotNull(root);
     assertEquals(JSONValueType.NUMBER, root.type());
     assertTrue(root instanceof JSONValueNumber);
     assertEquals(new JSONValueNumber("-124"), root);
@@ -167,6 +176,7 @@ public class JSONParserTest {
   public void testNumberOnly03() throws IOException, JSONParserException {
     JSONValue root = JSONText.fromString(" 928.5").parse();
 
+    assertNotNull(root);
     assertEquals(JSONValueType.NUMBER, root.type());
     assertTrue(root instanceof JSONValueNumber);
     assertEquals(new JSONValueNumber("928.5"), root);
@@ -181,6 +191,7 @@ public class JSONParserTest {
   public void testNumberOnly04() throws IOException, JSONParserException {
     JSONValue root = JSONText.fromString(" -872.512").parse();
 
+    assertNotNull(root);
     assertEquals(JSONValueType.NUMBER, root.type());
     assertTrue(root instanceof JSONValueNumber);
     assertEquals(new JSONValueNumber("-872.512"), root);
@@ -209,6 +220,7 @@ public class JSONParserTest {
   public void testNumberOnly06() throws IOException, JSONParserException {
     JSONValue root = JSONText.fromString(" -0.015   ").parse();
 
+    assertNotNull(root);
     assertEquals(JSONValueType.NUMBER, root.type());
     assertTrue(root instanceof JSONValueNumber);
     assertEquals(new JSONValueNumber("-0.015"), root);
@@ -223,6 +235,7 @@ public class JSONParserTest {
   public void testNumberOnly07() throws IOException, JSONParserException {
     JSONValue root = JSONText.fromString("   0.987").parse();
 
+    assertNotNull(root);
     assertEquals(JSONValueType.NUMBER, root.type());
     assertTrue(root instanceof JSONValueNumber);
     assertEquals(new JSONValueNumber("0.987"), root);
@@ -237,6 +250,7 @@ public class JSONParserTest {
   public void testNumberOnly08() throws IOException, JSONParserException {
     JSONValue root = JSONText.fromString("1e6").parse();
 
+    assertNotNull(root);
     assertEquals(JSONValueType.NUMBER, root.type());
     assertTrue(root instanceof JSONValueNumber);
     assertEquals(new JSONValueNumber("1e6"), root);
@@ -252,6 +266,7 @@ public class JSONParserTest {
   public void testNumberOnly09() throws IOException, JSONParserException {
     JSONValue root = JSONText.fromString("1.24e-12").parse();
 
+    assertNotNull(root);
     assertEquals(JSONValueType.NUMBER, root.type());
     assertTrue(root instanceof JSONValueNumber);
     assertEquals(new JSONValueNumber("1.24e-12"), root);
@@ -266,6 +281,7 @@ public class JSONParserTest {
   public void testNumberOnly10() throws IOException, JSONParserException {
     JSONValue root = JSONText.fromString("-5.2E+2").parse();
 
+    assertNotNull(root);
     assertEquals(JSONValueType.NUMBER, root.type());
     assertTrue(root instanceof JSONValueNumber);
     assertEquals(new JSONValueNumber("-5.2E+2"), root);
@@ -282,6 +298,7 @@ public class JSONParserTest {
     JSONText jsText = JSONText.fromString(" [ true, false, \"abc\", 1.52, null ] ");
     JSONValue root = jsText.parse();
 
+    assertNotNull(root);
     assertEquals(JSONValueType.ARRAY, root.type());
     assertTrue(root instanceof JSONValueArray);
 
@@ -357,6 +374,7 @@ public class JSONParserTest {
         JSONText.fromString(" { \"key1\": true, " + "   \"key2\": false," + "   \"key3\": null } ");
     JSONValue root = jsText.parse();
 
+    assertNotNull(root);
     assertEquals(JSONValueType.OBJECT, root.type());
     assertTrue(root instanceof JSONValueObject);
 

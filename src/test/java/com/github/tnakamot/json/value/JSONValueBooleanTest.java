@@ -60,6 +60,7 @@ public class JSONValueBooleanTest {
   @Test
   public void testTrue3() throws IOException, JSONParserException {
     JSONValueBoolean value = (JSONValueBoolean) JSONText.fromString("true").parse();
+    assertNotNull(value);
     assertEquals(JSONValueType.BOOLEAN, value.type());
     assertTrue(value.value());
     assertEquals("true", value.toString());
@@ -68,6 +69,7 @@ public class JSONValueBooleanTest {
   @Test
   public void testFalse3() throws IOException, JSONParserException {
     JSONValueBoolean value = (JSONValueBoolean) JSONText.fromString("false").parse();
+    assertNotNull(value);
     assertEquals(JSONValueType.BOOLEAN, value.type());
     assertFalse(value.value());
     assertEquals("false", value.toString());
@@ -88,6 +90,7 @@ public class JSONValueBooleanTest {
 
     JSONValue root = JSONText.fromString("[true, true, true]").parse();
     JSONValueArray array = (JSONValueArray) root;
+    assertNotNull(array);
     for (JSONValue value : array) {
       assertTrue(value instanceof JSONValueBoolean);
       JSONValueBoolean boolVal = (JSONValueBoolean) value;
@@ -112,6 +115,7 @@ public class JSONValueBooleanTest {
 
     JSONValue root = JSONText.fromString("[false,false,false]").parse();
     JSONValueArray array = (JSONValueArray) root;
+    assertNotNull(array);
     for (JSONValue value : array) {
       assertTrue(value instanceof JSONValueBoolean);
       JSONValueBoolean boolVal = (JSONValueBoolean) value;
@@ -148,6 +152,7 @@ public class JSONValueBooleanTest {
     JSONValueBoolean falseVal1 = JSONValueBoolean.valueOf(false);
 
     JSONValueArray root = (JSONValueArray) JSONText.fromString("[true,false]").parse();
+    assertNotNull(root);
     JSONValueBoolean trueVal2 = (JSONValueBoolean) root.get(0);
     JSONValueBoolean falseVal2 = (JSONValueBoolean) root.get(1);
 
@@ -170,6 +175,7 @@ public class JSONValueBooleanTest {
     JSONValueBoolean falseVal1 = JSONValueBoolean.FALSE;
 
     JSONValueArray root = (JSONValueArray) JSONText.fromString("[true,false]").parse();
+    assertNotNull(root);
     JSONValueBoolean trueVal2 = (JSONValueBoolean) root.get(0);
     JSONValueBoolean falseVal2 = (JSONValueBoolean) root.get(1);
     JSONValueString strVal = new JSONValueString("abc");

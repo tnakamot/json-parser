@@ -30,6 +30,8 @@ public class JSONValueNullTest {
     JSONValueNull val1 = JSONValueNull.INSTANCE;
     JSONValueNull val2 = (JSONValueNull) JSONText.fromString("null").parse();
     JSONValueNull val3 = (JSONValueNull) JSONText.fromString(" null ").parse();
+    assertNotNull(val2);
+    assertNotNull(val3);
 
     assertEquals(val1.hashCode(), val2.hashCode());
     assertEquals(val1.hashCode(), val3.hashCode());
@@ -50,6 +52,7 @@ public class JSONValueNullTest {
   public void testToString() throws IOException, JSONParserException {
     JSONValueNull val1 = JSONValueNull.INSTANCE;
     JSONValueNull val2 = (JSONValueNull) JSONText.fromString("null").parse();
+    assertNotNull(val2);
 
     assertEquals("null", val1.toString());
     assertEquals("null", val2.toString());
@@ -59,6 +62,7 @@ public class JSONValueNullTest {
   public void testType() throws IOException, JSONParserException {
     JSONValueNull val1 = JSONValueNull.INSTANCE;
     JSONValueNull val2 = (JSONValueNull) JSONText.fromString("null").parse();
+    assertNotNull(val2);
 
     assertEquals(JSONValueType.NULL, val1.type());
     assertEquals(JSONValueType.NULL, val2.type());

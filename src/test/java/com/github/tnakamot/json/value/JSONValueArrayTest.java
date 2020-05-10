@@ -3,6 +3,7 @@ package com.github.tnakamot.json.value;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -62,6 +63,7 @@ public class JSONValueArrayTest {
     JSONValueArray root =
         (JSONValueArray) JSONText.fromString("[true,1.53,512,\"hello\",[],{}]").parse(true);
 
+    assertNotNull(root);
     assertTrue(root.getBoolean(0));
     assertEquals(1.53, root.getDouble(1));
     assertEquals(512, root.getLong(2));
@@ -178,6 +180,8 @@ public class JSONValueArrayTest {
   @Test
   public void testEquality() throws IOException, JSONParserException {
     JSONValue array1 = JSONText.fromString("[[true, 123], {\"key1\": 5.2}]").parse();
+    assertNotNull(array1);
+
     JSONValueArray array2 = new JSONValueArrayMutable();
     array2.add(new JSONValueArrayMutable());
     array2.getArray(0).add(true);
