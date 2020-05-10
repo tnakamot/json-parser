@@ -17,6 +17,8 @@
 package com.github.tnakamot.json.value;
 
 import com.github.tnakamot.json.token.JSONToken;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Represents one JSON primitive value.
@@ -31,7 +33,7 @@ public abstract class JSONValuePrimitive extends JSONValue {
    *
    * @param type type of this JSON value
    */
-  JSONValuePrimitive(JSONValueType type) {
+  JSONValuePrimitive(@NotNull JSONValueType type) {
     this(type, null);
   }
 
@@ -41,9 +43,10 @@ public abstract class JSONValuePrimitive extends JSONValue {
    *
    * @param type type of this JSON value
    * @param token source of this JSON value. Can be null if this JSON value is not originated from
-   *     an exiting JSON text.
+   *     an exiting JSON text. Can be null if this JSON value is not originated from an existing
+   *     JSON text.
    */
-  JSONValuePrimitive(JSONValueType type, JSONToken token) {
+  JSONValuePrimitive(@NotNull JSONValueType type, @Nullable JSONToken token) {
     super(type);
     this.token = token;
   }
@@ -54,6 +57,7 @@ public abstract class JSONValuePrimitive extends JSONValue {
    * @return the source token of this JSON value. Can be null if this JSON value is not originated
    *     from an existing JSON text.
    */
+  @Nullable
   public JSONToken token() {
     return token;
   }

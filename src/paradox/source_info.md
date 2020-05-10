@@ -21,9 +21,18 @@ information.
 * @extref[source()](javadoc:token/JSONToken.html#source()) returns an instance of
   @extref[JSONText](javadoc:JSONText.html) from which the parser extracted the JSON value.
    * @extref[JSONText#name()](javadoc:JSONText.html#name()) holds the short name
-     (i.e. file name) of the JSON text.
-   * @extref[JSONText#fullName()](javadoc:JSONText.html#fullName()) holds the full
-     name (i.e. URL or full path) of the JSON text.
-   * The above methods do not make sense if you loaded the JSON text from String.
+     of the JSON text. In many cases, it returns a file name.
+   * @extref[JSONText#uri()](javadoc:JSONText.html#uri()) holds the URI of the JSON text.
 
+@@@ note
+@extref[token()](javadoc:value/JSONValuePrimitive.html#token()) is available only for
+JSON primitive values (boolean, string, number and null).
+@@@
 
+@@@ warning
+@extref[token()](javadoc:value/JSONValuePrimitive.html#token()) returns null if the JSON
+value does not originate from an instance of @extref[JSONText](javadoc:JSONText.html).
+
+For example, if your application creates new instances of JSON values to generate a 
+new JSON text, they do not hold a source information.
+@@@

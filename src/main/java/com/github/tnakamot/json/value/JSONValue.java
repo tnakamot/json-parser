@@ -17,7 +17,7 @@ public abstract class JSONValue {
    *
    * @param type type of this JSON value
    */
-  JSONValue(JSONValueType type) {
+  JSONValue(@NotNull JSONValueType type) {
     this.type = type;
   }
 
@@ -26,6 +26,7 @@ public abstract class JSONValue {
    *
    * @return type of this JSON value
    */
+  @NotNull
   public JSONValueType type() {
     return type;
   }
