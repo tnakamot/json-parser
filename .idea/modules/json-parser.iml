@@ -24,6 +24,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="sbt: commons-codec:commons-codec:1.14:jar" level="project" />
     <orderEntry type="library" name="sbt: io.github.jonas:paradox-material-theme:0.6.0:jar" level="project" />
     <orderEntry type="library" scope="TEST" name="sbt: net.aichler:jupiter-interface:0.8.3:jar" level="project" />
     <orderEntry type="library" name="sbt: org.apache.commons:commons-lang3:3.9:jar" level="project" />

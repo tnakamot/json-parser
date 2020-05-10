@@ -31,8 +31,8 @@ import com.github.tnakamot.json.token.StringLocation;
  * (name):(position): (message)
  * </pre>
  *
- * <p>(name) is the file name of the source JSON text. If {@link
- * JSONParserErrorMessageFormat#showFullPath()} is true, the full path or URL is shown.
+ * <p>(name) is the short name of the source JSON text, which is typically a file name. If {@link
+ * JSONParserErrorMessageFormat#showURI()} is true, the URI is shown instead.
  *
  * <p>(position) shows the location where the error is detected within the source JSON text. If
  * {@link JSONParserErrorMessageFormat#showLineAndColumnNumber()} is false, the position in number
@@ -53,7 +53,7 @@ import com.github.tnakamot.json.token.StringLocation;
  * <p>If
  *
  * <ul>
- *   <li>{@link JSONParserErrorMessageFormat#showFullPath()} is false
+ *   <li>{@link JSONParserErrorMessageFormat#showURI()} is false
  *   <li>{@link JSONParserErrorMessageFormat#showLineAndColumnNumber()} is true
  *   <li>{@link JSONParserErrorMessageFormat#showErrorLine()} is false
  * </ul>
@@ -67,7 +67,7 @@ import com.github.tnakamot.json.token.StringLocation;
  * <p>If
  *
  * <ul>
- *   <li>{@link JSONParserErrorMessageFormat#showFullPath()} is true
+ *   <li>{@link JSONParserErrorMessageFormat#showURI()} is true
  *   <li>{@link JSONParserErrorMessageFormat#showLineAndColumnNumber()} is false
  *   <li>{@link JSONParserErrorMessageFormat#showErrorLine()} is true
  * </ul>
@@ -124,8 +124,8 @@ public class JSONParserException extends Exception {
   @Override
   public String getMessage() {
     StringBuilder sb = new StringBuilder();
-    if (errMsgFmt.showFullPath()) {
-      sb.append(source.fullName());
+    if (errMsgFmt.showURI()) {
+      sb.append(source.uri().toString());
     } else {
       sb.append(source.name());
     }

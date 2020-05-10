@@ -18,6 +18,7 @@ package com.github.tnakamot.json;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.net.URISyntaxException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -58,12 +59,12 @@ public class JSONTextTest {
 
     assertEquals(JSON_STR, jsText.get());
     assertEquals(file, jsText.source());
-    assertEquals(file.getPath(), jsText.fullName());
+    assertEquals(file.toURI(), jsText.uri());
     assertEquals(file.getName(), jsText.name());
 
     String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
     log.info(() -> methodName + ": (original): " + file.getPath());
-    log.info(() -> methodName + ": fullName(): " + jsText.fullName());
+    log.info(() -> methodName + ": uri()     : " + jsText.uri());
     log.info(() -> methodName + ": name()    : " + jsText.name());
   }
 
@@ -76,23 +77,18 @@ public class JSONTextTest {
   }
 
   @Test
-  public void testFromFileNull() {
-    assertThrows(NullPointerException.class, () -> JSONText.fromFile(null));
-  }
-
-  @Test
-  public void testFromURL() throws IOException {
+  public void testFromURL() throws IOException, URISyntaxException {
     URL url = jsonFile.toURI().toURL();
     JSONText jsText = JSONText.fromURL(url);
 
     assertEquals(JSON_STR, jsText.get());
     assertEquals(url, jsText.source());
-    assertEquals(url.toString(), jsText.fullName());
+    assertEquals(url.toURI(), jsText.uri());
     assertEquals(jsonFile.getName(), jsText.name());
 
     String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
     log.info(() -> methodName + ": (original): " + url);
-    log.info(() -> methodName + ": fullName(): " + jsText.fullName());
+    log.info(() -> methodName + ": uri()     : " + jsText.uri());
     log.info(() -> methodName + ": name()    : " + jsText.name());
   }
 
@@ -106,18 +102,15 @@ public class JSONTextTest {
   }
 
   @Test
-  public void testFromURLNull() {
-    assertThrows(NullPointerException.class, () -> JSONText.fromURL(null));
-  }
-
-  @Test
   public void testFromString() {
     JSONText jsText = JSONText.fromString(JSON_STR);
 
     assertEquals(JSON_STR, jsText.get());
     assertEquals(JSON_STR, jsText.source());
-    assertEquals("(inner-string)", jsText.fullName());
-    assertEquals("(inner-string)", jsText.name());
+
+    String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
+    log.info(() -> methodName + ": uri()     : " + jsText.uri());
+    log.info(() -> methodName + ": name()    : " + jsText.name());
   }
 
   @Test
@@ -126,12 +119,10 @@ public class JSONTextTest {
 
     assertEquals(JSON_STR, jsText.get());
     assertEquals(JSON_STR, jsText.source());
-    assertEquals("test.json", jsText.fullName());
     assertEquals("test.json", jsText.name());
-  }
 
-  @Test
-  public void testFromStringNull() {
-    assertThrows(NullPointerException.class, () -> JSONText.fromString(null));
+    String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
+    log.info(() -> methodName + ": uri()     : " + jsText.uri());
+    log.info(() -> methodName + ": name()    : " + jsText.name());
   }
 }

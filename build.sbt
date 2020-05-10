@@ -49,6 +49,9 @@ lazy val root = (project in file("."))
       "org.apache.commons" % "commons-text" % "1.8",
 
       //noinspection SpellCheckingInspection,Annotator
+      "commons-codec" % "commons-codec" % "1.14",
+
+      //noinspection SpellCheckingInspection,Annotator
       "org.dmfs" % "rfc3986-uri" % "0.8.1",
 
       //noinspection SpellCheckingInspection,Annotator

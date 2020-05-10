@@ -59,7 +59,7 @@ public class JSONParserExceptionTest {
   @Test
   public void testShortName() throws IOException {
     JSONParserErrorMessageFormat fmt =
-        JSONParserErrorMessageFormat.builder().showFullPath(false).build();
+        JSONParserErrorMessageFormat.builder().showURI(false).build();
 
     File file = new File(jsonFileSingleLine.getPath());
     JSONText source = JSONText.fromFile(file);
@@ -73,9 +73,8 @@ public class JSONParserExceptionTest {
   }
 
   @Test
-  public void testFullName() throws IOException {
-    JSONParserErrorMessageFormat fmt =
-        JSONParserErrorMessageFormat.builder().showFullPath(true).build();
+  public void testURI() throws IOException {
+    JSONParserErrorMessageFormat fmt = JSONParserErrorMessageFormat.builder().showURI(true).build();
 
     File file = new File(jsonFileSingleLine.getPath());
     JSONText source = JSONText.fromFile(file);
@@ -85,7 +84,8 @@ public class JSONParserExceptionTest {
     log.info(() -> methodName + ": " + ex.getMessage());
 
     assertEquals(source, ex.source());
-    assertTrue(ex.getMessage().startsWith(file.getPath()));
+    assertTrue(ex.getMessage().startsWith(file.toURI().toString()));
+    log.info(() -> methodName + ": " + ex.getMessage());
   }
 
   @Test

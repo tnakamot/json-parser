@@ -3,6 +3,7 @@ package com.github.tnakamot.json;
 import com.github.tnakamot.json.parser.JSONParserException;
 
 import com.github.tnakamot.json.value.*;
+import java.net.URISyntaxException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -21,7 +22,7 @@ public class RFC8259ExampleTest {
   private static final String resourceBase = "/com/github/tnakamot/json/rfc8259/";
 
   @Test
-  public void testExample1() throws IOException, JSONParserException {
+  public void testExample1() throws IOException, JSONParserException, URISyntaxException {
     URL example = this.getClass().getResource(resourceBase + "rfc8259_example1.json");
     JSONText jsText = JSONText.fromURL(example);
     assertEquals("rfc8259_example1.json", jsText.name());
@@ -118,7 +119,7 @@ public class RFC8259ExampleTest {
   }
 
   @Test
-  public void testExample2() throws IOException, JSONParserException {
+  public void testExample2() throws IOException, JSONParserException, URISyntaxException {
     Map<String, JSONValue> expected1 =
         new HashMap<>() {
           {
@@ -184,7 +185,7 @@ public class RFC8259ExampleTest {
   }
 
   @Test
-  public void testExample3() throws IOException, JSONParserException {
+  public void testExample3() throws IOException, JSONParserException, URISyntaxException {
     URL example = this.getClass().getResource(resourceBase + "rfc8259_example3.json");
     JSONText jsText = JSONText.fromURL(example);
     assertEquals("rfc8259_example3.json", jsText.name());
@@ -198,7 +199,7 @@ public class RFC8259ExampleTest {
   }
 
   @Test
-  public void testExample4() throws IOException, JSONParserException {
+  public void testExample4() throws IOException, JSONParserException, URISyntaxException {
     URL example = this.getClass().getResource(resourceBase + "rfc8259_example4.json");
     JSONText jsText = JSONText.fromURL(example);
     assertEquals("rfc8259_example4.json", jsText.name());
@@ -213,7 +214,7 @@ public class RFC8259ExampleTest {
   }
 
   @Test
-  public void testExample5() throws IOException, JSONParserException {
+  public void testExample5() throws IOException, JSONParserException, URISyntaxException {
     URL example = this.getClass().getResource(resourceBase + "rfc8259_example5.json");
     JSONText jsText = JSONText.fromURL(example);
     assertEquals("rfc8259_example5.json", jsText.name());
@@ -235,7 +236,8 @@ public class RFC8259ExampleTest {
         "rfc8259_example4.json",
         "rfc8259_example5.json",
       })
-  public void testOutput(String fileName) throws IOException, JSONParserException {
+  public void testOutput(String fileName)
+      throws IOException, JSONParserException, URISyntaxException {
     URL example = this.getClass().getResource(resourceBase + fileName);
     JSONText jsText = JSONText.fromURL(example);
     JSONValue root = jsText.parse();
@@ -261,7 +263,7 @@ public class RFC8259ExampleTest {
         "rfc8259_example5.json",
       })
   public void testOutputWithoutWhitespaces(String fileName)
-      throws IOException, JSONParserException {
+      throws IOException, JSONParserException, URISyntaxException {
     URL example = this.getClass().getResource(resourceBase + fileName);
     JSONText jsText = JSONText.fromURL(example);
     JSONValue root = jsText.parse();

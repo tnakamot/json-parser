@@ -29,12 +29,15 @@ import com.github.tnakamot.json.value.JSONValueArrayImmutable;
 import com.github.tnakamot.json.value.JSONValueObjectImmutable;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Represents one JSON text.
@@ -44,16 +47,20 @@ import org.jetbrains.annotations.NotNull;
 public class JSONText {
   private final String text;
   private final Object source;
+  private final URI sourceURI;
   private final String name;
-  private final String fullName;
   private JSONValue root;
+  private boolean parsed;
 
-  private JSONText(String text, Object source, String name, String fullName) {
+  private JSONText(
+      @NotNull String text, @NotNull Object source, @NotNull URI sourceURI, @NotNull String name) {
     this.text = text;
     this.source = source;
+    this.sourceURI = sourceURI;
     this.name = name;
-    this.fullName = fullName;
+
     this.root = null;
+    this.parsed = false;
 
     if (!((source instanceof File) || (source instanceof URL) || (source instanceof String))) {
       throw new IllegalArgumentException("source must be File, URL or String");
@@ -65,6 +72,7 @@ public class JSONText {
    *
    * @return Contents of this JSON text.
    */
+  @NotNull
   public String get() {
     return text;
   }
@@ -74,8 +82,26 @@ public class JSONText {
    *
    * @return An instance of {@link File}, {@link URL} or {@link String}.
    */
+  @NotNull
   public Object source() {
     return source;
+  }
+
+  /**
+   * Return a short name of the source of this JSON text. This is useful to construct an error
+   * message of JSON parsers.
+   *
+   * @return name of this JSON text.
+   */
+  @NotNull
+  public String name() {
+    return name;
+  }
+
+  /** Return a URI of the source of this JSON text. */
+  @NotNull
+  public URI uri() {
+    return sourceURI;
   }
 
   /**
@@ -86,7 +112,8 @@ public class JSONText {
    * @throws IOException if an I/O error occurs
    * @throws JSONParserException if there is a syntax error in JSON text
    */
-  public synchronized List<JSONToken> tokens(JSONParserErrorMessageFormat errMsgFmt)
+  @NotNull
+  public synchronized List<JSONToken> tokens(@NotNull JSONParserErrorMessageFormat errMsgFmt)
       throws IOException, JSONParserException {
     List<JSONToken> tokens = new ArrayList<>();
     JSONLexer lexer = new JSONLexer(this, errMsgFmt);
@@ -104,6 +131,7 @@ public class JSONText {
    * @throws IOException if an I/O error occurs
    * @throws JSONParserException if there is a syntax error in JSON text
    */
+  @NotNull
   public synchronized List<JSONToken> tokens() throws IOException, JSONParserException {
     JSONParserErrorMessageFormat errMsgFmt = JSONParserErrorMessageFormat.builder().build();
     return tokens(errMsgFmt);
@@ -120,11 +148,14 @@ public class JSONText {
    * @throws IOException if an I/O error occurs
    * @see <a href="https://tools.ietf.org/html/rfc8259#section-2">RFC 8259 - 2. JSON Grammer</a>
    */
-  public synchronized JSONValue parse(boolean immutable, JSONParserErrorMessageFormat errMsgFmt)
+  @Nullable
+  public synchronized JSONValue parse(
+      boolean immutable, @NotNull JSONParserErrorMessageFormat errMsgFmt)
       throws IOException, JSONParserException {
     if (root == null) {
       List<JSONToken> tokens = tokens(errMsgFmt);
       JSONParser parser = new JSONParser(tokens, errMsgFmt);
+      parsed = true;
       root = parser.parse();
     }
 
@@ -158,7 +189,8 @@ public class JSONText {
   @SuppressWarnings(
       "UnusedReturnValue") // Unit tests only the exceptions. The return values are tested through
   // unit test of the underlying method.
-  public synchronized JSONValue parse(JSONParserErrorMessageFormat errMsgFmt)
+  @Nullable
+  public synchronized JSONValue parse(@NotNull JSONParserErrorMessageFormat errMsgFmt)
       throws IOException, JSONParserException {
     return parse(true, errMsgFmt);
   }
@@ -173,6 +205,7 @@ public class JSONText {
    * @throws IOException if an I/O error occurs
    * @see <a href="https://tools.ietf.org/html/rfc8259#section-2">RFC 8259 - 2. JSON Grammer</a>
    */
+  @Nullable
   public synchronized JSONValue parse(boolean immutable) throws IOException, JSONParserException {
     JSONParserErrorMessageFormat errMsgFmt = JSONParserErrorMessageFormat.builder().build();
     return parse(immutable, errMsgFmt);
@@ -188,6 +221,7 @@ public class JSONText {
    * @throws IOException if an I/O error occurs
    * @see <a href="https://tools.ietf.org/html/rfc8259#section-2">RFC 8259 - 2. JSON Grammer</a>
    */
+  @Nullable
   public synchronized JSONValue parse() throws IOException, JSONParserException {
     return parse(true);
   }
@@ -201,7 +235,7 @@ public class JSONText {
    * @return whether this JSON text has been successfully parsed in the past.
    */
   public synchronized boolean isParsed() {
-    return root != null;
+    return parsed;
   }
 
   /**
@@ -209,11 +243,15 @@ public class JSONText {
    *
    * <p>{@link #parse()} (or its variant) must be successfully called before this method.
    *
+   * <p>Note that this method results in {@link InvalidJSONPointerException} if this JSON text does
+   * not have any JSON value.
+   *
    * @param pointer a string representation of a JSON Pointer
    * @return the JSON value of the pointer evaluation result
    * @throws InvalidJSONPointerException when the JSON Pointer has an error
    * @throws IllegalStateException if this JSON text has not been parsed yet
    */
+  @NotNull
   public synchronized JSONValue evaluate(@NotNull String pointer)
       throws InvalidJSONPointerException {
     // TODO: judge the content type and set 'fragment' argument accordingly
@@ -225,6 +263,9 @@ public class JSONText {
    *
    * <p>{@link #parse()} (or its variant) must be successfully called before this method.
    *
+   * <p>Note that this method results in {@link InvalidJSONPointerException} if this JSON text does
+   * not have any JSON value.
+   *
    * @param pointer a string representation of a JSON Pointer
    * @param fragment specify true to handle the given string as a URI fragment identifier starting
    *     with '#".
@@ -232,6 +273,7 @@ public class JSONText {
    * @throws InvalidJSONPointerException when the JSON Pointer has an error
    * @throws IllegalStateException if this JSON text has not been parsed yet
    */
+  @NotNull
   public synchronized JSONValue evaluate(@NotNull String pointer, boolean fragment)
       throws InvalidJSONPointerException {
     return evaluate(new JSONPointer(pointer, fragment));
@@ -242,39 +284,25 @@ public class JSONText {
    *
    * <p>{@link #parse()} (or its variant) must be successfully called before this method.
    *
+   * <p>Note that this method results in {@link InvalidJSONPointerException} if this JSON text does
+   * not have any JSON value.
+   *
    * @param pointer JSON pointer
    * @return the JSON value of the pointer evaluation result
    * @throws InvalidJSONPointerException when the JSON Pointer has an error
    * @throws IllegalStateException if this JSON text has not been parsed yet
    */
+  @NotNull
   public synchronized JSONValue evaluate(@NotNull JSONPointer pointer)
       throws InvalidJSONPointerException {
-    if (root == null) {
+    if (!parsed) {
       throw new IllegalStateException(
-          "JSON Text needs to be parsed first before evaluating a JSON Pointer");
+          "JSON text needs to be parsed first before evaluating a JSON Pointer");
+    } else if (root == null) {
+      throw new IllegalStateException("This JSON text has no JSON value");
     }
 
     return pointer.evaluate(root);
-  }
-
-  /**
-   * Return a string which represents a short name of the source of this JSON text. This is useful
-   * to construct an error message of JSON parsers.
-   *
-   * @return name of this JSON text.
-   */
-  public String name() {
-    return name;
-  }
-
-  /**
-   * Return a string which represents the full path of the source of this JSON text. This is useful
-   * to construct an error message of JSON parsers.
-   *
-   * @return full path of this JSON text.
-   */
-  public String fullName() {
-    return fullName;
   }
 
   @Override
@@ -292,13 +320,11 @@ public class JSONText {
    * @see <a href="https://tools.ietf.org/html/rfc8259#section-8.1">RFC 8259 - 8.1. Character
    *     Encoding</a>
    */
-  public static JSONText fromFile(File file) throws IOException {
-    if (file == null) {
-      throw new NullPointerException("file cannot be null");
-    }
-
+  @NotNull
+  public static JSONText fromFile(@NotNull File file) throws IOException {
     String text = Files.readString(file.toPath(), StandardCharsets.UTF_8);
-    return new JSONText(text, file, file.getName(), file.toString());
+
+    return new JSONText(text, file, file.toURI(), file.getName());
   }
 
   /**
@@ -308,14 +334,13 @@ public class JSONText {
    * @param url URL of a JSON text file.
    * @return An instance of JSON text.
    * @throws IOException if an I/O exception occurs
+   * @throws URISyntaxException if this URL is not formatted strictly according to to RFC2396 and
+   *     cannot be converted to a URI.
    * @see <a href="https://tools.ietf.org/html/rfc8259#section-8.1">RFC 8259 - 8.1. Character
    *     Encoding</a>
    */
-  public static JSONText fromURL(URL url) throws IOException {
-    if (url == null) {
-      throw new NullPointerException("url cannot be null");
-    }
-
+  @NotNull
+  public static JSONText fromURL(@NotNull URL url) throws IOException, URISyntaxException {
     /*
      * TODO: To improve the interoperability remove the BOM (U+FEFF) if exists.
      *       The application may do so according to RFC 8259 (it is not mandatory).
@@ -330,30 +355,36 @@ public class JSONText {
       name = paths[paths.length - 1];
     }
 
-    return new JSONText(text, url, name, url.toString());
+    return new JSONText(text, url, url.toURI(), name);
   }
 
   /**
    * Convert the given String to an instance of {@link JSONText}.
    *
-   * <p>The name of this source is automatically determined.
+   * <p>The name of this source is automatically determined. See {@link #fromString(String, String)}
+   * for more details.
    *
    * @param str A string which contains JSON text.
    * @return An instance of JSON text.
    * @see <a href="https://tools.ietf.org/html/rfc8259#section-8.1">RFC 8259 - 8.1. Character
    *     Encoding</a>
+   * @see #fromString(String, String)
    */
-  public static JSONText fromString(String str) {
-    return fromString(str, "(inner-string)");
+  @NotNull
+  public static JSONText fromString(@NotNull String str) {
+    return fromString(str, null);
   }
 
   /**
    * Convert the given String to an instance of {@link JSONText}.
    *
-   * <p>You can specify the name of this source string. {@link #name()} and {@link #fullName()}
-   * return the specified string. The specified will be used, for example, to show an error message
-   * from the parse with the name. With a meaningful name, the users of your application will be
-   * able to know which JSON text has a syntax error.
+   * <p>Specify the name, then {@link #name()} returns the specified string. The specified name will
+   * be used, for example, for the parser to show an error message . With a meaningful name, the
+   * users of your application will be able to know which JSON text has a syntax error.
+   *
+   * <p>If the name is not specified (= null is given), the name is automatically determined by this
+   * library, but the users may not understand where does that the JSON text come from, so it is not
+   * recommended.
    *
    * @param str A string which contains JSON text.
    * @param name A name of this source string.
@@ -361,11 +392,27 @@ public class JSONText {
    * @see <a href="https://tools.ietf.org/html/rfc8259#section-8.1">RFC 8259 - 8.1. Character
    *     Encoding</a>
    */
-  public static JSONText fromString(String str, String name) {
-    if (str == null) {
-      throw new NullPointerException("str cannot be null");
-    }
+  @NotNull
+  public static JSONText fromString(@NotNull String str, @Nullable String name) {
+    URI sha1URI = sha1URI(str);
 
-    return new JSONText(str, str, name, name);
+    if (name == null) {
+      return new JSONText(str, str, sha1URI, sha1URI.toString());
+    } else {
+      return new JSONText(str, str, sha1URI, name);
+    }
+  }
+
+  private static String sha1(@NotNull String str) {
+    return org.apache.commons.codec.digest.DigestUtils.sha1Hex(str);
+  }
+
+  @NotNull
+  private static URI sha1URI(@NotNull String str) {
+    try {
+      return new URI("urn:sha1:" + sha1(str));
+    } catch (URISyntaxException ex) {
+      throw new RuntimeException("the code must not reach here", ex);
+    }
   }
 }

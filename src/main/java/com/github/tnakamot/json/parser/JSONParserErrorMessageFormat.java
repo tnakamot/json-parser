@@ -29,34 +29,38 @@ package com.github.tnakamot.json.parser;
  * <pre>
  * JSONLexerErrorMessageFormat errMsgFmt =
  *     JSONLexerErrorMessageConfiguration.builder()
- *         .showFullPath(false)
+ *         .showURI(false)
  *         .showLineAndColumnNumber(true)
  *         .showErrorLine(false)
  *         .build();
  * </pre>
  *
- * <p>The invocation of {@link Builder#showFullPath()}, {@link Builder#showLineAndColumnNumber()}
- * and {@link Builder#showErrorLine()} are optional. If you want to use the default configuration,
- * just do not call them.
+ * <p>The invocation of {@link Builder#showURI()}, {@link Builder#showLineAndColumnNumber()} and
+ * {@link Builder#showErrorLine()} are optional. If you want to use the default configuration, just
+ * do not call them.
  *
  * <p>The default value may change in the future, so do not rely on them if you really need a
  * specific error message format.
  */
 public class JSONParserErrorMessageFormat {
-  private final boolean showFullPath;
+  private final boolean showURI;
   private final boolean showLineAndColumnNumber;
   private final boolean showErrorLine;
 
   private JSONParserErrorMessageFormat(
-      boolean showFullPath, boolean showLineAndColumnNumber, boolean showErrorLine) {
-    this.showFullPath = showFullPath;
+      boolean showURI, boolean showLineAndColumnNumber, boolean showErrorLine) {
+    this.showURI = showURI;
     this.showLineAndColumnNumber = showLineAndColumnNumber;
     this.showErrorLine = showErrorLine;
   }
 
-  /** @return represents whether an error message should show full path of a JSON text source. */
-  public boolean showFullPath() {
-    return showFullPath;
+  /**
+   * Returns whether an error message should show URI of a JSON text source instead of a short name.
+   *
+   * @return represents whether an error message should show URI
+   */
+  public boolean showURI() {
+    return showURI;
   }
 
   /**
@@ -82,20 +86,20 @@ public class JSONParserErrorMessageFormat {
 
   /** Builder class of {@link JSONParserErrorMessageFormat}. */
   public static class Builder {
-    private boolean showFullPath = false;
+    private boolean showURI = false;
     private boolean showLineAndColumnNumber = true;
     private boolean showErrorLine = false;
 
     private Builder() {}
 
     /**
-     * Set showFullPath option.
+     * Set showURI option.
      *
      * @param b option value
      * @return this builder
      */
-    public Builder showFullPath(boolean b) {
-      this.showFullPath = b;
+    public Builder showURI(boolean b) {
+      this.showURI = b;
       return this;
     }
 
@@ -127,7 +131,7 @@ public class JSONParserErrorMessageFormat {
      * @return a new instance of {@link JSONParserErrorMessageFormat}
      */
     public JSONParserErrorMessageFormat build() {
-      return new JSONParserErrorMessageFormat(showFullPath, showLineAndColumnNumber, showErrorLine);
+      return new JSONParserErrorMessageFormat(showURI, showLineAndColumnNumber, showErrorLine);
     }
   }
 }

@@ -15,6 +15,7 @@ import com.github.tnakamot.json.value.JSONValueNumber;
 import com.github.tnakamot.json.value.JSONValueString;
 import com.github.tnakamot.json.value.JSONValueType;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.logging.Logger;
 import org.junit.platform.commons.logging.LoggerFactory;
@@ -277,7 +278,7 @@ public class JSONPointerTest {
 
   @Test
   public void testRFC6901Example()
-      throws InvalidJSONPointerException, IOException, JSONParserException {
+      throws InvalidJSONPointerException, IOException, JSONParserException, URISyntaxException {
     JSONText jsText = JSONText.fromURL(this.getClass().getResource(rfc6901Example));
     JSONValue root = jsText.parse();
 

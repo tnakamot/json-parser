@@ -25,7 +25,7 @@ public class JSONParserErrorMessageFormatTest {
   @Test
   public void testDefault() {
     JSONParserErrorMessageFormat fmt = JSONParserErrorMessageFormat.builder().build();
-    assertFalse(fmt.showFullPath());
+    assertFalse(fmt.showURI());
     assertTrue(fmt.showLineAndColumnNumber());
     assertFalse(fmt.showErrorLine());
   }
@@ -34,12 +34,12 @@ public class JSONParserErrorMessageFormatTest {
   public void testBuilder() {
     JSONParserErrorMessageFormat fmt =
         JSONParserErrorMessageFormat.builder()
-            .showFullPath(true)
+            .showURI(true)
             .showLineAndColumnNumber(false)
             .showErrorLine(true)
             .build();
 
-    assertTrue(fmt.showFullPath());
+    assertTrue(fmt.showURI());
     assertFalse(fmt.showLineAndColumnNumber());
     assertTrue(fmt.showErrorLine());
   }

@@ -20,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.github.tnakamot.json.JSONText;
 import com.github.tnakamot.json.value.*;
+import java.net.URISyntaxException;
 import java.net.URL;
 import org.junit.jupiter.api.Test;
 
@@ -410,7 +411,7 @@ public class JSONParserTest {
   }
 
   @Test
-  public void testImmutable1() throws IOException, JSONParserException {
+  public void testImmutable1() throws IOException, JSONParserException, URISyntaxException {
     URL example =
         this.getClass().getResource("/com/github/tnakamot/json/rfc8259/rfc8259_example1.json");
     JSONText jsText = JSONText.fromURL(example);
@@ -448,7 +449,7 @@ public class JSONParserTest {
   }
 
   @Test
-  public void testImmutable2() throws IOException, JSONParserException {
+  public void testImmutable2() throws IOException, JSONParserException, URISyntaxException {
     URL example =
         this.getClass().getResource("/com/github/tnakamot/json/rfc8259/rfc8259_example2.json");
     JSONText jsText = JSONText.fromURL(example);
@@ -479,7 +480,7 @@ public class JSONParserTest {
   }
 
   @Test
-  public void testMutable1() throws IOException, JSONParserException {
+  public void testMutable1() throws IOException, JSONParserException, URISyntaxException {
     URL example =
         this.getClass().getResource("/com/github/tnakamot/json/rfc8259/rfc8259_example1.json");
     JSONText jsText = JSONText.fromURL(example);
@@ -510,7 +511,7 @@ public class JSONParserTest {
   }
 
   @Test
-  public void testMutable2() throws IOException, JSONParserException {
+  public void testMutable2() throws IOException, JSONParserException, URISyntaxException {
     URL example =
         this.getClass().getResource("/com/github/tnakamot/json/rfc8259/rfc8259_example2.json");
     JSONText jsText = JSONText.fromURL(example);
