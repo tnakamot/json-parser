@@ -16,6 +16,7 @@
 
 package com.github.tnakamot.json.value;
 
+import com.github.tnakamot.json.token.JSONToken;
 import com.github.tnakamot.json.token.JSONTokenNumber;
 import org.jetbrains.annotations.NotNull;
 
@@ -256,10 +257,11 @@ public class JSONValueNumber extends JSONValuePrimitive {
   @Override
   @NotNull
   public String toTokenString() {
-    if (token() == null) {
+    JSONToken token = token();
+    if (token == null) {
       return text;
     } else {
-      return token().text();
+      return token.text();
     }
   }
 

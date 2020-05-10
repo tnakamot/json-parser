@@ -16,6 +16,7 @@
 
 package com.github.tnakamot.json.value;
 
+import com.github.tnakamot.json.token.JSONToken;
 import com.github.tnakamot.json.token.JSONTokenString;
 import org.apache.commons.text.StringEscapeUtils;
 import org.jetbrains.annotations.NotNull;
@@ -82,10 +83,11 @@ public class JSONValueString extends JSONValuePrimitive {
   @Override
   @NotNull
   public String toTokenString() {
-    if (token() == null) {
+    JSONToken token = token();
+    if (token == null) {
       return "\"" + StringEscapeUtils.escapeJson(value) + "\"";
     } else {
-      return token().text();
+      return token.text();
     }
   }
 
