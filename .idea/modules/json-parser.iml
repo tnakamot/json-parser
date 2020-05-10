@@ -30,8 +30,6 @@
     <orderEntry type="library" name="sbt: org.apache.commons:commons-lang3:3.9:jar" level="project" />
     <orderEntry type="library" name="sbt: org.apache.commons:commons-text:1.8:jar" level="project" />
     <orderEntry type="library" scope="TEST" name="sbt: org.apiguardian:apiguardian-api:1.0.0:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.dmfs:jems:1.18:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.dmfs:rfc3986-uri:0.8.1:jar" level="project" />
     <orderEntry type="library" name="sbt: org.jetbrains:annotations:16.0.1:jar" level="project" />
     <orderEntry type="library" scope="TEST" name="sbt: org.junit.jupiter:junit-jupiter-api:5.1.1:jar" level="project" />
     <orderEntry type="library" scope="TEST" name="sbt: org.junit.jupiter:junit-jupiter-engine:5.1.1:jar" level="project" />

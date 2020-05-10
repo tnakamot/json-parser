@@ -1,7 +1,6 @@
 package com.github.tnakamot.json.schema;
 
-import org.dmfs.rfc3986.Uri;
-import org.dmfs.rfc3986.uris.Text;
+import java.net.URI;
 
 public class UnsupportedJSONSchemaVersionException extends Exception {
   public UnsupportedJSONSchemaVersionException(
@@ -23,9 +22,9 @@ public class UnsupportedJSONSchemaVersionException extends Exception {
       s.append("(ID: ");
       s.append(version.versionID());
       s.append(")\n");
-      for (Uri uri : version.URIs()) {
+      for (URI uri : version.URIs()) {
         s.append("  ");
-        s.append(new Text(uri).toString());
+        s.append(uri.toString());
         s.append("\n");
       }
     }

@@ -52,9 +52,6 @@ lazy val root = (project in file("."))
       "commons-codec" % "commons-codec" % "1.14",
 
       //noinspection SpellCheckingInspection,Annotator
-      "org.dmfs" % "rfc3986-uri" % "0.8.1",
-
-      //noinspection SpellCheckingInspection,Annotator
       "org.jetbrains" % "annotations" % "16.0.1",
 
       //noinspection SpellCheckingInspection,Annotator

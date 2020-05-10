@@ -6,22 +6,31 @@ import com.github.tnakamot.json.value.JSONValue;
 import com.github.tnakamot.json.value.JSONValueObject;
 import com.github.tnakamot.json.value.JSONValueType;
 import java.io.IOException;
-import org.dmfs.rfc3986.uris.Text;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 public class JSONRootSchema extends JSONSchema {
   private final JSONSchemaVersion schemaVersion;
-  private final String schemaURI;
+  private final URI schemaURI;
   private final JSONValueObject root;
 
-  private JSONRootSchema(JSONValueObject root) throws InvalidJSONSchemaURIException {
+  private JSONRootSchema(JSONValueObject root) {
     this.root = root;
 
     if (root.containsKey("$schema")) {
-      this.schemaURI = root.getString("$schema");
-      this.schemaVersion = JSONSchemaVersion.fromURI(this.schemaURI);
+      try {
+        schemaURI = new URI(root.getString("$schema"));
+        schemaVersion = JSONSchemaVersion.fromURI(this.schemaURI);
+      } catch (URISyntaxException ex) {
+        // TODO: throw an appropriate exception
+        throw new RuntimeException(ex);
+      } catch (InvalidJSONSchemaURIException ex) {
+        // TODO: throw an appropriate exception
+        throw new RuntimeException(ex);
+      }
     } else {
-      this.schemaVersion = JSONSchemaVersion.DEFAULT_VERSION;
-      this.schemaURI = new Text(this.schemaVersion.URIs()[0]).toString();
+      schemaVersion = JSONSchemaVersion.DEFAULT_VERSION;
+      schemaURI = schemaVersion.URIs()[0];
     }
   }
 
