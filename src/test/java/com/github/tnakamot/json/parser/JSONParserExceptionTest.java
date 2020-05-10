@@ -58,8 +58,8 @@ public class JSONParserExceptionTest {
 
   @Test
   public void testShortName() throws IOException {
-    JSONParserErrorMessageFormat fmt =
-        JSONParserErrorMessageFormat.builder().showURI(false).build();
+    JSONParserErrorHandlingOptions fmt =
+        JSONParserErrorHandlingOptions.builder().showURI(false).build();
 
     File file = new File(jsonFileSingleLine.getPath());
     JSONText source = JSONText.fromFile(file);
@@ -74,7 +74,8 @@ public class JSONParserExceptionTest {
 
   @Test
   public void testURI() throws IOException {
-    JSONParserErrorMessageFormat fmt = JSONParserErrorMessageFormat.builder().showURI(true).build();
+    JSONParserErrorHandlingOptions fmt =
+        JSONParserErrorHandlingOptions.builder().showURI(true).build();
 
     File file = new File(jsonFileSingleLine.getPath());
     JSONText source = JSONText.fromFile(file);
@@ -103,8 +104,8 @@ public class JSONParserExceptionTest {
 
   @Test
   public void testPositionSingleLine() throws IOException {
-    JSONParserErrorMessageFormat fmt =
-        JSONParserErrorMessageFormat.builder().showLineAndColumnNumber(false).build();
+    JSONParserErrorHandlingOptions fmt =
+        JSONParserErrorHandlingOptions.builder().showLineAndColumnNumber(false).build();
 
     File file = new File(jsonFileSingleLine.getPath());
     JSONText source = JSONText.fromFile(file);
@@ -113,7 +114,7 @@ public class JSONParserExceptionTest {
     String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
     log.info(() -> methodName + ": " + ex.getMessage());
 
-    assertEquals(10, ex.location().position());
+    assertEquals(10, ex.begin().position());
 
     String positionStr = ex.getMessage().split(":")[1];
     assertEquals("10", positionStr);
@@ -121,8 +122,8 @@ public class JSONParserExceptionTest {
 
   @Test
   public void testLineAndColumnSingleLine() throws IOException {
-    JSONParserErrorMessageFormat fmt =
-        JSONParserErrorMessageFormat.builder().showLineAndColumnNumber(true).build();
+    JSONParserErrorHandlingOptions fmt =
+        JSONParserErrorHandlingOptions.builder().showLineAndColumnNumber(true).build();
 
     File file = new File(jsonFileSingleLine.getPath());
     JSONText source = JSONText.fromFile(file);
@@ -131,8 +132,8 @@ public class JSONParserExceptionTest {
     String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
     log.info(() -> methodName + ": " + ex.getMessage());
 
-    assertEquals(1, ex.location().line());
-    assertEquals(11, ex.location().column());
+    assertEquals(1, ex.begin().line());
+    assertEquals(11, ex.begin().column());
 
     String lineStr = ex.getMessage().split(":")[1];
     String columnStr = ex.getMessage().split(":")[2];
@@ -142,8 +143,8 @@ public class JSONParserExceptionTest {
 
   @Test
   public void testPositionMultiLines() throws IOException {
-    JSONParserErrorMessageFormat fmt =
-        JSONParserErrorMessageFormat.builder().showLineAndColumnNumber(false).build();
+    JSONParserErrorHandlingOptions fmt =
+        JSONParserErrorHandlingOptions.builder().showLineAndColumnNumber(false).build();
 
     File file = new File(jsonFileMultiLines.getPath());
     JSONText source = JSONText.fromFile(file);
@@ -152,7 +153,7 @@ public class JSONParserExceptionTest {
     String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
     log.info(() -> methodName + ": " + ex.getMessage());
 
-    assertEquals(11, ex.location().position());
+    assertEquals(11, ex.begin().position());
 
     String positionStr = ex.getMessage().split(":")[1];
     assertEquals("11", positionStr);
@@ -160,8 +161,8 @@ public class JSONParserExceptionTest {
 
   @Test
   public void testLineAndColumnMultiLines() throws IOException {
-    JSONParserErrorMessageFormat fmt =
-        JSONParserErrorMessageFormat.builder().showLineAndColumnNumber(true).build();
+    JSONParserErrorHandlingOptions fmt =
+        JSONParserErrorHandlingOptions.builder().showLineAndColumnNumber(true).build();
 
     File file = new File(jsonFileMultiLines.getPath());
     JSONText source = JSONText.fromFile(file);
@@ -170,8 +171,8 @@ public class JSONParserExceptionTest {
     String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
     log.info(() -> methodName + ": " + ex.getMessage());
 
-    assertEquals(2, ex.location().line());
-    assertEquals(10, ex.location().column());
+    assertEquals(2, ex.begin().line());
+    assertEquals(10, ex.begin().column());
 
     String lineStr = ex.getMessage().split(":")[1];
     String columnStr = ex.getMessage().split(":")[2];
@@ -181,8 +182,8 @@ public class JSONParserExceptionTest {
 
   @Test
   public void testErrorLineSingleLine() throws IOException {
-    JSONParserErrorMessageFormat fmt =
-        JSONParserErrorMessageFormat.builder().showErrorLine(true).build();
+    JSONParserErrorHandlingOptions fmt =
+        JSONParserErrorHandlingOptions.builder().showErrorLine(true).build();
 
     File file = new File(jsonFileSingleLine.getPath());
     JSONText source = JSONText.fromFile(file);
@@ -191,8 +192,8 @@ public class JSONParserExceptionTest {
     String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
     log.info(() -> methodName + ": " + ex.getMessage());
 
-    assertEquals(1, ex.location().line());
-    assertEquals(11, ex.location().column());
+    assertEquals(1, ex.begin().line());
+    assertEquals(11, ex.begin().column());
 
     String errorLine = ex.getMessage().split(System.lineSeparator())[1];
     assertEquals(JSON_STR_SINGLE_LINE, errorLine);
@@ -200,8 +201,8 @@ public class JSONParserExceptionTest {
 
   @Test
   public void testErrorLineMultiLines() throws IOException {
-    JSONParserErrorMessageFormat fmt =
-        JSONParserErrorMessageFormat.builder().showErrorLine(true).build();
+    JSONParserErrorHandlingOptions fmt =
+        JSONParserErrorHandlingOptions.builder().showErrorLine(true).build();
 
     File file = new File(jsonFileMultiLines.getPath());
     JSONText source = JSONText.fromFile(file);
@@ -210,8 +211,8 @@ public class JSONParserExceptionTest {
     String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
     log.info(() -> methodName + ": " + ex.getMessage());
 
-    assertEquals(2, ex.location().line());
-    assertEquals(10, ex.location().column());
+    assertEquals(2, ex.begin().line());
+    assertEquals(10, ex.begin().column());
 
     String errorLine = ex.getMessage().split(System.lineSeparator())[1];
     String expectedLine = JSON_STR_MULTI_LINES.split("\n")[1];

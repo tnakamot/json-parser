@@ -34,7 +34,7 @@ import java.io.StringReader;
  */
 public class JSONLexer {
   private final JSONText source;
-  private final JSONParserErrorMessageFormat errMsgFmt;
+  private final JSONParserErrorHandlingOptions errMsgFmt;
   private final PushbackReader reader;
 
   StringLocation location;
@@ -46,7 +46,7 @@ public class JSONLexer {
    * @param source JSON text source to tokenize
    * @param errMsgFmt settings of error message format of {@link JSONParserException}
    */
-  public JSONLexer(JSONText source, JSONParserErrorMessageFormat errMsgFmt) {
+  public JSONLexer(JSONText source, JSONParserErrorHandlingOptions errMsgFmt) {
     if (source == null) {
       throw new NullPointerException("source cannot be null");
     } else if (errMsgFmt == null) {

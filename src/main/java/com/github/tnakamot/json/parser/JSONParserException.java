@@ -18,13 +18,14 @@ package com.github.tnakamot.json.parser;
 
 import com.github.tnakamot.json.JSONText;
 import com.github.tnakamot.json.token.StringLocation;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Thrown when a JSON lexical analyzer fails to tokenize a given JSON text due to a syntax error.
  *
  * <p>Instances of this class are immutable.
  *
- * <p>The error message can be customized by {@link JSONParserErrorMessageFormat}. The message
+ * <p>The error message can be customized by {@link JSONParserErrorHandlingOptions}. The message
  * format is basically
  *
  * <pre>
@@ -32,14 +33,14 @@ import com.github.tnakamot.json.token.StringLocation;
  * </pre>
  *
  * <p>(name) is the short name of the source JSON text, which is typically a file name. If {@link
- * JSONParserErrorMessageFormat#showURI()} is true, the URI is shown instead.
+ * JSONParserErrorHandlingOptions#showURI()} is true, the URI is shown instead.
  *
  * <p>(position) shows the location where the error is detected within the source JSON text. If
- * {@link JSONParserErrorMessageFormat#showLineAndColumnNumber()} is false, the position in number
+ * {@link JSONParserErrorHandlingOptions#showLineAndColumnNumber()} is false, the position in number
  * of Unicode characters is shown (starting from zero). If it is true, the line number and the
  * column (both starting from one) separated by ":" is shown.
  *
- * <p>If {@link JSONParserErrorMessageFormat#showErrorLine()} is true, a line which contains the
+ * <p>If {@link JSONParserErrorHandlingOptions#showErrorLine()} is true, a line which contains the
  * error is shown additionally with a position marker.
  *
  * <p>Here is an example of a JSON text which has an error:
@@ -53,9 +54,9 @@ import com.github.tnakamot.json.token.StringLocation;
  * <p>If
  *
  * <ul>
- *   <li>{@link JSONParserErrorMessageFormat#showURI()} is false
- *   <li>{@link JSONParserErrorMessageFormat#showLineAndColumnNumber()} is true
- *   <li>{@link JSONParserErrorMessageFormat#showErrorLine()} is false
+ *   <li>{@link JSONParserErrorHandlingOptions#showURI()} is false
+ *   <li>{@link JSONParserErrorHandlingOptions#showLineAndColumnNumber()} is true
+ *   <li>{@link JSONParserErrorHandlingOptions#showErrorLine()} is false
  * </ul>
  *
  * <p>the error message from the parser will be
@@ -67,9 +68,9 @@ import com.github.tnakamot.json.token.StringLocation;
  * <p>If
  *
  * <ul>
- *   <li>{@link JSONParserErrorMessageFormat#showURI()} is true
- *   <li>{@link JSONParserErrorMessageFormat#showLineAndColumnNumber()} is false
- *   <li>{@link JSONParserErrorMessageFormat#showErrorLine()} is true
+ *   <li>{@link JSONParserErrorHandlingOptions#showURI()} is true
+ *   <li>{@link JSONParserErrorHandlingOptions#showLineAndColumnNumber()} is false
+ *   <li>{@link JSONParserErrorHandlingOptions#showErrorLine()} is true
  * </ul>
  *
  * <p>the error message from the parser will be
@@ -83,8 +84,9 @@ import com.github.tnakamot.json.token.StringLocation;
 public class JSONParserException extends Exception {
   private final String msg;
   private final JSONText source;
-  private final StringLocation location;
-  private final JSONParserErrorMessageFormat errMsgFmt;
+  private final StringLocation begin;
+  private final StringLocation end;
+  private final JSONParserErrorHandlingOptions errMsgFmt;
 
   /**
    * Instantiate this exception.
@@ -95,14 +97,38 @@ public class JSONParserException extends Exception {
    * @param msg error message which explains the problem
    */
   public JSONParserException(
-      JSONText source,
-      StringLocation location,
-      JSONParserErrorMessageFormat errMsgFmt,
-      String msg) {
+      @NotNull JSONText source,
+      @NotNull StringLocation location,
+      @NotNull JSONParserErrorHandlingOptions errMsgFmt,
+      @NotNull String msg) {
     super(msg);
     this.msg = msg;
     this.source = source;
-    this.location = location;
+    this.begin = location;
+    this.end = location;
+    this.errMsgFmt = errMsgFmt;
+  }
+
+  /**
+   * Instantiate this exception.
+   *
+   * @param source JSON text that has a problem
+   * @param begin beginning location of the problem within the source JSON text
+   * @param end end location of the problem within the source JSON text
+   * @param errMsgFmt configuration to change the error message format of this exception
+   * @param msg error message which explains the problem
+   */
+  public JSONParserException(
+      @NotNull JSONText source,
+      @NotNull StringLocation begin,
+      @NotNull StringLocation end,
+      @NotNull JSONParserErrorHandlingOptions errMsgFmt,
+      @NotNull String msg) {
+    super(msg);
+    this.msg = msg;
+    this.source = source;
+    this.begin = begin;
+    this.end = end;
     this.errMsgFmt = errMsgFmt;
   }
 
@@ -112,13 +138,23 @@ public class JSONParserException extends Exception {
   }
 
   /**
-   * Returns the location of hte problem where the lexical analyzer failed to tokenize the given
+   * Returns the beginning location of hte problem where the lexical analyzer failed to tokenize the
+   * given JSON text.
+   *
+   * @return beginning location of the problem within the source JSON text
+   */
+  public StringLocation begin() {
+    return begin;
+  }
+
+  /**
+   * Returns the end location of hte problem where the lexical analyzer failed to tokenize the given
    * JSON text.
    *
-   * @return location of the problem within the source JSON text
+   * @return end location of the problem within the source JSON text
    */
-  public StringLocation location() {
-    return location;
+  public StringLocation end() {
+    return begin;
   }
 
   @Override
@@ -133,23 +169,26 @@ public class JSONParserException extends Exception {
     sb.append(":");
 
     if (errMsgFmt.showLineAndColumnNumber()) {
-      sb.append(location.line());
+      sb.append(begin.line());
       sb.append(":");
-      sb.append(location.column());
+      sb.append(begin.column());
     } else {
-      sb.append(location.position());
+      sb.append(begin.position());
     }
 
     sb.append(": ");
     sb.append(msg);
 
     if (errMsgFmt.showErrorLine()) {
+      // TODO: consider multiple lines
+      // TODO: show range
+
       String[] lines = source.get().split("\r|(\r?\n)");
-      String line = lines[location.line() - 1];
+      String line = lines[begin.line() - 1];
       sb.append(System.lineSeparator());
       sb.append(line);
       sb.append(System.lineSeparator());
-      sb.append(" ".repeat(location.column() - 1));
+      sb.append(" ".repeat(begin.column() - 1));
       sb.append("^");
     }
 

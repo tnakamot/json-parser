@@ -211,9 +211,9 @@ public class JSONParserTest {
 
     JSONParserException ex = assertThrows(JSONParserException.class, jsText::parse);
     assertEquals(jsText, ex.source());
-    assertEquals(2, ex.location().position());
-    assertEquals(1, ex.location().line());
-    assertEquals(3, ex.location().column());
+    assertEquals(2, ex.begin().position());
+    assertEquals(1, ex.begin().line());
+    assertEquals(3, ex.begin().column());
   }
 
   @Test
@@ -554,4 +554,7 @@ public class JSONParserTest {
     element2Obj.remove("Zip");
     assertFalse(element2Obj.containsKey("Zip"));
   }
+
+  // TODO: test duplicate key
+  // TODO: test too big number for double
 }

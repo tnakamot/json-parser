@@ -18,7 +18,7 @@ package com.github.tnakamot.json;
 
 import com.github.tnakamot.json.parser.JSONLexer;
 import com.github.tnakamot.json.parser.JSONParser;
-import com.github.tnakamot.json.parser.JSONParserErrorMessageFormat;
+import com.github.tnakamot.json.parser.JSONParserErrorHandlingOptions;
 import com.github.tnakamot.json.parser.JSONParserException;
 import com.github.tnakamot.json.pointer.InvalidJSONPointerException;
 import com.github.tnakamot.json.pointer.JSONPointer;
@@ -113,7 +113,7 @@ public class JSONText {
    * @throws JSONParserException if there is a syntax error in JSON text
    */
   @NotNull
-  public synchronized List<JSONToken> tokens(@NotNull JSONParserErrorMessageFormat errMsgFmt)
+  public synchronized List<JSONToken> tokens(@NotNull JSONParserErrorHandlingOptions errMsgFmt)
       throws IOException, JSONParserException {
     List<JSONToken> tokens = new ArrayList<>();
     JSONLexer lexer = new JSONLexer(this, errMsgFmt);
@@ -133,7 +133,7 @@ public class JSONText {
    */
   @NotNull
   public synchronized List<JSONToken> tokens() throws IOException, JSONParserException {
-    JSONParserErrorMessageFormat errMsgFmt = JSONParserErrorMessageFormat.builder().build();
+    JSONParserErrorHandlingOptions errMsgFmt = JSONParserErrorHandlingOptions.builder().build();
     return tokens(errMsgFmt);
   }
 
@@ -150,7 +150,7 @@ public class JSONText {
    */
   @Nullable
   public synchronized JSONValue parse(
-      boolean immutable, @NotNull JSONParserErrorMessageFormat errMsgFmt)
+      boolean immutable, @NotNull JSONParserErrorHandlingOptions errMsgFmt)
       throws IOException, JSONParserException {
     if (root == null) {
       List<JSONToken> tokens = tokens(errMsgFmt);
@@ -190,7 +190,7 @@ public class JSONText {
       "UnusedReturnValue") // Unit tests only the exceptions. The return values are tested through
   // unit test of the underlying method.
   @Nullable
-  public synchronized JSONValue parse(@NotNull JSONParserErrorMessageFormat errMsgFmt)
+  public synchronized JSONValue parse(@NotNull JSONParserErrorHandlingOptions errMsgFmt)
       throws IOException, JSONParserException {
     return parse(true, errMsgFmt);
   }
@@ -207,7 +207,7 @@ public class JSONText {
    */
   @Nullable
   public synchronized JSONValue parse(boolean immutable) throws IOException, JSONParserException {
-    JSONParserErrorMessageFormat errMsgFmt = JSONParserErrorMessageFormat.builder().build();
+    JSONParserErrorHandlingOptions errMsgFmt = JSONParserErrorHandlingOptions.builder().build();
     return parse(immutable, errMsgFmt);
   }
 

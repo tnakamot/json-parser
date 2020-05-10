@@ -20,6 +20,7 @@ import com.github.tnakamot.json.token.*;
 import com.github.tnakamot.json.value.*;
 
 import java.util.*;
+import org.jetbrains.annotations.NotNull;
 
 import static com.github.tnakamot.json.token.JSONToken.*;
 
@@ -34,8 +35,11 @@ import static com.github.tnakamot.json.token.JSONToken.*;
  */
 public class JSONParser {
   private final List<JSONToken> tokens;
-  private final JSONParserErrorMessageFormat errMsgFmt;
+  private final JSONParserErrorHandlingOptions options;
   private int position;
+
+  private final List<List<JSONValueString>> duplicateKeys;
+  private final List<JSONValueNumber> numbersTooBigForDouble;
 
   private static final String stringToken = "A string";
   private static final String valueToken =
@@ -54,18 +58,20 @@ public class JSONParser {
    * Create an instance of JSON parse for the given sequence of JSON tokens.
    *
    * @param tokens a sequence of JSON tokens to parse
-   * @param errMsgFmt settings of error message format of {@link JSONParserException}
+   * @param options settings of error message format of {@link JSONParserException}
    */
-  public JSONParser(List<JSONToken> tokens, JSONParserErrorMessageFormat errMsgFmt) {
+  public JSONParser(List<JSONToken> tokens, JSONParserErrorHandlingOptions options) {
     if (tokens == null) {
       throw new NullPointerException("tokens cannot be null");
-    } else if (errMsgFmt == null) {
+    } else if (options == null) {
       throw new NullPointerException("errMsgConfig cannot be null");
     }
 
     this.tokens = new ArrayList<>(tokens);
-    this.errMsgFmt = errMsgFmt;
+    this.options = options;
     this.position = 0;
+    this.duplicateKeys = new LinkedList<>();
+    this.numbersTooBigForDouble = new LinkedList<>();
   }
 
   /**
@@ -104,6 +110,31 @@ public class JSONParser {
     return value;
   }
 
+  /**
+   * Returns lists of duplicated keys found when parsing.
+   *
+   * @return lists of duplicated keys found when parsing
+   */
+  @NotNull
+  public List<List<JSONValueString>> duplicateKeys() {
+    List<List<JSONValueString>> ret = new ArrayList<>(duplicateKeys.size());
+    for (List<JSONValueString> dup : duplicateKeys) {
+      ret.add(new ArrayList<>(dup));
+    }
+
+    return ret;
+  }
+
+  /**
+   * Returns list of numbers that are found to be too big for Java double primitive when parsing.
+   *
+   * @return list of numbers that are found to be too big for Java double primitive when parsing.
+   */
+  @NotNull
+  public List<JSONValueNumber> numbersTooBigForDouble() {
+    return new ArrayList<>(numbersTooBigForDouble);
+  }
+
   private JSONToken popToken() {
     JSONToken token = tokens.get(position);
     position += 1;
@@ -122,13 +153,14 @@ public class JSONParser {
     String msg = String.format("Reached EOF unexpectedly. %s was expected.", expectedToken);
     JSONToken lastToken = lastToken();
 
-    throw new JSONParserException(lastToken.source(), lastToken.endLocation(), errMsgFmt, msg);
+    throw new JSONParserException(lastToken.source(), lastToken.endLocation(), options, msg);
   }
 
   private void unexpectedToken(JSONToken token, String expectedToken) throws JSONParserException {
     String msg =
         String.format("Unexpected token '%s'. %s was expected.", token.text(), expectedToken);
-    throw new JSONParserException(token.source(), token.beginningLocation(), errMsgFmt, msg);
+    throw new JSONParserException(
+        token.source(), token.beginningLocation(), token.endLocation(), options, msg);
   }
 
   private JSONValue readValue(boolean immutable) throws JSONParserException {
@@ -145,6 +177,7 @@ public class JSONParser {
         case BOOLEAN:
           return new JSONValueBoolean((JSONTokenBoolean) token);
         case NUMBER:
+          // TODO: handle too big numbers
           return new JSONValueNumber((JSONTokenNumber) token);
         case STRING:
           return new JSONValueString((JSONTokenString) token);
@@ -266,6 +299,7 @@ public class JSONParser {
 
   private JSONValueObject readObject(boolean immutable) throws JSONParserException {
     JSONValueObjectMutable object = new JSONValueObjectMutable();
+    Map<String, List<JSONValueString>> duplicates = new HashMap<>();
 
     // read the first member (or it can be an empty object)
     try {
@@ -282,7 +316,21 @@ public class JSONParser {
         case STRING:
           pushBack();
           Map.Entry<JSONValueString, JSONValue> member = readMember(immutable);
-          object.put(member.getKey(), member.getValue());
+          if (object.containsKey(member.getKey())) {
+            if (options.failOnDuplicateKey()) {
+              String keyStr = member.getKey().value();
+              String msg = "Found duplicate key '" + keyStr + "' in the same JSON object.";
+              throw new JSONParserException(
+                  token.source(), token.beginningLocation(), token.endLocation(), options, msg);
+            }
+            duplicates.get(member.getKey().value()).add(member.getKey());
+          } else {
+            object.put(member.getKey(), member.getValue());
+
+            LinkedList<JSONValueString> dup = new LinkedList<>();
+            dup.add(member.getKey());
+            duplicates.put(member.getKey().value(), dup);
+          }
           break;
         default:
           unexpectedToken(token, stringOrEndObjectToken);
@@ -298,6 +346,12 @@ public class JSONParser {
 
         switch (token.type()) {
           case END_OBJECT:
+            for (List<JSONValueString> dup : duplicates.values()) {
+              if (dup.size() > 1) {
+                duplicateKeys.add(dup);
+              }
+            }
+
             if (immutable) {
               return object.toImmutable();
             } else {

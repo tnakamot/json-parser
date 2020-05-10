@@ -21,10 +21,10 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class JSONParserErrorMessageFormatTest {
+public class JSONParserErrorHandlingOptionsTest {
   @Test
   public void testDefault() {
-    JSONParserErrorMessageFormat fmt = JSONParserErrorMessageFormat.builder().build();
+    JSONParserErrorHandlingOptions fmt = JSONParserErrorHandlingOptions.builder().build();
     assertFalse(fmt.showURI());
     assertTrue(fmt.showLineAndColumnNumber());
     assertFalse(fmt.showErrorLine());
@@ -32,8 +32,8 @@ public class JSONParserErrorMessageFormatTest {
 
   @Test
   public void testBuilder() {
-    JSONParserErrorMessageFormat fmt =
-        JSONParserErrorMessageFormat.builder()
+    JSONParserErrorHandlingOptions fmt =
+        JSONParserErrorHandlingOptions.builder()
             .showURI(true)
             .showLineAndColumnNumber(false)
             .showErrorLine(true)
