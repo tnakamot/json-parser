@@ -20,6 +20,7 @@ import com.github.tnakamot.json.parser.JSONLexer;
 import com.github.tnakamot.json.parser.JSONParser;
 import com.github.tnakamot.json.parser.JSONParserErrorHandlingOptions;
 import com.github.tnakamot.json.parser.JSONParserException;
+import com.github.tnakamot.json.parser.JSONParserResult;
 import com.github.tnakamot.json.pointer.InvalidJSONPointerException;
 import com.github.tnakamot.json.pointer.JSONPointer;
 import com.github.tnakamot.json.token.JSONToken;
@@ -49,8 +50,7 @@ public class JSONText {
   private final Object source;
   private final URI sourceURI;
   private final String name;
-  private JSONValue root;
-  private boolean parsed;
+  private JSONParserResult parserResult;
 
   private JSONText(
       @NotNull String text, @NotNull Object source, @NotNull URI sourceURI, @NotNull String name) {
@@ -59,8 +59,7 @@ public class JSONText {
     this.sourceURI = sourceURI;
     this.name = name;
 
-    this.root = null;
-    this.parsed = false;
+    this.parserResult = null;
 
     if (!((source instanceof File) || (source instanceof URL) || (source instanceof String))) {
       throw new IllegalArgumentException("source must be File, URL or String");
@@ -140,90 +139,40 @@ public class JSONText {
   /**
    * Parse this JSON text.
    *
-   * @param immutable specify false to create a JSON value tree with modifiable 'object' and
-   *     'array'. Otherwise, they will be immutable.
+   * <p>The returned instance is immutable.
+   *
    * @param errMsgFmt settings of error message format of {@link JSONParserException}
-   * @return the root JSON value, or null if there is no value.
+   * @return parse result
    * @throws JSONParserException if there is a syntax error in the JSON text
    * @throws IOException if an I/O error occurs
    * @see <a href="https://tools.ietf.org/html/rfc8259#section-2">RFC 8259 - 2. JSON Grammer</a>
    */
-  @Nullable
-  public synchronized JSONValue parse(
-      boolean immutable, @NotNull JSONParserErrorHandlingOptions errMsgFmt)
+  @NotNull
+  public synchronized JSONParserResult parse(@NotNull JSONParserErrorHandlingOptions errMsgFmt)
       throws IOException, JSONParserException {
-    if (root == null) {
+    if (parserResult == null) {
       List<JSONToken> tokens = tokens(errMsgFmt);
       JSONParser parser = new JSONParser(tokens, errMsgFmt);
-      parsed = true;
-      root = parser.parse();
+      parserResult = parser.parse();
     }
 
-    if (immutable) {
-      return root;
-    } else {
-      switch (root.type()) {
-        case OBJECT:
-          JSONValueObjectImmutable rootObject = (JSONValueObjectImmutable) root;
-          return rootObject.toMutable();
-        case ARRAY:
-          JSONValueArrayImmutable rootArray = (JSONValueArrayImmutable) root;
-          return rootArray.toMutable();
-        default:
-          return root;
-      }
-    }
+    return parserResult;
   }
 
   /**
    * Parse this JSON text.
    *
-   * <p>The returned object is immutable.
+   * <p>The returned instance is immutable.
    *
-   * @param errMsgFmt settings of error message format of {@link JSONParserException}
-   * @return the root JSON value, or null if there is no value.
+   * @return parse result
    * @throws JSONParserException if there is a syntax error in the JSON text
    * @throws IOException if an I/O error occurs
    * @see <a href="https://tools.ietf.org/html/rfc8259#section-2">RFC 8259 - 2. JSON Grammer</a>
    */
-  @SuppressWarnings(
-      "UnusedReturnValue") // Unit tests only the exceptions. The return values are tested through
-  // unit test of the underlying method.
-  @Nullable
-  public synchronized JSONValue parse(@NotNull JSONParserErrorHandlingOptions errMsgFmt)
-      throws IOException, JSONParserException {
-    return parse(true, errMsgFmt);
-  }
-
-  /**
-   * Parse this JSON text.
-   *
-   * @param immutable specify false to create a JSON value tree with modifiable 'object' and
-   *     'array'. Otherwise, they will be immutable.
-   * @return the root JSON value, or null if there is no value.
-   * @throws JSONParserException if there is a syntax error in the JSON text
-   * @throws IOException if an I/O error occurs
-   * @see <a href="https://tools.ietf.org/html/rfc8259#section-2">RFC 8259 - 2. JSON Grammer</a>
-   */
-  @Nullable
-  public synchronized JSONValue parse(boolean immutable) throws IOException, JSONParserException {
+  @NotNull
+  public synchronized JSONParserResult parse() throws IOException, JSONParserException {
     JSONParserErrorHandlingOptions errMsgFmt = JSONParserErrorHandlingOptions.builder().build();
-    return parse(immutable, errMsgFmt);
-  }
-
-  /**
-   * Parse this JSON text.
-   *
-   * <p>The returned object is immutable.
-   *
-   * @return the root JSON value, or null if there is no value.
-   * @throws JSONParserException if there is a syntax error in the JSON text
-   * @throws IOException if an I/O error occurs
-   * @see <a href="https://tools.ietf.org/html/rfc8259#section-2">RFC 8259 - 2. JSON Grammer</a>
-   */
-  @Nullable
-  public synchronized JSONValue parse() throws IOException, JSONParserException {
-    return parse(true);
+    return parse(errMsgFmt);
   }
 
   /**
@@ -235,7 +184,7 @@ public class JSONText {
    * @return whether this JSON text has been successfully parsed in the past.
    */
   public synchronized boolean isParsed() {
-    return parsed;
+    return parserResult != null;
   }
 
   /**
@@ -295,14 +244,14 @@ public class JSONText {
   @NotNull
   public synchronized JSONValue evaluate(@NotNull JSONPointer pointer)
       throws InvalidJSONPointerException {
-    if (!parsed) {
+    if (parserResult == null) {
       throw new IllegalStateException(
           "JSON text needs to be parsed first before evaluating a JSON Pointer");
-    } else if (root == null) {
+    } else if (parserResult.root() == null) {
       throw new IllegalStateException("This JSON text has no JSON value");
     }
 
-    return pointer.evaluate(root);
+    return pointer.evaluate(parserResult.root());
   }
 
   @Override

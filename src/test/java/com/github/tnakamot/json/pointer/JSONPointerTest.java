@@ -280,7 +280,7 @@ public class JSONPointerTest {
   public void testRFC6901Example()
       throws InvalidJSONPointerException, IOException, JSONParserException, URISyntaxException {
     JSONText jsText = JSONText.fromURL(this.getClass().getResource(rfc6901Example));
-    JSONValue root = jsText.parse();
+    JSONValue root = jsText.parse().root();
 
     assertEquals(root, jsText.evaluate(""));
 
@@ -328,7 +328,7 @@ public class JSONPointerTest {
     assertFalse(jsText.isParsed());
     assertThrows(IllegalStateException.class, () -> jsText.evaluate("/0"));
 
-    JSONValue root = jsText.parse();
+    JSONValue root = jsText.parse().root();
     assertTrue(jsText.isParsed());
 
     assertEquals(root, jsText.evaluate(""));

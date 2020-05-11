@@ -27,7 +27,7 @@ public class RFC8259ExampleTest {
     JSONText jsText = JSONText.fromURL(example);
     assertEquals("rfc8259_example1.json", jsText.name());
 
-    JSONValue root = jsText.parse();
+    JSONValue root = jsText.parse().root();
     assertNotNull(root);
 
     assertEquals(JSONValueType.OBJECT, root.type());
@@ -156,7 +156,7 @@ public class RFC8259ExampleTest {
     JSONText jsText = JSONText.fromURL(example);
     assertEquals("rfc8259_example2.json", jsText.name());
 
-    JSONValue root = jsText.parse();
+    JSONValue root = jsText.parse().root();
     assertNotNull(root);
 
     assertEquals(JSONValueType.ARRAY, root.type());
@@ -192,7 +192,7 @@ public class RFC8259ExampleTest {
     JSONText jsText = JSONText.fromURL(example);
     assertEquals("rfc8259_example3.json", jsText.name());
 
-    JSONValue root = jsText.parse();
+    JSONValue root = jsText.parse().root();
     assertNotNull(root);
 
     assertEquals(JSONValueType.STRING, root.type());
@@ -207,7 +207,7 @@ public class RFC8259ExampleTest {
     JSONText jsText = JSONText.fromURL(example);
     assertEquals("rfc8259_example4.json", jsText.name());
 
-    JSONValue root = jsText.parse();
+    JSONValue root = jsText.parse().root();
     assertNotNull(root);
 
     assertEquals(JSONValueType.NUMBER, root.type());
@@ -223,7 +223,7 @@ public class RFC8259ExampleTest {
     JSONText jsText = JSONText.fromURL(example);
     assertEquals("rfc8259_example5.json", jsText.name());
 
-    JSONValue root = jsText.parse();
+    JSONValue root = jsText.parse().root();
     assertNotNull(root);
 
     assertEquals(JSONValueType.BOOLEAN, root.type());
@@ -245,7 +245,7 @@ public class RFC8259ExampleTest {
       throws IOException, JSONParserException, URISyntaxException {
     URL example = this.getClass().getResource(resourceBase + fileName);
     JSONText jsText = JSONText.fromURL(example);
-    JSONValue root = jsText.parse();
+    JSONValue root = jsText.parse().root();
     assertNotNull(root);
 
     // Although it is not necessary to exactly match the output of
@@ -272,7 +272,7 @@ public class RFC8259ExampleTest {
       throws IOException, JSONParserException, URISyntaxException {
     URL example = this.getClass().getResource(resourceBase + fileName);
     JSONText jsText = JSONText.fromURL(example);
-    JSONValue root = jsText.parse();
+    JSONValue root = jsText.parse().root();
     assertNotNull(root);
 
     // Although it is not necessary to exactly match the output of

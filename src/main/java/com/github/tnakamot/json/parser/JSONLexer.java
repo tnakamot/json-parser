@@ -32,7 +32,7 @@ import java.io.StringReader;
  *
  * @see <a href="https://tools.ietf.org/html/rfc8259">RFC 8259</a>
  */
-public class JSONLexer {
+public final class JSONLexer {
   private final JSONText source;
   private final JSONParserErrorHandlingOptions errMsgFmt;
   private final PushbackReader reader;

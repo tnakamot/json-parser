@@ -33,10 +33,11 @@ import static com.github.tnakamot.json.token.JSONToken.*;
  *
  * @see <a href="https://tools.ietf.org/html/rfc8259">RFC 8259</a>
  */
-public class JSONParser {
+public final class JSONParser {
   private final List<JSONToken> tokens;
   private final JSONParserErrorHandlingOptions options;
   private int position;
+  private boolean parsed;
 
   private final List<List<JSONValueString>> duplicateKeys;
   private final List<JSONValueNumber> numbersTooBigForDouble;
@@ -72,6 +73,7 @@ public class JSONParser {
     this.position = 0;
     this.duplicateKeys = new LinkedList<>();
     this.numbersTooBigForDouble = new LinkedList<>();
+    this.parsed = false;
   }
 
   /**
@@ -79,12 +81,12 @@ public class JSONParser {
    *
    * <p>The returned object is immutable.
    *
-   * @return the root JSON value, or null if there is no value.
+   * @return parser result
    * @throws JSONParserException if there is a semantic error in the sequence of JSON tokens
    * @see <a href="https://tools.ietf.org/html/rfc8259#section-2">RFC 8259 - 2. JSON Grammer</a>
    */
-  @SuppressWarnings("unused") // This method is indirectly tested through parse(boolean).
-  public JSONValue parse() throws JSONParserException {
+  @NotNull
+  public JSONParserResult parse() throws JSONParserException {
     return parse(true);
   }
 
@@ -93,13 +95,18 @@ public class JSONParser {
    *
    * @param immutable Specify false to create a JSON value tree with modifiable 'object' and
    *     'array'.
-   * @return the root JSON value, or null if there is no value.
+   * @return parse result
    * @throws JSONParserException if there is a semantic error in the sequence of JSON tokens
    * @see <a href="https://tools.ietf.org/html/rfc8259#section-2">RFC 8259 - 2. JSON Grammer</a>
    */
-  public JSONValue parse(boolean immutable) throws JSONParserException {
+  @NotNull
+  public JSONParserResult parse(boolean immutable) throws JSONParserException {
+    if (parsed) {
+      throw new IllegalStateException("can parse only once");
+    }
+
     if (tokens.size() == 0) {
-      return null;
+      return new JSONParserResult(null, duplicateKeys, numbersTooBigForDouble);
     }
 
     JSONValue value = readValue(immutable);
@@ -107,32 +114,8 @@ public class JSONParser {
       unexpectedToken(popToken(), "EOF");
     }
 
-    return value;
-  }
-
-  /**
-   * Returns lists of duplicated keys found when parsing.
-   *
-   * @return lists of duplicated keys found when parsing
-   */
-  @NotNull
-  public List<List<JSONValueString>> duplicateKeys() {
-    List<List<JSONValueString>> ret = new ArrayList<>(duplicateKeys.size());
-    for (List<JSONValueString> dup : duplicateKeys) {
-      ret.add(new ArrayList<>(dup));
-    }
-
-    return ret;
-  }
-
-  /**
-   * Returns list of numbers that are found to be too big for Java double primitive when parsing.
-   *
-   * @return list of numbers that are found to be too big for Java double primitive when parsing.
-   */
-  @NotNull
-  public List<JSONValueNumber> numbersTooBigForDouble() {
-    return new ArrayList<>(numbersTooBigForDouble);
+    parsed = true;
+    return new JSONParserResult(value, duplicateKeys, numbersTooBigForDouble);
   }
 
   private JSONToken popToken() {
@@ -316,21 +299,11 @@ public class JSONParser {
         case STRING:
           pushBack();
           Map.Entry<JSONValueString, JSONValue> member = readMember(immutable);
-          if (object.containsKey(member.getKey())) {
-            if (options.failOnDuplicateKey()) {
-              String keyStr = member.getKey().value();
-              String msg = "Found duplicate key '" + keyStr + "' in the same JSON object.";
-              throw new JSONParserException(
-                  token.source(), token.beginningLocation(), token.endLocation(), options, msg);
-            }
-            duplicates.get(member.getKey().value()).add(member.getKey());
-          } else {
-            object.put(member.getKey(), member.getValue());
+          object.put(member.getKey(), member.getValue());
 
-            LinkedList<JSONValueString> dup = new LinkedList<>();
-            dup.add(member.getKey());
-            duplicates.put(member.getKey().value(), dup);
-          }
+          LinkedList<JSONValueString> dup = new LinkedList<>();
+          dup.add(member.getKey());
+          duplicates.put(member.getKey().value(), dup);
           break;
         default:
           unexpectedToken(token, stringOrEndObjectToken);
@@ -359,7 +332,24 @@ public class JSONParser {
             }
           case VALUE_SEPARATOR:
             Map.Entry<JSONValueString, JSONValue> member = readMember(immutable);
-            object.put(member.getKey(), member.getValue());
+
+            if (object.containsKey(member.getKey())) {
+              if (options.failOnDuplicateKey()) {
+                String keyStr = member.getKey().value();
+                String msg = "Found duplicate key '" + keyStr + "' in the same JSON object.";
+                throw new JSONParserException(
+                    token.source(), member.getKey().token().range(), options, msg);
+              } else {
+                duplicates.get(member.getKey().value()).add(member.getKey());
+                object.put(member.getKey(), member.getValue());
+              }
+            } else {
+              object.put(member.getKey(), member.getValue());
+
+              LinkedList<JSONValueString> dup = new LinkedList<>();
+              dup.add(member.getKey());
+              duplicates.put(member.getKey().value(), dup);
+            }
             break;
           default:
             unexpectedToken(token, valueSepOrEndObjectToken);

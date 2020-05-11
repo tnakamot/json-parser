@@ -95,7 +95,8 @@ public class JSONValueObjectTest {
                         + "\"key5\": [],"
                         + "\"key6\": {}"
                         + "}")
-                .parse(true);
+                .parse()
+                .root();
 
     assertNotNull(root);
     assertTrue(root.getBoolean("key1"));
@@ -158,7 +159,7 @@ public class JSONValueObjectTest {
                 + "   \"key4\": 1024,"
                 + "   \"key5\": [5, 1, 2], "
                 + "   \"key6\": {\"key6-1\": 0} }");
-    JSONValueObject root = (JSONValueObject) jsText.parse();
+    JSONValueObject root = (JSONValueObject) jsText.parse().root();
 
     assertNotNull(root);
     String value1Str = root.getString("key1");
@@ -247,7 +248,7 @@ public class JSONValueObjectTest {
   @Test
   public void testToMutable() throws IOException, JSONParserException {
     JSONValue root =
-        JSONText.fromString("{\"key1\": [true, 123], \"key2\": {\"key3\": 5.2}}").parse(true);
+        JSONText.fromString("{\"key1\": [true, 123], \"key2\": {\"key3\": 5.2}}").parse().root();
     assertTrue(root instanceof JSONValueObjectImmutable);
 
     JSONValueObjectImmutable rootObj = (JSONValueObjectImmutable) root;
@@ -265,7 +266,7 @@ public class JSONValueObjectTest {
   @Test
   public void testEquality() throws IOException, JSONParserException {
     JSONValue obj1 =
-        JSONText.fromString("{\"key1\": [true, 123], \"key2\": {\"key3\": 5.2}}").parse();
+        JSONText.fromString("{\"key1\": [true, 123], \"key2\": {\"key3\": 5.2}}").parse().root();
     assertNotNull(obj1);
 
     JSONValueObject obj2 = new JSONValueObjectMutable();
@@ -282,7 +283,7 @@ public class JSONValueObjectTest {
   @Test
   public void testInequality() throws IOException, JSONParserException {
     JSONValue obj1 =
-        JSONText.fromString("{\"key1\": [true, 123], \"key2\": {\"key3\": 5.2}}").parse();
+        JSONText.fromString("{\"key1\": [true, 123], \"key2\": {\"key3\": 5.2}}").parse().root();
 
     assertNotEquals(obj1, JSONValueNull.INSTANCE);
     assertNotEquals(obj1, JSONValueBoolean.TRUE);

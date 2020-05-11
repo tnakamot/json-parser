@@ -46,7 +46,7 @@ public class JSONValueStringTest {
   @Test
   public void testType() throws IOException, JSONParserException {
     JSONValueString val1 = new JSONValueString("abc");
-    JSONValueString val2 = (JSONValueString) JSONText.fromString("\"def\"").parse();
+    JSONValueString val2 = (JSONValueString) JSONText.fromString("\"def\"").parse().root();
     assertNotNull(val2);
 
     assertEquals(JSONValueType.STRING, val1.type());
@@ -57,7 +57,7 @@ public class JSONValueStringTest {
   public void testEquality() throws IOException, JSONParserException {
     JSONValueString val1 = new JSONValueString("abc");
     JSONValueString val2 = new JSONValueString("abc");
-    JSONValueString val3 = (JSONValueString) JSONText.fromString("\"abc\"").parse();
+    JSONValueString val3 = (JSONValueString) JSONText.fromString("\"abc\"").parse().root();
     assertNotNull(val3);
 
     assertEquals(val1.hashCode(), val2.hashCode());
@@ -75,7 +75,7 @@ public class JSONValueStringTest {
   public void testInequality() throws IOException, JSONParserException {
     JSONValueString val1 = new JSONValueString("abc");
     JSONValueString val2 = new JSONValueString("xyz");
-    JSONValueString val3 = (JSONValueString) JSONText.fromString("\"hello\"").parse();
+    JSONValueString val3 = (JSONValueString) JSONText.fromString("\"hello\"").parse().root();
     assertNotNull(val3);
 
     assertNotEquals(val1.hashCode(), val2.hashCode());
@@ -94,7 +94,7 @@ public class JSONValueStringTest {
   public void testValue() throws IOException, JSONParserException {
     JSONValueString val1 = new JSONValueString("abc");
     JSONValueString val2 = new JSONValueString("xyz");
-    JSONValueString val3 = (JSONValueString) JSONText.fromString("\"hello\"").parse();
+    JSONValueString val3 = (JSONValueString) JSONText.fromString("\"hello\"").parse().root();
     assertNotNull(val3);
 
     assertEquals("abc", val1.value());
@@ -106,7 +106,7 @@ public class JSONValueStringTest {
   public void testToString() throws IOException, JSONParserException {
     JSONValueString val1 = new JSONValueString("abc");
     JSONValueString val2 = new JSONValueString("xyz");
-    JSONValueString val3 = (JSONValueString) JSONText.fromString("\"hello\"").parse();
+    JSONValueString val3 = (JSONValueString) JSONText.fromString("\"hello\"").parse().root();
     assertNotNull(val3);
 
     assertEquals("abc", val1.toString());

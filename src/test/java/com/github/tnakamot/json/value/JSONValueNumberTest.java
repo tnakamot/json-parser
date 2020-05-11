@@ -173,7 +173,7 @@ public class JSONValueNumberTest {
   public void testEquality() throws IOException, JSONParserException {
     JSONValueNumber val1 = new JSONValueNumber("123");
     JSONValueNumber val2 = new JSONValueNumber("1.23e2");
-    JSONValueNumber val3 = (JSONValueNumber) JSONText.fromString("123").parse();
+    JSONValueNumber val3 = (JSONValueNumber) JSONText.fromString("123").parse().root();
     assertNotNull(val3);
 
     assertEquals(val1.hashCode(), val2.hashCode());
@@ -191,7 +191,7 @@ public class JSONValueNumberTest {
   public void testInequality1() throws IOException, JSONParserException {
     JSONValueNumber val1 = new JSONValueNumber("123");
     JSONValueNumber val2 = new JSONValueNumber("1.234e2");
-    JSONValueNumber val3 = (JSONValueNumber) JSONText.fromString("12350E-2").parse();
+    JSONValueNumber val3 = (JSONValueNumber) JSONText.fromString("12350E-2").parse().root();
 
     assertNotEquals(val1, val2);
     assertNotEquals(val2, val1);

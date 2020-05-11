@@ -34,19 +34,19 @@ public class JSONParserTest {
 
   @Test
   public void testEmpty() throws IOException, JSONParserException {
-    JSONValue root = JSONText.fromString("").parse();
+    JSONValue root = JSONText.fromString("").parse().root();
     assertNull(root);
   }
 
   @Test
   public void testWSOnly() throws IOException, JSONParserException {
-    JSONValue root = JSONText.fromString(" \r\n\t").parse();
+    JSONValue root = JSONText.fromString(" \r\n\t").parse().root();
     assertNull(root);
   }
 
   @Test
   public void testEmptyObject() throws IOException, JSONParserException {
-    JSONValue root = JSONText.fromString(" { } ").parse();
+    JSONValue root = JSONText.fromString(" { } ").parse().root();
 
     assertNotNull(root);
     assertEquals(JSONValueType.OBJECT, root.type());
@@ -61,7 +61,7 @@ public class JSONParserTest {
 
   @Test
   public void testEmptyArray() throws IOException, JSONParserException {
-    JSONValue root = JSONText.fromString("[]").parse();
+    JSONValue root = JSONText.fromString("[]").parse().root();
 
     assertNotNull(root);
     assertEquals(JSONValueType.ARRAY, root.type());
@@ -76,7 +76,7 @@ public class JSONParserTest {
 
   @Test
   public void testNullOnly() throws IOException, JSONParserException {
-    JSONValue root = JSONText.fromString("null").parse();
+    JSONValue root = JSONText.fromString("null").parse().root();
 
     assertNotNull(root);
     assertEquals(JSONValueType.NULL, root.type());
@@ -87,7 +87,7 @@ public class JSONParserTest {
 
   @Test
   public void testTrueOnly() throws IOException, JSONParserException {
-    JSONValue root = JSONText.fromString(" true ").parse();
+    JSONValue root = JSONText.fromString(" true ").parse().root();
 
     assertNotNull(root);
     assertEquals(JSONValueType.BOOLEAN, root.type());
@@ -101,7 +101,7 @@ public class JSONParserTest {
 
   @Test
   public void testFalseOnly() throws IOException, JSONParserException {
-    JSONValue root = JSONText.fromString("false").parse();
+    JSONValue root = JSONText.fromString("false").parse().root();
 
     assertNotNull(root);
     assertEquals(JSONValueType.BOOLEAN, root.type());
@@ -115,7 +115,7 @@ public class JSONParserTest {
 
   @Test
   public void testStringOnly() throws IOException, JSONParserException {
-    JSONValue root = JSONText.fromString(" \"abc\"").parse();
+    JSONValue root = JSONText.fromString(" \"abc\"").parse().root();
 
     assertNotNull(root);
     assertEquals(JSONValueType.STRING, root.type());
@@ -129,7 +129,7 @@ public class JSONParserTest {
 
   @Test
   public void testNumberOnly00() throws IOException, JSONParserException {
-    JSONValue root = JSONText.fromString(" -15.234e2 ").parse();
+    JSONValue root = JSONText.fromString(" -15.234e2 ").parse().root();
 
     assertNotNull(root);
     assertEquals(JSONValueType.NUMBER, root.type());
@@ -144,7 +144,7 @@ public class JSONParserTest {
 
   @Test
   public void testNumberOnly01() throws IOException, JSONParserException {
-    JSONValue root = JSONText.fromString("523 ").parse();
+    JSONValue root = JSONText.fromString("523 ").parse().root();
 
     assertNotNull(root);
     assertEquals(JSONValueType.NUMBER, root.type());
@@ -159,7 +159,7 @@ public class JSONParserTest {
 
   @Test
   public void testNumberOnly02() throws IOException, JSONParserException {
-    JSONValue root = JSONText.fromString("-124 ").parse();
+    JSONValue root = JSONText.fromString("-124 ").parse().root();
 
     assertNotNull(root);
     assertEquals(JSONValueType.NUMBER, root.type());
@@ -174,7 +174,7 @@ public class JSONParserTest {
 
   @Test
   public void testNumberOnly03() throws IOException, JSONParserException {
-    JSONValue root = JSONText.fromString(" 928.5").parse();
+    JSONValue root = JSONText.fromString(" 928.5").parse().root();
 
     assertNotNull(root);
     assertEquals(JSONValueType.NUMBER, root.type());
@@ -189,7 +189,7 @@ public class JSONParserTest {
 
   @Test
   public void testNumberOnly04() throws IOException, JSONParserException {
-    JSONValue root = JSONText.fromString(" -872.512").parse();
+    JSONValue root = JSONText.fromString(" -872.512").parse().root();
 
     assertNotNull(root);
     assertEquals(JSONValueType.NUMBER, root.type());
@@ -224,7 +224,7 @@ public class JSONParserTest {
 
   @Test
   public void testNumberOnly06() throws IOException, JSONParserException {
-    JSONValue root = JSONText.fromString(" -0.015   ").parse();
+    JSONValue root = JSONText.fromString(" -0.015   ").parse().root();
 
     assertNotNull(root);
     assertEquals(JSONValueType.NUMBER, root.type());
@@ -239,7 +239,7 @@ public class JSONParserTest {
 
   @Test
   public void testNumberOnly07() throws IOException, JSONParserException {
-    JSONValue root = JSONText.fromString("   0.987").parse();
+    JSONValue root = JSONText.fromString("   0.987").parse().root();
 
     assertNotNull(root);
     assertEquals(JSONValueType.NUMBER, root.type());
@@ -254,7 +254,7 @@ public class JSONParserTest {
 
   @Test
   public void testNumberOnly08() throws IOException, JSONParserException {
-    JSONValue root = JSONText.fromString("1e6").parse();
+    JSONValue root = JSONText.fromString("1e6").parse().root();
 
     assertNotNull(root);
     assertEquals(JSONValueType.NUMBER, root.type());
@@ -270,7 +270,7 @@ public class JSONParserTest {
 
   @Test
   public void testNumberOnly09() throws IOException, JSONParserException {
-    JSONValue root = JSONText.fromString("1.24e-12").parse();
+    JSONValue root = JSONText.fromString("1.24e-12").parse().root();
 
     assertNotNull(root);
     assertEquals(JSONValueType.NUMBER, root.type());
@@ -285,7 +285,7 @@ public class JSONParserTest {
 
   @Test
   public void testNumberOnly10() throws IOException, JSONParserException {
-    JSONValue root = JSONText.fromString("-5.2E+2").parse();
+    JSONValue root = JSONText.fromString("-5.2E+2").parse().root();
 
     assertNotNull(root);
     assertEquals(JSONValueType.NUMBER, root.type());
@@ -302,7 +302,7 @@ public class JSONParserTest {
   @Test
   public void testSimpleArray() throws IOException, JSONParserException {
     JSONText jsText = JSONText.fromString(" [ true, false, \"abc\", 1.52, null ] ");
-    JSONValue root = jsText.parse();
+    JSONValue root = jsText.parse().root();
 
     assertNotNull(root);
     assertEquals(JSONValueType.ARRAY, root.type());
@@ -378,7 +378,7 @@ public class JSONParserTest {
   public void testSimpleObject() throws IOException, JSONParserException {
     JSONText jsText =
         JSONText.fromString(" { \"key1\": true, " + "   \"key2\": false," + "   \"key3\": null } ");
-    JSONValue root = jsText.parse();
+    JSONValue root = jsText.parse().root();
 
     assertNotNull(root);
     assertEquals(JSONValueType.OBJECT, root.type());
@@ -439,7 +439,7 @@ public class JSONParserTest {
     URL example =
         this.getClass().getResource("/com/github/tnakamot/json/rfc8259/rfc8259_example1.json");
     JSONText jsText = JSONText.fromURL(example);
-    JSONValue root = jsText.parse(true);
+    JSONValue root = jsText.parse().root();
 
     assertTrue(root instanceof JSONValueObjectImmutable);
     JSONValueObject rootObj = (JSONValueObject) root;
@@ -477,7 +477,7 @@ public class JSONParserTest {
     URL example =
         this.getClass().getResource("/com/github/tnakamot/json/rfc8259/rfc8259_example2.json");
     JSONText jsText = JSONText.fromURL(example);
-    JSONValue root = jsText.parse(true);
+    JSONValue root = jsText.parse().root();
 
     assertTrue(root instanceof JSONValueArrayImmutable);
     JSONValueArray rootArray = (JSONValueArray) root;
@@ -508,10 +508,10 @@ public class JSONParserTest {
     URL example =
         this.getClass().getResource("/com/github/tnakamot/json/rfc8259/rfc8259_example1.json");
     JSONText jsText = JSONText.fromURL(example);
-    JSONValue root = jsText.parse(false);
+    JSONValue rootImmutable = jsText.parse().root();
+    assertTrue(rootImmutable instanceof JSONValueObjectImmutable);
 
-    assertTrue(root instanceof JSONValueObjectMutable);
-    JSONValueObject rootObj = (JSONValueObject) root;
+    JSONValueObject rootObj = ((JSONValueObjectImmutable) rootImmutable).toMutable();
     rootObj.put(new JSONValueString("test"), new JSONValueString("value"));
     assertEquals(new JSONValueString("value"), rootObj.get("test"));
 
@@ -539,10 +539,10 @@ public class JSONParserTest {
     URL example =
         this.getClass().getResource("/com/github/tnakamot/json/rfc8259/rfc8259_example2.json");
     JSONText jsText = JSONText.fromURL(example);
-    JSONValue root = jsText.parse(false);
+    JSONValue root = jsText.parse().root();
+    assertTrue(root instanceof JSONValueArrayImmutable);
 
-    assertTrue(root instanceof JSONValueArrayMutable);
-    JSONValueArray rootArray = (JSONValueArray) root;
+    JSONValueArray rootArray = ((JSONValueArrayImmutable) root).toMutable();
     int originalSize = rootArray.size();
     rootArray.add(new JSONValueString("test"));
     assertEquals(originalSize + 1, rootArray.size());
@@ -559,6 +559,32 @@ public class JSONParserTest {
     assertTrue(element2Obj.containsKey("Zip"));
     element2Obj.remove("Zip");
     assertFalse(element2Obj.containsKey("Zip"));
+  }
+
+  @Test
+  public void testDuplicateKeyFail() throws IOException, JSONParserException {
+    JSONParserErrorHandlingOptions opt =
+        JSONParserErrorHandlingOptions.builder()
+            .showErrorLine(true)
+            .failOnDuplicateKey(true)
+            .build();
+
+    JSONText jsText = JSONText.fromString("{\"key1\": true, \"key2\": false, \"key1\": null}");
+
+    JSONParserException ex = assertThrows(JSONParserException.class, () -> jsText.parse(opt));
+    log.info(ex::getMessage);
+  }
+
+  @Test
+  public void testDuplicateKeyIgnore() throws IOException, JSONParserException {
+    JSONParserErrorHandlingOptions opt =
+        JSONParserErrorHandlingOptions.builder().failOnDuplicateKey(false).build();
+
+    JSONText jsText =
+        JSONText.fromString("{\"key1\": true, \"key2\": false, \"key1\": null, \"key1\": false}");
+
+    JSONValueObject root = (JSONValueObject) jsText.parse(opt).root();
+    assertEquals(JSONValueBoolean.FALSE, root.get("key1"));
   }
 
   // TODO: test duplicate key

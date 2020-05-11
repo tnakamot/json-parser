@@ -51,7 +51,7 @@ public class JSONRootSchema extends JSONSchema {
   public static JSONRootSchema readAsSchema(JSONText jsonText)
       throws IOException, JSONParserException, InvalidJSONSchemaURIException {
 
-    JSONValue rootValue = jsonText.parse();
+    JSONValue rootValue = jsonText.parse().root();
     if (rootValue == null || rootValue.type() != JSONValueType.OBJECT) {
       // TODO: throw an appropriate exception
       throw new RuntimeException("the root JSON value must be an object for JSON Schema");

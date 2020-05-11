@@ -61,7 +61,7 @@ public class JSONValueArrayTest {
   @Test
   public void testGet1() throws IOException, JSONParserException {
     JSONValueArray root =
-        (JSONValueArray) JSONText.fromString("[true,1.53,512,\"hello\",[],{}]").parse(true);
+        (JSONValueArray) JSONText.fromString("[true,1.53,512,\"hello\",[],{}]").parse().root();
 
     assertNotNull(root);
     assertTrue(root.getBoolean(0));
@@ -162,7 +162,7 @@ public class JSONValueArrayTest {
 
   @Test
   public void testToMutable() throws IOException, JSONParserException {
-    JSONValue root = JSONText.fromString("[[true, 123], {\"key1\": 5.2}]").parse(true);
+    JSONValue root = JSONText.fromString("[[true, 123], {\"key1\": 5.2}]").parse().root();
     assertTrue(root instanceof JSONValueArrayImmutable);
 
     JSONValueArrayImmutable rootArray = (JSONValueArrayImmutable) root;
@@ -179,7 +179,7 @@ public class JSONValueArrayTest {
 
   @Test
   public void testEquality() throws IOException, JSONParserException {
-    JSONValue array1 = JSONText.fromString("[[true, 123], {\"key1\": 5.2}]").parse();
+    JSONValue array1 = JSONText.fromString("[[true, 123], {\"key1\": 5.2}]").parse().root();
     assertNotNull(array1);
 
     JSONValueArray array2 = new JSONValueArrayMutable();
@@ -195,7 +195,7 @@ public class JSONValueArrayTest {
 
   @Test
   public void testInequality() throws IOException, JSONParserException {
-    JSONValue array1 = JSONText.fromString("[[true, 123], {\"key1\": 5.2}]").parse();
+    JSONValue array1 = JSONText.fromString("[[true, 123], {\"key1\": 5.2}]").parse().root();
 
     assertNotEquals(array1, JSONValueNull.INSTANCE);
     assertNotEquals(array1, JSONValueBoolean.TRUE);
