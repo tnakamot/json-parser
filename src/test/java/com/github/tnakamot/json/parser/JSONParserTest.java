@@ -20,11 +20,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.github.tnakamot.json.JSONText;
 import com.github.tnakamot.json.token.JSONToken;
-import com.github.tnakamot.json.token.StringLocation;
 import com.github.tnakamot.json.value.*;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;

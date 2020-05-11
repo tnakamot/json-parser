@@ -135,7 +135,7 @@ public final class JSONParser {
     // because RFC 8259 does not allow you to include control characters
     // including CR and LF in a number or a string.
 
-    StringBuffer sb = new StringBuffer();
+    StringBuilder sb = new StringBuilder();
     StringLocation begin = range.beginning();
     StringLocation end = range.end();
 
@@ -439,6 +439,7 @@ public final class JSONParser {
               if (options.failOnDuplicateKey()) {
                 String keyStr = member.getKey().value();
                 String msg = "Found duplicate key '" + keyStr + "' in the same JSON object.";
+                //noinspection ConstantConditions
                 throw new JSONParserException(
                     token.source(), member.getKey().token().range(), options, msg);
               } else {

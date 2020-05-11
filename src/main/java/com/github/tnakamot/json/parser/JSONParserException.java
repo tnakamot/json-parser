@@ -20,6 +20,7 @@ import com.github.tnakamot.json.JSONText;
 import com.github.tnakamot.json.token.StringLocation;
 import com.github.tnakamot.json.token.StringRange;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Thrown when a JSON lexical analyzer fails to tokenize a given JSON text or the parser fails due
@@ -141,7 +142,7 @@ public class JSONParserException extends Exception {
    */
   public JSONParserException(
       @NotNull JSONText source,
-      @NotNull StringLocation location,
+      @Nullable StringLocation location,
       @NotNull JSONParserErrorHandlingOptions errMsgFmt,
       @NotNull String msg) {
     super(msg);

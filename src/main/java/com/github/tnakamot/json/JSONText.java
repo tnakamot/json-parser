@@ -26,8 +26,6 @@ import com.github.tnakamot.json.pointer.JSONPointer;
 import com.github.tnakamot.json.token.JSONToken;
 import com.github.tnakamot.json.value.JSONValue;
 
-import com.github.tnakamot.json.value.JSONValueArrayImmutable;
-import com.github.tnakamot.json.value.JSONValueObjectImmutable;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
@@ -247,11 +245,14 @@ public class JSONText {
     if (parserResult == null) {
       throw new IllegalStateException(
           "JSON text needs to be parsed first before evaluating a JSON Pointer");
-    } else if (parserResult.root() == null) {
+    }
+
+    JSONValue root = parserResult.root();
+    if (root == null) {
       throw new IllegalStateException("This JSON text has no JSON value");
     }
 
-    return pointer.evaluate(parserResult.root());
+    return pointer.evaluate(root);
   }
 
   @Override
