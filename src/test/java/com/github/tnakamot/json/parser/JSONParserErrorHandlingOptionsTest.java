@@ -24,23 +24,29 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class JSONParserErrorHandlingOptionsTest {
   @Test
   public void testDefault() {
-    JSONParserErrorHandlingOptions fmt = JSONParserErrorHandlingOptions.builder().build();
-    assertFalse(fmt.showURI());
-    assertTrue(fmt.showLineAndColumnNumber());
-    assertFalse(fmt.showErrorLine());
+    JSONParserErrorHandlingOptions opt = JSONParserErrorHandlingOptions.builder().build();
+    assertFalse(opt.showURI());
+    assertTrue(opt.showLineAndColumnNumber());
+    assertFalse(opt.showErrorLine());
+    assertFalse(opt.failOnDuplicateKey());
+    assertFalse(opt.failOnTooBigNumberForDouble());
   }
 
   @Test
   public void testBuilder() {
-    JSONParserErrorHandlingOptions fmt =
+    JSONParserErrorHandlingOptions opt =
         JSONParserErrorHandlingOptions.builder()
             .showURI(true)
             .showLineAndColumnNumber(false)
             .showErrorLine(true)
+            .failOnDuplicateKey(true)
+            .failOnTooBigNumberForDouble(true)
             .build();
 
-    assertTrue(fmt.showURI());
-    assertFalse(fmt.showLineAndColumnNumber());
-    assertTrue(fmt.showErrorLine());
+    assertTrue(opt.showURI());
+    assertFalse(opt.showLineAndColumnNumber());
+    assertTrue(opt.showErrorLine());
+    assertTrue(opt.failOnDuplicateKey());
+    assertTrue(opt.failOnTooBigNumberForDouble());
   }
 }
