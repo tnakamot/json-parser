@@ -19,6 +19,7 @@ package com.github.tnakamot.json.parser;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.github.tnakamot.json.JSONText;
+import com.github.tnakamot.json.token.JSONToken;
 import com.github.tnakamot.json.token.StringLocation;
 import com.github.tnakamot.json.value.*;
 import java.net.URISyntaxException;
@@ -564,7 +565,7 @@ public class JSONParserTest {
   }
 
   @Test
-  public void testDuplicateKeyFail() throws IOException, JSONParserException {
+  public void testDuplicateKeyFail() {
     JSONParserErrorHandlingOptions opt =
         JSONParserErrorHandlingOptions.builder()
             .showErrorLine(true)
@@ -593,12 +594,14 @@ public class JSONParserTest {
           StringBuilder sb = new StringBuilder();
 
           for (List<JSONValueString> dup : result.duplicateKeys()) {
-            sb.append("Duplicate key '" + dup.get(0).value() + "': ");
+            sb.append("Duplicate key '").append(dup.get(0).value()).append("': ");
             sb.append(System.lineSeparator());
 
             for (JSONValueString key : dup) {
-              StringLocation begin = key.token().range().beginning();
-              StringLocation end = key.token().range().end();
+              JSONToken token = key.token();
+              assertNotNull(token);
+              StringLocation begin = token.range().beginning();
+              StringLocation end = token.range().end();
 
               sb.append("  ");
               sb.append(lines[begin.line() - 1]);
@@ -614,6 +617,7 @@ public class JSONParserTest {
         });
 
     JSONValueObject root = (JSONValueObject) result.root();
+    assertNotNull(root);
     assertEquals(JSONValueBoolean.FALSE, root.get("key1"));
     assertEquals(JSONValueNull.INSTANCE, root.get("key2"));
   }
