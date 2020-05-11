@@ -589,32 +589,35 @@ public class JSONParserTest {
     String[] lines = jsText.get().split("\r|(\r?\n)");
 
     JSONParserResult result = jsText.parse(opt);
-    log.info(
-        () -> {
-          StringBuilder sb = new StringBuilder();
+    assertEquals(2, result.duplicateKeys().size());
+    assertEquals(3, result.duplicateKeys().get(0).size());
+    assertEquals("key1", result.duplicateKeys().get(0).get(0).value());
+    assertEquals(1, result.duplicateKeys().get(0).get(0).token().range().beginning().line());
+    assertEquals(2, result.duplicateKeys().get(0).get(0).token().range().beginning().column());
+    assertEquals(1, result.duplicateKeys().get(0).get(0).token().range().end().line());
+    assertEquals(7, result.duplicateKeys().get(0).get(0).token().range().end().column());
+    assertEquals("key1", result.duplicateKeys().get(0).get(1).value());
+    assertEquals(1, result.duplicateKeys().get(0).get(1).token().range().beginning().line());
+    assertEquals(31, result.duplicateKeys().get(0).get(1).token().range().beginning().column());
+    assertEquals(1, result.duplicateKeys().get(0).get(1).token().range().end().line());
+    assertEquals(36, result.duplicateKeys().get(0).get(1).token().range().end().column());
+    assertEquals("key1", result.duplicateKeys().get(0).get(2).value());
+    assertEquals(1, result.duplicateKeys().get(0).get(2).token().range().beginning().line());
+    assertEquals(45, result.duplicateKeys().get(0).get(2).token().range().beginning().column());
+    assertEquals(1, result.duplicateKeys().get(0).get(2).token().range().end().line());
+    assertEquals(50, result.duplicateKeys().get(0).get(2).token().range().end().column());
 
-          for (List<JSONValueString> dup : result.duplicateKeys()) {
-            sb.append("Duplicate key '").append(dup.get(0).value()).append("': ");
-            sb.append(System.lineSeparator());
-
-            for (JSONValueString key : dup) {
-              JSONToken token = key.token();
-              assertNotNull(token);
-              StringLocation begin = token.range().beginning();
-              StringLocation end = token.range().end();
-
-              sb.append("  ");
-              sb.append(lines[begin.line() - 1]);
-              sb.append(System.lineSeparator());
-              sb.append("  ");
-              sb.append(" ".repeat(begin.column() - 1));
-              sb.append("^".repeat(end.column() - begin.column() + 1));
-              sb.append(System.lineSeparator());
-            }
-          }
-
-          return sb.toString();
-        });
+    assertEquals(2, result.duplicateKeys().get(1).size());
+    assertEquals("key2", result.duplicateKeys().get(1).get(0).value());
+    assertEquals(1, result.duplicateKeys().get(1).get(0).token().range().beginning().line());
+    assertEquals(16, result.duplicateKeys().get(1).get(0).token().range().beginning().column());
+    assertEquals(1, result.duplicateKeys().get(1).get(0).token().range().end().line());
+    assertEquals(21, result.duplicateKeys().get(1).get(0).token().range().end().column());
+    assertEquals("key2", result.duplicateKeys().get(1).get(1).value());
+    assertEquals(1, result.duplicateKeys().get(1).get(1).token().range().beginning().line());
+    assertEquals(60, result.duplicateKeys().get(1).get(1).token().range().beginning().column());
+    assertEquals(1, result.duplicateKeys().get(1).get(1).token().range().end().line());
+    assertEquals(65, result.duplicateKeys().get(1).get(1).token().range().end().column());
 
     JSONValueObject root = (JSONValueObject) result.root();
     assertNotNull(root);

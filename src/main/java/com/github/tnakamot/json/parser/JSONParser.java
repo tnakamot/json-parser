@@ -16,9 +16,11 @@
 
 package com.github.tnakamot.json.parser;
 
+import com.github.tnakamot.json.JSONText;
 import com.github.tnakamot.json.token.*;
 import com.github.tnakamot.json.value.*;
 
+import java.io.PrintStream;
 import java.util.*;
 import org.jetbrains.annotations.NotNull;
 
@@ -114,8 +116,72 @@ public final class JSONParser {
       unexpectedToken(popToken(), "EOF");
     }
 
+    showWarning();
     parsed = true;
     return new JSONParserResult(value, duplicateKeys, numbersTooBigForDouble);
+  }
+
+  private void showWarning() {
+    PrintStream out = options.warningStream();
+    if (out != null) {
+      out.print(warningOfDuplicateKeys());
+    }
+  }
+
+  private String warningOfDuplicateKeys() {
+    StringBuilder sb = new StringBuilder();
+    JSONText source = tokens.get(0).source();
+    if (source == null) {
+      return sb.toString();
+    }
+
+    String[] lines = source.get().split("\r|(\r?\n)");
+
+    for (List<JSONValueString> dup : duplicateKeys) {
+      sb.append(warningHeader());
+      sb.append("duplicate key '").append(dup.get(0).value()).append("': ");
+      sb.append(System.lineSeparator());
+
+      for (JSONValueString key : dup) {
+        JSONToken token = key.token();
+        if (token != null) {
+          StringLocation begin = token.range().beginning();
+          StringLocation end = token.range().end();
+
+          sb.append("  At line ")
+              .append(begin.line())
+              .append(", column ")
+              .append(begin.column())
+              .append(" - ")
+              .append(end.column())
+              .append(System.lineSeparator());
+
+          sb.append("    ").append(lines[begin.line() - 1]).append(System.lineSeparator());
+
+          sb.append("    ").append(" ".repeat(begin.column() - 1));
+          sb.append("^".repeat(end.column() - begin.column() + 1));
+          sb.append(System.lineSeparator());
+        }
+      }
+    }
+
+    return sb.toString();
+  }
+
+  private String warningHeader() {
+    JSONText source = tokens.get(0).source();
+
+    StringBuilder sb = new StringBuilder();
+    if (source != null) {
+      if (options.showURI()) {
+        sb.append(source.uri().toString());
+      } else {
+        sb.append(source.name());
+      }
+      sb.append(": ");
+    }
+
+    return sb.toString();
   }
 
   private JSONToken popToken() {

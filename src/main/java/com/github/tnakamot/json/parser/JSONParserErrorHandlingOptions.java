@@ -16,6 +16,10 @@
 
 package com.github.tnakamot.json.parser;
 
+import java.io.PrintStream;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 /**
  * A data structure to hold switches to change the behavior of the JSON parser when it encounters a
  * questionable JSON token and switches to change the error message format {@link
@@ -49,18 +53,21 @@ public class JSONParserErrorHandlingOptions {
   private final boolean showErrorLine;
   private final boolean failOnDuplicateKey;
   private final boolean failOnTooBigNumberForDouble;
+  private final PrintStream warningStream;
 
   private JSONParserErrorHandlingOptions(
       boolean showURI,
       boolean showLineAndColumnNumber,
       boolean showErrorLine,
       boolean failOnDuplicateKey,
-      boolean failOnTooBigNumberForDouble) {
+      boolean failOnTooBigNumberForDouble,
+      @Nullable PrintStream warningStream) {
     this.showURI = showURI;
     this.showLineAndColumnNumber = showLineAndColumnNumber;
     this.showErrorLine = showErrorLine;
     this.failOnDuplicateKey = failOnDuplicateKey;
     this.failOnTooBigNumberForDouble = failOnTooBigNumberForDouble;
+    this.warningStream = warningStream;
   }
 
   /**
@@ -109,6 +116,16 @@ public class JSONParserErrorHandlingOptions {
     return failOnDuplicateKey;
   }
 
+  /**
+   * Returns the stream where warnings should be printed.
+   *
+   * @return the stream where warnings should be printed. Null to print warnings nowhere.
+   */
+  @NotNull
+  public PrintStream warningStream() {
+    return warningStream;
+  }
+
   /** @return a new builder of this class */
   public static Builder builder() {
     return new Builder();
@@ -121,6 +138,7 @@ public class JSONParserErrorHandlingOptions {
     private boolean showErrorLine = false;
     private boolean failOnDuplicateKey = false;
     private boolean failOnTooBigNumberForDouble = false;
+    private PrintStream warningStream = System.err;
 
     private Builder() {}
 
@@ -180,6 +198,17 @@ public class JSONParserErrorHandlingOptions {
     }
 
     /**
+     * Set {@link #warningStream()} option.
+     *
+     * @param stream option value
+     * @return this builder
+     */
+    public Builder failOnTooBigNumberForDouble(@Nullable PrintStream stream) {
+      this.warningStream = stream;
+      return this;
+    }
+
+    /**
      * Build a new instance of {@link JSONParserErrorHandlingOptions}.
      *
      * @return a new instance of {@link JSONParserErrorHandlingOptions}
@@ -190,7 +219,8 @@ public class JSONParserErrorHandlingOptions {
           showLineAndColumnNumber,
           showErrorLine,
           failOnDuplicateKey,
-          failOnTooBigNumberForDouble);
+          failOnTooBigNumberForDouble,
+          warningStream);
     }
   }
 }
