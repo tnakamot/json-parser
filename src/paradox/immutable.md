@@ -8,7 +8,7 @@ words, instances of @extref[JSONValueNull](javadoc:value/JSONValueNull.html),
 @extref[JSONValueNumber](javadoc:value/JSONValueNumber.html) are immutable. Multiple
 threads can safely access those instance at a time.
 
-On the other hands, the structures types (array and object) have immutable and
+On the other hands, the structure types (array and object) have immutable and
 mutable versions. @extref[JSONValueArray](javadoc:value/JSONValueArray.html) and 
 @extref[JSONValueObject](javadoc:value/JSONValueObject.html) are abstract classes.
 The actual implementations of these abstract classes are
@@ -24,32 +24,25 @@ if it is immutable.
 
 ## Parser
 
-When you parse the JSON text, you can specify whether the parser should return
-immutable or mutable version. @extref[parse(boolean)](javadoc:JSONText.html#parse(boolean))
-method of @extref[JSONText](javadoc:JSONText.html) takes a boolean value.
-
-If it is `true`, the method returns the immutable version, which is suitable to
-load configuration in JSON text in memory, for example.
-
-If it is `false`, the method returns the mutable version. The mutable version
-allows you to add, remove and modify the contents in JSON objects and arrays.
-The mutable version is suitable, for example, if your application needs to read
-a JSON text from a file, modify the contents and write back to another file.
+@extref[parse()](javadoc:JSONText.html#parse()) and its varaitns always result in 
+an immutable instance.
 
 ## Conversion
 
-You can get a mutable copy of an immutable JSON object or array and get an
-immutable copy of a mutable version with the following methods 
+You can get a mutable copy of an immutable JSON object or array with following methods:
 
 * @extref[JSONValueArrayImmutable#toMutable()](javadoc:value/JSONValueArrayImmutable.html#toMutable())
 * @extref[JSONValueObjectImmutable#toMutable()](javadoc:value/JSONValueObjectImmutable.html#toMutable())
+
+Below are reverse methods:
+
 * @extref[JSONValueArrayMutable#toImutable()](javadoc:value/JSONValueArrayMutable.html#toImmutable())
 * @extref[JSONValueObjectMutable#toImutable()](javadoc:value/JSONValueObjectMutable.html#toImmutable())
 
-These methods turn the inner JSON objects and arrays to immutable or mutable.
+These methods turn inner JSON objects and arrays to immutable or mutable, too.
 For example, if there is a mutable JSON object which contains two mutable JSON
 arrays,
 @extref[JSONValueObjectImmutable#toMutable()](javadoc:value/JSONValueObjectImmutable.html#toMutable())
-turns the given JSON object and two JSON arrays to immutable.
+turns the given JSON object and two inner JSON arrays to immutable.
 
 

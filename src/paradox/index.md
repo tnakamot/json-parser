@@ -30,6 +30,8 @@ import com.github.tnakamot.json.value.*;
 
 Then, instantiate @extref[JSONText](javadoc:JSONText.html) and call
 @extref[parse()](javadoc:JSONText.html#parse()).
+@extref[root()](javadoc:parser/JSONParserResult.html#root()).
+
 
 ```java
 JSONText jsText = JSONText.fromString(
@@ -76,10 +78,10 @@ if (root.type() == JSONValueType.OBJECT) {
 }
 ```
 
-## More simple usage
+## Convenience methods
 
 If you already know the data structure and data types exactly, your Java program
-can be concise using convenience getXxxx() methods like shown below.
+call convenience methods getXxxx() like shown below.
 
 ```java
 JSONText jsText = JSONText.fromString(
