@@ -455,8 +455,11 @@ public final class JSONLexer {
       }
     }
 
-    return new JSONTokenNumber(tokenText.toString(), originalLocation,
-        Objects.requireNonNull(location.previous()), source);
+    return new JSONTokenNumber(
+        tokenText.toString(),
+        originalLocation,
+        Objects.requireNonNull(location.previous()),
+        source);
   }
 
   /**
