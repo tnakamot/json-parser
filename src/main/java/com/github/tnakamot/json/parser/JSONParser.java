@@ -125,7 +125,53 @@ public final class JSONParser {
     PrintStream out = options.warningStream();
     if (out != null) {
       out.print(warningOfDuplicateKeys());
+      out.print(warningOfTooBigNumbersForDouble());
     }
+  }
+
+  private String warningLineAndLocation(String[] lines, StringRange range) {
+    // The code below assumes the line number of the beginning of the
+    // JSON string token is the same as that of the end. This is true,
+    // because RFC 8259 does not allow you to include control characters
+    // including CR and LF in a number or a string.
+
+    StringBuffer sb = new StringBuffer();
+    StringLocation begin = range.beginning();
+    StringLocation end = range.end();
+
+    sb.append("  At line ")
+        .append(begin.line())
+        .append(", column ")
+        .append(begin.column())
+        .append(" - ")
+        .append(end.column())
+        .append(System.lineSeparator());
+
+    sb.append("    ").append(lines[begin.line() - 1]).append(System.lineSeparator());
+
+    sb.append("    ").append(" ".repeat(begin.column() - 1));
+    sb.append("^".repeat(end.column() - begin.column() + 1));
+    sb.append(System.lineSeparator());
+
+    return sb.toString();
+  }
+
+  private String warningOfTooBigNumbersForDouble() {
+    StringBuilder sb = new StringBuilder();
+    JSONText source = tokens.get(0).source();
+    String[] lines = source.get().split("\r|(\r?\n)");
+
+    for (JSONValueNumber num : numbersTooBigForDouble) {
+      sb.append(warningHeader());
+      sb.append(num.text()).append("' is too big to handle with Java 'double' primitive");
+
+      JSONToken token = num.token();
+      if (token != null) {
+        sb.append(warningLineAndLocation(lines, token.range()));
+      }
+    }
+
+    return sb.toString();
   }
 
   private String warningOfDuplicateKeys() {
@@ -134,11 +180,6 @@ public final class JSONParser {
     String[] lines = source.get().split("\r|(\r?\n)");
 
     for (List<JSONValueString> dup : duplicateKeys) {
-      // The code below assumes the line number of the beginning of the
-      // JSON string token is the same as that of the end. This is true,
-      // because RFC 8259 does not allow you to include control characters
-      // including CR and LF in the string.
-
       sb.append(warningHeader());
       sb.append("duplicate key '").append(dup.get(0).value()).append("': ");
       sb.append(System.lineSeparator());
@@ -146,22 +187,7 @@ public final class JSONParser {
       for (JSONValueString key : dup) {
         JSONToken token = key.token();
         if (token != null) {
-          StringLocation begin = token.range().beginning();
-          StringLocation end = token.range().end();
-
-          sb.append("  At line ")
-              .append(begin.line())
-              .append(", column ")
-              .append(begin.column())
-              .append(" - ")
-              .append(end.column())
-              .append(System.lineSeparator());
-
-          sb.append("    ").append(lines[begin.line() - 1]).append(System.lineSeparator());
-
-          sb.append("    ").append(" ".repeat(begin.column() - 1));
-          sb.append("^".repeat(end.column() - begin.column() + 1));
-          sb.append(System.lineSeparator());
+          sb.append(warningLineAndLocation(lines, token.range()));
         }
       }
     }
@@ -233,6 +259,7 @@ public final class JSONParser {
               throw new JSONParserException(token.source(), token.range(), options, msg);
             } else {
               numbersTooBigForDouble.add(number);
+              return new JSONValueNumber((JSONTokenNumber) token);
             }
           } else {
             return new JSONValueNumber((JSONTokenNumber) token);

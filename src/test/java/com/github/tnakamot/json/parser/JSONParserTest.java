@@ -633,11 +633,41 @@ public class JSONParserTest {
             .failOnTooBigNumberForDouble(true)
             .build();
 
-    JSONText jsText = JSONText.fromString("{\"key1\": 1.52, \"key2\": 1e309, \"key1\": null}");
+    JSONText jsText = JSONText.fromString("{\"key1\": 1.52, \"key2\": 1e309, \"key3\": null}");
 
     JSONParserException ex = assertThrows(JSONParserException.class, () -> jsText.parse(opt));
     log.info(ex::getMessage);
   }
 
-  // TODO: test too big number for double
+  @Test
+  public void testTooBigNumberForDoubleIgnore() throws IOException, JSONParserException {
+    JSONParserErrorHandlingOptions opt =
+        JSONParserErrorHandlingOptions.builder().failOnTooBigNumberForDouble(false).build();
+
+    JSONText jsText = JSONText.fromString("{\"key1\": 1.52, \"key2\": 1e309,\n\"key3\": -1e309}");
+    String[] lines = jsText.get().split("\r|(\r?\n)");
+
+    JSONParserResult result = jsText.parse(opt);
+    assertEquals(2, result.numbersTooBigForDouble().size());
+
+    JSONValueNumber val1 = result.numbersTooBigForDouble().get(0);
+    assertNotNull(val1.token());
+    JSONToken token1 = val1.token();
+    assertEquals("1e309", val1.text());
+    assertEquals("1e309", token1.text());
+    assertEquals(1, token1.range().beginning().line());
+    assertEquals(24, token1.range().beginning().column());
+    assertEquals(1, token1.range().end().line());
+    assertEquals(28, token1.range().end().column());
+
+    JSONValueNumber val2 = result.numbersTooBigForDouble().get(1);
+    assertNotNull(val2.token());
+    JSONToken token2 = val2.token();
+    assertEquals("-1e309", val2.text());
+    assertEquals("-1e309", token2.text());
+    assertEquals(2, token2.range().beginning().line());
+    assertEquals(9, token2.range().beginning().column());
+    assertEquals(2, token2.range().end().line());
+    assertEquals(14, token2.range().end().column());
+  }
 }
