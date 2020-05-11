@@ -7,7 +7,14 @@ and creates a corresponding data structure with Java objects.
 The main feature of this library is that it keeps the original JSON text information
 in the Java objects. Therefore, for example, your application can show where
 exactly (line number & column number) the JSON text has a problem if there is 
-a semantic error. 
+a semantic error.
+
+If the given JSON text includes a syntax error, this library shows an error
+message with line and column numbers so that the users will be able to know
+where exactly the problem is. This library is suitable to parse configuration
+files in JSON that the users manually write. The error message can be customized
+by option switches. See [parser error handling options](parser_options.html) for
+more details.
 
 ## Setup
 
@@ -119,7 +126,7 @@ System.out.println(value6Obj.getLong("key6-1"));
 * [Mutable and Immutable](immutable.md)
 * [Load JSON text from various sources](json_source.md)
 * [JSON source information](source_info.md)
-* [Parser options](parser_options.md)
+* [Parser error handling options](parser_options.md)
 * [Output JSON text](output.md)
 * [JSON Pointer](json_pointer.md)
 * [Source Code](source.md)
