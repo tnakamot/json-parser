@@ -19,9 +19,11 @@ package com.github.tnakamot.json.parser;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.github.tnakamot.json.JSONText;
+import com.github.tnakamot.json.token.StringLocation;
 import com.github.tnakamot.json.value.*;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -581,12 +583,40 @@ public class JSONParserTest {
         JSONParserErrorHandlingOptions.builder().failOnDuplicateKey(false).build();
 
     JSONText jsText =
-        JSONText.fromString("{\"key1\": true, \"key2\": false, \"key1\": null, \"key1\": false}");
+        JSONText.fromString(
+            "{\"key1\": true, \"key2\": false, \"key1\": null, \"key1\": false, \"key2\": null}");
+    String[] lines = jsText.get().split("\r|(\r?\n)");
 
-    JSONValueObject root = (JSONValueObject) jsText.parse(opt).root();
+    JSONParserResult result = jsText.parse(opt);
+    log.info(
+        () -> {
+          StringBuilder sb = new StringBuilder();
+
+          for (List<JSONValueString> dup : result.duplicateKeys()) {
+            sb.append("Duplicate key '" + dup.get(0).value() + "': ");
+            sb.append(System.lineSeparator());
+
+            for (JSONValueString key : dup) {
+              StringLocation begin = key.token().range().beginning();
+              StringLocation end = key.token().range().end();
+
+              sb.append("  ");
+              sb.append(lines[begin.line() - 1]);
+              sb.append(System.lineSeparator());
+              sb.append("  ");
+              sb.append(" ".repeat(begin.column() - 1));
+              sb.append("^".repeat(end.column() - begin.column() + 1));
+              sb.append(System.lineSeparator());
+            }
+          }
+
+          return sb.toString();
+        });
+
+    JSONValueObject root = (JSONValueObject) result.root();
     assertEquals(JSONValueBoolean.FALSE, root.get("key1"));
+    assertEquals(JSONValueNull.INSTANCE, root.get("key2"));
   }
 
-  // TODO: test duplicate key
   // TODO: test too big number for double
 }
