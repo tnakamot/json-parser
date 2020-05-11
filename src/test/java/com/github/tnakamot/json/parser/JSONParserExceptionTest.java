@@ -58,12 +58,12 @@ public class JSONParserExceptionTest {
 
   @Test
   public void testShortName() throws IOException {
-    JSONParserErrorHandlingOptions fmt =
+    JSONParserErrorHandlingOptions opt =
         JSONParserErrorHandlingOptions.builder().showURI(false).build();
 
     File file = new File(jsonFileSingleLine.getPath());
     JSONText source = JSONText.fromFile(file);
-    JSONParserException ex = assertThrows(JSONParserException.class, () -> source.parse(fmt));
+    JSONParserException ex = assertThrows(JSONParserException.class, () -> source.parse(opt));
 
     String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
     log.info(() -> methodName + ": " + ex.getMessage());
@@ -74,12 +74,12 @@ public class JSONParserExceptionTest {
 
   @Test
   public void testURI() throws IOException {
-    JSONParserErrorHandlingOptions fmt =
+    JSONParserErrorHandlingOptions opt =
         JSONParserErrorHandlingOptions.builder().showURI(true).build();
 
     File file = new File(jsonFileSingleLine.getPath());
     JSONText source = JSONText.fromFile(file);
-    JSONParserException ex = assertThrows(JSONParserException.class, () -> source.parse(fmt));
+    JSONParserException ex = assertThrows(JSONParserException.class, () -> source.parse(opt));
 
     String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
     log.info(() -> methodName + ": " + ex.getMessage());
@@ -104,12 +104,12 @@ public class JSONParserExceptionTest {
 
   @Test
   public void testPositionSingleLine() throws IOException {
-    JSONParserErrorHandlingOptions fmt =
+    JSONParserErrorHandlingOptions opt =
         JSONParserErrorHandlingOptions.builder().showLineAndColumnNumber(false).build();
 
     File file = new File(jsonFileSingleLine.getPath());
     JSONText source = JSONText.fromFile(file);
-    JSONParserException ex = assertThrows(JSONParserException.class, () -> source.parse(fmt));
+    JSONParserException ex = assertThrows(JSONParserException.class, () -> source.parse(opt));
 
     String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
     log.info(() -> methodName + ": " + ex.getMessage());
@@ -123,12 +123,12 @@ public class JSONParserExceptionTest {
 
   @Test
   public void testLineAndColumnSingleLine() throws IOException {
-    JSONParserErrorHandlingOptions fmt =
+    JSONParserErrorHandlingOptions opt =
         JSONParserErrorHandlingOptions.builder().showLineAndColumnNumber(true).build();
 
     File file = new File(jsonFileSingleLine.getPath());
     JSONText source = JSONText.fromFile(file);
-    JSONParserException ex = assertThrows(JSONParserException.class, () -> source.parse(fmt));
+    JSONParserException ex = assertThrows(JSONParserException.class, () -> source.parse(opt));
 
     String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
     log.info(() -> methodName + ": " + ex.getMessage());
@@ -146,12 +146,12 @@ public class JSONParserExceptionTest {
 
   @Test
   public void testPositionMultiLines() throws IOException {
-    JSONParserErrorHandlingOptions fmt =
+    JSONParserErrorHandlingOptions opt =
         JSONParserErrorHandlingOptions.builder().showLineAndColumnNumber(false).build();
 
     File file = new File(jsonFileMultiLines.getPath());
     JSONText source = JSONText.fromFile(file);
-    JSONParserException ex = assertThrows(JSONParserException.class, () -> source.parse(fmt));
+    JSONParserException ex = assertThrows(JSONParserException.class, () -> source.parse(opt));
 
     String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
     log.info(() -> methodName + ": " + ex.getMessage());
@@ -165,12 +165,12 @@ public class JSONParserExceptionTest {
 
   @Test
   public void testLineAndColumnMultiLines() throws IOException {
-    JSONParserErrorHandlingOptions fmt =
+    JSONParserErrorHandlingOptions opt =
         JSONParserErrorHandlingOptions.builder().showLineAndColumnNumber(true).build();
 
     File file = new File(jsonFileMultiLines.getPath());
     JSONText source = JSONText.fromFile(file);
-    JSONParserException ex = assertThrows(JSONParserException.class, () -> source.parse(fmt));
+    JSONParserException ex = assertThrows(JSONParserException.class, () -> source.parse(opt));
 
     String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
     log.info(() -> methodName + ": " + ex.getMessage());
@@ -188,12 +188,12 @@ public class JSONParserExceptionTest {
 
   @Test
   public void testErrorLineSingleLine() throws IOException {
-    JSONParserErrorHandlingOptions fmt =
+    JSONParserErrorHandlingOptions opt =
         JSONParserErrorHandlingOptions.builder().showErrorLine(true).build();
 
     File file = new File(jsonFileSingleLine.getPath());
     JSONText source = JSONText.fromFile(file);
-    JSONParserException ex = assertThrows(JSONParserException.class, () -> source.parse(fmt));
+    JSONParserException ex = assertThrows(JSONParserException.class, () -> source.parse(opt));
 
     String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
     log.info(() -> methodName + ": " + ex.getMessage());
@@ -209,12 +209,12 @@ public class JSONParserExceptionTest {
 
   @Test
   public void testErrorLineMultiLines() throws IOException {
-    JSONParserErrorHandlingOptions fmt =
+    JSONParserErrorHandlingOptions opt =
         JSONParserErrorHandlingOptions.builder().showErrorLine(true).build();
 
     File file = new File(jsonFileMultiLines.getPath());
     JSONText source = JSONText.fromFile(file);
-    JSONParserException ex = assertThrows(JSONParserException.class, () -> source.parse(fmt));
+    JSONParserException ex = assertThrows(JSONParserException.class, () -> source.parse(opt));
 
     String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
     log.info(() -> methodName + ": " + ex.getMessage());
