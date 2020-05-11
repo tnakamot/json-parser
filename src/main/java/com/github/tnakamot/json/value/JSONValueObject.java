@@ -16,6 +16,7 @@
 
 package com.github.tnakamot.json.value;
 
+import com.github.tnakamot.json.token.JSONToken;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
@@ -23,10 +24,23 @@ import java.util.Map;
 import java.util.Set;
 
 /** Represents one JSON 'object' value. */
-public abstract class JSONValueObject extends JSONValue implements Map<JSONValueString, JSONValue> {
+public abstract class JSONValueObject extends JSONValueStructured
+    implements Map<JSONValueString, JSONValue> {
   /** Create an instance of a Java representation of a JSON 'object' value. */
   JSONValueObject() {
     super(JSONValueType.OBJECT);
+  }
+
+  /**
+   * Create an instance of a Java representation of a JSON 'object' value.
+   *
+   * @param begin the beginning token of this JSON object. Null if this JSON object does not
+   *     originate from an exsiting JSON text.
+   * @param end the end token of this JSON object. Null if this JSON object does not originate from
+   *     an exsiting JSON text.
+   */
+  JSONValueObject(JSONToken begin, JSONToken end) {
+    super(JSONValueType.OBJECT, begin, end);
   }
 
   /**

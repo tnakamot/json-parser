@@ -16,6 +16,7 @@
 
 package com.github.tnakamot.json.value;
 
+import com.github.tnakamot.json.token.JSONToken;
 import java.util.*;
 
 import org.jetbrains.annotations.NotNull;
@@ -193,13 +194,28 @@ public class JSONValueArrayMutable extends JSONValueArray {
   }
 
   /**
-   * Return the copy of this JSON array as an immutable Java object.
+   * Return the copy of this JSON array as an immutable Java array.
    *
    * <p>All inner JSON objects and JSON arrays are also turned to be immutable.
    *
    * @return an immutable version of the same JSON array.
    */
   public JSONValueArrayImmutable toImmutable() {
+    return toImmutable(null, null);
+  }
+
+  /**
+   * Return the copy of this JSON array as an immutable Java array.
+   *
+   * <p>All inner JSON objects and JSON arrays are also turned to be immutable.
+   *
+   * @return an immutable version of the same JSON array.
+   * @param begin the beginning token of this JSON array. Null if this JSON array does not originate
+   *     from an exsiting JSON text.
+   * @param end the end token of this JSON array. Null if this JSON array does not originate from an
+   *     exsiting JSON text.
+   */
+  public JSONValueArrayImmutable toImmutable(JSONToken begin, JSONToken end) {
     JSONValueArrayMutable ret = new JSONValueArrayMutable();
     for (JSONValue value : this) {
       if (value instanceof JSONValueArrayMutable) {
@@ -211,7 +227,7 @@ public class JSONValueArrayMutable extends JSONValueArray {
       }
     }
 
-    return new JSONValueArrayImmutable(ret);
+    return new JSONValueArrayImmutable(ret, begin, end);
   }
 
   @Override

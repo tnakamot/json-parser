@@ -20,6 +20,7 @@ import java.util.*;
 
 import com.github.tnakamot.json.token.JSONToken;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Represents one JSON 'array' value (immutable).
@@ -37,7 +38,23 @@ public class JSONValueArrayImmutable extends JSONValueArray {
    *
    * @param values sequence of values. Null is considered as an empty array.
    */
-  JSONValueArrayImmutable(List<JSONValue> values) {
+  JSONValueArrayImmutable(@Nullable List<JSONValue> values) {
+    this(values, null, null);
+  }
+
+  /**
+   * Create an instance of a Java representation of a JSON 'array' value.
+   *
+   * @param values sequence of values. Null is considered as an empty array.
+   * @param begin the beginning token of this JSON array. Null if this JSON array does not originate
+   *     from an exsiting JSON text.
+   * @param end the end token of this JSON array. Null if this JSON array does not originate from an
+   *     exsiting JSON text.
+   */
+  JSONValueArrayImmutable(
+      @Nullable List<JSONValue> values, @Nullable JSONToken begin, @Nullable JSONToken end) {
+    super(begin, end);
+
     if (values == null) {
       this.values = new ArrayList<>();
     } else {

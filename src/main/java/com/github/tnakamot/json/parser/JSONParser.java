@@ -243,9 +243,9 @@ public final class JSONParser {
 
       switch (token.type()) {
         case BEGIN_ARRAY:
-          return readArray(immutable);
+          return readArray(immutable, token);
         case BEGIN_OBJECT:
-          return readObject(immutable);
+          return readObject(immutable, token);
         case NULL:
           return new JSONValueNull(token);
         case BOOLEAN:
@@ -276,7 +276,7 @@ public final class JSONParser {
     throw new RuntimeException("never reach here");
   }
 
-  private JSONValueArray readArray(boolean immutable) throws JSONParserException {
+  private JSONValueArray readArray(boolean immutable, JSONToken begin) throws JSONParserException {
     JSONValueArrayMutable array = new JSONValueArrayMutable();
 
     // read the first value (or it can be an empty array)
@@ -287,7 +287,7 @@ public final class JSONParser {
         case END_ARRAY:
           // an empty array
           if (immutable) {
-            return array.toImmutable();
+            return array.toImmutable(begin, token);
           } else {
             return array;
           }
@@ -315,7 +315,7 @@ public final class JSONParser {
         switch (token.type()) {
           case END_ARRAY:
             if (immutable) {
-              return array.toImmutable();
+              return array.toImmutable(begin, token);
             } else {
               return array;
             }
@@ -382,7 +382,8 @@ public final class JSONParser {
     };
   }
 
-  private JSONValueObject readObject(boolean immutable) throws JSONParserException {
+  private JSONValueObject readObject(boolean immutable, JSONToken begin)
+      throws JSONParserException {
     JSONValueObjectMutable object = new JSONValueObjectMutable();
     Map<String, List<JSONValueString>> duplicates = new HashMap<>();
 
@@ -394,7 +395,7 @@ public final class JSONParser {
         case END_OBJECT:
           // empty object
           if (immutable) {
-            return object.toImmutable();
+            return object.toImmutable(begin, token);
           } else {
             return object;
           }
@@ -428,7 +429,7 @@ public final class JSONParser {
             }
 
             if (immutable) {
-              return object.toImmutable();
+              return object.toImmutable(begin, token);
             } else {
               return object;
             }

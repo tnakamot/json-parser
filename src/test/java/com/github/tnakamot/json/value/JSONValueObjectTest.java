@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.github.tnakamot.json.JSONText;
 import com.github.tnakamot.json.parser.JSONParserException;
+import com.github.tnakamot.json.token.JSONToken;
 import java.io.IOException;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.logging.Logger;
@@ -150,7 +151,7 @@ public class JSONValueObjectTest {
   }
 
   @Test
-  public void testGe2() throws IOException, JSONParserException {
+  public void testGet2() throws IOException, JSONParserException {
     JSONText jsText =
         JSONText.fromString(
             " { \"key1\": \"value\", "
@@ -308,5 +309,48 @@ public class JSONValueObjectTest {
 
     obj2.put("key4", new JSONValueNumber(2.3));
     assertNotEquals(obj1, obj2);
+  }
+
+  @Test
+  public void testToken() throws IOException, JSONParserException {
+    JSONValue root =
+        JSONText.fromString("{\"key1\": [true, 123], \"key2\": {\"key3\": 5.2}}").parse().root();
+    JSONValueObject rootObj = (JSONValueObject) root;
+
+    JSONToken begin = rootObj.begin();
+    JSONToken end = rootObj.end();
+
+    assertNotNull(begin);
+    assertNotNull(end);
+
+    assertEquals("{", begin.text());
+    assertEquals("}", end.text());
+    assertEquals(0, begin.beginningLocation().position());
+    assertEquals(1, begin.beginningLocation().line());
+    assertEquals(1, begin.beginningLocation().column());
+    assertEquals(43, end.beginningLocation().position());
+    assertEquals(1, end.beginningLocation().line());
+    assertEquals(44, end.beginningLocation().column());
+  }
+
+  @Test
+  public void testEmptyToken() throws IOException, JSONParserException {
+    JSONValue root = JSONText.fromString("{}").parse().root();
+    JSONValueObject rootObj = (JSONValueObject) root;
+
+    JSONToken begin = rootObj.begin();
+    JSONToken end = rootObj.end();
+
+    assertNotNull(begin);
+    assertNotNull(end);
+
+    assertEquals("{", begin.text());
+    assertEquals("}", end.text());
+    assertEquals(0, begin.beginningLocation().position());
+    assertEquals(1, begin.beginningLocation().line());
+    assertEquals(1, begin.beginningLocation().column());
+    assertEquals(1, end.beginningLocation().position());
+    assertEquals(1, end.beginningLocation().line());
+    assertEquals(2, end.beginningLocation().column());
   }
 }

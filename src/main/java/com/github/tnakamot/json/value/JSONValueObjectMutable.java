@@ -16,12 +16,14 @@
 
 package com.github.tnakamot.json.value;
 
+import com.github.tnakamot.json.token.JSONToken;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Represents one JSON 'object' value (mutable).
@@ -171,6 +173,21 @@ public class JSONValueObjectMutable extends JSONValueObject {
    * @return an immutable version of the same JSON object.
    */
   public JSONValueObjectImmutable toImmutable() {
+    return toImmutable(null, null);
+  }
+
+  /**
+   * Return the copy of this JSON object as an immutable Java object with token information.
+   *
+   * <p>All inner JSON objects and JSON arrays are also turned to be immutable.
+   *
+   * @return an immutable version of the same JSON object.
+   * @param begin the beginning token of this JSON object. Null if this JSON object does not
+   *     originate from an exsiting JSON text.
+   * @param end the end token of this JSON object. Null if this JSON object does not originate from
+   *     an exsiting JSON text.
+   */
+  public JSONValueObjectImmutable toImmutable(@Nullable JSONToken begin, @Nullable JSONToken end) {
     JSONValueObjectMutable ret = new JSONValueObjectMutable();
 
     for (Map.Entry<JSONValueString, JSONValue> entry : entrySet()) {
@@ -184,7 +201,7 @@ public class JSONValueObjectMutable extends JSONValueObject {
       }
     }
 
-    return new JSONValueObjectImmutable(ret);
+    return new JSONValueObjectImmutable(ret, begin, end);
   }
 
   @Override

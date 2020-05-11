@@ -23,6 +23,7 @@ import java.util.Set;
 
 import com.github.tnakamot.json.token.JSONToken;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Represents one JSON 'object' value (immutable).
@@ -43,7 +44,24 @@ public class JSONValueObjectImmutable extends JSONValueObject {
    *
    * @param members name/value pairs. Null is considered as an empty object.
    */
-  public JSONValueObjectImmutable(Map<JSONValueString, JSONValue> members) {
+  public JSONValueObjectImmutable(@Nullable Map<JSONValueString, JSONValue> members) {
+    this(members, null, null);
+  }
+
+  /**
+   * Create an instance of a Java representation of a JSON 'object' value.
+   *
+   * @param members name/value pairs. Null is considered as an empty object.
+   * @param begin the beginning token of this JSON object. Null if this JSON object does not
+   *     originate from an exsiting JSON text.
+   * @param end the end token of this JSON object. Null if this JSON object does not originate from
+   *     an exsiting JSON text.
+   */
+  public JSONValueObjectImmutable(
+      @Nullable Map<JSONValueString, JSONValue> members,
+      @Nullable JSONToken begin,
+      @Nullable JSONToken end) {
+    super(begin, end);
     if (members == null) {
       this.members = new LinkedHashMap<>();
     } else {

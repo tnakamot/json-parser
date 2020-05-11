@@ -16,15 +16,28 @@
 
 package com.github.tnakamot.json.value;
 
+import com.github.tnakamot.json.token.JSONToken;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
 /** Represents one JSON 'array' value. */
-public abstract class JSONValueArray extends JSONValue implements List<JSONValue> {
+public abstract class JSONValueArray extends JSONValueStructured implements List<JSONValue> {
   /** Create an instance of a Java representation of a JSON 'array' value. */
   JSONValueArray() {
     super(JSONValueType.ARRAY);
+  }
+
+  /**
+   * Create an instance of a Java representation of a JSON 'array' value.
+   *
+   * @param begin the beginning token of this JSON array. Null if this JSON array does not originate
+   *     from an exsiting JSON text.
+   * @param end the end token of this JSON array. Null if this JSON array does not originate from an
+   *     exsiting JSON text.
+   */
+  JSONValueArray(JSONToken begin, JSONToken end) {
+    super(JSONValueType.ARRAY, begin, end);
   }
 
   /** {@inheritDoc} */

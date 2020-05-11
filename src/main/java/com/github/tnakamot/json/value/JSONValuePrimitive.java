@@ -42,9 +42,8 @@ public abstract class JSONValuePrimitive extends JSONValue {
    * information.
    *
    * @param type type of this JSON value
-   * @param token source of this JSON value. Can be null if this JSON value is not originated from
-   *     an exiting JSON text. Can be null if this JSON value is not originated from an existing
-   *     JSON text.
+   * @param token source of this JSON value. Null if this JSON value is not originated from an
+   *     exiting JSON text.
    */
   JSONValuePrimitive(@NotNull JSONValueType type, @Nullable JSONToken token) {
     super(type);
@@ -54,8 +53,8 @@ public abstract class JSONValuePrimitive extends JSONValue {
   /**
    * The source token of this JSON value.
    *
-   * @return the source token of this JSON value. Can be null if this JSON value is not originated
-   *     from an existing JSON text.
+   * @return the source token of this JSON value. Null if this JSON value is not originated from an
+   *     existing JSON text.
    */
   @Nullable
   public JSONToken token() {
