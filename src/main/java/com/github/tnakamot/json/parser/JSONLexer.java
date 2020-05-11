@@ -35,7 +35,7 @@ import java.util.Objects;
  */
 public final class JSONLexer {
   private final JSONText source;
-  private final JSONParserErrorHandlingOptions errMsgFmt;
+  private final JSONParserErrorHandlingOptions options;
   private final PushbackReader reader;
 
   StringLocation location;
@@ -45,17 +45,17 @@ public final class JSONLexer {
    * Create an instance of JSON lexical analyzer for the given JSON text.
    *
    * @param source JSON text source to tokenize
-   * @param errMsgFmt settings of error message format of {@link JSONParserException}
+   * @param options lexical analyzer options
    */
-  public JSONLexer(JSONText source, JSONParserErrorHandlingOptions errMsgFmt) {
+  public JSONLexer(JSONText source, JSONParserErrorHandlingOptions options) {
     if (source == null) {
       throw new NullPointerException("source cannot be null");
-    } else if (errMsgFmt == null) {
+    } else if (options == null) {
       throw new NullPointerException("errMsgConfig cannot be null");
     }
 
     this.source = source;
-    this.errMsgFmt = errMsgFmt;
+    this.options = options;
     this.reader = new PushbackReader(new StringReader(source.get()), 2);
     this.location = StringLocation.begin();
   }
@@ -91,7 +91,7 @@ public final class JSONLexer {
   private char readChar() throws IOException, JSONParserException {
     int ich = read();
     if (ich == -1)
-      throw new JSONParserException(source, location, errMsgFmt, "reached EOF unexpectedly");
+      throw new JSONParserException(source, location, options, "reached EOF unexpectedly");
 
     return (char) ich;
   }
@@ -188,7 +188,7 @@ public final class JSONLexer {
         return readNumber();
       default:
         throw new JSONParserException(
-            source, startLocation, errMsgFmt, "unknown token starting with '" + ch + "'");
+            source, startLocation, options, "unknown token starting with '" + ch + "'");
     }
   }
 
@@ -206,7 +206,7 @@ public final class JSONLexer {
         throw new JSONParserException(
             source,
             originalLocation,
-            errMsgFmt,
+            options,
             "unknown token starting with '" + sb.toString() + "'");
       }
     }
@@ -229,7 +229,7 @@ public final class JSONLexer {
     char ch = readChar();
     if (ch != '"')
       throw new JSONParserException(
-          source, originalLocation, errMsgFmt, "string token must start with '\"'");
+          source, originalLocation, options, "string token must start with '\"'");
     tokenText.append(ch);
 
     while (true) {
@@ -240,7 +240,7 @@ public final class JSONLexer {
         throw new JSONParserException(
             source,
             location.previous(),
-            errMsgFmt,
+            options,
             String.format(
                 "control character U+%04x is not allowed in a JSON string token", (int) ch));
       }
@@ -284,7 +284,7 @@ public final class JSONLexer {
                 throw new JSONParserException(
                     source,
                     location.previous(),
-                    errMsgFmt,
+                    options,
                     "an Unicode escape sequence must consist of four characters of [0-9A-Fa-f], but found '"
                         + v
                         + "'");
@@ -297,7 +297,7 @@ public final class JSONLexer {
             throw new JSONParserException(
                 source,
                 location.previous(),
-                errMsgFmt,
+                options,
                 "unexpected character '" + ch + "' for an escape sequence");
         }
 
@@ -351,7 +351,7 @@ public final class JSONLexer {
             || numberOfDigitsInInt == 0
             || (numberOfDigitsInFraction == 0 && stage == JSONNumberParserStage.FRACTION)
             || (numberOfDigitsInExp == 0 && stage == JSONNumberParserStage.EXP)) {
-          throw new JSONParserException(source, location, errMsgFmt, "reached EOF unexpectedly");
+          throw new JSONParserException(source, location, options, "reached EOF unexpectedly");
         } else {
           break;
         }
@@ -384,13 +384,13 @@ public final class JSONLexer {
               throw new JSONParserException(
                   source,
                   location.previous(),
-                  errMsgFmt,
+                  options,
                   "there must be a digit (0-9) right after the negative sign '-'");
             } else {
               throw new JSONParserException(
                   source,
                   location.previous(),
-                  errMsgFmt,
+                  options,
                   "a number token must starts with a negative sign '-' or a digit (0-9)");
             }
           }
@@ -417,7 +417,7 @@ public final class JSONLexer {
             throw new JSONParserException(
                 source,
                 location.previous(),
-                errMsgFmt,
+                options,
                 "there must be a digit (0-9) right after decimal point '.'");
           } else {
             pushBack(ch);
@@ -435,13 +435,13 @@ public final class JSONLexer {
               throw new JSONParserException(
                   source,
                   location.previous(),
-                  errMsgFmt,
+                  options,
                   "there must be a digit (0-9) right after a sign ('+' or '-')");
             } else {
               throw new JSONParserException(
                   source,
                   location.previous(),
-                  errMsgFmt,
+                  options,
                   "there must be a digit (0-9) or a sign ('+' or '-') right after an exponent mark ('e' or 'E')");
             }
           } else {

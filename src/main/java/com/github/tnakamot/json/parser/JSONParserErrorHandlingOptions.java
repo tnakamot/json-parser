@@ -20,7 +20,7 @@ import java.io.PrintStream;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * A data structure to hold switches to change the behavior of the JSON parser when it encounters a
+ * A data structure to hold options to change the behavior of the JSON parser when it encounters a
  * questionable JSON token and switches to change the error message format {@link
  * JSONParserException}. See {@link JSONParserException} for more details about how the error
  * messages are formatted.
@@ -81,6 +81,9 @@ public class JSONParserErrorHandlingOptions {
   }
 
   /**
+   * Returns whether an error message should show line and column number instead of character
+   * position within a JSON text source
+   *
    * @return represents whether an error message should show line and column number instead of
    *     character position within a JSON text source
    */
@@ -89,8 +92,11 @@ public class JSONParserErrorHandlingOptions {
   }
 
   /**
+   * Returns whether an error message should show actual JSON text line where the problme happened
+   * with markers to indicate which character(s) have the problem.
+   *
    * @return represents whether an error message should show actual JSON text line where the problem
-   *     happened with the arrow to indicate which character has the problem.
+   *     happened with markers to indicate which character(s) have the problem.
    */
   public boolean showErrorLine() {
     return showErrorLine;
@@ -127,7 +133,10 @@ public class JSONParserErrorHandlingOptions {
     return warningStream;
   }
 
-  /** @return a new builder of this class */
+  /**
+   * Returns a new builder of this class.
+   *
+   * @return a new builder of this class */
   public static Builder builder() {
     return new Builder();
   }

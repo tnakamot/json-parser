@@ -88,26 +88,26 @@ public class JSONParserException extends Exception {
   private final String msg;
   private final JSONText source;
   private final StringRange location;
-  private final JSONParserErrorHandlingOptions errMsgFmt;
+  private final JSONParserErrorHandlingOptions options;
 
   /**
    * Instantiate this exception.
    *
    * @param source JSON text that has a problem
    * @param location location of the problem within the source JSON text
-   * @param errMsgFmt configuration to change the error message format of this exception
+   * @param options options to change the error message format of this exception
    * @param msg error message which explains the problem
    */
   public JSONParserException(
       @NotNull JSONText source,
       @Nullable StringRange location,
-      @NotNull JSONParserErrorHandlingOptions errMsgFmt,
+      @NotNull JSONParserErrorHandlingOptions options,
       @NotNull String msg) {
     super(msg);
     this.msg = msg;
     this.source = source;
     this.location = location;
-    this.errMsgFmt = errMsgFmt;
+    this.options = options;
   }
 
   /**
@@ -116,20 +116,20 @@ public class JSONParserException extends Exception {
    * @param source JSON text that has a problem
    * @param begin beginning location of the problem within the source JSON text
    * @param end end location of the problem within the source JSON text
-   * @param errMsgFmt configuration to change the error message format of this exception
+   * @param options options to change the error message format of this exception
    * @param msg error message which explains the problem
    */
   public JSONParserException(
       @NotNull JSONText source,
       @Nullable StringLocation begin,
       @Nullable StringLocation end,
-      @NotNull JSONParserErrorHandlingOptions errMsgFmt,
+      @NotNull JSONParserErrorHandlingOptions options,
       @NotNull String msg) {
     super(msg);
     this.msg = msg;
     this.source = source;
     this.location = (begin == null || end == null) ? null : new StringRange(begin, end);
-    this.errMsgFmt = errMsgFmt;
+    this.options = options;
   }
 
   /**
@@ -137,19 +137,19 @@ public class JSONParserException extends Exception {
    *
    * @param source JSON text that has a problem
    * @param location location of the problem within the source JSON text
-   * @param errMsgFmt configuration to change the error message format of this exception
+   * @param options options to change the error message format of this exception
    * @param msg error message which explains the problem
    */
   public JSONParserException(
       @NotNull JSONText source,
       @Nullable StringLocation location,
-      @NotNull JSONParserErrorHandlingOptions errMsgFmt,
+      @NotNull JSONParserErrorHandlingOptions options,
       @NotNull String msg) {
     super(msg);
     this.msg = msg;
     this.source = source;
     this.location = location == null ? null : new StringRange(location, location);
-    this.errMsgFmt = errMsgFmt;
+    this.options = options;
   }
 
   /** @return the JSON text that cannot be tokenized properly. */
@@ -171,7 +171,7 @@ public class JSONParserException extends Exception {
   @Override
   public String getMessage() {
     StringBuilder sb = new StringBuilder();
-    if (errMsgFmt.showURI()) {
+    if (options.showURI()) {
       sb.append(source.uri().toString());
     } else {
       sb.append(source.name());
@@ -180,7 +180,7 @@ public class JSONParserException extends Exception {
     if (location != null) {
       sb.append(":");
 
-      if (errMsgFmt.showLineAndColumnNumber()) {
+      if (options.showLineAndColumnNumber()) {
         sb.append(location.beginning().line());
         sb.append(":");
         sb.append(location.beginning().column());
@@ -191,7 +191,7 @@ public class JSONParserException extends Exception {
       sb.append(": ");
       sb.append(msg);
 
-      if (errMsgFmt.showErrorLine()) {
+      if (options.showErrorLine()) {
         String[] lines = source.get().split("\r|(\r?\n)");
         if (location.beginning().line() == location.end().line()) {
           String line = lines[location.beginning().line() - 1];
