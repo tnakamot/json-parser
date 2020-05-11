@@ -98,8 +98,6 @@ public class JSONParserErrorHandlingOptionsTest {
       JSONText jsText = JSONText.fromURL(new URL(url));
       JSONParserException ex = assertThrows(JSONParserException.class, () -> jsText.parse(options));
       log.info(ex::getMessage);
-    } catch (Exception ex) {
-      throw ex;
     } finally {
       if (httpServer != null) {
         httpServer.stop(0);
