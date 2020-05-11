@@ -214,9 +214,9 @@ public class JSONParserTest {
     assertEquals(2, ex.location().beginning().position());
     assertEquals(1, ex.location().beginning().line());
     assertEquals(3, ex.location().beginning().column());
-    assertEquals(4, ex.location().end().position());
+    assertEquals(3, ex.location().end().position());
     assertEquals(1, ex.location().end().line());
-    assertEquals(5, ex.location().end().column());
+    assertEquals(4, ex.location().end().column());
     log.info(ex::getMessage);
   }
 

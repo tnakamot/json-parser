@@ -59,6 +59,25 @@ public class JSONToken {
   }
 
   /**
+   * Create one JSON text token.
+   *
+   * @param type type of this token
+   * @param text text of this token
+   * @param location location of this token within the source JSON text
+   * @param source source JSON text where this token was extracted from
+   */
+  public JSONToken(
+      @NotNull JSONTokenType type,
+      @NotNull String text,
+      @NotNull StringLocation location,
+      @NotNull JSONText source) {
+    this.type = type;
+    this.text = text;
+    this.range = new StringRange(location, location);
+    this.source = source;
+  }
+
+  /**
    * Type of this token.
    *
    * @return type of this token

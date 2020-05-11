@@ -126,46 +126,48 @@ public class JSONLexer {
     switch (ch) {
       case '[':
         return new JSONToken(
-            JSONTokenType.BEGIN_ARRAY, JSONToken.JSON_BEGIN_ARRAY, startLocation, location, source);
+            JSONTokenType.BEGIN_ARRAY, JSONToken.JSON_BEGIN_ARRAY, startLocation, source);
       case ']':
         return new JSONToken(
-            JSONTokenType.END_ARRAY, JSONToken.JSON_END_ARRAY, startLocation, location, source);
+            JSONTokenType.END_ARRAY, JSONToken.JSON_END_ARRAY, startLocation, source);
       case '{':
         return new JSONToken(
             JSONTokenType.BEGIN_OBJECT,
             JSONToken.JSON_BEGIN_OBJECT,
             startLocation,
-            location,
+            startLocation,
             source);
       case '}':
         return new JSONToken(
-            JSONTokenType.END_OBJECT, JSONToken.JSON_END_OBJECT, startLocation, location, source);
+            JSONTokenType.END_OBJECT, JSONToken.JSON_END_OBJECT, startLocation, source);
       case ':':
         return new JSONToken(
             JSONTokenType.NAME_SEPARATOR,
             JSONToken.JSON_NAME_SEPARATOR,
             startLocation,
-            location,
+            startLocation,
             source);
       case ',':
         return new JSONToken(
             JSONTokenType.VALUE_SEPARATOR,
             JSONToken.JSON_VALUE_SEPARATOR,
             startLocation,
-            location,
+            startLocation,
             source);
       case 't':
         pushBack(ch);
         expect(JSONTokenBoolean.JSON_TRUE);
-        return new JSONTokenBoolean(JSONTokenBoolean.JSON_TRUE, startLocation, location, source);
+        return new JSONTokenBoolean(
+            JSONTokenBoolean.JSON_TRUE, startLocation, location.previous(), source);
       case 'f':
         pushBack(ch);
         expect(JSONTokenBoolean.JSON_FALSE);
-        return new JSONTokenBoolean(JSONTokenBoolean.JSON_FALSE, startLocation, location, source);
+        return new JSONTokenBoolean(
+            JSONTokenBoolean.JSON_FALSE, startLocation, location.previous(), source);
       case 'n':
         pushBack(ch);
         expect(JSONTokenNull.JSON_NULL);
-        return new JSONTokenNull(startLocation, location, source);
+        return new JSONTokenNull(startLocation, location.previous(), source);
       case '"':
         pushBack(ch);
         return readString();
@@ -308,7 +310,7 @@ public class JSONLexer {
     }
 
     return new JSONTokenString(
-        tokenText.toString(), strValue.toString(), originalLocation, location, source);
+        tokenText.toString(), strValue.toString(), originalLocation, location.previous(), source);
   }
 
   private enum JSONNumberParserStage {
@@ -451,7 +453,7 @@ public class JSONLexer {
       }
     }
 
-    return new JSONTokenNumber(tokenText.toString(), originalLocation, location, source);
+    return new JSONTokenNumber(tokenText.toString(), originalLocation, location.previous(), source);
   }
 
   /**
