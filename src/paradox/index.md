@@ -37,7 +37,7 @@ JSONText jsText = JSONText.fromString(
         "   \"key2\": 1.53, " +
         "   \"key3\": true," +
         "   \"key4\": null } ");
-JSONValue root = jsText.parse();
+JSONValue root = jsText.parse().root();
 ```
 
 The root JSON value can be obtained as an instance of
@@ -89,7 +89,7 @@ JSONText jsText = JSONText.fromString(
         "   \"key4\": 1024," +
         "   \"key5\": [5, 1, 2], "+
         "   \"key6\": {\"key6-1\": 0} }");
-JSONValueObject root = (JSONValueObject) jsText.parse();
+JSONValueObject root = (JSONValueObject) jsText.parse().root();
 
 String  value1Str = root.getString("key1");
 System.out.println(value1Str);

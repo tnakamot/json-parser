@@ -89,7 +89,7 @@ so all values can be iterated using `for` statement, for example.
 
 ```java
 JSONText jsText = JSONText.fromString(" [ true, false, \"abc\", 1.52, null ] ");
-JSONValue root = jsText.parse();
+JSONValue root = jsText.parse().root();
 
 if (root.type() == JSONValueType.ARRAY) {
     JSONValueArray rootArray = (JSONValueArray) root;

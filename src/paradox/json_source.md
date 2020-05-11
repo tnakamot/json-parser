@@ -34,7 +34,7 @@ in @extref[JSONParserException](javadoc:parser/JSONParserException.html)
 ```java
 String text = "{ \"key\": value }";
 JSONText source = JSONText.fromString(text, "text_in_memory.json");
-JSONValue value root = source.parse()
+JSONValue value root = source.parse().root();
 ```
 
 As this example sets the source name to "text_in_memory.json", the error message

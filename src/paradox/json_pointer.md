@@ -15,7 +15,7 @@ Below is an example.
         "  \"key3\": true," +
         "  \"key4\": {\"key5\": \"hello!\" }" +
         "} ");
-    JSONValue root = jsText.parse();
+    JSONValue root = jsText.parse().root();
 
     JSONValueString val1 = (JSONValueString) jsText.evaluate("/key1");
     System.out.println(val1.value());
