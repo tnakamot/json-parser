@@ -317,6 +317,7 @@ public class JSONValueObjectTest {
         JSONText.fromString("{\"key1\": [true, 123], \"key2\": {\"key3\": 5.2}}").parse().root();
     JSONValueObject rootObj = (JSONValueObject) root;
 
+    assertNotNull(rootObj);
     JSONToken begin = rootObj.begin();
     JSONToken end = rootObj.end();
 
@@ -350,6 +351,7 @@ public class JSONValueObjectTest {
     JSONValue root = JSONText.fromString("{}").parse().root();
     JSONValueObject rootObj = (JSONValueObject) root;
 
+    assertNotNull(rootObj);
     JSONToken begin = rootObj.begin();
     JSONToken end = rootObj.end();
 

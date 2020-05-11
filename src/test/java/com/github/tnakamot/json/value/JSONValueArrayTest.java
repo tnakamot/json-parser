@@ -239,6 +239,7 @@ public class JSONValueArrayTest {
         JSONText.fromString("[\"key1\", [true, 123], \"key2\", {\"key3\": 5.2}]").parse().root();
     JSONValueArray rootArray = (JSONValueArray) root;
 
+    assertNotNull(rootArray);
     JSONToken begin = rootArray.begin();
     JSONToken end = rootArray.end();
 
@@ -260,6 +261,7 @@ public class JSONValueArrayTest {
     JSONValue root = JSONText.fromString("[]").parse().root();
     JSONValueArray rootArray = (JSONValueArray) root;
 
+    assertNotNull(rootArray);
     JSONToken begin = rootArray.begin();
     JSONToken end = rootArray.end();
 

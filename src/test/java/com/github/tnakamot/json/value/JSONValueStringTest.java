@@ -119,8 +119,11 @@ public class JSONValueStringTest {
   public void testSource() throws IOException, JSONParserException {
     JSONValue root = JSONText.fromString("{\"key1\": 1.23, \"key2\": \"te\\nst\" }").parse().root();
     JSONValueObject rootObj = (JSONValueObject) root;
+
+    assertNotNull(rootObj);
     JSONValueString str = (JSONValueString) rootObj.get("key2");
     JSONToken token = str.token();
+    assertNotNull(token);
     System.out.println("Token: " + token.text());
     System.out.println(
         String.format(
