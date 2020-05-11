@@ -378,11 +378,12 @@ public class JSONPointerTest {
     assertEquals(JSONValueType.OBJECT, jsText.evaluate("/3").type());
     assertEquals(new JSONValueNumber(3.15), jsText.evaluate("/3/key1"));
 
-    InvalidJSONPointerException ex;
+    InvalidJSONPointerWithTokenException ex;
     ex = assertThrows(InvalidJSONPointerNotIndexException.class, () -> jsText.evaluate("/abc"));
     assertEquals("/abc", ex.text());
     assertEquals(1, ex.begin());
     assertEquals(3, ex.end());
+    assertEquals("abc", ex.token().text());
     log.info(ex::getMessage);
 
     ex =
@@ -391,6 +392,7 @@ public class JSONPointerTest {
     assertEquals("/4", ex.text());
     assertEquals(1, ex.begin());
     assertEquals(1, ex.end());
+    assertEquals("4", ex.token().text());
     log.info(ex::getMessage);
 
     ex =
@@ -399,6 +401,7 @@ public class JSONPointerTest {
     assertEquals("/0/1", ex.text());
     assertEquals(3, ex.begin());
     assertEquals(3, ex.end());
+    assertEquals("1", ex.token().text());
     log.info(ex::getMessage);
 
     ex =
@@ -406,6 +409,7 @@ public class JSONPointerTest {
     assertEquals("/3/", ex.text());
     assertEquals(3, ex.begin());
     assertEquals(3, ex.end());
+    assertEquals("", ex.token().text());
     log.info(ex::getMessage);
   }
 
