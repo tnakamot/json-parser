@@ -119,6 +119,7 @@ System.out.println(value6Obj.getLong("key6-1"));
 * [Mutable and Immutable](immutable.md)
 * [Load JSON text from various sources](json_source.md)
 * [JSON source information](source_info.md)
+* [Parser options](parser_options.md)
 * [Output JSON text](output.md)
 * [JSON Pointer](json_pointer.md)
 * [Source Code](source.md)

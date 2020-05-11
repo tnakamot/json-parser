@@ -37,7 +37,7 @@ import org.jetbrains.annotations.Nullable;
  *         .showLineAndColumnNumber(true)
  *         .showErrorLine(false)
  *         .failOnDuplicateKey(false)
- *         .failOnTooBigNumberForDouble(false)
+ *         .failOnTooBigNumber(false)
  *         .warningStream(System.err)
  *         .build();
  * </pre>
@@ -53,7 +53,7 @@ public class JSONParserErrorHandlingOptions {
   private final boolean showLineAndColumnNumber;
   private final boolean showErrorLine;
   private final boolean failOnDuplicateKey;
-  private final boolean failOnTooBigNumberForDouble;
+  private final boolean failOnTooBigNumber;
   private final PrintStream warningStream;
 
   private JSONParserErrorHandlingOptions(
@@ -61,13 +61,13 @@ public class JSONParserErrorHandlingOptions {
       boolean showLineAndColumnNumber,
       boolean showErrorLine,
       boolean failOnDuplicateKey,
-      boolean failOnTooBigNumberForDouble,
+      boolean failOnTooBigNumber,
       @Nullable PrintStream warningStream) {
     this.showURI = showURI;
     this.showLineAndColumnNumber = showLineAndColumnNumber;
     this.showErrorLine = showErrorLine;
     this.failOnDuplicateKey = failOnDuplicateKey;
-    this.failOnTooBigNumberForDouble = failOnTooBigNumberForDouble;
+    this.failOnTooBigNumber = failOnTooBigNumber;
     this.warningStream = warningStream;
   }
 
@@ -113,14 +113,20 @@ public class JSONParserErrorHandlingOptions {
   }
 
   /**
-   * Returns whether the parse should throw an exception when it encounters a too big number for
-   * Java primitive double.
+   * Returns whether the parse should throw an exception when there is a number that is not in the
+   * range [-(2^53)+1, 2^53 - 1].
    *
-   * @return whether the parse should throw an exception when it encounters a too big number for
-   *     Java primitive double.
+   * <p>As indicated by <a href="https://tools.ietf.org/html/rfc8259#section-6">RFC 8259 - 6.
+   * Numbers</a>, some JSON parser implementations may internally covert a number to a double
+   * precision floating point value regardless whether it is an integer or not. To maximize the
+   * interoperability, it is a good idea to keep the number within this range so that not
+   * information loss occurs for integer values. This option enforces that policy to the users.
+   *
+   * @return whether the parse should throw an exception when there is a number that is not in the
+   *     range [-(2^53)+1, 2^53-1].
    */
-  public boolean failOnTooBigNumberForDouble() {
-    return failOnTooBigNumberForDouble;
+  public boolean failOnTooBigNumber() {
+    return failOnTooBigNumber;
   }
 
   /**
@@ -148,7 +154,7 @@ public class JSONParserErrorHandlingOptions {
     private boolean showLineAndColumnNumber = true;
     private boolean showErrorLine = false;
     private boolean failOnDuplicateKey = false;
-    private boolean failOnTooBigNumberForDouble = false;
+    private boolean failOnTooBigNumber = false;
     private PrintStream warningStream = System.err;
 
     private Builder() {}
@@ -198,13 +204,13 @@ public class JSONParserErrorHandlingOptions {
     }
 
     /**
-     * Set {@link #failOnTooBigNumberForDouble()} option.
+     * Set {@link #failOnTooBigNumber()} option.
      *
      * @param b option value
      * @return this builder
      */
-    public Builder failOnTooBigNumberForDouble(boolean b) {
-      this.failOnTooBigNumberForDouble = b;
+    public Builder failOnTooBigNumber(boolean b) {
+      this.failOnTooBigNumber = b;
       return this;
     }
 
@@ -230,7 +236,7 @@ public class JSONParserErrorHandlingOptions {
           showLineAndColumnNumber,
           showErrorLine,
           failOnDuplicateKey,
-          failOnTooBigNumberForDouble,
+          failOnTooBigNumber,
           warningStream);
     }
   }

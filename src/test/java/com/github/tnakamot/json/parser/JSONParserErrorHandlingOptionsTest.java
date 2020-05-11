@@ -16,13 +16,30 @@
 
 package com.github.tnakamot.json.parser;
 
+import com.github.tnakamot.json.JSONText;
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+import com.sun.net.httpserver.HttpServer;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.InetSocketAddress;
+import java.net.URISyntaxException;
+import java.net.URL;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.platform.commons.logging.Logger;
+import org.junit.platform.commons.logging.LoggerFactory;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class JSONParserErrorHandlingOptionsTest {
+  private static final Logger log = LoggerFactory.getLogger(JSONParserTest.class);
+
   @Test
   public void testDefault() {
     JSONParserErrorHandlingOptions opt = JSONParserErrorHandlingOptions.builder().build();
@@ -30,7 +47,7 @@ public class JSONParserErrorHandlingOptionsTest {
     assertTrue(opt.showLineAndColumnNumber());
     assertFalse(opt.showErrorLine());
     assertFalse(opt.failOnDuplicateKey());
-    assertFalse(opt.failOnTooBigNumberForDouble());
+    assertFalse(opt.failOnTooBigNumber());
     assertEquals(System.err, opt.warningStream());
   }
 
@@ -42,7 +59,7 @@ public class JSONParserErrorHandlingOptionsTest {
             .showLineAndColumnNumber(false)
             .showErrorLine(true)
             .failOnDuplicateKey(true)
-            .failOnTooBigNumberForDouble(true)
+            .failOnTooBigNumber(true)
             .warningStream(System.out)
             .build();
 
@@ -50,7 +67,72 @@ public class JSONParserErrorHandlingOptionsTest {
     assertFalse(opt.showLineAndColumnNumber());
     assertTrue(opt.showErrorLine());
     assertTrue(opt.failOnDuplicateKey());
-    assertTrue(opt.failOnTooBigNumberForDouble());
+    assertTrue(opt.failOnTooBigNumber());
     assertEquals(System.out, opt.warningStream());
+  }
+
+  @ParameterizedTest
+  @ValueSource(strings = {"true", "false"})
+  public void testShowURI(boolean opt) throws IOException, URISyntaxException {
+    HttpServer httpServer = null;
+
+    try {
+      InputStream in =
+          this.getClass().getResourceAsStream("/com/github/tnakamot/json/parser/invalid1.json");
+      byte[] data = in.readAllBytes();
+
+      httpServer = HttpServer.create(new InetSocketAddress(8215), 0);
+      httpServer.createContext(
+          "/json/invalid1.json",
+          new HttpHandler() {
+            @Override
+            public void handle(HttpExchange ex) throws IOException {
+              ex.sendResponseHeaders(HttpURLConnection.HTTP_OK, data.length);
+              ex.getResponseBody().write(data);
+              ex.close();
+            }
+          });
+      httpServer.start();
+
+      JSONParserErrorHandlingOptions options =
+          JSONParserErrorHandlingOptions.builder().showURI(opt).build();
+
+      String url = "http://localhost:8215/json/invalid1.json";
+      JSONText jsText = JSONText.fromURL(new URL(url));
+      JSONParserException ex = assertThrows(JSONParserException.class, () -> jsText.parse(options));
+      log.info(ex::getMessage);
+    } catch (Exception ex) {
+      throw ex;
+    } finally {
+      if (httpServer != null) {
+        httpServer.stop(0);
+      }
+    }
+  }
+
+  @ParameterizedTest
+  @ValueSource(strings = {"true", "false"})
+  public void testShowLineAndColumnNumber(boolean opt) throws IOException, URISyntaxException {
+    String jsonStr = "[\n" + "  123,\n" + "  ff,\n" + "]";
+
+    JSONParserErrorHandlingOptions options =
+        JSONParserErrorHandlingOptions.builder().showLineAndColumnNumber(opt).build();
+
+    JSONText jsText = JSONText.fromString(jsonStr, "test.json");
+    JSONParserException ex = assertThrows(JSONParserException.class, () -> jsText.parse(options));
+    log.info(ex::getMessage);
+  }
+
+  @ParameterizedTest
+  @ValueSource(strings = {"true", "false"})
+  public void testShowErrorLine(boolean opt) throws IOException, URISyntaxException {
+    String jsonStr = "{\n" + "  \"key1\" true,\n" + "  \"key2\": false\n" + "}";
+
+    JSONParserErrorHandlingOptions options =
+        JSONParserErrorHandlingOptions.builder().showErrorLine(opt).build();
+
+    JSONText jsText = JSONText.fromString(jsonStr, "test.json");
+    JSONParserException ex = assertThrows(JSONParserException.class, () -> jsText.parse(options));
+    log.info(ex::getMessage);
   }
 }

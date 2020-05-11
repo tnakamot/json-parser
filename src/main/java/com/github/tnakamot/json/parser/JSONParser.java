@@ -252,10 +252,10 @@ public final class JSONParser {
           return new JSONValueBoolean((JSONTokenBoolean) token);
         case NUMBER:
           JSONValueNumber number = new JSONValueNumber((JSONTokenNumber) token);
-          if (Double.isInfinite(number.toDouble())) {
-            if (options.failOnTooBigNumberForDouble()) {
-              String msg =
-                  "'" + token.text() + "' is too big to handle with Java 'double' primitive";
+          if (number.toDouble() < (double) (-9007199254740991L)
+              || number.toDouble() > (double) (9007199254740991L)) {
+            if (options.failOnTooBigNumber()) {
+              String msg = "'" + token.text() + "' is not in the range [-(2^53)+1, 2^53-1]";
               throw new JSONParserException(token.source(), token.range(), options, msg);
             } else {
               numbersTooBigForDouble.add(number);

@@ -573,7 +573,16 @@ public class JSONParserTest {
             .failOnDuplicateKey(true)
             .build();
 
-    JSONText jsText = JSONText.fromString("{\"key1\": true, \"key2\": false, \"key1\": null}");
+    JSONText jsText =
+        JSONText.fromString(
+            "{"
+                + " \"key1\": true,\n"
+                + " \"key2\": false,\n"
+                + " \"key1\": null,\n"
+                + " \"key1\": false,\n"
+                + " \"key2\": null\n"
+                + "}",
+            "test.json");
 
     JSONParserException ex = assertThrows(JSONParserException.class, () -> jsText.parse(opt));
     log.info(ex::getMessage);
@@ -586,7 +595,14 @@ public class JSONParserTest {
 
     JSONText jsText =
         JSONText.fromString(
-            "{\"key1\": true, \"key2\": false, \"key1\": null,\n\"key1\": false, \"key2\": null}");
+            "{"
+                + " \"key1\": true,\n"
+                + " \"key2\": false,\n"
+                + " \"key1\": null,\n"
+                + " \"key1\": false,\n"
+                + " \"key2\": null\n"
+                + "}",
+            "test.json");
 
     JSONParserResult result = jsText.parse(opt);
     assertEquals(2, result.duplicateKeys().size());
@@ -596,43 +612,43 @@ public class JSONParserTest {
     JSONToken token1 = result.duplicateKeys().get(0).get(0).token();
     assertNotNull(token1);
     assertEquals(1, token1.range().beginning().line());
-    assertEquals(2, token1.range().beginning().column());
+    assertEquals(3, token1.range().beginning().column());
     assertEquals(1, token1.range().end().line());
-    assertEquals(7, token1.range().end().column());
+    assertEquals(8, token1.range().end().column());
 
     assertEquals("key1", result.duplicateKeys().get(0).get(1).value());
     JSONToken token2 = result.duplicateKeys().get(0).get(1).token();
     assertNotNull(token2);
-    assertEquals(1, token2.range().beginning().line());
-    assertEquals(31, token2.range().beginning().column());
-    assertEquals(1, token2.range().end().line());
-    assertEquals(36, token2.range().end().column());
+    assertEquals(3, token2.range().beginning().line());
+    assertEquals(2, token2.range().beginning().column());
+    assertEquals(3, token2.range().end().line());
+    assertEquals(7, token2.range().end().column());
 
     assertEquals("key1", result.duplicateKeys().get(0).get(2).value());
     JSONToken token3 = result.duplicateKeys().get(0).get(2).token();
     assertNotNull(token3);
-    assertEquals(2, token3.range().beginning().line());
-    assertEquals(1, token3.range().beginning().column());
-    assertEquals(2, token3.range().end().line());
-    assertEquals(6, token3.range().end().column());
+    assertEquals(4, token3.range().beginning().line());
+    assertEquals(2, token3.range().beginning().column());
+    assertEquals(4, token3.range().end().line());
+    assertEquals(7, token3.range().end().column());
 
     assertEquals(2, result.duplicateKeys().get(1).size());
 
     assertEquals("key2", result.duplicateKeys().get(1).get(0).value());
     JSONToken token4 = result.duplicateKeys().get(1).get(0).token();
     assertNotNull(token4);
-    assertEquals(1, token4.range().beginning().line());
-    assertEquals(16, token4.range().beginning().column());
-    assertEquals(1, token4.range().end().line());
-    assertEquals(21, token4.range().end().column());
+    assertEquals(2, token4.range().beginning().line());
+    assertEquals(2, token4.range().beginning().column());
+    assertEquals(2, token4.range().end().line());
+    assertEquals(7, token4.range().end().column());
 
     assertEquals("key2", result.duplicateKeys().get(1).get(1).value());
     JSONToken token5 = result.duplicateKeys().get(1).get(1).token();
     assertNotNull(token5);
-    assertEquals(2, token5.range().beginning().line());
-    assertEquals(16, token5.range().beginning().column());
-    assertEquals(2, token5.range().end().line());
-    assertEquals(21, token5.range().end().column());
+    assertEquals(5, token5.range().beginning().line());
+    assertEquals(2, token5.range().beginning().column());
+    assertEquals(5, token5.range().end().line());
+    assertEquals(7, token5.range().end().column());
 
     JSONValueObject root = (JSONValueObject) result.root();
     assertNotNull(root);
@@ -641,25 +657,29 @@ public class JSONParserTest {
   }
 
   @Test
-  public void testTooBigNumberForDouble() {
+  public void testTooBigNumber() {
     JSONParserErrorHandlingOptions opt =
         JSONParserErrorHandlingOptions.builder()
             .showErrorLine(true)
-            .failOnTooBigNumberForDouble(true)
+            .failOnTooBigNumber(true)
             .build();
 
-    JSONText jsText = JSONText.fromString("{\"key1\": 1.52, \"key2\": 1e309, \"key3\": null}");
+    JSONText jsText =
+        JSONText.fromString(
+            "{\"key1\": 1.52, \"key2\": 9007199254740992, \"key3\": null}", "test_double.json");
 
     JSONParserException ex = assertThrows(JSONParserException.class, () -> jsText.parse(opt));
     log.info(ex::getMessage);
   }
 
   @Test
-  public void testTooBigNumberForDoubleIgnore() throws IOException, JSONParserException {
+  public void testTooBigNumberIgnore() throws IOException, JSONParserException {
     JSONParserErrorHandlingOptions opt =
-        JSONParserErrorHandlingOptions.builder().failOnTooBigNumberForDouble(false).build();
+        JSONParserErrorHandlingOptions.builder().failOnTooBigNumber(false).build();
 
-    JSONText jsText = JSONText.fromString("{\"key1\": 1.52, \"key2\": 1e309,\n\"key3\": -1e309}");
+    JSONText jsText =
+        JSONText.fromString(
+            "{\"key1\": 1.52, \"key2\": -9007199254740992,\n\"key3\": 9007199254740992}");
 
     JSONParserResult result = jsText.parse(opt);
     assertEquals(2, result.numbersTooBigForDouble().size());
@@ -667,21 +687,21 @@ public class JSONParserTest {
     JSONValueNumber val1 = result.numbersTooBigForDouble().get(0);
     JSONToken token1 = val1.token();
     assertNotNull(token1);
-    assertEquals("1e309", val1.text());
-    assertEquals("1e309", token1.text());
+    assertEquals("-9007199254740992", val1.text());
+    assertEquals("-9007199254740992", token1.text());
     assertEquals(1, token1.range().beginning().line());
     assertEquals(24, token1.range().beginning().column());
     assertEquals(1, token1.range().end().line());
-    assertEquals(28, token1.range().end().column());
+    assertEquals(40, token1.range().end().column());
 
     JSONValueNumber val2 = result.numbersTooBigForDouble().get(1);
     JSONToken token2 = val2.token();
     assertNotNull(token2);
-    assertEquals("-1e309", val2.text());
-    assertEquals("-1e309", token2.text());
+    assertEquals("9007199254740992", val2.text());
+    assertEquals("9007199254740992", token2.text());
     assertEquals(2, token2.range().beginning().line());
     assertEquals(9, token2.range().beginning().column());
     assertEquals(2, token2.range().end().line());
-    assertEquals(14, token2.range().end().column());
+    assertEquals(24, token2.range().end().column());
   }
 }
