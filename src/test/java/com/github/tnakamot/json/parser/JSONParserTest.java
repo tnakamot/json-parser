@@ -208,8 +208,10 @@ public class JSONParserTest {
     // to have two number tokens "0" and "12". Two numbers in a row
     // are not valid in JSON.
     JSONText jsText = JSONText.fromString(" 012 ");
+    JSONParserErrorHandlingOptions opt =
+        JSONParserErrorHandlingOptions.builder().showErrorLine(true).build();
 
-    JSONParserException ex = assertThrows(JSONParserException.class, jsText::parse);
+    JSONParserException ex = assertThrows(JSONParserException.class, () -> jsText.parse(opt));
     assertEquals(jsText, ex.source());
     assertEquals(2, ex.location().beginning().position());
     assertEquals(1, ex.location().beginning().line());

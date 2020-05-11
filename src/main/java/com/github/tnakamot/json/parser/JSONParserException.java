@@ -189,16 +189,22 @@ public class JSONParserException extends Exception {
     sb.append(msg);
 
     if (errMsgFmt.showErrorLine()) {
-      // TODO: consider multiple lines
-      // TODO: show range
-
       String[] lines = source.get().split("\r|(\r?\n)");
-      String line = lines[location.beginning().line() - 1];
-      sb.append(System.lineSeparator());
-      sb.append(line);
-      sb.append(System.lineSeparator());
-      sb.append(" ".repeat(location.beginning().column() - 1));
-      sb.append("^");
+      if (location.beginning().line() == location.end().line()) {
+        String line = lines[location.beginning().line() - 1];
+        sb.append(System.lineSeparator());
+        sb.append(line);
+        sb.append(System.lineSeparator());
+        sb.append(" ".repeat(location.beginning().column() - 1));
+        sb.append("^".repeat(location.end().column() - location.beginning().column() + 1));
+      } else {
+        for (int lineNum = location.beginning().line() - 1;
+            lineNum < location.end().line();
+            lineNum++) {
+          sb.append(System.lineSeparator());
+          sb.append(lines[lineNum]);
+        }
+      }
     }
 
     return sb.toString();
