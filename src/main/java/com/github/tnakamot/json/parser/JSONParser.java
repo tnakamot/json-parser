@@ -138,6 +138,11 @@ public final class JSONParser {
     String[] lines = source.get().split("\r|(\r?\n)");
 
     for (List<JSONValueString> dup : duplicateKeys) {
+      // The code below assumes the line number of the beginning of the
+      // JSON string token is the same as that of the end. This is true,
+      // because RFC 8259 does not allow you to include control characters
+      // including CR and LF in the string.
+
       sb.append(warningHeader());
       sb.append("duplicate key '").append(dup.get(0).value()).append("': ");
       sb.append(System.lineSeparator());
