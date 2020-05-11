@@ -17,6 +17,7 @@
 package com.github.tnakamot.json.parser;
 
 import com.github.tnakamot.json.JSONText;
+import com.github.tnakamot.json.token.StringRange;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -114,8 +115,10 @@ public class JSONParserExceptionTest {
     String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
     log.info(() -> methodName + ": " + ex.getMessage());
 
-    assertEquals(10, ex.location().beginning().position());
-    assertEquals(10, ex.location().end().position());
+    StringRange range = ex.location();
+    assertNotNull(range);
+    assertEquals(10, range.beginning().position());
+    assertEquals(10, range.end().position());
 
     String positionStr = ex.getMessage().split(":")[1];
     assertEquals("10", positionStr);
@@ -133,10 +136,12 @@ public class JSONParserExceptionTest {
     String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
     log.info(() -> methodName + ": " + ex.getMessage());
 
-    assertEquals(1, ex.location().beginning().line());
-    assertEquals(11, ex.location().beginning().column());
-    assertEquals(1, ex.location().end().line());
-    assertEquals(11, ex.location().end().column());
+    StringRange range = ex.location();
+    assertNotNull(range);
+    assertEquals(1, range.beginning().line());
+    assertEquals(11, range.beginning().column());
+    assertEquals(1, range.end().line());
+    assertEquals(11, range.end().column());
 
     String lineStr = ex.getMessage().split(":")[1];
     String columnStr = ex.getMessage().split(":")[2];
@@ -156,8 +161,10 @@ public class JSONParserExceptionTest {
     String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
     log.info(() -> methodName + ": " + ex.getMessage());
 
-    assertEquals(11, ex.location().beginning().position());
-    assertEquals(11, ex.location().end().position());
+    StringRange range = ex.location();
+    assertNotNull(range);
+    assertEquals(11, range.beginning().position());
+    assertEquals(11, range.end().position());
 
     String positionStr = ex.getMessage().split(":")[1];
     assertEquals("11", positionStr);
@@ -175,10 +182,12 @@ public class JSONParserExceptionTest {
     String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
     log.info(() -> methodName + ": " + ex.getMessage());
 
-    assertEquals(2, ex.location().beginning().line());
-    assertEquals(10, ex.location().beginning().column());
-    assertEquals(2, ex.location().end().line());
-    assertEquals(10, ex.location().end().column());
+    StringRange range = ex.location();
+    assertNotNull(range);
+    assertEquals(2, range.beginning().line());
+    assertEquals(10, range.beginning().column());
+    assertEquals(2, range.end().line());
+    assertEquals(10, range.end().column());
 
     String lineStr = ex.getMessage().split(":")[1];
     String columnStr = ex.getMessage().split(":")[2];
@@ -198,10 +207,12 @@ public class JSONParserExceptionTest {
     String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
     log.info(() -> methodName + ": " + ex.getMessage());
 
-    assertEquals(1, ex.location().beginning().line());
-    assertEquals(11, ex.location().beginning().column());
-    assertEquals(1, ex.location().end().line());
-    assertEquals(11, ex.location().end().column());
+    StringRange range = ex.location();
+    assertNotNull(range);
+    assertEquals(1, range.beginning().line());
+    assertEquals(11, range.beginning().column());
+    assertEquals(1, range.end().line());
+    assertEquals(11, range.end().column());
 
     String errorLine = ex.getMessage().split(System.lineSeparator())[1];
     assertEquals(JSON_STR_SINGLE_LINE, errorLine);
@@ -219,10 +230,12 @@ public class JSONParserExceptionTest {
     String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
     log.info(() -> methodName + ": " + ex.getMessage());
 
-    assertEquals(2, ex.location().beginning().line());
-    assertEquals(10, ex.location().beginning().column());
-    assertEquals(2, ex.location().end().line());
-    assertEquals(10, ex.location().end().column());
+    StringRange range = ex.location();
+    assertNotNull(range);
+    assertEquals(2, range.beginning().line());
+    assertEquals(10, range.beginning().column());
+    assertEquals(2, range.end().line());
+    assertEquals(10, range.end().column());
 
     String errorLine = ex.getMessage().split(System.lineSeparator())[1];
     String expectedLine = JSON_STR_MULTI_LINES.split("\n")[1];

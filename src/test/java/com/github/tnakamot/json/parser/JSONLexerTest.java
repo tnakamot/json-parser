@@ -189,12 +189,14 @@ public class JSONLexerTest {
 
     JSONParserException ex = assertThrows(JSONParserException.class, jsText::tokens);
     assertEquals(jsText, ex.source());
-    assertEquals(0, ex.location().beginning().position());
-    assertEquals(1, ex.location().beginning().line());
-    assertEquals(1, ex.location().beginning().column());
-    assertEquals(0, ex.location().end().position());
-    assertEquals(1, ex.location().end().line());
-    assertEquals(1, ex.location().end().column());
+    StringRange range = ex.location();
+    assertNotNull(range);
+    assertEquals(0, range.beginning().position());
+    assertEquals(1, range.beginning().line());
+    assertEquals(1, range.beginning().column());
+    assertEquals(0, range.end().position());
+    assertEquals(1, range.end().line());
+    assertEquals(1, range.end().column());
   }
 
   @Test
@@ -203,12 +205,14 @@ public class JSONLexerTest {
 
     JSONParserException ex = assertThrows(JSONParserException.class, jsText::tokens);
     assertEquals(jsText, ex.source());
-    assertEquals(10, ex.location().beginning().position());
-    assertEquals(3, ex.location().beginning().line());
-    assertEquals(2, ex.location().beginning().column());
-    assertEquals(10, ex.location().end().position());
-    assertEquals(3, ex.location().end().line());
-    assertEquals(2, ex.location().end().column());
+    StringRange range = ex.location();
+    assertNotNull(range);
+    assertEquals(10, range.beginning().position());
+    assertEquals(3, range.beginning().line());
+    assertEquals(2, range.beginning().column());
+    assertEquals(10, range.end().position());
+    assertEquals(3, range.end().line());
+    assertEquals(2, range.end().column());
   }
 
   @Test
@@ -217,12 +221,14 @@ public class JSONLexerTest {
 
     JSONParserException ex = assertThrows(JSONParserException.class, jsText::tokens);
     assertEquals(jsText, ex.source());
-    assertEquals(10, ex.location().beginning().position());
-    assertEquals(3, ex.location().beginning().line());
-    assertEquals(2, ex.location().beginning().column());
-    assertEquals(10, ex.location().end().position());
-    assertEquals(3, ex.location().end().line());
-    assertEquals(2, ex.location().end().column());
+    StringRange range = ex.location();
+    assertNotNull(range);
+    assertEquals(10, range.beginning().position());
+    assertEquals(3, range.beginning().line());
+    assertEquals(2, range.beginning().column());
+    assertEquals(10, range.end().position());
+    assertEquals(3, range.end().line());
+    assertEquals(2, range.end().column());
   }
 
   @Test
@@ -231,12 +237,14 @@ public class JSONLexerTest {
 
     JSONParserException ex = assertThrows(JSONParserException.class, jsText::tokens);
     assertEquals(jsText, ex.source());
-    assertEquals(12, ex.location().beginning().position());
-    assertEquals(3, ex.location().beginning().line());
-    assertEquals(4, ex.location().beginning().column());
-    assertEquals(12, ex.location().end().position());
-    assertEquals(3, ex.location().end().line());
-    assertEquals(4, ex.location().end().column());
+    StringRange range = ex.location();
+    assertNotNull(range);
+    assertEquals(12, range.beginning().position());
+    assertEquals(3, range.beginning().line());
+    assertEquals(4, range.beginning().column());
+    assertEquals(12, range.end().position());
+    assertEquals(3, range.end().line());
+    assertEquals(4, range.end().column());
   }
 
   @Test
@@ -245,12 +253,14 @@ public class JSONLexerTest {
 
     JSONParserException ex = assertThrows(JSONParserException.class, jsText::tokens);
     assertEquals(jsText, ex.source());
-    assertEquals(5, ex.location().beginning().position());
-    assertEquals(2, ex.location().beginning().line());
-    assertEquals(4, ex.location().beginning().column());
-    assertEquals(5, ex.location().end().position());
-    assertEquals(2, ex.location().end().line());
-    assertEquals(4, ex.location().end().column());
+    StringRange range = ex.location();
+    assertNotNull(range);
+    assertEquals(5, range.beginning().position());
+    assertEquals(2, range.beginning().line());
+    assertEquals(4, range.beginning().column());
+    assertEquals(5, range.end().position());
+    assertEquals(2, range.end().line());
+    assertEquals(4, range.end().column());
   }
 
   @Test
@@ -259,12 +269,14 @@ public class JSONLexerTest {
 
     JSONParserException ex = assertThrows(JSONParserException.class, jsText::tokens);
     assertEquals(jsText, ex.source());
-    assertEquals(4, ex.location().beginning().position());
-    assertEquals(1, ex.location().beginning().line());
-    assertEquals(5, ex.location().beginning().column());
-    assertEquals(4, ex.location().end().position());
-    assertEquals(1, ex.location().end().line());
-    assertEquals(5, ex.location().end().column());
+    StringRange range = ex.location();
+    assertNotNull(range);
+    assertEquals(4, range.beginning().position());
+    assertEquals(1, range.beginning().line());
+    assertEquals(5, range.beginning().column());
+    assertEquals(4, range.end().position());
+    assertEquals(1, range.end().line());
+    assertEquals(5, range.end().column());
   }
 
   @Test
@@ -273,12 +285,14 @@ public class JSONLexerTest {
 
     JSONParserException ex = assertThrows(JSONParserException.class, jsText::tokens);
     assertEquals(jsText, ex.source());
-    assertEquals(4, ex.location().beginning().position());
-    assertEquals(1, ex.location().beginning().line());
-    assertEquals(5, ex.location().beginning().column());
-    assertEquals(4, ex.location().end().position());
-    assertEquals(1, ex.location().end().line());
-    assertEquals(5, ex.location().end().column());
+    StringRange range = ex.location();
+    assertNotNull(range);
+    assertEquals(4, range.beginning().position());
+    assertEquals(1, range.beginning().line());
+    assertEquals(5, range.beginning().column());
+    assertEquals(4, range.end().position());
+    assertEquals(1, range.end().line());
+    assertEquals(5, range.end().column());
   }
 
   @Test
@@ -287,12 +301,14 @@ public class JSONLexerTest {
 
     JSONParserException ex = assertThrows(JSONParserException.class, jsText::tokens);
     assertEquals(jsText, ex.source());
-    assertEquals(1, ex.location().beginning().position());
-    assertEquals(1, ex.location().beginning().line());
-    assertEquals(2, ex.location().beginning().column());
-    assertEquals(1, ex.location().end().position());
-    assertEquals(1, ex.location().end().line());
-    assertEquals(2, ex.location().end().column());
+    StringRange range = ex.location();
+    assertNotNull(range);
+    assertEquals(1, range.beginning().position());
+    assertEquals(1, range.beginning().line());
+    assertEquals(2, range.beginning().column());
+    assertEquals(1, range.end().position());
+    assertEquals(1, range.end().line());
+    assertEquals(2, range.end().column());
   }
 
   @Test
@@ -301,12 +317,14 @@ public class JSONLexerTest {
 
     JSONParserException ex = assertThrows(JSONParserException.class, jsText::tokens);
     assertEquals(jsText, ex.source());
-    assertEquals(5, ex.location().beginning().position());
-    assertEquals(1, ex.location().beginning().line());
-    assertEquals(6, ex.location().beginning().column());
-    assertEquals(5, ex.location().end().position());
-    assertEquals(1, ex.location().end().line());
-    assertEquals(6, ex.location().end().column());
+    StringRange range = ex.location();
+    assertNotNull(range);
+    assertEquals(5, range.beginning().position());
+    assertEquals(1, range.beginning().line());
+    assertEquals(6, range.beginning().column());
+    assertEquals(5, range.end().position());
+    assertEquals(1, range.end().line());
+    assertEquals(6, range.end().column());
   }
 
   @Test
@@ -315,12 +333,14 @@ public class JSONLexerTest {
 
     JSONParserException ex = assertThrows(JSONParserException.class, jsText::tokens);
     assertEquals(jsText, ex.source());
-    assertEquals(7, ex.location().beginning().position());
-    assertEquals(1, ex.location().beginning().line());
-    assertEquals(8, ex.location().beginning().column());
-    assertEquals(7, ex.location().end().position());
-    assertEquals(1, ex.location().end().line());
-    assertEquals(8, ex.location().end().column());
+    StringRange range = ex.location();
+    assertNotNull(range);
+    assertEquals(7, range.beginning().position());
+    assertEquals(1, range.beginning().line());
+    assertEquals(8, range.beginning().column());
+    assertEquals(7, range.end().position());
+    assertEquals(1, range.end().line());
+    assertEquals(8, range.end().column());
   }
 
   @Test
@@ -329,12 +349,14 @@ public class JSONLexerTest {
 
     JSONParserException ex = assertThrows(JSONParserException.class, jsText::tokens);
     assertEquals(jsText, ex.source());
-    assertEquals(7, ex.location().beginning().position());
-    assertEquals(1, ex.location().beginning().line());
-    assertEquals(8, ex.location().beginning().column());
-    assertEquals(7, ex.location().end().position());
-    assertEquals(1, ex.location().end().line());
-    assertEquals(8, ex.location().end().column());
+    StringRange range = ex.location();
+    assertNotNull(range);
+    assertEquals(7, range.beginning().position());
+    assertEquals(1, range.beginning().line());
+    assertEquals(8, range.beginning().column());
+    assertEquals(7, range.end().position());
+    assertEquals(1, range.end().line());
+    assertEquals(8, range.end().column());
   }
 
   @Test
@@ -343,12 +365,14 @@ public class JSONLexerTest {
 
     JSONParserException ex = assertThrows(JSONParserException.class, jsText::tokens);
     assertEquals(jsText, ex.source());
-    assertEquals(8, ex.location().beginning().position());
-    assertEquals(1, ex.location().beginning().line());
-    assertEquals(9, ex.location().beginning().column());
-    assertEquals(8, ex.location().end().position());
-    assertEquals(1, ex.location().end().line());
-    assertEquals(9, ex.location().end().column());
+    StringRange range = ex.location();
+    assertNotNull(range);
+    assertEquals(8, range.beginning().position());
+    assertEquals(1, range.beginning().line());
+    assertEquals(9, range.beginning().column());
+    assertEquals(8, range.end().position());
+    assertEquals(1, range.end().line());
+    assertEquals(9, range.end().column());
   }
 
   @Test
@@ -357,12 +381,14 @@ public class JSONLexerTest {
 
     JSONParserException ex = assertThrows(JSONParserException.class, jsText::tokens);
     assertEquals(jsText, ex.source());
-    assertEquals(8, ex.location().beginning().position());
-    assertEquals(1, ex.location().beginning().line());
-    assertEquals(9, ex.location().beginning().column());
-    assertEquals(8, ex.location().end().position());
-    assertEquals(1, ex.location().end().line());
-    assertEquals(9, ex.location().end().column());
+    StringRange range = ex.location();
+    assertNotNull(range);
+    assertEquals(8, range.beginning().position());
+    assertEquals(1, range.beginning().line());
+    assertEquals(9, range.beginning().column());
+    assertEquals(8, range.end().position());
+    assertEquals(1, range.end().line());
+    assertEquals(9, range.end().column());
   }
 
   @Test
@@ -371,12 +397,14 @@ public class JSONLexerTest {
 
     JSONParserException ex = assertThrows(JSONParserException.class, jsText::tokens);
     assertEquals(jsText, ex.source());
-    assertEquals(15, ex.location().beginning().position());
-    assertEquals(1, ex.location().beginning().line());
-    assertEquals(16, ex.location().beginning().column());
-    assertEquals(15, ex.location().end().position());
-    assertEquals(1, ex.location().end().line());
-    assertEquals(16, ex.location().end().column());
+    StringRange range = ex.location();
+    assertNotNull(range);
+    assertEquals(15, range.beginning().position());
+    assertEquals(1, range.beginning().line());
+    assertEquals(16, range.beginning().column());
+    assertEquals(15, range.end().position());
+    assertEquals(1, range.end().line());
+    assertEquals(16, range.end().column());
   }
 
   @Test
@@ -446,12 +474,14 @@ public class JSONLexerTest {
 
     JSONParserException ex = assertThrows(JSONParserException.class, jsText::tokens);
     assertEquals(jsText, ex.source());
-    assertEquals(14, ex.location().beginning().position());
-    assertEquals(1, ex.location().beginning().line());
-    assertEquals(15, ex.location().beginning().column());
-    assertEquals(14, ex.location().end().position());
-    assertEquals(1, ex.location().end().line());
-    assertEquals(15, ex.location().end().column());
+    StringRange range = ex.location();
+    assertNotNull(range);
+    assertEquals(14, range.beginning().position());
+    assertEquals(1, range.beginning().line());
+    assertEquals(15, range.beginning().column());
+    assertEquals(14, range.end().position());
+    assertEquals(1, range.end().line());
+    assertEquals(15, range.end().column());
   }
 
   @Test
@@ -460,12 +490,14 @@ public class JSONLexerTest {
 
     JSONParserException ex = assertThrows(JSONParserException.class, jsText::tokens);
     assertEquals(jsText, ex.source());
-    assertEquals(16, ex.location().beginning().position());
-    assertEquals(1, ex.location().beginning().line());
-    assertEquals(17, ex.location().beginning().column());
-    assertEquals(16, ex.location().end().position());
-    assertEquals(1, ex.location().end().line());
-    assertEquals(17, ex.location().end().column());
+    StringRange range = ex.location();
+    assertNotNull(range);
+    assertEquals(16, range.beginning().position());
+    assertEquals(1, range.beginning().line());
+    assertEquals(17, range.beginning().column());
+    assertEquals(16, range.end().position());
+    assertEquals(1, range.end().line());
+    assertEquals(17, range.end().column());
   }
 
   @Test

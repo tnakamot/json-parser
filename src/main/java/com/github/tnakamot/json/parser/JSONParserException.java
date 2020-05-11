@@ -100,7 +100,7 @@ public class JSONParserException extends Exception {
    */
   public JSONParserException(
       @NotNull JSONText source,
-      @NotNull StringRange location,
+      @Nullable StringRange location,
       @NotNull JSONParserErrorHandlingOptions errMsgFmt,
       @NotNull String msg) {
     super(msg);
@@ -121,14 +121,14 @@ public class JSONParserException extends Exception {
    */
   public JSONParserException(
       @NotNull JSONText source,
-      @NotNull StringLocation begin,
-      @NotNull StringLocation end,
+      @Nullable StringLocation begin,
+      @Nullable StringLocation end,
       @NotNull JSONParserErrorHandlingOptions errMsgFmt,
       @NotNull String msg) {
     super(msg);
     this.msg = msg;
     this.source = source;
-    this.location = new StringRange(begin, end);
+    this.location = (begin == null || end == null) ? null : new StringRange(begin, end);
     this.errMsgFmt = errMsgFmt;
   }
 
@@ -148,7 +148,7 @@ public class JSONParserException extends Exception {
     super(msg);
     this.msg = msg;
     this.source = source;
-    this.location = new StringRange(location, location);
+    this.location = location == null ? null : new StringRange(location, location);
     this.errMsgFmt = errMsgFmt;
   }
 
@@ -163,6 +163,7 @@ public class JSONParserException extends Exception {
    *
    * @return beginning location of the problem within the source JSON text
    */
+  @Nullable
   public StringRange location() {
     return location;
   }
@@ -176,36 +177,41 @@ public class JSONParserException extends Exception {
       sb.append(source.name());
     }
 
-    sb.append(":");
-
-    if (errMsgFmt.showLineAndColumnNumber()) {
-      sb.append(location.beginning().line());
+    if (location != null) {
       sb.append(":");
-      sb.append(location.beginning().column());
-    } else {
-      sb.append(location.beginning().position());
-    }
 
-    sb.append(": ");
-    sb.append(msg);
-
-    if (errMsgFmt.showErrorLine()) {
-      String[] lines = source.get().split("\r|(\r?\n)");
-      if (location.beginning().line() == location.end().line()) {
-        String line = lines[location.beginning().line() - 1];
-        sb.append(System.lineSeparator());
-        sb.append(line);
-        sb.append(System.lineSeparator());
-        sb.append(" ".repeat(location.beginning().column() - 1));
-        sb.append("^".repeat(location.end().column() - location.beginning().column() + 1));
+      if (errMsgFmt.showLineAndColumnNumber()) {
+        sb.append(location.beginning().line());
+        sb.append(":");
+        sb.append(location.beginning().column());
       } else {
-        for (int lineNum = location.beginning().line() - 1;
-            lineNum < location.end().line();
-            lineNum++) {
+        sb.append(location.beginning().position());
+      }
+
+      sb.append(": ");
+      sb.append(msg);
+
+      if (errMsgFmt.showErrorLine()) {
+        String[] lines = source.get().split("\r|(\r?\n)");
+        if (location.beginning().line() == location.end().line()) {
+          String line = lines[location.beginning().line() - 1];
           sb.append(System.lineSeparator());
-          sb.append(lines[lineNum]);
+          sb.append(line);
+          sb.append(System.lineSeparator());
+          sb.append(" ".repeat(location.beginning().column() - 1));
+          sb.append("^".repeat(location.end().column() - location.beginning().column() + 1));
+        } else {
+          for (int lineNum = location.beginning().line() - 1;
+              lineNum < location.end().line();
+              lineNum++) {
+            sb.append(System.lineSeparator());
+            sb.append(lines[lineNum]);
+          }
         }
       }
+    } else {
+      sb.append(": ");
+      sb.append(msg);
     }
 
     return sb.toString();

@@ -20,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.github.tnakamot.json.JSONText;
 import com.github.tnakamot.json.token.JSONToken;
+import com.github.tnakamot.json.token.StringRange;
 import com.github.tnakamot.json.value.*;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -214,12 +215,14 @@ public class JSONParserTest {
 
     JSONParserException ex = assertThrows(JSONParserException.class, () -> jsText.parse(opt));
     assertEquals(jsText, ex.source());
-    assertEquals(2, ex.location().beginning().position());
-    assertEquals(1, ex.location().beginning().line());
-    assertEquals(3, ex.location().beginning().column());
-    assertEquals(3, ex.location().end().position());
-    assertEquals(1, ex.location().end().line());
-    assertEquals(4, ex.location().end().column());
+    StringRange range = ex.location();
+    assertNotNull(range);
+    assertEquals(2, range.beginning().position());
+    assertEquals(1, range.beginning().line());
+    assertEquals(3, range.beginning().column());
+    assertEquals(3, range.end().position());
+    assertEquals(1, range.end().line());
+    assertEquals(4, range.end().column());
     log.info(ex::getMessage);
   }
 

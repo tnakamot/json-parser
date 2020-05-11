@@ -22,6 +22,7 @@ import com.github.tnakamot.json.token.*;
 import java.io.IOException;
 import java.io.PushbackReader;
 import java.io.StringReader;
+import java.util.Objects;
 
 /**
  * An implementation of lexical analyzer for JSON texts. This implementation complies with <a
@@ -97,6 +98,7 @@ public final class JSONLexer {
 
   private void pushBack(int ch) throws IOException {
     if (readCrLf) {
+      //noinspection ConstantConditions
       location = location.previous().previous();
       reader.unread('\n');
       reader.unread('\r');
@@ -453,7 +455,8 @@ public final class JSONLexer {
       }
     }
 
-    return new JSONTokenNumber(tokenText.toString(), originalLocation, location.previous(), source);
+    return new JSONTokenNumber(tokenText.toString(), originalLocation,
+        Objects.requireNonNull(location.previous()), source);
   }
 
   /**
