@@ -84,13 +84,10 @@ public class JSONParserErrorHandlingOptionsTest {
       httpServer = HttpServer.create(new InetSocketAddress(8215), 0);
       httpServer.createContext(
           "/json/invalid1.json",
-          new HttpHandler() {
-            @Override
-            public void handle(HttpExchange ex) throws IOException {
-              ex.sendResponseHeaders(HttpURLConnection.HTTP_OK, data.length);
-              ex.getResponseBody().write(data);
-              ex.close();
-            }
+          ex -> {
+            ex.sendResponseHeaders(HttpURLConnection.HTTP_OK, data.length);
+            ex.getResponseBody().write(data);
+            ex.close();
           });
       httpServer.start();
 
