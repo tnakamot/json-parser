@@ -86,14 +86,24 @@ public class JSONPointerLexer {
         }
       } else {
         if (eof) {
-          return new JSONPointerReferenceToken(
-              current, tokenSB.toString(), begin, location - 1, pointer);
+          if (begin > location - 2) {
+            return new JSONPointerReferenceToken(
+                current, tokenSB.toString(), begin, location - 1, pointer);
+          } else {
+            return new JSONPointerReferenceToken(
+                current, tokenSB.toString(), begin, location - 2, pointer);
+          }
         } else if (ch == '~') {
           escaped = true;
           tokenSB.append('~');
         } else if (ch == '/') {
-          return new JSONPointerReferenceToken(
-              current, tokenSB.toString(), begin, location - 1, pointer);
+          if (begin > location - 2) {
+            return new JSONPointerReferenceToken(
+                current, tokenSB.toString(), begin, location - 1, pointer);
+          } else {
+            return new JSONPointerReferenceToken(
+                current, tokenSB.toString(), begin, location - 2, pointer);
+          }
         } else {
           tokenSB.append(ch);
         }

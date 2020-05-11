@@ -77,7 +77,7 @@ public class JSONPointerTest {
       int offset = p.text().startsWith("#") ? 1 : 0;
       assertEquals(1, p.tokens().length);
       assertEquals(1 + offset, p.tokens()[0].beginningLocation());
-      assertEquals(2 + offset, p.tokens()[0].endLocation());
+      assertEquals(1 + offset, p.tokens()[0].endLocation());
       assertEquals("x", p.tokens()[0].text());
       assertEquals("", p.tokens()[0].parent());
       assertEquals("x", p.tokens()[0].name());
@@ -104,7 +104,7 @@ public class JSONPointerTest {
       assertEquals(2, p.tokens().length);
 
       assertEquals(1 + offset, p.tokens()[0].beginningLocation());
-      assertEquals(2 + offset, p.tokens()[0].endLocation());
+      assertEquals(1 + offset, p.tokens()[0].endLocation());
       assertEquals("x", p.tokens()[0].text());
       assertEquals("", p.tokens()[0].parent());
       assertEquals("x", p.tokens()[0].name());
@@ -139,7 +139,7 @@ public class JSONPointerTest {
       assertEquals(3, p.tokens().length);
 
       assertEquals(1 + offset, p.tokens()[0].beginningLocation());
-      assertEquals(4 + offset, p.tokens()[0].endLocation());
+      assertEquals(3 + offset, p.tokens()[0].endLocation());
       assertEquals("abc", p.tokens()[0].text());
       assertEquals("", p.tokens()[0].parent());
       assertEquals("abc", p.tokens()[0].name());
@@ -147,7 +147,7 @@ public class JSONPointerTest {
       log.info(ex::getMessage);
 
       assertEquals(5 + offset, p.tokens()[1].beginningLocation());
-      assertEquals(8 + offset, p.tokens()[1].endLocation());
+      assertEquals(7 + offset, p.tokens()[1].endLocation());
       assertEquals("def", p.tokens()[1].text());
       assertEquals("/abc", p.tokens()[1].parent());
       assertEquals("def", p.tokens()[1].name());
@@ -155,7 +155,7 @@ public class JSONPointerTest {
       log.info(ex::getMessage);
 
       assertEquals(9 + offset, p.tokens()[2].beginningLocation());
-      assertEquals(11 + offset, p.tokens()[2].endLocation());
+      assertEquals(10 + offset, p.tokens()[2].endLocation());
       assertEquals("19", p.tokens()[2].text());
       assertEquals("/abc/def", p.tokens()[2].parent());
       assertEquals("19", p.tokens()[2].name());
@@ -182,7 +182,7 @@ public class JSONPointerTest {
       assertEquals(3, p.tokens().length);
 
       assertEquals(1 + offset, p.tokens()[0].beginningLocation());
-      assertEquals(5 + offset, p.tokens()[0].endLocation());
+      assertEquals(4 + offset, p.tokens()[0].endLocation());
       assertEquals("test", p.tokens()[0].text());
       assertEquals("", p.tokens()[0].parent());
       assertEquals("test", p.tokens()[0].name());
@@ -198,7 +198,7 @@ public class JSONPointerTest {
       log.info(ex::getMessage);
 
       assertEquals(7 + offset, p.tokens()[2].beginningLocation());
-      assertEquals(9 + offset, p.tokens()[2].endLocation());
+      assertEquals(8 + offset, p.tokens()[2].endLocation());
       assertEquals("11", p.tokens()[2].text());
       assertEquals("/test/", p.tokens()[2].parent());
       assertEquals("11", p.tokens()[2].name());
@@ -224,7 +224,7 @@ public class JSONPointerTest {
       assertEquals(2, p.tokens().length);
 
       assertEquals(1 + offset, p.tokens()[0].beginningLocation());
-      assertEquals(5 + offset, p.tokens()[0].endLocation());
+      assertEquals(4 + offset, p.tokens()[0].endLocation());
       assertEquals("a~1c", p.tokens()[0].text());
       assertEquals("", p.tokens()[0].parent());
       assertEquals("a/c", p.tokens()[0].name());
@@ -232,7 +232,7 @@ public class JSONPointerTest {
       log.info(ex::getMessage);
 
       assertEquals(6 + offset, p.tokens()[1].beginningLocation());
-      assertEquals(10 + offset, p.tokens()[1].endLocation());
+      assertEquals(9 + offset, p.tokens()[1].endLocation());
       assertEquals("d~0f", p.tokens()[1].text());
       assertEquals("/a~1c", p.tokens()[1].parent());
       assertEquals("d~f", p.tokens()[1].name());
@@ -246,33 +246,60 @@ public class JSONPointerTest {
     InvalidJSONPointerSyntaxException ex;
 
     ex = assertThrows(InvalidJSONPointerSyntaxException.class, () -> new JSONPointer("x"));
+    assertEquals("x", ex.text());
+    assertEquals(0, ex.begin());
+    assertEquals(0, ex.end());
     log.info(ex::getMessage);
 
     ex = assertThrows(InvalidJSONPointerSyntaxException.class, () -> new JSONPointer("#"));
+    assertEquals("#", ex.text());
+    assertEquals(0, ex.begin());
+    assertEquals(0, ex.end());
     log.info(ex::getMessage);
 
     ex = assertThrows(InvalidJSONPointerSyntaxException.class, () -> new JSONPointer("/~2ab"));
+    assertEquals("/~2ab", ex.text());
+    assertEquals(2, ex.begin());
+    assertEquals(2, ex.end());
     log.info(ex::getMessage);
 
     ex = assertThrows(InvalidJSONPointerSyntaxException.class, () -> new JSONPointer("/ab~"));
+    assertEquals("/ab~", ex.text());
+    assertEquals(4, ex.begin());
+    assertEquals(4, ex.end());
     log.info(ex::getMessage);
 
     ex = assertThrows(InvalidJSONPointerSyntaxException.class, () -> new JSONPointer("#x", true));
+    assertEquals("#x", ex.text());
+    assertEquals(1, ex.begin());
+    assertEquals(1, ex.end());
     log.info(ex::getMessage);
 
     ex = assertThrows(InvalidJSONPointerSyntaxException.class, () -> new JSONPointer("x", true));
+    assertEquals("x", ex.text());
+    assertEquals(0, ex.begin());
+    assertEquals(0, ex.end());
     log.info(ex::getMessage);
 
     ex = assertThrows(InvalidJSONPointerSyntaxException.class, () -> new JSONPointer("/", true));
+    assertEquals("/", ex.text());
+    assertEquals(0, ex.begin());
+    assertEquals(0, ex.end());
     log.info(ex::getMessage);
 
     ex =
         assertThrows(
             InvalidJSONPointerSyntaxException.class, () -> new JSONPointer("#/~2ab", true));
+    assertEquals("#/~2ab", ex.text());
+    assertEquals(3, ex.begin());
+    assertEquals(3, ex.end());
     log.info(ex::getMessage);
 
     ex =
         assertThrows(InvalidJSONPointerSyntaxException.class, () -> new JSONPointer("#/ab~", true));
+    assertEquals("#/ab~", ex.text());
+    assertEquals(5, ex.begin());
+    assertEquals(5, ex.end());
     log.info(ex::getMessage);
   }
 
@@ -305,19 +332,31 @@ public class JSONPointerTest {
     ex =
         assertThrows(
             InvalidJSONPointerMemberNotExistException.class, () -> jsText.evaluate("/abc"));
+    assertEquals("/abc", ex.text());
+    assertEquals(1, ex.begin());
+    assertEquals(3, ex.end());
     log.info(ex::getMessage);
 
     ex =
         assertThrows(
             InvalidJSONPointerIndexOutOfBoundsException.class, () -> jsText.evaluate("/foo/2"));
+    assertEquals("/foo/2", ex.text());
+    assertEquals(5, ex.begin());
+    assertEquals(5, ex.end());
     log.info(ex::getMessage);
 
     ex = assertThrows(InvalidJSONPointerNotIndexException.class, () -> jsText.evaluate("/foo/a"));
+    assertEquals("/foo/a", ex.text());
+    assertEquals(5, ex.begin());
+    assertEquals(5, ex.end());
     log.info(ex::getMessage);
 
     ex =
         assertThrows(
             InvalidJSONPointerReachedPrimitiveException.class, () -> jsText.evaluate("//abc"));
+    assertEquals("//abc", ex.text());
+    assertEquals(2, ex.begin());
+    assertEquals(4, ex.end());
     log.info(ex::getMessage);
   }
 
@@ -341,20 +380,32 @@ public class JSONPointerTest {
 
     InvalidJSONPointerException ex;
     ex = assertThrows(InvalidJSONPointerNotIndexException.class, () -> jsText.evaluate("/abc"));
+    assertEquals("/abc", ex.text());
+    assertEquals(1, ex.begin());
+    assertEquals(3, ex.end());
     log.info(ex::getMessage);
 
     ex =
         assertThrows(
             InvalidJSONPointerIndexOutOfBoundsException.class, () -> jsText.evaluate("/4"));
+    assertEquals("/4", ex.text());
+    assertEquals(1, ex.begin());
+    assertEquals(1, ex.end());
     log.info(ex::getMessage);
 
     ex =
         assertThrows(
             InvalidJSONPointerReachedPrimitiveException.class, () -> jsText.evaluate("/0/1"));
+    assertEquals("/0/1", ex.text());
+    assertEquals(3, ex.begin());
+    assertEquals(3, ex.end());
     log.info(ex::getMessage);
 
     ex =
         assertThrows(InvalidJSONPointerMemberNotExistException.class, () -> jsText.evaluate("/3/"));
+    assertEquals("/3/", ex.text());
+    assertEquals(3, ex.begin());
+    assertEquals(3, ex.end());
     log.info(ex::getMessage);
   }
 

@@ -70,12 +70,12 @@ public abstract class InvalidJSONPointerException extends Exception {
     sb.append(System.lineSeparator());
 
     sb.append("Location     : ");
-    if (begin == end || begin + 1 == end) {
+    if (begin == end) {
       sb.append(begin);
     } else {
       sb.append(begin);
       sb.append(" - ");
-      sb.append(end - 1);
+      sb.append(end);
     }
     sb.append(System.lineSeparator());
 
