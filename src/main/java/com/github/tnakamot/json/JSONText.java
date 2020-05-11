@@ -104,16 +104,16 @@ public class JSONText {
   /**
    * Tokenize this JSON text.
    *
-   * @param errMsgFmt settings of error message format of {@link JSONParserException}
+   * @param options parser options
    * @return Sequence of JSON tokens.
    * @throws IOException if an I/O error occurs
    * @throws JSONParserException if there is a syntax error in JSON text
    */
   @NotNull
-  public synchronized List<JSONToken> tokens(@NotNull JSONParserErrorHandlingOptions errMsgFmt)
+  public synchronized List<JSONToken> tokens(@NotNull JSONParserErrorHandlingOptions options)
       throws IOException, JSONParserException {
     List<JSONToken> tokens = new ArrayList<>();
-    JSONLexer lexer = new JSONLexer(this, errMsgFmt);
+    JSONLexer lexer = new JSONLexer(this, options);
     JSONToken token;
 
     while ((token = lexer.next()) != null) tokens.add(token);
@@ -130,8 +130,8 @@ public class JSONText {
    */
   @NotNull
   public synchronized List<JSONToken> tokens() throws IOException, JSONParserException {
-    JSONParserErrorHandlingOptions errMsgFmt = JSONParserErrorHandlingOptions.builder().build();
-    return tokens(errMsgFmt);
+    JSONParserErrorHandlingOptions options = JSONParserErrorHandlingOptions.builder().build();
+    return tokens(options);
   }
 
   /**
@@ -139,18 +139,18 @@ public class JSONText {
    *
    * <p>The returned instance is immutable.
    *
-   * @param errMsgFmt settings of error message format of {@link JSONParserException}
+   * @param options parser options
    * @return parse result
    * @throws JSONParserException if there is a syntax error in the JSON text
    * @throws IOException if an I/O error occurs
    * @see <a href="https://tools.ietf.org/html/rfc8259#section-2">RFC 8259 - 2. JSON Grammer</a>
    */
   @NotNull
-  public synchronized JSONParserResult parse(@NotNull JSONParserErrorHandlingOptions errMsgFmt)
+  public synchronized JSONParserResult parse(@NotNull JSONParserErrorHandlingOptions options)
       throws IOException, JSONParserException {
     if (parserResult == null) {
-      List<JSONToken> tokens = tokens(errMsgFmt);
-      JSONParser parser = new JSONParser(tokens, errMsgFmt);
+      List<JSONToken> tokens = tokens(options);
+      JSONParser parser = new JSONParser(tokens, options);
       parserResult = parser.parse();
     }
 
@@ -169,8 +169,8 @@ public class JSONText {
    */
   @NotNull
   public synchronized JSONParserResult parse() throws IOException, JSONParserException {
-    JSONParserErrorHandlingOptions errMsgFmt = JSONParserErrorHandlingOptions.builder().build();
-    return parse(errMsgFmt);
+    JSONParserErrorHandlingOptions options = JSONParserErrorHandlingOptions.builder().build();
+    return parse(options);
   }
 
   /**

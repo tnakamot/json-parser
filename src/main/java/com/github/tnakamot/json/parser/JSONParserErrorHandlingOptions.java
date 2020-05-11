@@ -136,7 +136,8 @@ public class JSONParserErrorHandlingOptions {
   /**
    * Returns a new builder of this class.
    *
-   * @return a new builder of this class */
+   * @return a new builder of this class
+   */
   public static Builder builder() {
     return new Builder();
   }

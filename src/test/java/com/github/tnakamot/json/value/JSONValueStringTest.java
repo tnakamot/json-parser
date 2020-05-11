@@ -18,6 +18,7 @@ package com.github.tnakamot.json.value;
 
 import com.github.tnakamot.json.JSONText;
 import com.github.tnakamot.json.parser.JSONParserException;
+import com.github.tnakamot.json.token.JSONToken;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -112,5 +113,21 @@ public class JSONValueStringTest {
     assertEquals("abc", val1.toString());
     assertEquals("xyz", val2.toString());
     assertEquals("hello", val3.toString());
+  }
+
+  @Test
+  public void testSource() throws IOException, JSONParserException {
+    JSONValue root = JSONText.fromString("{\"key1\": 1.23, \"key2\": \"te\\nst\" }").parse().root();
+    JSONValueObject rootObj = (JSONValueObject) root;
+    JSONValueString str = (JSONValueString) rootObj.get("key2");
+    JSONToken token = str.token();
+    System.out.println("Token: " + token.text());
+    System.out.println(
+        String.format(
+            "Start: line %d, column %d",
+            token.beginningLocation().line(), token.beginningLocation().column()));
+    System.out.println(
+        String.format(
+            "End  : line %d, column %d", token.endLocation().line(), token.endLocation().column()));
   }
 }

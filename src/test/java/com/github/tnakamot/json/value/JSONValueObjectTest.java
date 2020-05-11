@@ -331,6 +331,18 @@ public class JSONValueObjectTest {
     assertEquals(43, end.beginningLocation().position());
     assertEquals(1, end.beginningLocation().line());
     assertEquals(44, end.beginningLocation().column());
+
+    String msgBegin =
+        String.format(
+            "%s at line %d, column %d",
+            begin.text(), begin.beginningLocation().line(), begin.beginningLocation().column());
+    System.out.println(msgBegin);
+
+    String msgEnd =
+        String.format(
+            "%s at line %d, column %d",
+            end.text(), end.beginningLocation().line(), end.beginningLocation().column());
+    System.out.println(msgEnd);
   }
 
   @Test
