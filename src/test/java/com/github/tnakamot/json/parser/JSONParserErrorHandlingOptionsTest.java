@@ -105,7 +105,7 @@ public class JSONParserErrorHandlingOptionsTest {
 
   @ParameterizedTest
   @ValueSource(strings = {"true", "false"})
-  public void testShowLineAndColumnNumber(boolean opt) throws IOException, URISyntaxException {
+  public void testShowLineAndColumnNumber(boolean opt) {
     String jsonStr = "[\n" + "  123,\n" + "  ff,\n" + "]";
 
     JSONParserErrorHandlingOptions options =
@@ -118,7 +118,7 @@ public class JSONParserErrorHandlingOptionsTest {
 
   @ParameterizedTest
   @ValueSource(strings = {"true", "false"})
-  public void testShowErrorLine(boolean opt) throws IOException, URISyntaxException {
+  public void testShowErrorLine(boolean opt) {
     String jsonStr = "{\n" + "  \"key1\" true,\n" + "  \"key2\": false\n" + "}";
 
     JSONParserErrorHandlingOptions options =
