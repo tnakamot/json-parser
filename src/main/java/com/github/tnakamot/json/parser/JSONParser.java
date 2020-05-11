@@ -131,10 +131,6 @@ public final class JSONParser {
   private String warningOfDuplicateKeys() {
     StringBuilder sb = new StringBuilder();
     JSONText source = tokens.get(0).source();
-    if (source == null) {
-      return sb.toString();
-    }
-
     String[] lines = source.get().split("\r|(\r?\n)");
 
     for (List<JSONValueString> dup : duplicateKeys) {
@@ -177,14 +173,12 @@ public final class JSONParser {
     JSONText source = tokens.get(0).source();
 
     StringBuilder sb = new StringBuilder();
-    if (source != null) {
-      if (options.showURI()) {
-        sb.append(source.uri().toString());
-      } else {
-        sb.append(source.name());
-      }
-      sb.append(": ");
+    if (options.showURI()) {
+      sb.append(source.uri().toString());
+    } else {
+      sb.append(source.name());
     }
+    sb.append(": ");
 
     return sb.toString();
   }
@@ -231,8 +225,18 @@ public final class JSONParser {
         case BOOLEAN:
           return new JSONValueBoolean((JSONTokenBoolean) token);
         case NUMBER:
-          // TODO: handle too big numbers
-          return new JSONValueNumber((JSONTokenNumber) token);
+          JSONValueNumber number = new JSONValueNumber((JSONTokenNumber) token);
+          if (Double.isInfinite(number.toDouble())) {
+            if (options.failOnTooBigNumberForDouble()) {
+              String msg =
+                  "'" + token.text() + "' is too big to handle with Java 'double' primitive";
+              throw new JSONParserException(token.source(), token.range(), options, msg);
+            } else {
+              numbersTooBigForDouble.add(number);
+            }
+          } else {
+            return new JSONValueNumber((JSONTokenNumber) token);
+          }
         case STRING:
           return new JSONValueString((JSONTokenString) token);
         default:

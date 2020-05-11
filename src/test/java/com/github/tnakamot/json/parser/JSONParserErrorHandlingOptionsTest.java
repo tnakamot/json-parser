@@ -18,6 +18,7 @@ package com.github.tnakamot.json.parser;
 
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -30,6 +31,7 @@ public class JSONParserErrorHandlingOptionsTest {
     assertFalse(opt.showErrorLine());
     assertFalse(opt.failOnDuplicateKey());
     assertFalse(opt.failOnTooBigNumberForDouble());
+    assertEquals(System.err, opt.warningStream());
   }
 
   @Test
@@ -41,6 +43,7 @@ public class JSONParserErrorHandlingOptionsTest {
             .showErrorLine(true)
             .failOnDuplicateKey(true)
             .failOnTooBigNumberForDouble(true)
+            .warningStream(System.out)
             .build();
 
     assertTrue(opt.showURI());
@@ -48,5 +51,6 @@ public class JSONParserErrorHandlingOptionsTest {
     assertTrue(opt.showErrorLine());
     assertTrue(opt.failOnDuplicateKey());
     assertTrue(opt.failOnTooBigNumberForDouble());
+    assertEquals(System.out, opt.warningStream());
   }
 }

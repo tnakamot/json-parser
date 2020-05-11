@@ -625,5 +625,19 @@ public class JSONParserTest {
     assertEquals(JSONValueNull.INSTANCE, root.get("key2"));
   }
 
+  @Test
+  public void testTooBigNumberForDouble() {
+    JSONParserErrorHandlingOptions opt =
+        JSONParserErrorHandlingOptions.builder()
+            .showErrorLine(true)
+            .failOnTooBigNumberForDouble(true)
+            .build();
+
+    JSONText jsText = JSONText.fromString("{\"key1\": 1.52, \"key2\": 1e309, \"key1\": null}");
+
+    JSONParserException ex = assertThrows(JSONParserException.class, () -> jsText.parse(opt));
+    log.info(ex::getMessage);
+  }
+
   // TODO: test too big number for double
 }

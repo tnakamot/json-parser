@@ -17,7 +17,6 @@
 package com.github.tnakamot.json.parser;
 
 import java.io.PrintStream;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -32,20 +31,22 @@ import org.jetbrains.annotations.Nullable;
  * something like below:
  *
  * <pre>
- * JSONLexerErrorMessageFormat errMsgFmt =
+ * JSONLexerErrorErrorHandlingOptions opts =
  *     JSONLexerErrorMessageConfiguration.builder()
  *         .showURI(false)
  *         .showLineAndColumnNumber(true)
  *         .showErrorLine(false)
+ *         .failOnDuplicateKey(false)
+ *         .failOnTooBigNumberForDouble(false)
+ *         .warningStream(System.err)
  *         .build();
  * </pre>
  *
- * <p>The invocation of {@link Builder#showURI()}, {@link Builder#showLineAndColumnNumber()} and
- * {@link Builder#showErrorLine()} are optional. If you want to use the default configuration, just
- * do not call them.
+ * <p>The invocation of methods between {@link #builder()} and {@link Builder#build()} are optional.
+ * If you want to use the default configuration, just do not call them.
  *
  * <p>The default value may change in the future, so do not rely on them if you really need a
- * specific error message format.
+ * specific error handling behavior.
  */
 public class JSONParserErrorHandlingOptions {
   private final boolean showURI;
@@ -113,7 +114,7 @@ public class JSONParserErrorHandlingOptions {
    *     Java primitive double.
    */
   public boolean failOnTooBigNumberForDouble() {
-    return failOnDuplicateKey;
+    return failOnTooBigNumberForDouble;
   }
 
   /**
@@ -121,7 +122,7 @@ public class JSONParserErrorHandlingOptions {
    *
    * @return the stream where warnings should be printed. Null to print warnings nowhere.
    */
-  @NotNull
+  @Nullable
   public PrintStream warningStream() {
     return warningStream;
   }
@@ -203,7 +204,7 @@ public class JSONParserErrorHandlingOptions {
      * @param stream option value
      * @return this builder
      */
-    public Builder failOnTooBigNumberForDouble(@Nullable PrintStream stream) {
+    public Builder warningStream(@Nullable PrintStream stream) {
       this.warningStream = stream;
       return this;
     }
