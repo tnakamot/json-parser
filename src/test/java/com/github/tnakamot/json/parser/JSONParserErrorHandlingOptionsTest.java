@@ -17,8 +17,6 @@
 package com.github.tnakamot.json.parser;
 
 import com.github.tnakamot.json.JSONText;
-import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 import java.io.IOException;
 import java.io.InputStream;
