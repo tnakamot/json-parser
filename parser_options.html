@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="description" content="An implementation of Java JSON Parser">
+<meta name="generator" content="Paradox, paradox-material-theme=0.6.0, mkdocs-material=3.0.3">
+
+<meta name="lang:clipboard.copy" content="Copy to clipboard">
+<meta name="lang:clipboard.copied" content="Copied to clipboard">
+<meta name="lang:search.language" content="">
+<meta name="lang:search.pipeline.stopwords" content="true">
+<meta name="lang:search.pipeline.trimmer" content="true">
+<meta name="lang:search.result.none" content="No matching documents">
+<meta name="lang:search.result.one" content="1 matching document">
+<meta name="lang:search.result.other" content="# matching documents">
+<meta name="lang:search.tokenizer" content="[\s\-]+">
+
+
+<meta name="description" content="An implementation of Java JSON Parser">
+<link rel="shortcut icon" href="assets/images/json_logo.png">
+<title>Parser error handling options · Java JSON Parser</title>
+<link rel="stylesheet" href="assets/stylesheets/application.451f80e5.css">
+<link rel="stylesheet" href="assets/stylesheets/application-palette.22915126.css">
+<meta name="theme-color" content="#546e7a" />
+<link rel="stylesheet" href="lib/material__tabs/dist/mdc.tabs.min.css">
+<link rel="stylesheet" href="lib/prettify/prettify.css">
+<script src="assets/javascripts/modernizr.1aa3b519.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+<style>
+body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}
+code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}
+</style>
+<link rel="stylesheet" href="assets/fonts/font-awesome.css">
+<link rel="stylesheet" href="assets/fonts/material-icons.css">
+<link rel="stylesheet" href="assets/stylesheets/paradox-material-theme.css">
+</head>
+<body
+data-md-color-primary="blue-grey"
+data-md-color-accent="indigo"
+>
+<input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+<input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+<label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+<header class="md-header" data-md-component="header">
+<nav class="md-header-nav md-grid">
+<div class="md-flex">
+<div class="md-flex__cell md-flex__cell--shrink">
+<a href="index.html" title="Java JSON Parser" class="md-header-nav__button md-logo">
+<img src="assets/images/json_logo.png" width="24" height="24">
+</a>
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+</div>
+<div class="md-flex__cell md-flex__cell--stretch">
+<div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+<span class="md-header-nav__topic">
+Java JSON Parser
+</span>
+<span class="md-header-nav__topic">
+Parser error handling options
+</span>
+</div>
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+<label class="md-icon md-search__icon" for="__search"></label>
+<button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">&#xE5CD;</button>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix>
+<div class="md-search-result" data-md-component="result">
+<div class="md-search-result__meta">
+Type to start searching
+</div>
+<ol class="md-search-result__list"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</nav>
+</header>
+
+<div class="md-container">
+<main class="md-main">
+<div class="md-main__inner md-grid" data-md-component="container">
+<div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav class="md-nav md-nav--primary" data-md-level="0" style="visibility: hidden">
+<label class="md-nav__title md-nav__title--site" for="drawer">
+<a href="index.html" title="Java JSON Parser" class="md-nav__button md-logo">
+<span class="md-nav__button md-logo">
+<img src="assets/images/json_logo.png" width="24" height="24">
+</a>
+<a href="index.html" title="Java JSON Parser">
+Java JSON Parser
+</a>
+</label>
+<ul>
+  <li><a href="types.html" class="page">Types</a></li>
+  <li><a href="immutable.html" class="page">Immutable and Mutable</a></li>
+  <li><a href="json_source.html" class="page">Load JSON text from various sources</a></li>
+  <li><a href="source_info.html" class="page">JSON source information</a></li>
+  <li><a href="parser_options.html" class="active page">Parser error handling options</a></li>
+  <li><a href="output.html" class="page">Output JSON text</a></li>
+  <li><a href="json_pointer.html" class="page">JSON Pointer</a></li>
+  <li><a href="source.html" class="page">Source Code</a></li>
+  <li><a href="javadoc.html" class="page">Javadoc</a></li>
+</ul>
+<nav class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">Table of contents</label>
+<ul>
+  <li><a href="parser_options.html#parser-error-handling-options" class="header">Parser error handling options</a>
+  <ul>
+    <li><a href="parser_options.html#showuri" class="header">showURI</a></li>
+    <li><a href="parser_options.html#showlineandcolumnnumber" class="header">showLineAndColumnNumber</a></li>
+    <li><a href="parser_options.html#showerrorline" class="header">showErrorLine</a></li>
+    <li><a href="parser_options.html#failonduplicatekey" class="header">failOnDuplicateKey</a></li>
+    <li><a href="parser_options.html#failontoobignumber" class="header">failOnTooBigNumber</a></li>
+    <li><a href="parser_options.html#warningstream" class="header">warningStream</a></li>
+  </ul></li>
+</ul>
+</nav>
+
+</nav>
+<ul style="display: none">
+<li class="md-nav__item md-version" id="project.version">
+<label class="md-nav__link" for="__version">
+<i class="md-icon" title="Version">label_outline</i> 0.2.1
+</label>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">Table of contents</label>
+<ul>
+  <li><a href="parser_options.html#parser-error-handling-options" class="header">Parser error handling options</a>
+  <ul>
+    <li><a href="parser_options.html#showuri" class="header">showURI</a></li>
+    <li><a href="parser_options.html#showlineandcolumnnumber" class="header">showLineAndColumnNumber</a></li>
+    <li><a href="parser_options.html#showerrorline" class="header">showErrorLine</a></li>
+    <li><a href="parser_options.html#failonduplicatekey" class="header">failOnDuplicateKey</a></li>
+    <li><a href="parser_options.html#failontoobignumber" class="header">failOnTooBigNumber</a></li>
+    <li><a href="parser_options.html#warningstream" class="header">warningStream</a></li>
+  </ul></li>
+</ul>
+</nav>
+
+</div>
+</div>
+</div>
+<div class="md-content">
+<article class="md-content__inner md-typeset">
+<div class="md-content__searchable">
+<h1><a href="#parser-error-handling-options" name="parser-error-handling-options" class="anchor"><span class="anchor-link"></span></a>Parser error handling options</h1>
+<p>You can control some error handling behavior of the parser by calling <a href="javadoc/com/github/tnakamot/json/JSONText.html#parse(com.github.tnakamot.json.parser.JSONParserErrorHandlingOptions)">JSONText#parse(JSONParserErrorHandlingOptions)</a>. <a href="javadoc/com/github/tnakamot/json/parser/JSONParserErrorHandlingOptions.html">JSONParserErrorHandlingOptions</a> is a class to hold options to control the error handling behavior. It follows Builder Pattern. Below is an example to set options. </p>
+<pre class="prettyprint"><code class="language-java">JSONParserErrorHandlingOptions opt =
+    JSONParserErrorHandlingOptions.builder()
+         .showURI(false)
+         .showLineAndColumnNumber(true)
+         .showErrorLine(false)
+         .failOnDuplicateKey(false)
+         .failOnTooBigNumber(false)
+         .warningStream(System.err)
+         .build();
+</code></pre>
+<p>Following sections explais each option.</p>
+<h2><a href="#showuri" name="showuri" class="anchor"><span class="anchor-link"></span></a>showURI</h2>
+<p>If <code>showURI</code> option is true, the error message shows the URI of the JSON text which has an error. If it is false, it shows only a short name, which is typically a file name.</p>
+<p>Here is an example code.</p>
+<pre class="prettyprint"><code class="language-java">JSONParserErrorHandlingOptions options =
+     JSONParserErrorHandlingOptions.builder().showURI(true).build();
+String url = &quot;http://localhost:8215/json/invalid1.json&quot;;
+JSONText jsText = JSONText.fromURL(new URL(url));
+jsText.parse(options);
+</code></pre>
+<p>Given that <code>http://localhost:8215/json/invalid1.json</code> has an error at line 3 and column 12, the above code results in this error message.</p>
+<pre><code>http://localhost:8215/json/invalid1.json:3:12: unknown token starting with &#39;x&#39;
+</code></pre>
+<p>If <code>showURI</code> option is false, the error message becomes.</p>
+<pre><code>invalid1.json:3:12: unknown token starting with &#39;x&#39;
+</code></pre>
+<h2><a href="#showlineandcolumnnumber" name="showlineandcolumnnumber" class="anchor"><span class="anchor-link"></span></a>showLineAndColumnNumber</h2>
+<p>If <code>showLineAndColumnNumber</code> option is true, the error message shows the line and column numbers. If it is false, it shows the character position instead.</p>
+<p>Here is an example code.</p>
+<pre class="prettyprint"><code class="language-java">String jsonStr = 
+    &quot;[\n&quot;+
+    &quot;  123,\n&quot; +
+    &quot;  ff,\n&quot; +
+    &quot;]&quot;;
+
+JSONParserErrorHandlingOptions options =
+    JSONParserErrorHandlingOptions.builder()
+        .showLineAndColumnNumber(true)
+        .build();
+
+JSONText jsText = JSONText.fromString(jsonStr, &quot;test.json&quot;);
+jsText.parse(options);
+</code></pre>
+<p>This example code results in this error message.</p>
+<pre><code>test.json:3:3: unknown token starting with &#39;ff&#39;
+</code></pre>
+<p>If <code>showLineAndColumnNumber</code> option is false, the error message becomes:</p>
+<pre><code>test.json:11: unknown token starting with &#39;ff&#39;
+</code></pre><div class="callout note "><div class="callout-title">Note</div>
+<p>The line and column numbers start with 1 while the character position starts with 0.</p></div>
+<h2><a href="#showerrorline" name="showerrorline" class="anchor"><span class="anchor-link"></span></a>showErrorLine</h2>
+<p>If <code>showErrorLine</code> option is true, the error message shows the line that has an error with markers to indicate where is the problem.</p>
+<p>Here is an example.</p>
+<pre class="prettyprint"><code class="language-java">String jsonStr =
+    &quot;{\n&quot; +
+    &quot;  \&quot;key1\&quot; true,\n&quot; +
+    &quot;  \&quot;key2\&quot;: false\n&quot; +
+    &quot;}&quot;;
+
+JSONParserErrorHandlingOptions options =
+    JSONParserErrorHandlingOptions.builder()
+        .showErrorLine(true)
+        .build();
+
+JSONText jsText = JSONText.fromString(jsonStr, &quot;test.json&quot;);
+jsText.parse(options);
+</code></pre>
+<p>This example code result in this error message.</p>
+<pre><code>test.json:2:10: Unexpected token &#39;true&#39;. &#39;:&#39; was expected.
+  &quot;key1&quot; true,
+         ^^^^
+</code></pre>
+<p>If <code>showErrorLine</code> is false, it shows only the error message like below:</p>
+<pre><code>test.json:2:10: Unexpected token &#39;true&#39;. &#39;:&#39; was expected.
+</code></pre>
+<h2><a href="#failonduplicatekey" name="failonduplicatekey" class="anchor"><span class="anchor-link"></span></a>failOnDuplicateKey</h2>
+<p>If <code>failOnDuplicateKey</code> option is true and there are duplicate keys in the same JSON object, the parser results in <a href="javadoc/com/github/tnakamot/json/parser/JSONParserException.html">JSONParserException</a>.</p>
+<p>Here is an example.</p>
+<pre class="prettyprint"><code class="language-java">JSONParserErrorHandlingOptions opt =
+    JSONParserErrorHandlingOptions.builder()
+        .showErrorLine(true)
+        .failOnDuplicateKey(true)
+        .build();
+
+JSONText jsText =
+    JSONText.fromString(
+        &quot;{&quot; +
+        &quot; \&quot;key1\&quot;: true,\n&quot; +
+        &quot; \&quot;key2\&quot;: false,\n&quot; +
+        &quot; \&quot;key1\&quot;: null,\n&quot; +
+        &quot; \&quot;key1\&quot;: false,\n&quot; +
+        &quot; \&quot;key2\&quot;: null\n&quot; +
+        &quot;}&quot;, &quot;test.json&quot;);
+
+jsText.parse(opt);
+</code></pre>
+<p>This example code ends up with <a href="javadoc/com/github/tnakamot/json/parser/JSONParserException.html">JSONParserException</a> and the following error message.</p>
+<pre><code>test.json:3:2: Found duplicate key &#39;key1&#39; in the same JSON object.
+ &quot;key1&quot;: null,
+ ^^^^^^
+</code></pre>
+<p>If <code>failOnDuplicateKey</code> option is false, this library retains only the last value of the same key. In the above example but with <code>failOnDuplicateKey</code> being false, the resultant JSON object returns <code>false</code> for &ldquo;key1&rdquo; and <code>null</code> for &ldquo;key2&rdquo;.</p>
+<p>If <code>failOnDuplicateKey</code> option is false, this library warns of duplicate keys in the standard error by default. The destination of the warning message can be changed by <a href="#warningstream">warningStream</a> option.</p>
+<h2><a href="#failontoobignumber" name="failontoobignumber" class="anchor"><span class="anchor-link"></span></a>failOnTooBigNumber</h2>
+<p>If <code>failOnTooBigNumber</code> option is true and there is one or more numbers that are not in the range between (-2<sup>53</sup> + 1) and (2<sup>53</sup> - 1), the parser results in <a href="javadoc/com/github/tnakamot/json/parser/JSONParserException.html">JSONParserException</a>.</p>
+<p>Here is an example.</p>
+<pre class="prettyprint"><code class="language-java">JSONParserErrorHandlingOptions opt =
+    JSONParserErrorHandlingOptions.builder()
+        .showErrorLine(true)
+        .failOnTooBigNumber(true)
+        .build();
+
+JSONText jsText =
+    JSONText.fromString(
+        &quot;{\&quot;key1\&quot;: 1.52, \&quot;key2\&quot;: 9007199254740992, \&quot;key3\&quot;: null}&quot;,
+        &quot;test_double.json&quot;);
+
+jsText.parse(opt);
+</code></pre>
+<p>This example code ends up with <a href="javadoc/com/github/tnakamot/json/parser/JSONParserException.html">JSONParserException</a> and the following error message.</p>
+<pre><code>test_double.json:1:24: &#39;9007199254740992&#39; is not in the range [-(2^53)+1, 2^53-1]
+{&quot;key1&quot;: 1.52, &quot;key2&quot;: 9007199254740992, &quot;key3&quot;: null}
+                       ^^^^^^^^^^^^^^^^
+</code></pre>
+<p>If <code>failOnDuplicateKey</code> option is false, this library warns of too big numbers in the standard error by default. The destination of the warning message can be changed by <a href="#warningstream">warningStream</a> option.</p><div class="callout note "><div class="callout-title">Note</div>
+<p>This option is to enforce the users not to use integer numbers that cannot be handled by a double-precision floating point value without information loss.</p>
+<p>This library itself handles JSON numbers in a string, so no information loss will occur unless your application converts them to another numeric type like &lsquo;double&rsquo;. In many cases, application programs convert a JSON number in a double-precisiong floating point value. If your application program wants to do so, this option helps.</p></div>
+<h2><a href="#warningstream" name="warningstream" class="anchor"><span class="anchor-link"></span></a>warningStream</h2>
+<p>This option changes the output destination of warning messages. If you want to show the warning messages to a standard output, build the option with the following example code.</p>
+<pre class="prettyprint"><code class="language-java">JSONParserErrorHandlingOptions opt =
+    JSONParserErrorHandlingOptions.builder()
+         .warningStream(System.out)
+         .build();
+</code></pre>
+<p>Below is an example warning output which is shown if <code>failOnDuplicateKey</code> is false in the example code in <a href="#failonduplicatekey">failOnDuplicateKey</a>.</p>
+<pre><code>test.json: duplicate key &#39;key1&#39;: 
+  At line 1, column 3 - 8
+    { &quot;key1&quot;: true,
+      ^^^^^^
+  At line 3, column 2 - 7
+     &quot;key1&quot;: null,
+     ^^^^^^
+  At line 4, column 2 - 7
+     &quot;key1&quot;: false,
+     ^^^^^^
+test.json: duplicate key &#39;key2&#39;: 
+  At line 2, column 2 - 7
+     &quot;key2&quot;: false,
+     ^^^^^^
+  At line 5, column 2 - 7
+     &quot;key2&quot;: null
+     ^^^^^^
+</code></pre>
+</div>
+<div>
+<a href="https://github.com/tnakamot/json-parser/tree/v0.2.1/src/paradox/parser_options.md" title="Edit this page" class="md-source-file md-edit">
+Edit this page
+</a>
+</div>
+<div class="print-only">
+<span class="md-source-file md-version">
+0.2.1
+</span>
+</div>
+</article>
+</div>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-nav">
+<nav class="md-footer-nav__inner md-grid">
+<a href="source_info.html" title="JSON source information" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+<div class="md-flex__cell md-flex__cell--shrink">
+<i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+</div>
+<div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+<span class="md-flex__ellipsis">
+<span class="md-footer-nav__direction">
+Previous
+</span>
+JSON source information
+</span>
+</div>
+</a>
+<a href="output.html" title="Output JSON text" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+<span class="md-flex__ellipsis">
+<span class="md-footer-nav__direction">
+Next
+</span>
+Output JSON text
+</span>
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+</div>
+</a>
+</nav>
+</div>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-footer-copyright">
+<div class="md-footer-copyright__highlight">
+Copyright (C) 2020 Takashi Nakamoto
+</div>
+Powered by
+<a href="https://github.com/lightbend/paradox">Paradox</a>
+and
+<a href="https://jonas.github.io/paradox-material-theme/">Paradox Material Theme</a>
+
+</div>
+<div class="md-footer-social">
+<a href="https://github.com/tnakamot" class="md-footer-social__link fa fa-github"></a>
+</div>
+
+</div>
+</div>
+</footer>
+
+</div>
+<script src="assets/javascripts/application.583bbe55.js"></script>
+<script src="assets/javascripts/paradox-material-theme.js"></script>
+<script>app.initialize({version:"0.17",url:{base:"."}})</script>
+<script type="text/javascript" src="lib/prettify/prettify.js"></script>
+<script type="text/javascript" src="lib/prettify/lang-scala.js"></script>
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function(event) {
+window.prettyPrint && prettyPrint();
+});
+</script>
+</body>
+</html>

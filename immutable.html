@@ -113,6 +113,7 @@ Java JSON Parser
   <li><a href="immutable.html" class="active page">Immutable and Mutable</a></li>
   <li><a href="json_source.html" class="page">Load JSON text from various sources</a></li>
   <li><a href="source_info.html" class="page">JSON source information</a></li>
+  <li><a href="parser_options.html" class="page">Parser error handling options</a></li>
   <li><a href="output.html" class="page">Output JSON text</a></li>
   <li><a href="json_pointer.html" class="page">JSON Pointer</a></li>
   <li><a href="source.html" class="page">Source Code</a></li>
@@ -133,7 +134,7 @@ Java JSON Parser
 <ul style="display: none">
 <li class="md-nav__item md-version" id="project.version">
 <label class="md-nav__link" for="__version">
-<i class="md-icon" title="Version">label_outline</i> 0.2.0
+<i class="md-icon" title="Version">label_outline</i> 0.2.1
 </label>
 </li>
 </ul>
@@ -162,30 +163,31 @@ Java JSON Parser
 <div class="md-content__searchable">
 <h1><a href="#immutable-and-mutable" name="immutable-and-mutable" class="anchor"><span class="anchor-link"></span></a>Immutable and Mutable</h1>
 <p>All instances of <a href="javadoc/com/github/tnakamot/json/value/JSONValue.html">JSONValue</a> that correspond to JSON primitive values (null, boolean, string and number) are immutable. In other words, instances of <a href="javadoc/com/github/tnakamot/json/value/JSONValueNull.html">JSONValueNull</a>, <a href="javadoc/com/github/tnakamot/json/value/JSONValueBoolean.html">JSONValueBoolean</a>, <a href="javadoc/com/github/tnakamot/json/value/JSONValueString.html">JSONValueString</a> and <a href="javadoc/com/github/tnakamot/json/value/JSONValueNumber.html">JSONValueNumber</a> are immutable. Multiple threads can safely access those instance at a time.</p>
-<p>On the other hands, the structures types (array and object) have immutable and mutable versions. <a href="javadoc/com/github/tnakamot/json/value/JSONValueArray.html">JSONValueArray</a> and <a href="javadoc/com/github/tnakamot/json/value/JSONValueObject.html">JSONValueObject</a> are abstract classes. The actual implementations of these abstract classes are <a href="javadoc/com/github/tnakamot/json/value/JSONValueArrayImmutable.html">JSONValueArrayImmutable</a>, <a href="javadoc/com/github/tnakamot/json/value/JSONValueArrayMutable.html">JSONValueArrayMutable</a>, <a href="javadoc/com/github/tnakamot/json/value/JSONValueObjectImmutable.html">JSONValueObjectImmutable</a> and <a href="javadoc/com/github/tnakamot/json/value/JSONValueObjectMutable.html">JSONValueObjectMutable</a>.</p>
+<p>On the other hands, the structure types (array and object) have immutable and mutable versions. <a href="javadoc/com/github/tnakamot/json/value/JSONValueArray.html">JSONValueArray</a> and <a href="javadoc/com/github/tnakamot/json/value/JSONValueObject.html">JSONValueObject</a> are abstract classes. The actual implementations of these abstract classes are <a href="javadoc/com/github/tnakamot/json/value/JSONValueArrayImmutable.html">JSONValueArrayImmutable</a>, <a href="javadoc/com/github/tnakamot/json/value/JSONValueArrayMutable.html">JSONValueArrayMutable</a>, <a href="javadoc/com/github/tnakamot/json/value/JSONValueObjectImmutable.html">JSONValueObjectImmutable</a> and <a href="javadoc/com/github/tnakamot/json/value/JSONValueObjectMutable.html">JSONValueObjectMutable</a>.</p>
 <p>Invocation of any method that may change the contents (e.g. <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/List.html#add(E)" title="java.util.List"><code>add()</code></a> and <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Map.html#put(K,V)" title="java.util.Map"><code>put()</code></a>) result in <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/UnsupportedOperationException.html" title="java.lang.UnsupportedOperationException"><code>UnsupportedOperationException</code></a> if it is immutable.</p>
 <h2><a href="#parser" name="parser" class="anchor"><span class="anchor-link"></span></a>Parser</h2>
-<p>When you parse the JSON text, you can specify whether the parser should return immutable or mutable version. <a href="javadoc/com/github/tnakamot/json/JSONText.html#parse(boolean)">parse(boolean)</a> method of <a href="javadoc/com/github/tnakamot/json/JSONText.html">JSONText</a> takes a boolean value.</p>
-<p>If it is <code>true</code>, the method returns the immutable version, which is suitable to load configuration in JSON text in memory, for example.</p>
-<p>If it is <code>false</code>, the method returns the mutable version. The mutable version allows you to add, remove and modify the contents in JSON objects and arrays. The mutable version is suitable, for example, if your application needs to read a JSON text from a file, modify the contents and write back to another file.</p>
+<p><a href="javadoc/com/github/tnakamot/json/JSONText.html#parse()">parse()</a> and its varaitns always result in an immutable instance.</p>
 <h2><a href="#conversion" name="conversion" class="anchor"><span class="anchor-link"></span></a>Conversion</h2>
-<p>You can get a mutable copy of an immutable JSON object or array and get an immutable copy of a mutable version with the following methods </p>
+<p>You can get a mutable copy of an immutable JSON object or array with following methods:</p>
 <ul>
   <li><a href="javadoc/com/github/tnakamot/json/value/JSONValueArrayImmutable.html#toMutable()">JSONValueArrayImmutable#toMutable()</a></li>
   <li><a href="javadoc/com/github/tnakamot/json/value/JSONValueObjectImmutable.html#toMutable()">JSONValueObjectImmutable#toMutable()</a></li>
+</ul>
+<p>Below are reverse methods:</p>
+<ul>
   <li><a href="javadoc/com/github/tnakamot/json/value/JSONValueArrayMutable.html#toImmutable()">JSONValueArrayMutable#toImutable()</a></li>
   <li><a href="javadoc/com/github/tnakamot/json/value/JSONValueObjectMutable.html#toImmutable()">JSONValueObjectMutable#toImutable()</a></li>
 </ul>
-<p>These methods turn the inner JSON objects and arrays to immutable or mutable. For example, if there is a mutable JSON object which contains two mutable JSON arrays, <a href="javadoc/com/github/tnakamot/json/value/JSONValueObjectImmutable.html#toMutable()">JSONValueObjectImmutable#toMutable()</a> turns the given JSON object and two JSON arrays to immutable.</p>
+<p>These methods turn inner JSON objects and arrays to immutable or mutable, too. For example, if there is a mutable JSON object which contains two mutable JSON arrays, <a href="javadoc/com/github/tnakamot/json/value/JSONValueObjectImmutable.html#toMutable()">JSONValueObjectImmutable#toMutable()</a> turns the given JSON object and two inner JSON arrays to immutable.</p>
 </div>
 <div>
-<a href="https://github.com/tnakamot/json-parser/tree/v0.2.0/src/paradox/immutable.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/tnakamot/json-parser/tree/v0.2.1/src/paradox/immutable.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-0.2.0
+0.2.1
 </span>
 </div>
 </article>

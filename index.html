@@ -108,6 +108,7 @@ Java JSON Parser
   <li><a href="immutable.html" class="page">Immutable and Mutable</a></li>
   <li><a href="json_source.html" class="page">Load JSON text from various sources</a></li>
   <li><a href="source_info.html" class="page">JSON source information</a></li>
+  <li><a href="parser_options.html" class="page">Parser error handling options</a></li>
   <li><a href="output.html" class="page">Output JSON text</a></li>
   <li><a href="json_pointer.html" class="page">JSON Pointer</a></li>
   <li><a href="source.html" class="page">Source Code</a></li>
@@ -120,7 +121,7 @@ Java JSON Parser
   <ul>
     <li><a href="index.html#setup" class="header">Setup</a></li>
     <li><a href="index.html#usage" class="header">Usage</a></li>
-    <li><a href="index.html#more-simple-usage" class="header">More simple usage</a></li>
+    <li><a href="index.html#convenience-methods" class="header">Convenience methods</a></li>
   </ul></li>
 </ul>
 </nav>
@@ -129,7 +130,7 @@ Java JSON Parser
 <ul style="display: none">
 <li class="md-nav__item md-version" id="project.version">
 <label class="md-nav__link" for="__version">
-<i class="md-icon" title="Version">label_outline</i> 0.2.0
+<i class="md-icon" title="Version">label_outline</i> 0.2.1
 </label>
 </li>
 </ul>
@@ -146,7 +147,7 @@ Java JSON Parser
   <ul>
     <li><a href="index.html#setup" class="header">Setup</a></li>
     <li><a href="index.html#usage" class="header">Usage</a></li>
-    <li><a href="index.html#more-simple-usage" class="header">More simple usage</a></li>
+    <li><a href="index.html#convenience-methods" class="header">Convenience methods</a></li>
   </ul></li>
 </ul>
 </nav>
@@ -159,27 +160,28 @@ Java JSON Parser
 <div class="md-content__searchable">
 <h1><a href="#java-json-parser" name="java-json-parser" class="anchor"><span class="anchor-link"></span></a>Java JSON Parser</h1>
 <p>This Java library provides a JSON parser. The parser reads a JSON text, parses it in accordance with <a href="https://tools.ietf.org/html/rfc8259">RFC 8259</a> and creates a corresponding data structure with Java objects.</p>
-<p>The main feature of this library is that it keeps the original JSON text information in the Java objects. Therefore, for example, your application can show where exactly (line number &amp; column number) the JSON text has a problem if there is a semantic error. </p>
+<p>The main feature of this library is that it keeps the original JSON text information in the Java objects. Therefore, for example, your application can show where exactly (line number &amp; column number) the JSON text has a problem if there is a semantic error.</p>
+<p>If the given JSON text includes a syntax error, this library shows an error message with line and column numbers so that the users will be able to know where exactly the problem is. This library is suitable to parse configuration files in JSON that the users manually write. The error message can be customized by option switches. See <a href="parser_options.html">parser error handling options</a> for more details.</p>
 <h2><a href="#setup" name="setup" class="anchor"><span class="anchor-link"></span></a>Setup</h2>
 <p>Add the following dependency to your build file:</p><dl class="dependency"><dt>Maven</dt><dd><pre class="prettyprint"><code class="language-xml">&lt;dependency&gt;
   &lt;groupId&gt;com.github.tnakamot&lt;/groupId&gt;
   &lt;artifactId&gt;json-parser&lt;/artifactId&gt;
-  &lt;version&gt;0.2.0&lt;/version&gt;
+  &lt;version&gt;0.2.1&lt;/version&gt;
 &lt;/dependency&gt;</code></pre></dd><dt>Gradle</dt><dd><pre class="prettyprint"><code class="language-gradle">dependencies {
-  compile group: 'com.github.tnakamot', name: 'json-parser', version: '0.2.0'
-}</code></pre></dd><dt>sbt</dt><dd><pre class="prettyprint"><code class="language-scala">libraryDependencies += "com.github.tnakamot" % "json-parser" % "0.2.0"</code></pre></dd></dl>
+  compile group: 'com.github.tnakamot', name: 'json-parser', version: '0.2.1'
+}</code></pre></dd><dt>sbt</dt><dd><pre class="prettyprint"><code class="language-scala">libraryDependencies += "com.github.tnakamot" % "json-parser" % "0.2.1"</code></pre></dd></dl>
 <h2><a href="#usage" name="usage" class="anchor"><span class="anchor-link"></span></a>Usage</h2>
 <p>Import the following packages in your Java source code.</p>
 <pre class="prettyprint"><code class="language-java">import com.github.tnakamot.json.JSONText;
 import com.github.tnakamot.json.value.*;
 </code></pre>
-<p>Then, instantiate <a href="javadoc/com/github/tnakamot/json/JSONText.html">JSONText</a> and call <a href="javadoc/com/github/tnakamot/json/JSONText.html#parse()">parse()</a>.</p>
+<p>Then, instantiate <a href="javadoc/com/github/tnakamot/json/JSONText.html">JSONText</a> and call <a href="javadoc/com/github/tnakamot/json/JSONText.html#parse()">parse()</a>. <a href="javadoc/com/github/tnakamot/json/parser/JSONParserResult.html#root()">root()</a>.</p>
 <pre class="prettyprint"><code class="language-java">JSONText jsText = JSONText.fromString(
         &quot; { \&quot;key1\&quot;: \&quot;value\&quot;, &quot; +
         &quot;   \&quot;key2\&quot;: 1.53, &quot; +
         &quot;   \&quot;key3\&quot;: true,&quot; +
         &quot;   \&quot;key4\&quot;: null } &quot;);
-JSONValue root = jsText.parse();
+JSONValue root = jsText.parse().root();
 </code></pre>
 <p>The root JSON value can be obtained as an instance of <a href="javadoc/com/github/tnakamot/json/value/JSONValue.html">JSONValue</a>.</p>
 <p>Typically, the type of the root JSON value is &ldquo;object&rdquo;. Check the type of the root value, and cast it to <a href="javadoc/com/github/tnakamot/json/value/JSONValueObject.html">JSONValueObject</a>. Then, you will be able to get values as shown below.</p>
@@ -210,8 +212,8 @@ JSONValue root = jsText.parse();
     }
 }
 </code></pre>
-<h2><a href="#more-simple-usage" name="more-simple-usage" class="anchor"><span class="anchor-link"></span></a>More simple usage</h2>
-<p>If you already know the data structure and data types exactly, your Java program can be concise using convenience getXxxx() methods like shown below.</p>
+<h2><a href="#convenience-methods" name="convenience-methods" class="anchor"><span class="anchor-link"></span></a>Convenience methods</h2>
+<p>If you already know the data structure and data types exactly, your Java program call convenience methods getXxxx() like shown below.</p>
 <pre class="prettyprint"><code class="language-java">JSONText jsText = JSONText.fromString(
         &quot; { \&quot;key1\&quot;: \&quot;value\&quot;, &quot; +
         &quot;   \&quot;key2\&quot;: 3.14, &quot; +
@@ -219,7 +221,7 @@ JSONValue root = jsText.parse();
         &quot;   \&quot;key4\&quot;: 1024,&quot; +
         &quot;   \&quot;key5\&quot;: [5, 1, 2], &quot;+
         &quot;   \&quot;key6\&quot;: {\&quot;key6-1\&quot;: 0} }&quot;);
-JSONValueObject root = (JSONValueObject) jsText.parse();
+JSONValueObject root = (JSONValueObject) jsText.parse().root();
 
 String  value1Str = root.getString(&quot;key1&quot;);
 System.out.println(value1Str);
@@ -243,13 +245,13 @@ System.out.println(value6Obj.getLong(&quot;key6-1&quot;));
 </code></pre>
 </div>
 <div>
-<a href="https://github.com/tnakamot/json-parser/tree/v0.2.0/src/paradox/index.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/tnakamot/json-parser/tree/v0.2.1/src/paradox/index.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-0.2.0
+0.2.1
 </span>
 </div>
 </article>

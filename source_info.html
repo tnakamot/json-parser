@@ -113,22 +113,48 @@ Java JSON Parser
   <li><a href="immutable.html" class="page">Immutable and Mutable</a></li>
   <li><a href="json_source.html" class="page">Load JSON text from various sources</a></li>
   <li><a href="source_info.html" class="active page">JSON source information</a></li>
+  <li><a href="parser_options.html" class="page">Parser error handling options</a></li>
   <li><a href="output.html" class="page">Output JSON text</a></li>
   <li><a href="json_pointer.html" class="page">JSON Pointer</a></li>
   <li><a href="source.html" class="page">Source Code</a></li>
   <li><a href="javadoc.html" class="page">Javadoc</a></li>
 </ul>
 <nav class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">Table of contents</label>
+<ul>
+  <li><a href="source_info.html#json-source-information" class="header">JSON source information</a>
+  <ul>
+    <li><a href="source_info.html#primitive-types" class="header">Primitive Types</a></li>
+    <li><a href="source_info.html#structured-types" class="header">Structured Types</a></li>
+  </ul></li>
+</ul>
 </nav>
 
 </nav>
 <ul style="display: none">
 <li class="md-nav__item md-version" id="project.version">
 <label class="md-nav__link" for="__version">
-<i class="md-icon" title="Version">label_outline</i> 0.2.0
+<i class="md-icon" title="Version">label_outline</i> 0.2.1
 </label>
 </li>
 </ul>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">Table of contents</label>
+<ul>
+  <li><a href="source_info.html#json-source-information" class="header">JSON source information</a>
+  <ul>
+    <li><a href="source_info.html#primitive-types" class="header">Primitive Types</a></li>
+    <li><a href="source_info.html#structured-types" class="header">Structured Types</a></li>
+  </ul></li>
+</ul>
+</nav>
+
 </div>
 </div>
 </div>
@@ -136,28 +162,74 @@ Java JSON Parser
 <article class="md-content__inner md-typeset">
 <div class="md-content__searchable">
 <h1><a href="#json-source-information" name="json-source-information" class="anchor"><span class="anchor-link"></span></a>JSON source information</h1>
-<p>The advantage of this library is that each primitive JSON value hold where it is originated from. To obtain that information, call <a href="javadoc/com/github/tnakamot/json/value/JSONValuePrimitive.html#token()">token()</a>.</p>
+<h2><a href="#primitive-types" name="primitive-types" class="anchor"><span class="anchor-link"></span></a>Primitive Types</h2>
+<p>The advantage of this library is that each primitive JSON value (string, number, boolean, null) hold where it originates from. To obtain that information, call <a href="javadoc/com/github/tnakamot/json/value/JSONValuePrimitive.html#token()">token()</a>.</p>
 <pre class="prettyprint"><code class="language-java">JSONValueString jsStr = ...;
 JSONToken token = jsStr.token();
 </code></pre>
 <p>An instance of <a href="javadoc/com/github/tnakamot/json/value/JSONToken.html">JSONToken</a> holds following information. </p>
 <ul>
   <li><a href="javadoc/com/github/tnakamot/json/token/JSONToken.html#beginningLocation()">beginningLocation()</a>  returns an object which holds the line and column number of the first character  of this JSON value within the JSON text.</li>
-  <li><a href="javadoc/com/github/tnakamot/json/token/JSONToken.html#endLocation()">endLocation()</a>  returns an object which holds the line and column number of the character  after the last character of this JSON value within the JSON text.</li>
+  <li><a href="javadoc/com/github/tnakamot/json/token/JSONToken.html#endLocation()">endLocation()</a>  returns an object which holds the line and column number of the character  of the last character of this JSON value within the JSON text.</li>
   <li><a href="javadoc/com/github/tnakamot/json/token/JSONToken.html#source()">source()</a> returns an instance of  <a href="javadoc/com/github/tnakamot/json/JSONText.html">JSONText</a> from which the parser extracted the JSON value.</li>
-  <li><a href="javadoc/com/github/tnakamot/json/JSONText.html#name()">JSONText#name()</a> holds the short name  (i.e. file name) of the JSON text.</li>
-  <li><a href="javadoc/com/github/tnakamot/json/JSONText.html#fullName()">JSONText#fullName()</a> holds the full  name (i.e. URL or full path) of the JSON text.</li>
-  <li>The above methods do not make sense if you loaded the JSON text from String.</li>
+  <li><a href="javadoc/com/github/tnakamot/json/JSONText.html#name()">JSONText#name()</a> holds the short name  of the JSON text. In many cases, it returns a file name.</li>
+  <li><a href="javadoc/com/github/tnakamot/json/JSONText.html#uri()">JSONText#uri()</a> holds the URI of the JSON text.</li>
 </ul>
+<pre class="prettyprint"><code class="language-java">JSONValue root =
+    JSONText.fromString(&quot;{\&quot;key1\&quot;: 1.23, \&quot;key2\&quot;: \&quot;te\\nst\&quot; }&quot;).parse().root();
+
+JSONValueObject rootObj = (JSONValueObject) root;
+JSONValueString str = (JSONValueString) rootObj.get(&quot;key2&quot;);
+JSONToken token = str.token();
+
+System.out.println(&quot;Token: &quot; + token.text());
+System.out.println(
+    String.format(
+        &quot;Start: line %d, column %d&quot;,
+        token.beginningLocation().line(),
+        token.beginningLocation().column()));
+System.out.println(
+    String.format(
+        &quot;End  : line %d, column %d&quot;,
+        token.endLocation().line(),
+        token.endLocation().column()));
+</code></pre>
+<h2><a href="#structured-types" name="structured-types" class="anchor"><span class="anchor-link"></span></a>Structured Types</h2>
+<p>Structured values (array and object) also hold the source information. by calling <a href="javadoc/com/github/tnakamot/json/value/JSONValueStructured.html#begin()">begin()</a> and <a href="javadoc/com/github/tnakamot/json/value/JSONValueStructured.html#end()">end()</a>. Those methods basically return the token informaiton about <code>{</code>, <code>}</code>, <code>[</code> and <code>]</code>.</p>
+<pre class="prettyprint"><code class="language-java">JSONValue root =
+    JSONText.fromString(&quot;{\&quot;key1\&quot;: [true, 123]}&quot;).parse().root();
+JSONValueObject rootObj = (JSONValueObject) root;
+
+JSONToken begin = rootObj.begin();
+JSONToken end = rootObj.end();
+
+String msgBegin =
+    String.format(
+        &quot;%s at line %d, column %d&quot;,
+        begin.text(),
+        begin.beginningLocation().line(),
+        begin.beginningLocation().column());
+System.out.println(msgBegin);
+
+String msgEnd =
+    String.format(
+        &quot;%s at line %d, column %d&quot;,
+        end.text(),
+        end.beginningLocation().line(),
+        end.beginningLocation().column());
+System.out.println(msgEnd);
+</code></pre><div class="callout warning "><div class="callout-title">Warning</div>
+<p><a href="javadoc/com/github/tnakamot/json/value/JSONValuePrimitive.html#token()">token()</a>, <a href="javadoc/com/github/tnakamot/json/value/JSONValueStructured.html#begin()">begin()</a> and <a href="javadoc/com/github/tnakamot/json/value/JSONValueStructured.html#end()">end()</a> return null if the JSON value does not originate from an instance of <a href="javadoc/com/github/tnakamot/json/JSONText.html">JSONText</a>.</p>
+<p>For example, if your application creates new instances of JSON values to generate a new JSON text, they do not hold a source information.</p></div>
 </div>
 <div>
-<a href="https://github.com/tnakamot/json-parser/tree/v0.2.0/src/paradox/source_info.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/tnakamot/json-parser/tree/v0.2.1/src/paradox/source_info.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-0.2.0
+0.2.1
 </span>
 </div>
 </article>
@@ -180,13 +252,13 @@ Load JSON text from various sources
 </span>
 </div>
 </a>
-<a href="output.html" title="Output JSON text" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<a href="parser_options.html" title="Parser error handling options" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
 <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
 <span class="md-flex__ellipsis">
 <span class="md-footer-nav__direction">
 Next
 </span>
-Output JSON text
+Parser error handling options
 </span>
 </div>
 <div class="md-flex__cell md-flex__cell--shrink">
